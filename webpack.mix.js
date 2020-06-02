@@ -1,5 +1,8 @@
 const mix = require('laravel-mix');
 
+/* Laravel Mix Alias (allows to use vue-cli style paths in components `@/` */
+require('laravel-mix-alias');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,5 +14,21 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix
+  .alias({
+    '@': '/resources/js',
+    '@s': '/resources/sass',
+    '@b': '/resources/js/backend',
+    '@f': '/resources/js/frontend',
+  })
+  .extract(['vue','buefy'])
+  .js('resources/js/backend/app.js', 'public/js/backend')
+  .sass('resources/sass/backend/app.scss', 'public/css/backend/app.css')
+  .js('resources/js/frontend/app.js', 'public/js/frontend')
+  .sass('resources/sass/frontend/app.scss', 'public/css/frontend/app.css')
+//   .styles([
+//     'node_modules/@mdi/font/css/materialdesignicons.css',
+//   ], 'public/css/vendor.css')
+//   .copyDirectory('node_modules/@mdi/font/fonts', 'public/fonts')
+//   .copyDirectory('resources/images', 'public/images')
+  .version();
