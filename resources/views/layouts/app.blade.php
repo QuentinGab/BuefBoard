@@ -21,6 +21,8 @@
     {{-- Styles --}}
     @stack('head-styles')
     <link href="{{ mix('css/frontend/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/vendor.css') }}" rel="stylesheet">
+
 
     @stack('head-after')
 </head>

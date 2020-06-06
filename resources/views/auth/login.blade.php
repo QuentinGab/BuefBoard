@@ -16,9 +16,7 @@
                                     <input id="email" class="input @error('email') is-danger @enderror" type="email"
                                         name="email" placeholder="platon@gmail.com" value="{{ old('email') }}" required
                                         autocomplete="email" autofocus>
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-envelope"></i>
-                                    </span>
+                                    <b-icon icon="email" size="is-small is-left"></b-icon>
                                 </div>
                                 @error('email')
                                 <p class="help is-danger"><strong>{{ $message }}</strong></p>
@@ -31,9 +29,7 @@
                                     <input id="password" class="input @error('password') is-danger @enderror"
                                         type="password" name="password" value="{{ old('password') }}" required
                                         autocomplete="current-password">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-envelope"></i>
-                                    </span>
+                                        <b-icon icon="key" size="is-small is-left"></b-icon>
                                 </div>
                                 @error('password')
                                 <p class="help is-danger"><strong>{{ $message }}</strong></p>

@@ -26,9 +26,9 @@ mix
   .sass('resources/sass/backend/app.scss', 'public/css/backend/app.css')
   .js('resources/js/frontend/app.js', 'public/js/frontend')
   .sass('resources/sass/frontend/app.scss', 'public/css/frontend/app.css')
-//   .styles([
-//     'node_modules/@mdi/font/css/materialdesignicons.css',
-//   ], 'public/css/vendor.css')
-//   .copyDirectory('node_modules/@mdi/font/fonts', 'public/fonts')
+  .styles([
+    'node_modules/@mdi/font/css/materialdesignicons.css',
+  ], 'public/css/vendor.css')
+  .copyDirectory('node_modules/@mdi/font/fonts', 'public/fonts')
 //   .copyDirectory('resources/images', 'public/images')
   .version();
