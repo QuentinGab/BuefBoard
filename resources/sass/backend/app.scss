@@ -1,6 +1,9 @@
 @import './variables';
 @import '../global';
 
+/* Theme components */
+@import './components/all';
+
 body{
     background-color: $body-bg;
 }

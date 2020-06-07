@@ -1,0 +1,29 @@
+<template>
+  <ul :class="{'menu-list':!isSubmenuList}">
+    <aside-menu-item v-for="(item,index) in menu"
+      :item="item"
+      :key="index"/>
+  </ul>
+</template>
+
+<script>
+import AsideMenuItem from '@b/components/AsideMenuItem'
+
+export default {
+  name: 'AsideMenuList',
+  components: {
+    AsideMenuItem
+  },
+  props: {
+    isSubmenuList: {
+      type: Boolean,
+      default: false
+    },
+    menu: {
+      type: Array,
+      default: () => []
+    }
+  },
+  methods: {}
+}
+</script>

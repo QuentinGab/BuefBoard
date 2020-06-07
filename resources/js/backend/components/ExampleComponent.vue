@@ -15,9 +15,20 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+export default {
+    name: "AsideMenu",
+    components: {},
+    data() {
+        return {};
+    },
+    computed(){
+        
+    },
+    mounted() {
+        console.log("Component mounted.");
+    },
+    created(){
+
     }
+};
 </script>
