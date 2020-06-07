@@ -11,8 +11,8 @@
 
     {{-- Scripts --}}
     @stack('head-scripts')
-    <script src="/js/backend/manifest.js" defer></script>
-    <script src="/js/backend/vendor.js" defer></script>
+    {{-- <script src="{{ mix('/js/backend/manifest.js') }}" defer></script> --}}
+    {{-- <script src="{{ mix('/js/backend/vendor.js') }}" defer></script> --}}
     <script src="{{ mix('js/backend/app.js') }}" defer></script>
 
     {{-- Fonts --}}

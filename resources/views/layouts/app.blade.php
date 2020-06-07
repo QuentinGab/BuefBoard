@@ -11,8 +11,8 @@
 
     {{-- Scripts --}}
     @stack('head-scripts')
-    <script src="{{ mix('js/frontend/manifest.js') }}" defer></script>
-    <script src="{{ mix('js/frontend/vendor.js') }}" defer></script>
+    {{-- <script src="{{ mix('js/frontend/manifest.js') }}" defer></script> --}}
+    {{-- <script src="{{ mix('js/frontend/vendor.js') }}" defer></script> --}}
     <script src="{{ mix('js/frontend/app.js') }}" defer></script>
 
     {{-- Fonts --}}

@@ -21,7 +21,6 @@ mix
     '@b': '/resources/js/backend',
     '@f': '/resources/js/frontend',
   })
-  .extract(['vue','buefy'])
   .js('resources/js/backend/app.js', 'public/js/backend')
   .sass('resources/sass/backend/app.scss', 'public/css/backend/app.css')
   .js('resources/js/frontend/app.js', 'public/js/frontend')
@@ -30,5 +29,6 @@ mix
     'node_modules/@mdi/font/css/materialdesignicons.css',
   ], 'public/css/vendor.css')
   .copyDirectory('node_modules/@mdi/font/fonts', 'public/fonts')
+  // .extract(['vue','buefy'])
 //   .copyDirectory('resources/images', 'public/images')
   .version();

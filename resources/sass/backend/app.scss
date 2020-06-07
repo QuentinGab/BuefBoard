@@ -1,2 +1,6 @@
 @import './variables';
 @import '../global';
+
+body{
+    background-color: $body-bg;
+}

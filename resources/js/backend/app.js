@@ -37,5 +37,6 @@ new Vue({
     router,
     render: h => h(App),
     mounted() {
+        console.log("mounted")
     }
 }).$mount("#app");

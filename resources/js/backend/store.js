@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         api: {},
-        user: {}
+        user: {},
+        
     },
     mutations: {
         /* A fit-them-all commit */
