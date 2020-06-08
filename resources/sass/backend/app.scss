@@ -1,9 +1,16 @@
-@import './variables';
-@import '../global';
+@import "./variables";
+
+@import "../global";
+
+@import "./root";
 
 /* Theme components */
-@import './components/all';
+@import "./components/all";
 
-body{
-    background-color: $body-bg;
+body {
+    background-color: $bg-body;
+}
+
+.bb-content {
+    height: calc(100vh - 3.25rem);
 }

@@ -2,3 +2,10 @@
 
 /* Buefy has Bulma included. So we import just that */
 @import "~buefy/src/scss/buefy-build";
+
+.p-0{
+    padding: 0;
+}
+.m-0{
+    margin: 0;
+}

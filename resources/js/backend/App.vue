@@ -1,28 +1,30 @@
 <template>
     <div id="app">
-        <navbar />
-        <aside-menu :menu="menu"></aside-menu>
-
-        <!-- <div class="columns">
-            <div class="column"></div>
-            <div class="column"></div>
-        </div> -->
+        <nav-bar class="bb-navbar" />
+        <div class="is-flex bb-content">
+            <div>
+                <aside-menu :menu="menu" class="bb-sidebar" />
+            </div>
+            <div class="">
+                <router-view />
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 // @b/ is an alias to /src/backend
 import AsideMenu from "@b/components/AsideMenu";
-import Navbar from "@b/components/Navbar";
+import NavBar from "@b/components/NavBar";
 export default {
     name: "App",
-    components: { AsideMenu, Navbar },
+    components: { AsideMenu, NavBar },
     data() {
         return {
             menu: [
                 {
-                    label: "Info",
-                    icon: "desktop-mac",
+                    label: "Général",
+                    icon: "cog",
                     menu: [
                         {
                             label: "Dashboard",

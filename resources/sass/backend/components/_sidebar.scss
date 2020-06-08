@@ -1,0 +1,95 @@
+//size
+.bb-sidebar {
+    height: 100%;
+    .sidebar-content {
+        height: 100%;
+        overflow: auto;
+    }
+    .menu-label {
+        padding: 0.75rem 1.5rem;
+        margin: 0;
+    }
+    .menu-list {
+        a {
+            padding: 1rem 1.5rem;
+            border-radius: 0;
+        }
+        li {
+            ul {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+}
+
+//color
+.bb-sidebar .sidebar-content.is-white {
+    .menu-list {
+        a {
+            color: var(--bb-grey-light, $grey-light);
+        }
+        a.router-link-exact-active,
+        a.is-active {
+            background-color: transparent;
+            // background-color: var(--bb-white-ter, $white-ter);
+            color: var(--bb-primary, $primary);
+            position: relative;
+        }
+        a.router-link-exact-active::after {
+            position: absolute;
+            right: 0;
+            top: calc(50% - 10px / 2);
+            display: block;
+            content: "";
+            height: 20px;
+            width: 4px;
+            border-radius: 10px 0 0 10px;
+            background-color: var(--bb-primary, $primary);
+        }
+
+        ul {
+            background-color: var(--bb-white-bis, $white-bis);
+        }
+    }
+}
+
+.bb-sidebar .sidebar-content.is-black,
+.bb-sidebar .sidebar-content.is-dark {
+    background-color: var(--bb-dark, $dark);
+
+    .menu-list {
+        a {
+            color: var(--bb-dark-ter, $dark-ter);
+            &:hover {
+                background-color: var(--bb-dark-ter, $dark-ter);
+            }
+        }
+        a.router-link-exact-active,
+        a.is-active {
+            background-color: transparent;
+            // background-color: var(--bb-white-ter, $white-ter);
+            color: var(--bb-white, $white);
+            position: relative;
+        }
+        a.router-link-exact-active::after {
+            position: absolute;
+            right: 0;
+            top: calc(50% - 10px / 2);
+            display: block;
+            content: "";
+            height: 20px;
+            width: 4px;
+            border-radius: 10px 0 0 10px;
+            background-color: var(--bb-white, $white);
+        }
+
+        ul {
+            background-color: var(--bb-dark-bis, $dark-bis);
+            border-color: var(--bb-dark, $dark);
+        }
+    }
+    .menu-label{
+        color: var(--bb-white,$white);
+    }
+}

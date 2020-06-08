@@ -1,19 +1,17 @@
+//Sidebar
+$sidebar-width: 230px;
+$sidebar-box-shadow: none;
+
+//colors
+$dark:#2E2E2E;
+$dark-bis:#2E2E2E;
+$dark-ter:#2E2E2E;
+
+$blue:#0984E3;
+$blue-dark:#043053;
+$blue-light:#3a9ce8;
+
+$primary:$blue;
+
 // Body
-$body-bg: #f8fafc;
-
-// Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
-
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+$bg-body: #f8fafc;

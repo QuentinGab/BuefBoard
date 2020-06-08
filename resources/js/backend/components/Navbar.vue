@@ -9,7 +9,7 @@
             </b-navbar-item>
         </template>
         <template slot="start">
-            <b-navbar-item tag="div">
+            <b-navbar-item tag="div" class="p-0">
                 <b-input placeholder="Search..." type="search" icon="magnify">
                 </b-input>
             </b-navbar-item>
@@ -29,7 +29,7 @@
 // @b/ is an alias to /src/backend
 
 export default {
-    name: "Navbar",
+    name: "NavBar",
     components: {},
     data() {
         return {

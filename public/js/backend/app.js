@@ -1909,7 +1909,9 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _b_components_AsideMenu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @b/components/AsideMenu */ "./resources/js/backend/components/AsideMenu.vue");
-/* harmony import */ var _b_components_Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/Navbar */ "./resources/js/backend/components/Navbar.vue");
+/* harmony import */ var _b_components_NavBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/NavBar */ "./resources/js/backend/components/NavBar.vue");
+//
+//
 //
 //
 //
@@ -1929,13 +1931,13 @@ __webpack_require__.r(__webpack_exports__);
   name: "App",
   components: {
     AsideMenu: _b_components_AsideMenu__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Navbar: _b_components_Navbar__WEBPACK_IMPORTED_MODULE_1__["default"]
+    NavBar: _b_components_NavBar__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
       menu: [{
-        label: "Info",
-        icon: "desktop-mac",
+        label: "Général",
+        icon: "cog",
         menu: [{
           label: "Dashboard",
           icon: "desktop-mac",
@@ -1981,11 +1983,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _b_components_AsideMenuList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/AsideMenuList */ "./resources/js/backend/components/AsideMenuList.vue");
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2114,9 +2111,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/Navbar.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/NavBar.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/Navbar.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/NavBar.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2152,7 +2149,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 // @b/ is an alias to /src/backend
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Navbar",
+  name: "NavBar",
   components: {},
   data: function data() {
     return {
@@ -17605,7 +17602,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".b-sidebar .sidebar-content {\n  box-shadow: none;\n}\n.p-1 {\n  padding: 1em;\n}\n.sidebar-page {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  min-height: 100%;\n}\n.sidebar-page .sidebar-layout {\n  display: flex;\n  flex-direction: row;\n  min-height: 100%;\n}\n.sidebar-page .sidebar-content {\n  min-height: 100vh;\n}\n@media screen and (max-width: 1023px) {\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li a span:nth-child(2), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li a span:nth-child(2) {\n    display: none;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul {\n    padding-left: 0;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul li a, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul li a {\n    display: inline-block;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-label:not(:last-child), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-label:not(:last-child) {\n    margin-bottom: 0;\n}\n}\n@media screen and (min-width: 1024px) {\n.b-sidebar .sidebar-content.is-mini:not(.is-mini-expand) .menu-list li a span:nth-child(2), .b-sidebar .sidebar-content.is-mini.is-mini-expand:not(:hover) .menu-list li a span:nth-child(2) {\n    display: none;\n}\n.b-sidebar .sidebar-content.is-mini:not(.is-mini-expand) .menu-list li ul, .b-sidebar .sidebar-content.is-mini.is-mini-expand:not(:hover) .menu-list li ul {\n    padding-left: 0;\n}\n.b-sidebar .sidebar-content.is-mini:not(.is-mini-expand) .menu-list li ul li a, .b-sidebar .sidebar-content.is-mini.is-mini-expand:not(:hover) .menu-list li ul li a {\n    display: inline-block;\n}\n.b-sidebar .sidebar-content.is-mini:not(.is-mini-expand) .menu-label:not(:last-child), .b-sidebar .sidebar-content.is-mini.is-mini-expand:not(:hover) .menu-label:not(:last-child) {\n    margin-bottom: 0;\n}\n}", ""]);
+exports.push([module.i, "@media screen and (max-width: 1023px) {\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li a span:nth-child(2), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li a span:nth-child(2) {\n    display: none;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul {\n    padding-left: 0;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li ul li a, .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-list li ul li a {\n    display: inline-block;\n}\n.b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-label:not(:last-child), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover) .menu-label:not(:last-child) {\n    margin-bottom: 0;\n}\n}\n@media screen and (min-width: 1024px) {\n.b-sidebar .sidebar-content.is-mini:not(.is-mini-expand) .menu-list li a span:nth-child(2), .b-sidebar .sidebar-content.is-mini.is-mini-expand:not(:hover) .menu-list li a span:nth-child(2) {\n    display: none;\n}\n.b-sidebar .sidebar-content.is-mini:not(.is-mini-expand) .menu-list li ul, .b-sidebar .sidebar-content.is-mini.is-mini-expand:not(:hover) .menu-list li ul {\n    padding-left: 0;\n}\n.b-sidebar .sidebar-content.is-mini:not(.is-mini-expand) .menu-list li ul li a, .b-sidebar .sidebar-content.is-mini.is-mini-expand:not(:hover) .menu-list li ul li a {\n    display: inline-block;\n}\n.b-sidebar .sidebar-content.is-mini:not(.is-mini-expand) .menu-label:not(:last-child), .b-sidebar .sidebar-content.is-mini.is-mini-expand:not(:hover) .menu-label:not(:last-child) {\n    margin-bottom: 0;\n}\n}", ""]);
 
 // exports
 
@@ -18725,9 +18722,22 @@ var render = function() {
     "div",
     { attrs: { id: "app" } },
     [
-      _c("navbar"),
+      _c("nav-bar", { staticClass: "bb-navbar" }),
       _vm._v(" "),
-      _c("aside-menu", { attrs: { menu: _vm.menu } })
+      _c("div", { staticClass: "is-flex bb-content" }, [
+        _c(
+          "div",
+          [
+            _c("aside-menu", {
+              staticClass: "bb-sidebar",
+              attrs: { menu: _vm.menu }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", {}, [_c("router-view")], 1)
+      ])
     ],
     1
   )
@@ -18754,113 +18764,104 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "sidebar-page" }, [
-    _c(
-      "section",
-      { staticClass: "sidebar-layout" },
-      [
-        _c(
-          "b-sidebar",
-          {
-            attrs: {
-              position: "static",
-              mobile: _vm.mobile,
-              "expand-on-hover": _vm.expandOnHover,
-              reduce: _vm.reduce,
-              type: "is-light",
-              open: ""
-            }
-          },
-          [
-            _c(
-              "div",
-              { staticClass: "p-1" },
-              [
-                _c(
-                  "b-menu",
-                  { staticClass: "is-custom-mobile" },
-                  _vm._l(_vm.menu, function(menuList, index) {
-                    return _c(
-                      "b-menu-list",
-                      { key: index, attrs: { label: menuList.label } },
-                      _vm._l(menuList.menu, function(menuItem, index) {
-                        return _c(
-                          "b-menu-item",
+  return _c(
+    "b-sidebar",
+    {
+      attrs: {
+        position: "static",
+        mobile: _vm.mobile,
+        "expand-on-hover": _vm.expandOnHover,
+        reduce: _vm.reduce,
+        type: "is-white",
+        open: ""
+      }
+    },
+    [
+      _c(
+        "div",
+        {},
+        [
+          _c(
+            "b-menu",
+            { staticClass: "is-custom-mobile" },
+            _vm._l(_vm.menu, function(menuList, index) {
+              return _c(
+                "b-menu-list",
+                { key: index, attrs: { label: menuList.label } },
+                _vm._l(menuList.menu, function(menuItem, index) {
+                  return _c(
+                    "b-menu-item",
+                    {
+                      key: index,
+                      attrs: {
+                        icon: menuItem.icon,
+                        to: menuItem.to,
+                        href: menuItem.href,
+                        tag: menuItem.to ? "router-link" : "a"
+                      },
+                      scopedSlots: _vm._u(
+                        [
                           {
-                            key: index,
-                            attrs: {
-                              icon: menuItem.icon,
-                              to: menuItem.to,
-                              href: menuItem.href,
-                              tag: menuItem.to ? "router-link" : "a"
-                            },
-                            scopedSlots: _vm._u(
-                              [
-                                {
-                                  key: "label",
-                                  fn: function(props) {
-                                    return [
-                                      _c(
-                                        "span",
-                                        [
-                                          _vm._v(
-                                            "\n                                    " +
-                                              _vm._s(menuItem.label) +
-                                              "\n                                    "
-                                          ),
-                                          menuItem.menu
-                                            ? _c("b-icon", {
-                                                staticClass: "is-pulled-right",
-                                                attrs: {
-                                                  icon: props.expanded
-                                                    ? "minus"
-                                                    : "chevron-down"
-                                                }
-                                              })
-                                            : _vm._e()
-                                        ],
-                                        1
-                                      )
-                                    ]
-                                  }
-                                }
-                              ],
-                              null,
-                              true
-                            )
-                          },
-                          [
-                            _vm._v(" "),
-                            _vm._l(menuItem.menu, function(menuSubItem, index) {
-                              return _c("b-menu-item", {
-                                key: index,
-                                attrs: {
-                                  icon: menuSubItem.icon,
-                                  label: menuSubItem.label,
-                                  to: menuSubItem.to,
-                                  href: menuSubItem.href,
-                                  tag: menuSubItem.to ? "router-link" : "a"
-                                }
-                              })
-                            })
-                          ],
-                          2
-                        )
-                      }),
-                      1
-                    )
-                  }),
-                  1
-                )
-              ],
-              1
-            )
-          ]
-        )
-      ],
-      1
-    )
-  ])
+                            key: "label",
+                            fn: function(props) {
+                              return [
+                                _c(
+                                  "span",
+                                  [
+                                    _vm._v(
+                                      "\n                            " +
+                                        _vm._s(menuItem.label) +
+                                        "\n                            "
+                                    ),
+                                    menuItem.menu
+                                      ? _c("b-icon", {
+                                          staticClass: "is-pulled-right",
+                                          attrs: {
+                                            icon: props.expanded
+                                              ? "minus"
+                                              : "chevron-down"
+                                          }
+                                        })
+                                      : _vm._e()
+                                  ],
+                                  1
+                                )
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    },
+                    [
+                      _vm._v(" "),
+                      _vm._l(menuItem.menu, function(menuSubItem, index) {
+                        return _c("b-menu-item", {
+                          key: index,
+                          attrs: {
+                            icon: menuSubItem.icon,
+                            label: menuSubItem.label,
+                            to: menuSubItem.to,
+                            href: menuSubItem.href,
+                            tag: menuSubItem.to ? "router-link" : "a"
+                          }
+                        })
+                      })
+                    ],
+                    2
+                  )
+                }),
+                1
+              )
+            }),
+            1
+          )
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -18893,9 +18894,9 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/Navbar.vue?vue&type=template&id=ceabaa00&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/NavBar.vue?vue&type=template&id=083a7a40&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/Navbar.vue?vue&type=template&id=ceabaa00& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/NavBar.vue?vue&type=template&id=083a7a40& ***!
   \*****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -18938,7 +18939,7 @@ var render = function() {
         [
           _c(
             "b-navbar-item",
-            { attrs: { tag: "div" } },
+            { staticClass: "p-0", attrs: { tag: "div" } },
             [
               _c("b-input", {
                 attrs: {
@@ -35526,17 +35527,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/backend/components/Navbar.vue":
+/***/ "./resources/js/backend/components/NavBar.vue":
 /*!****************************************************!*\
-  !*** ./resources/js/backend/components/Navbar.vue ***!
+  !*** ./resources/js/backend/components/NavBar.vue ***!
   \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Navbar_vue_vue_type_template_id_ceabaa00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Navbar.vue?vue&type=template&id=ceabaa00& */ "./resources/js/backend/components/Navbar.vue?vue&type=template&id=ceabaa00&");
-/* harmony import */ var _Navbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Navbar.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/Navbar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _NavBar_vue_vue_type_template_id_083a7a40___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavBar.vue?vue&type=template&id=083a7a40& */ "./resources/js/backend/components/NavBar.vue?vue&type=template&id=083a7a40&");
+/* harmony import */ var _NavBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavBar.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/NavBar.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -35546,9 +35547,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Navbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Navbar_vue_vue_type_template_id_ceabaa00___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Navbar_vue_vue_type_template_id_ceabaa00___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _NavBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NavBar_vue_vue_type_template_id_083a7a40___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NavBar_vue_vue_type_template_id_083a7a40___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -35558,38 +35559,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/backend/components/Navbar.vue"
+component.options.__file = "resources/js/backend/components/NavBar.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/backend/components/Navbar.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/backend/components/NavBar.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************!*\
-  !*** ./resources/js/backend/components/Navbar.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/backend/components/NavBar.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Navbar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/Navbar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NavBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./NavBar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/NavBar.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NavBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/backend/components/Navbar.vue?vue&type=template&id=ceabaa00&":
+/***/ "./resources/js/backend/components/NavBar.vue?vue&type=template&id=083a7a40&":
 /*!***********************************************************************************!*\
-  !*** ./resources/js/backend/components/Navbar.vue?vue&type=template&id=ceabaa00& ***!
+  !*** ./resources/js/backend/components/NavBar.vue?vue&type=template&id=083a7a40& ***!
   \***********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_template_id_ceabaa00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Navbar.vue?vue&type=template&id=ceabaa00& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/Navbar.vue?vue&type=template&id=ceabaa00&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_template_id_ceabaa00___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NavBar_vue_vue_type_template_id_083a7a40___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./NavBar.vue?vue&type=template&id=083a7a40& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/NavBar.vue?vue&type=template&id=083a7a40&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NavBar_vue_vue_type_template_id_083a7a40___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_template_id_ceabaa00___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NavBar_vue_vue_type_template_id_083a7a40___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

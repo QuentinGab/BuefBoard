@@ -1,0 +1,24 @@
+.bb-navbar {
+    .navbar-brand {
+        min-width: $sidebar-width;
+    }
+    .control {
+        height: 100%;
+        width: 100%;
+        input {
+            border: 0;
+            outline: 0;
+            box-shadow: none;
+            min-height: 2.25em;
+
+            &:focus {
+                border: 0;
+                outline: 0;
+                box-shadow: none;
+            }
+        }
+        & > * {
+            height: 100% !important;
+        }
+    }
+}
