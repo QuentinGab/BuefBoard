@@ -1,29 +1,35 @@
 <template>
-  <ul :class="{'menu-list':!isSubmenuList}">
-    <aside-menu-item v-for="(item,index) in menu"
-      :item="item"
-      :key="index"/>
-  </ul>
+    <div>
+        <b-menu-list label="menu.label">
+            <!-- <b-menu-item
+            :icon="menuItem.icon"
+            :label="menuItem.label"
+            v-for="(menuItem, index) in menu.menu"
+            :key="index"
+        >
+            <template v-if="menuItem.menu">
+                <b-menu-item
+                    :icon="menuItem.icon"
+                    :label="menuItem.label"
+                    v-for="(menuSubItem, index) in menuItem.menu"
+                    :key="index"
+                ></b-menu-item>
+            </template>
+        </b-menu-item> -->
+        </b-menu-list>
+    </div>
 </template>
 
 <script>
-import AsideMenuItem from '@b/components/AsideMenuItem'
-
 export default {
-  name: 'AsideMenuList',
-  components: {
-    AsideMenuItem
-  },
-  props: {
-    isSubmenuList: {
-      type: Boolean,
-      default: false
+    name: "AsideMenuList",
+    components: {},
+    props: {
+        menu: {
+            type: Object,
+            default: () => {}
+        }
     },
-    menu: {
-      type: Array,
-      default: () => []
-    }
-  },
-  methods: {}
-}
+    methods: {}
+};
 </script>

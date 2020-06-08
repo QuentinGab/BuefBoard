@@ -26,7 +26,7 @@ mix
   .js('resources/js/frontend/app.js', 'public/js/frontend')
   .sass('resources/sass/frontend/app.scss', 'public/css/frontend/app.css')
   .styles([
-    'node_modules/@mdi/font/css/materialdesignicons.css',
+    'node_modules/@mdi/font/css/materialdesignicons.min.css',
   ], 'public/css/vendor.css')
   .copyDirectory('node_modules/@mdi/font/fonts', 'public/fonts')
   // .extract(['vue','buefy'])
