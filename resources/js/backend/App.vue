@@ -3,7 +3,7 @@
         <nav-bar class="bb-navbar" />
         <div class="is-flex bb-content">
             <aside-menu :menu="menu" class="bb-sidebar" />
-            <div class="">
+            <div class="bb-view">
                 <router-view />
             </div>
         </div>

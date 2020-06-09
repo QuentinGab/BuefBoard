@@ -1,0 +1,8 @@
+.bb-table{
+    .table td,.table th{
+        border-color: var(--bb-white-ter,$white-ter);
+    }
+    .check{
+        border-color: var(--bb-grey-light,$grey-light);
+    }
+}

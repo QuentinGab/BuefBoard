@@ -7,10 +7,18 @@
 /* Theme components */
 @import "./components/all";
 
+html{
+    overflow: hidden;
+}
 body {
     background-color: var(--bb-light,$light);
 }
 
 .bb-content {
     height: calc(100vh - 3.25rem);
+}
+.bb-view{
+    height: 100%;
+    width: 100%;
+    overflow: auto;
 }

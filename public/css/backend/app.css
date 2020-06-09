@@ -18392,6 +18392,10 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   padding: 0;
 }
 
+.p-1 {
+  padding: 1rem;
+}
+
 .m-0 {
   margin: 0;
 }
@@ -18558,11 +18562,30 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   height: 100% !important;
 }
 
+.bb-table .table td,
+.bb-table .table th {
+  border-color: var(--bb-white-ter, whitesmoke);
+}
+
+.bb-table .check {
+  border-color: var(--bb-grey-light, #b5b5b5);
+}
+
+html {
+  overflow: hidden;
+}
+
 body {
   background-color: var(--bb-light, #f1f4f9);
 }
 
 .bb-content {
   height: calc(100vh - 3.25rem);
+}
+
+.bb-view {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
 }
 
