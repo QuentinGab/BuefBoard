@@ -8,7 +8,7 @@
 @import "./components/all";
 
 body {
-    background-color: $bg-body;
+    background-color: var(--bb-light,$light);
 }
 
 .bb-content {

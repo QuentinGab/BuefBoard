@@ -30,5 +30,5 @@ mix
   ], 'public/css/vendor.css')
   .copyDirectory('node_modules/@mdi/font/fonts', 'public/fonts')
   // .extract(['vue','buefy'])
-//   .copyDirectory('resources/images', 'public/images')
+  .copyDirectory('resources/images', 'public/images')
   .version();

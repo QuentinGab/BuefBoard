@@ -2,9 +2,7 @@
     <div id="app">
         <nav-bar class="bb-navbar" />
         <div class="is-flex bb-content">
-            <div>
-                <aside-menu :menu="menu" class="bb-sidebar" />
-            </div>
+            <aside-menu :menu="menu" class="bb-sidebar" />
             <div class="">
                 <router-view />
             </div>

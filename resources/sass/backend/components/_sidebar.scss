@@ -18,38 +18,45 @@
             ul {
                 margin: 0;
                 padding: 0;
+                a {
+                    padding-left: 2.5rem;
+                }
             }
         }
     }
 }
 
 //color
-.bb-sidebar .sidebar-content.is-white {
-    .menu-list {
-        a {
-            color: var(--bb-grey-light, $grey-light);
-        }
-        a.router-link-exact-active,
-        a.is-active {
-            background-color: transparent;
-            // background-color: var(--bb-white-ter, $white-ter);
-            color: var(--bb-primary, $primary);
-            position: relative;
-        }
-        a.router-link-exact-active::after {
-            position: absolute;
-            right: 0;
-            top: calc(50% - 10px / 2);
-            display: block;
-            content: "";
-            height: 20px;
-            width: 4px;
-            border-radius: 10px 0 0 10px;
-            background-color: var(--bb-primary, $primary);
-        }
-
-        ul {
-            background-color: var(--bb-white-bis, $white-bis);
+.bb-sidebar{
+    box-shadow: 0 0 1rem rgba(0,0,0,.05);
+    .sidebar-content.is-white {
+        .menu-list {
+            a {
+                color: var(--bb-dark, $dark);
+                &.is-active {
+                    background-color: transparent;
+                }
+            }
+            a.router-link-exact-active {
+                background-color: var(--bb-white-ter, $white-ter);
+                color: var(--bb-primary, $primary);
+                position: relative;
+            }
+            a.router-link-exact-active::after {
+                position: absolute;
+                right: 0;
+                top: calc(50% - 10px / 2);
+                display: block;
+                content: "";
+                height: 20px;
+                width: 4px;
+                border-radius: 10px 0 0 10px;
+                background-color: var(--bb-primary, $primary);
+            }
+    
+            ul {
+                // background-color: var(--bb-blue, $blue);
+            }
         }
     }
 }
@@ -89,7 +96,7 @@
             border-color: var(--bb-dark, $dark);
         }
     }
-    .menu-label{
-        color: var(--bb-white,$white);
+    .menu-label {
+        color: var(--bb-white, $white);
     }
 }

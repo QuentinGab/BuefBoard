@@ -1922,8 +1922,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 // @b/ is an alias to /src/backend
 
 
@@ -18724,20 +18722,19 @@ var render = function() {
     [
       _c("nav-bar", { staticClass: "bb-navbar" }),
       _vm._v(" "),
-      _c("div", { staticClass: "is-flex bb-content" }, [
-        _c(
-          "div",
-          [
-            _c("aside-menu", {
-              staticClass: "bb-sidebar",
-              attrs: { menu: _vm.menu }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", {}, [_c("router-view")], 1)
-      ])
+      _c(
+        "div",
+        { staticClass: "is-flex bb-content" },
+        [
+          _c("aside-menu", {
+            staticClass: "bb-sidebar",
+            attrs: { menu: _vm.menu }
+          }),
+          _vm._v(" "),
+          _c("div", {}, [_c("router-view")], 1)
+        ],
+        1
+      )
     ],
     1
   )
@@ -18922,8 +18919,7 @@ var render = function() {
             [
               _c("img", {
                 attrs: {
-                  src:
-                    "https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png",
+                  src: "/images/LOGO.png",
                   alt: "Lightweight UI components for Vue.js based on Bulma"
                 }
               })
