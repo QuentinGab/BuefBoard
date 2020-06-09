@@ -1,30 +1,72 @@
 <template>
     <section class="p-1">
-        <b-table
-            class="bb-table"
-            :data="data"
-            :paginated="isPaginated"
-            :per-page="perPage"
-            :current-page.sync="currentPage"
-            :pagination-simple="isPaginationSimple"
-            :pagination-position="paginationPosition"
-            default-sort-direction="asc"
-            default-sort="id"
-            aria-next-label="Next page"
-            aria-previous-label="Previous page"
-            aria-page-label="Page"
-            aria-current-label="Current page"
-            :columns="columns"
-            :checked-rows.sync="checkedRows"
-            checkable
-        >
-            <template slot="bottom-left">
-                <div>
-                    <div><b>Total checked</b>: {{ checkedRows.length }}</div>
-                    <div><b>Total row</b>: {{ total }}</div>
+        <div class="level">
+            <div class="level-left">
+                <h1 class="title">Manage Users</h1>
+            </div>
+            <div class="level-right">
+                <nav class="breadcrumb" aria-label="breadcrumbs">
+                    <ul>
+                        <li>
+                            <router-link to="/users/index">Users</router-link>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="bb-table">
+            <div class="level">
+                <div class="level-left">
+                    <b-button
+                        class="is-primary"
+                        icon-left="plus-circle-outline"
+                        to="/users/new"
+                        tag="router-link"
+                    >
+                        Add
+                    </b-button>
                 </div>
-            </template>
-        </b-table>
+                <div class="level-right">
+                    <div class="buttons has-addons">
+                        <b-button
+                            class="is-danger"
+                            icon-left="delete"
+                            @click="confirmDelete"
+                            :disabled="checkedRows.length > 0 ? false : true"
+                        >
+                            {{ checkedRows.length }}
+                        </b-button>
+                        <b-button icon-left="dots-vertical"></b-button>
+                    </div>
+                </div>
+            </div>
+            <b-table
+                :data="data"
+                :paginated="isPaginated"
+                :per-page="perPage"
+                :current-page.sync="currentPage"
+                :pagination-simple="isPaginationSimple"
+                :pagination-position="paginationPosition"
+                default-sort-direction="asc"
+                default-sort="id"
+                aria-next-label="Next page"
+                aria-previous-label="Previous page"
+                aria-page-label="Page"
+                aria-current-label="Current page"
+                :columns="columns"
+                :checked-rows.sync="checkedRows"
+                checkable
+            >
+                <template slot="bottom-left">
+                    <div>
+                        <div>
+                            <b>Total checked</b>: {{ checkedRows.length }}
+                        </div>
+                        <div><b>Total row</b>: {{ total }}</div>
+                    </div>
+                </template>
+            </b-table>
+        </div>
     </section>
 </template>
 
@@ -116,6 +158,36 @@ export default {
     computed: {
         total() {
             return this.data.length;
+        }
+    },
+    methods: {
+        confirmDelete() {
+            this.$buefy.dialog.confirm({
+                title: "Deleting users",
+                message:
+                    "Are you sure you want to <b>delete</b> your account? This action cannot be undone.",
+                confirmText: "Delete Users",
+                type: "is-danger",
+                hasIcon: true,
+                onConfirm: () => this.bulkDelete()
+            });
+        },
+        bulkDelete() {
+            this.$buefy.snackbar.open({
+                duration: 5000,
+                message: "users have been deleted",
+                type: "is-danger",
+                position: "is-bottom-right",
+                actionText: "Undo",
+                queue: false,
+                onAction: () => {
+                    this.$buefy.toast.open({
+                        message: "Action pressed",
+                        queue: false
+                    });
+                }
+            });
+            return true;
         }
     },
     mounted() {
