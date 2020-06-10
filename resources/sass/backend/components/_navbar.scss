@@ -1,9 +1,11 @@
 .bb-navbar {
+    border-bottom: 1px solid var(--bb-light, $light);
+
     .navbar-brand {
         min-width: $sidebar-width;
         border-right: 1px solid;
-        border-bottom: 1px solid;
-        border-color:var(--bb-light,$light);
+        // border-bottom: 1px solid;
+        border-color: var(--bb-light, $light);
     }
     .control {
         height: 100%;

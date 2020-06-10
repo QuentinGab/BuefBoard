@@ -15074,7 +15074,7 @@ label.panel-block:hover {
 .b-sidebar .sidebar-content {
   background-color: whitesmoke;
   box-shadow: none;
-  width: 230px;
+  width: 200px;
   z-index: 41;
 }
 
@@ -15149,7 +15149,7 @@ label.panel-block:hover {
 }
 
 .b-sidebar .sidebar-content.is-mini.is-mini-expand:hover:not(.is-fullwidth) {
-  width: 230px;
+  width: 200px;
 }
 
 .b-sidebar .sidebar-content.is-mini.is-mini-expand:hover:not(.is-fullwidth).is-mini-expand-fixed {
@@ -15186,7 +15186,7 @@ label.panel-block:hover {
   }
 
   .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:hover:not(.is-fullwidth-mobile) {
-    width: 230px;
+    width: 200px;
   }
 
   .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:hover:not(.is-fullwidth-mobile).is-mini-expand-fixed {
@@ -18460,6 +18460,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .bb-sidebar {
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
+  border-right: 1px solid var(--bb-light, #f1f4f9);
 }
 
 .bb-sidebar .sidebar-content.is-white .menu-list a {
@@ -18536,10 +18537,13 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   color: var(--bb-white, white);
 }
 
+.bb-navbar {
+  border-bottom: 1px solid var(--bb-light, #f1f4f9);
+}
+
 .bb-navbar .navbar-brand {
-  min-width: 230px;
+  min-width: 200px;
   border-right: 1px solid;
-  border-bottom: 1px solid;
   border-color: var(--bb-light, #f1f4f9);
 }
 
@@ -18585,7 +18589,7 @@ html {
 }
 
 body {
-  background-color: var(--bb-light, #f1f4f9);
+  background-color: var(--bb-white, white);
 }
 
 .bb-content {

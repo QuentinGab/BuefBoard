@@ -27,8 +27,9 @@
 }
 
 //color
-.bb-sidebar{
-    box-shadow: 0 0 1rem rgba(0,0,0,.05);
+.bb-sidebar {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
+    border-right: 1px solid var(--bb-light, $light);
     .sidebar-content.is-white {
         .menu-list {
             a {
@@ -53,8 +54,6 @@
                 border-radius: 10px 0 0 10px;
                 background-color: var(--bb-primary, $primary);
             }
-    
-            
         }
     }
 }
