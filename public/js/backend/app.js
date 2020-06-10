@@ -2056,6 +2056,10 @@ __webpack_require__.r(__webpack_exports__);
           icon: "desktop-mac",
           to: "/"
         }, {
+          label: "Users",
+          icon: "account-multiple-outline",
+          to: "/users/index"
+        }, {
           to: "/media",
           icon: "folder-multiple-image",
           label: "Media"
@@ -35736,18 +35740,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     component: function component() {
       return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
     }
-  } //   {
+  }, //   {
   //     path: "/users/new",
   //     name: "users.new",
   //     component: () => import("./views/Brands/BrandsForm.vue")
   //   },
-  //   {
-  //     path: "/users/:id",
-  //     name: "users.edit",
-  //     component: () => import("./views/Brands/BrandsForm.vue"),
-  //     props: true
-  //   }
-  ]
+  {
+    path: "/users/:id",
+    name: "users.edit",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
+    },
+    props: true
+  }]
 }));
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
@@ -35770,7 +35775,9 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    api: {},
+    api: {
+      users: "/api/v1/users"
+    },
     user: {}
   },
   mutations: {

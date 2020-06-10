@@ -5,9 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        api: {},
-        user: {},
-        
+        api: {
+            users: "/api/v1/users"
+        },
+        user: {}
     },
     mutations: {
         /* A fit-them-all commit */

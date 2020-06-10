@@ -1,29 +1,19 @@
 <template>
-    <section class="p-1">
-        <div class="level">
-            <div class="level-left">
-                <h1 class="title">Manage Users</h1>
-            </div>
-            <div class="level-right">
-                <nav class="breadcrumb" aria-label="breadcrumbs">
-                    <ul>
-                        <li>
-                            <router-link to="/users/index">Users</router-link>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <div class="bb-table">
+    <section>
+        <title-bar
+            class="p-1"
+            title="Manage Users"
+            :menu="[{ name: 'users', to: '/users/index' }]"
+        ></title-bar>
+        <div class="bb-table p-1">
             <div class="level">
                 <div class="level-left">
                     <b-button
-                        class="is-primary"
+                        class="is-primary is-rounded"
                         icon-left="plus-circle-outline"
                         to="/users/new"
                         tag="router-link"
                     >
-                        Add
                     </b-button>
                 </div>
                 <div class="level-right">
@@ -36,27 +26,92 @@
                         >
                             {{ checkedRows.length }}
                         </b-button>
+                        <b-button
+                            icon-left="refresh"
+                            @click="getData"
+                        ></b-button>
                         <b-button icon-left="dots-vertical"></b-button>
                     </div>
                 </div>
             </div>
             <b-table
                 :data="data"
+                :loading="isLoading"
+                checkable
+                :checked-rows.sync="checkedRows"
                 :paginated="isPaginated"
                 :per-page="perPage"
                 :current-page.sync="currentPage"
                 :pagination-simple="isPaginationSimple"
                 :pagination-position="paginationPosition"
+                pagination-size="is-small"
                 default-sort-direction="asc"
                 default-sort="id"
                 aria-next-label="Next page"
                 aria-previous-label="Previous page"
                 aria-page-label="Page"
                 aria-current-label="Current page"
-                :columns="columns"
-                :checked-rows.sync="checkedRows"
-                checkable
             >
+                <template slot-scope="props">
+                    <b-table-column
+                        field="id"
+                        label="ID"
+                        width="40"
+                        numeric
+                        sortable
+                    >
+                        {{ props.row.id }}
+                    </b-table-column>
+                    <b-table-column
+                        field="first_name"
+                        label="First Name"
+                        sortable
+                    >
+                        {{ props.row.first_name }}
+                    </b-table-column>
+                    <b-table-column
+                        field="last_name"
+                        label="Last Name"
+                        sortable
+                    >
+                        {{ props.row.last_name }}
+                    </b-table-column>
+                    <b-table-column field="date" label="Date" sortable>
+                        {{ props.row.date }}
+                    </b-table-column>
+                    <b-table-column field="gender" label="Gender" sortable>
+                        {{ props.row.gender }}
+                    </b-table-column>
+                    <b-table-column
+                        custom-key="actions"
+                        label="Actions"
+                        class="is-actions-cell"
+                        width="40"
+                    >
+                        <router-link
+                            :to="{
+                                name: 'users.edit',
+                                params: { id: props.row.id }
+                            }"
+                            class="button is-rounded is-small is-primary"
+                        >
+                            <b-icon icon="account-edit" size="is-small" />
+                        </router-link>
+                    </b-table-column>
+                </template>
+
+                <template slot="empty">
+                    <section class="section">
+                        <div class="content has-text-grey has-text-centered">
+                            <p>
+                                <b-icon icon="emoticon-sad" size="is-large">
+                                </b-icon>
+                            </p>
+                            <p>Nothing here.</p>
+                        </div>
+                    </section>
+                </template>
+
                 <template slot="bottom-left">
                     <div>
                         <div>
@@ -71,78 +126,18 @@
 </template>
 
 <script>
+import TitleBar from "@b/components/TitleBar";
+import { mapState } from "vuex";
+
 export default {
     name: "UserIndex",
-    components: {},
+    components: { TitleBar },
     data() {
-        const data = [
-            {
-                id: 1,
-                first_name: "Jesse",
-                last_name: "Simmons",
-                date: "2016-10-15 13:43:27",
-                gender: "Male"
-            },
-            {
-                id: 2,
-                first_name: "John",
-                last_name: "Jacobs",
-                date: "2016-12-15 06:00:53",
-                gender: "Male"
-            },
-            {
-                id: 3,
-                first_name: "Tina",
-                last_name: "Gilbert",
-                date: "2016-04-26 06:26:28",
-                gender: "Female"
-            },
-            {
-                id: 4,
-                first_name: "Clarence",
-                last_name: "Flores",
-                date: "2016-04-10 10:28:46",
-                gender: "Male"
-            },
-            {
-                id: 5,
-                first_name: "Anne",
-                last_name: "Lee",
-                date: "2016-12-06 14:38:38",
-                gender: "Female"
-            }
-        ];
-
         return {
-            data,
+            data: [],
+            isLoading: false,
 
             checkedRows: [],
-            columns: [
-                {
-                    field: "id",
-                    label: "ID",
-                    width: "40",
-                    numeric: true,
-                    sortable: true
-                },
-                {
-                    field: "first_name",
-                    label: "First Name",
-                    sortable: true
-                },
-                {
-                    field: "last_name",
-                    label: "Last Name"
-                },
-                {
-                    field: "date",
-                    label: "Date"
-                },
-                {
-                    field: "gender",
-                    label: "Gender"
-                }
-            ],
             //paginate
             isPaginated: true,
             isPaginationSimple: false,
@@ -156,11 +151,30 @@ export default {
         };
     },
     computed: {
+        ...mapState(["api"]),
+
         total() {
             return this.data.length;
         }
     },
     methods: {
+        getData() {
+            this.isLoading = true;
+            axios
+                .get(this.api.users)
+                .then(r => {
+                    this.data = r.data;
+                    this.isLoading = false;
+                })
+                .catch(err => {
+                    this.$buefy.toast.open({
+                        message: `Error: ${err.message}`,
+                        type: "is-danger",
+                        queue: false
+                    });
+                    this.isLoading = false;
+                });
+        },
         confirmDelete() {
             this.$buefy.dialog.confirm({
                 title: "Deleting users",
@@ -192,6 +206,7 @@ export default {
     },
     mounted() {
         console.log("Component mounted.");
+        this.getData();
     },
     created() {}
 };

@@ -30,6 +30,11 @@ export default {
                             to: "/"
                         },
                         {
+                            label: "Users",
+                            icon: "account-multiple-outline",
+                            to: "/users/index"
+                        },
+                        {
                             to: "/media",
                             icon: "folder-multiple-image",
                             label: "Media"

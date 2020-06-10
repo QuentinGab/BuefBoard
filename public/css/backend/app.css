@@ -18538,6 +18538,9 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .bb-navbar .navbar-brand {
   min-width: 230px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-color: var(--bb-light, #f1f4f9);
 }
 
 .bb-navbar .control {
