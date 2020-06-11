@@ -18511,47 +18511,46 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   background-color: var(--bb-dark, #363636);
 }
 
-.bb-sidebar .sidebar-content.is-black .menu-list a,
-.bb-sidebar .sidebar-content.is-dark .menu-list a {
-  color: var(--bb-dark-ter, #2E2E2E);
-}
-
-.bb-sidebar .sidebar-content.is-black .menu-list a:hover,
-.bb-sidebar .sidebar-content.is-dark .menu-list a:hover {
-  background-color: var(--bb-dark-ter, #2E2E2E);
-}
-
-.bb-sidebar .sidebar-content.is-black .menu-list a.router-link-exact-active,
-.bb-sidebar .sidebar-content.is-black .menu-list a.is-active,
-.bb-sidebar .sidebar-content.is-dark .menu-list a.router-link-exact-active,
-.bb-sidebar .sidebar-content.is-dark .menu-list a.is-active {
-  background-color: transparent;
-  color: var(--bb-white, white);
-  position: relative;
-}
-
-.bb-sidebar .sidebar-content.is-black .menu-list a.router-link-exact-active::after,
-.bb-sidebar .sidebar-content.is-dark .menu-list a.router-link-exact-active::after {
-  position: absolute;
-  right: 0;
-  top: calc(50% - 10px / 2);
-  display: block;
-  content: "";
-  height: 20px;
-  width: 4px;
-  border-radius: 10px 0 0 10px;
-  background-color: var(--bb-white, white);
-}
-
-.bb-sidebar .sidebar-content.is-black .menu-list ul,
-.bb-sidebar .sidebar-content.is-dark .menu-list ul {
-  background-color: var(--bb-dark-bis, #2E2E2E);
-  border-color: var(--bb-dark, #363636);
+.bb-sidebar .sidebar-content.is-black .sidebar-content,
+.bb-sidebar .sidebar-content.is-dark .sidebar-content {
+  border-right: 1px solid var(--bb-light, whitesmoke);
 }
 
 .bb-sidebar .sidebar-content.is-black .menu-label,
 .bb-sidebar .sidebar-content.is-dark .menu-label {
+  color: var(--bb-white-ter, whitesmoke);
+}
+
+.bb-sidebar .sidebar-content.is-black .menu-list a,
+.bb-sidebar .sidebar-content.is-dark .menu-list a {
+  color: var(--bb-white-ter, whitesmoke);
+}
+
+.bb-sidebar .sidebar-content.is-black .menu-list a.is-active,
+.bb-sidebar .sidebar-content.is-dark .menu-list a.is-active {
+  background-color: transparent;
+}
+
+.bb-sidebar .sidebar-content.is-black .menu-list a.router-link-exact-active,
+.bb-sidebar .sidebar-content.is-dark .menu-list a.router-link-exact-active {
+  background-color: var(--bb-black, #0a0a0a);
   color: var(--bb-white, white);
+}
+
+.bb-sidebar .sidebar-content.is-black .menu-list a.router-link-exact-active::after,
+.bb-sidebar .sidebar-content.is-dark .menu-list a.router-link-exact-active::after {
+  background-color: var(--bb-white, white);
+}
+
+.bb-sidebar .sidebar-content.is-black .button-expand,
+.bb-sidebar .sidebar-content.is-dark .button-expand {
+  background-color: var(--bb-black, #0a0a0a);
+  cursor: pointer;
+}
+
+.bb-sidebar .sidebar-content.is-black .button-expand:hover,
+.bb-sidebar .sidebar-content.is-dark .button-expand:hover {
+  background-color: var(--bb-black, #0a0a0a);
 }
 
 .bb-sidebar .sidebar-content.is-mini .menu-label {

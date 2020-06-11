@@ -65,47 +65,48 @@
 }
 
 //color theme
-
 .bb-sidebar .sidebar-content.is-black,
 .bb-sidebar .sidebar-content.is-dark {
+    // box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
     background-color: var(--bb-dark, $dark);
 
-    .menu-list {
-        a {
-            color: var(--bb-dark-ter, $dark-ter);
-            &:hover {
-                background-color: var(--bb-dark-ter, $dark-ter);
-            }
-        }
-        a.router-link-exact-active,
-        a.is-active {
-            background-color: transparent;
-            // background-color: var(--bb-white-ter, $white-ter);
-            color: var(--bb-white, $white);
-            position: relative;
-        }
-        a.router-link-exact-active::after {
-            position: absolute;
-            right: 0;
-            top: calc(50% - 10px / 2);
-            display: block;
-            content: "";
-            height: 20px;
-            width: 4px;
-            border-radius: 10px 0 0 10px;
-            background-color: var(--bb-white, $white);
-        }
-
-        ul {
-            background-color: var(--bb-dark-bis, $dark-bis);
-            border-color: var(--bb-dark, $dark);
-        }
+    .sidebar-content {
+        border-right: 1px solid var(--bb-light, $light);
     }
     .menu-label {
-        color: var(--bb-white, $white);
+        color: var(--bb-white-ter,$white-ter);
+    }
+    .menu-list {
+        a {
+            color: var(--bb-white-ter, $white-ter);
+            &.is-active {
+                background-color: transparent;
+            }
+            &.router-link-exact-active {
+                background-color: var(--bb-black, $black);
+                color: var(--bb-white, $white);
+            }
+            &.router-link-exact-active::after {
+                background-color: var(--bb-white, $white);
+            }
+        }
+        li {
+            ul {
+                a {
+                }
+            }
+        }
+    }
+    .button-expand {
+        background-color: var(--bb-black, $black);
+        cursor: pointer;
+        &:hover {
+            background-color: var(--bb-black, $black);
+        }
     }
 }
 
+// MINI
 .bb-sidebar {
     .sidebar-content {
         &.is-mini {
