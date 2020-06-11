@@ -1,12 +1,5 @@
 <template>
-    <b-sidebar
-        position="static"
-        :mobile="mobile"
-        :expand-on-hover="expandOnHover"
-        :reduce="reduce"
-        type="is-white"
-        open
-    >
+    <b-sidebar position="static" :reduce="reduce" type="is-white" open>
         <div class="">
             <b-menu class="is-custom-mobile">
                 <b-menu-list
@@ -25,16 +18,14 @@
                         <template slot="label" slot-scope="props">
                             <span>
                                 {{ menuItem.label }}
-                                <b-icon
-                                    v-if="menuItem.menu"
-                                    class="is-pulled-right"
-                                    :icon="
-                                        props.expanded
-                                            ? 'minus'
-                                            : 'chevron-down'
-                                    "
-                                ></b-icon>
                             </span>
+                            <b-icon
+                                v-if="menuItem.menu"
+                                class="is-pulled-right"
+                                :icon="
+                                    props.expanded ? 'minus' : 'chevron-down'
+                                "
+                            ></b-icon>
                         </template>
                         <b-menu-item
                             v-for="(menuSubItem, index) in menuItem.menu"
@@ -49,6 +40,13 @@
                 </b-menu-list>
             </b-menu>
         </div>
+        <div>
+            <div class="button-expand" @click="reduce = !reduce">
+                <b-icon
+                    :icon="reduce ? 'chevron-right' : 'chevron-left'"
+                ></b-icon>
+            </div>
+        </div>
     </b-sidebar>
 </template>
 
@@ -61,7 +59,6 @@ export default {
     components: { AsideMenuList },
     data() {
         return {
-            expandOnHover: false,
             mobile: "reduce",
             reduce: false
         };
@@ -74,72 +71,13 @@ export default {
     },
     computed: {
         // ...mapState([])
+        isMobile() {
+            return window.innerWidth < 769;
+        }
     },
-    methods: {}
+    methods: {},
+    created() {
+        this.reduce = this.isMobile;
+    }
 };
 </script>
-
-<style lang="scss">
-@media screen and (max-width: 1023px) {
-    .b-sidebar {
-        .sidebar-content {
-            &.is-mini-mobile {
-                &:not(.is-mini-expand),
-                &.is-mini-expand:not(:hover) {
-                    .menu-list {
-                        li {
-                            a {
-                                span:nth-child(2) {
-                                    display: none;
-                                }
-                            }
-                            ul {
-                                padding-left: 0;
-                                li {
-                                    a {
-                                        display: inline-block;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .menu-label:not(:last-child) {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-        }
-    }
-}
-@media screen and (min-width: 1024px) {
-    .b-sidebar {
-        .sidebar-content {
-            &.is-mini {
-                &:not(.is-mini-expand),
-                &.is-mini-expand:not(:hover) {
-                    .menu-list {
-                        li {
-                            a {
-                                span:nth-child(2) {
-                                    display: none;
-                                }
-                            }
-                            ul {
-                                padding-left: 0;
-                                li {
-                                    a {
-                                        display: inline-block;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .menu-label:not(:last-child) {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-        }
-    }
-}
-</style>

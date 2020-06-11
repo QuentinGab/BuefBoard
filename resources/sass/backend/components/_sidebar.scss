@@ -1,9 +1,16 @@
 //size
 .bb-sidebar {
     height: 100%;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
+
     .sidebar-content {
         height: 100%;
         overflow: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-right: 1px solid var(--bb-light, $light);
     }
     .menu-label {
         padding: 0.75rem 1.5rem;
@@ -13,37 +20,17 @@
         a {
             padding: 1rem 1.5rem;
             border-radius: 0;
-        }
-        li {
-            ul {
-                margin: 0;
-                padding: 0;
-                a {
-                    padding-left: 2.5rem;
-                }
+            color: var(--bb-dark, $dark);
+            white-space: nowrap;
+            &.is-active {
+                background-color: transparent;
             }
-        }
-    }
-}
-
-//color
-.bb-sidebar {
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
-    border-right: 1px solid var(--bb-light, $light);
-    .sidebar-content.is-white {
-        .menu-list {
-            a {
-                color: var(--bb-dark, $dark);
-                &.is-active {
-                    background-color: transparent;
-                }
-            }
-            a.router-link-exact-active {
+            &.router-link-exact-active {
                 background-color: var(--bb-white-ter, $white-ter);
                 color: var(--bb-primary, $primary);
                 position: relative;
             }
-            a.router-link-exact-active::after {
+            &.router-link-exact-active::after {
                 position: absolute;
                 right: 0;
                 top: calc(50% - 10px / 2);
@@ -55,8 +42,29 @@
                 background-color: var(--bb-primary, $primary);
             }
         }
+        li {
+            ul {
+                margin: 0;
+                padding: 0;
+                a {
+                    padding-left: 2.5rem;
+                }
+            }
+        }
+    }
+    .button-expand {
+        padding: 1rem 0.5rem;
+        display: flex;
+        justify-content: flex-end;
+        background-color: var(--bb-light, $light);
+        cursor: pointer;
+        &:hover {
+            background-color: var(--bb-primary-light, $primary-light);
+        }
     }
 }
+
+//color theme
 
 .bb-sidebar .sidebar-content.is-black,
 .bb-sidebar .sidebar-content.is-dark {
@@ -95,5 +103,24 @@
     }
     .menu-label {
         color: var(--bb-white, $white);
+    }
+}
+
+.bb-sidebar {
+    .sidebar-content {
+        &.is-mini {
+            .menu-label {
+                display: none;
+            }
+            .menu-list {
+                li {
+                    a {
+                        span:not(:first-child) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

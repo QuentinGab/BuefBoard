@@ -16,11 +16,11 @@ export default new Router({
             name: "users.index",
             component: () => import("./views/users/UserIndex.vue")
         },
-        //   {
-        //     path: "/users/new",
-        //     name: "users.new",
-        //     component: () => import("./views/Brands/BrandsForm.vue")
-        //   },
+          {
+            path: "/users/new",
+            name: "users.new",
+            component: () => import("./views/users/UserForm.vue"),
+          },
           {
             path: "/users/:id",
             name: "users.edit",
