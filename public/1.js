@@ -204,6 +204,62 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -239,7 +295,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.isLoading = true;
       axios.get(this.api.users).then(function (r) {
-        _this.data = r.data;
+        _this.data = r.data.data;
         _this.isLoading = false;
       })["catch"](function (err) {
         _this.$buefy.toast.open({
@@ -535,12 +591,16 @@ var render = function() {
                       _c(
                         "b-table-column",
                         {
-                          attrs: { field: "date", label: "Date", sortable: "" }
+                          attrs: {
+                            field: "email",
+                            label: "Email",
+                            sortable: ""
+                          }
                         },
                         [
                           _vm._v(
                             "\n                    " +
-                              _vm._s(props.row.date) +
+                              _vm._s(props.row.email) +
                               "\n                "
                           )
                         ]
@@ -548,17 +608,89 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "b-table-column",
+                        { attrs: { field: "roles", label: "Roles" } },
+                        [
+                          _c(
+                            "b-taglist",
+                            _vm._l(props.row.roles, function(role) {
+                              return _c(
+                                "b-tag",
+                                { key: role, attrs: { type: "is-info" } },
+                                [_vm._v(_vm._s(role))]
+                              )
+                            }),
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-table-column",
                         {
                           attrs: {
-                            field: "gender",
-                            label: "Gender",
+                            field: "confirmed_at",
+                            label: "Confirmed",
+                            sortable: "",
+                            centered: ""
+                          }
+                        },
+                        [
+                          _c(
+                            "b-tooltip",
+                            {
+                              attrs: {
+                                label: props.row.confirmed_at
+                                  ? new Date(
+                                      props.row.confirmed_at
+                                    ).toLocaleDateString()
+                                  : ""
+                              }
+                            },
+                            [
+                              _c(
+                                "b-tag",
+                                {
+                                  attrs: {
+                                    type: props.row.confirmed_at
+                                      ? ""
+                                      : "is-danger"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            " +
+                                      _vm._s(
+                                        props.row.confirmed_at ? "yes" : "no"
+                                      ) +
+                                      "\n                        "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-table-column",
+                        {
+                          attrs: {
+                            field: "updated_at",
+                            label: "Updated At",
                             sortable: ""
                           }
                         },
                         [
                           _vm._v(
                             "\n                    " +
-                              _vm._s(props.row.gender) +
+                              _vm._s(
+                                new Date(
+                                  props.row.updated_at
+                                ).toLocaleDateString()
+                              ) +
                               "\n                "
                           )
                         ]

@@ -82,6 +82,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "UserForm",
@@ -94,7 +101,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   data: function data() {
-    return {};
+    return {
+      user: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        roles: [],
+        permissions: []
+      }
+    };
   },
   computed: {},
   methods: {},
@@ -189,7 +204,13 @@ var render = function() {
           title: "Manage Users",
           menu: [
             { name: "users", to: { name: "users.index" } },
-            { name: "edit", to: { name: "users.edit", params: { id: _vm.id } } }
+            {
+              name: _vm.id ? "edit" : "new",
+              to: {
+                name: _vm.id ? "users.edit" : "users.new",
+                params: { id: _vm.id }
+              }
+            }
           ]
         }
       })

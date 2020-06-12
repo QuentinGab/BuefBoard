@@ -4,9 +4,16 @@
             title="Manage Users"
             :menu="[
                 { name: 'users', to: { name: 'users.index' } },
-                { name: 'edit', to: { name: 'users.edit', params: { id: id } } }
+                {
+                    name: id ? 'edit' : 'new',
+                    to: {
+                        name: id ? 'users.edit' : 'users.new',
+                        params: { id: id }
+                    }
+                }
             ]"
         ></title-bar>
+        
     </section>
 </template>
 
@@ -22,7 +29,15 @@ export default {
         }
     },
     data() {
-        return {};
+        return {
+            user: {
+                first_name: "",
+                last_name: "",
+                email: "",
+                roles: [],
+                permissions: []
+            }
+        };
     },
     computed: {},
     methods: {},

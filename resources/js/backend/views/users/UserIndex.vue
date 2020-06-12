@@ -69,6 +69,7 @@
                     >
                         {{ props.row.first_name }}
                     </b-table-column>
+
                     <b-table-column
                         field="last_name"
                         label="Last Name"
@@ -76,12 +77,67 @@
                     >
                         {{ props.row.last_name }}
                     </b-table-column>
-                    <b-table-column field="date" label="Date" sortable>
-                        {{ props.row.date }}
+
+                    <b-table-column field="email" label="Email" sortable>
+                        {{ props.row.email }}
                     </b-table-column>
-                    <b-table-column field="gender" label="Gender" sortable>
-                        {{ props.row.gender }}
+
+                    <b-table-column field="roles" label="Roles">
+                        <b-taglist>
+                            <b-tag
+                                type="is-info"
+                                v-for="role in props.row.roles"
+                                :key="role"
+                                >{{ role }}</b-tag
+                            >
+                        </b-taglist>
                     </b-table-column>
+                    <!-- <b-table-column field="permissions" label="Permissions">
+                        <b-taglist>
+                            <b-tag
+                                type="is-info"
+                                v-for="permission in props.row.permissions"
+                                :key="permission"
+                                >{{ permission }}</b-tag
+                            >
+                        </b-taglist>
+                    </b-table-column> -->
+
+                    <b-table-column
+                        field="confirmed_at"
+                        label="Confirmed"
+                        sortable
+                        centered
+                    >
+                        <b-tooltip
+                            :label="
+                                props.row.confirmed_at
+                                    ? new Date(
+                                          props.row.confirmed_at
+                                      ).toLocaleDateString()
+                                    : ''
+                            "
+                        >
+                            <b-tag
+                                :type="
+                                    props.row.confirmed_at ? '' : 'is-danger'
+                                "
+                            >
+                                {{ props.row.confirmed_at ? "yes" : "no" }}
+                            </b-tag>
+                        </b-tooltip>
+                    </b-table-column>
+
+                    <b-table-column
+                        field="updated_at"
+                        label="Updated At"
+                        sortable
+                    >
+                        {{
+                            new Date(props.row.updated_at).toLocaleDateString()
+                        }}
+                    </b-table-column>
+
                     <b-table-column
                         custom-key="actions"
                         label="Actions"
@@ -163,7 +219,7 @@ export default {
             axios
                 .get(this.api.users)
                 .then(r => {
-                    this.data = r.data;
+                    this.data = r.data.data;
                     this.isLoading = false;
                 })
                 .catch(err => {
