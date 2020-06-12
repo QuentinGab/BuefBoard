@@ -1,7 +1,8 @@
-// Fonts
-
+@import "./variables";
 /* Buefy has Bulma included. So we import just that */
 @import "~buefy/src/scss/buefy-build";
+@import "./functions";
+@import "./root";
 
 .p-0 {
     padding: 0;

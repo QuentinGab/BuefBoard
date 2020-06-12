@@ -1,0 +1,15 @@
+$sizes: (
+    "gap": $gap,
+    "tablet": $tablet,
+    "desktop": $desktop,
+    "widescreen": $widescreen,
+    "fullhd": $fullhd
+);
+
+:root {
+    // Custom variable values only support SassScript inside `#{}`.
+
+    @each $size, $value in $sizes {
+        --#{$size}: #{$value};
+    }
+}

@@ -18388,6 +18388,14 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   }
 }
 
+:root {
+  --gap: 32px;
+  --tablet: 769px;
+  --desktop: 1024px;
+  --widescreen: 1216px;
+  --fullhd: 1408px;
+}
+
 .p-0 {
   padding: 0;
 }
@@ -18427,11 +18435,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   --bb-primary-light: #ebf6fe;
   --bb-info: #167df0;
   --bb-light: whitesmoke;
-  --gap: 32px;
-  --tablet: 769px;
-  --desktop: 1024px;
-  --widescreen: 1216px;
-  --fullhd: 1408px;
 }
 
 /* Theme components */

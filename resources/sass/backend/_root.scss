@@ -62,13 +62,6 @@ $colors: (
     "light": $light
 );
 
-$sizes: (
-    "gap": $gap,
-    "tablet": $tablet,
-    "desktop": $desktop,
-    "widescreen": $widescreen,
-    "fullhd": $fullhd
-);
 
 :root {
     // Custom variable values only support SassScript inside `#{}`.
@@ -76,7 +69,4 @@ $sizes: (
         --bb-#{$color}: #{$value};
     }
 
-    @each $size, $value in $sizes {
-        --#{$size}: #{$value};
-    }
 }

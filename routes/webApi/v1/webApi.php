@@ -16,6 +16,4 @@ use Illuminate\Support\Facades\Route;
 //Prefix:     api/v1
 //middleware: web
 
-Route::prefix('users')->namespace('ApiWeb')->group(function () {
-    Route::get('', 'UserController@index');
-});
+Route::apiResource('users', 'UsersController');

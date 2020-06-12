@@ -1,2 +1,9 @@
-@import './variables';
-@import '../global';
+@import "./variables";
+
+@import "../global/global";
+
+@import "./functions";
+@import "./root";
+
+/* Theme components */
+@import "./components/all";
