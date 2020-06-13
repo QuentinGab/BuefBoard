@@ -39,24 +39,9 @@ class UserTransformer extends TransformerAbstract
             'email' => $user->email,
             'created_at' => $user->created_at,
             'updated_at' => $user->updated_at,
-            'confirmed_at' => $user->confirmed_at,
+            'email_verified_at' => $user->email_verified_at,
             'roles' => $user->getRoleNames(),
             'permissions' => $user->getPermissionNames(),
         ];
     }
-
-    // /**
-    //  * Include roles.
-    //  *
-    //  * @param \App\Models\User
-    //  *
-    //  * @return \League\Fractal\ItemResource
-    //  */
-    // public function includeRoles(User $user)
-    // {
-    //     $roles = $user->getRoleNames();
-    //     return $roles;
-
-    //     return $this->collection($roles);
-    // }
 }

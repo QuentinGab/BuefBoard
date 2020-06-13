@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 use Spatie\Fractal\Fractal;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class UsersController extends Controller
 {
@@ -25,12 +27,31 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(20);
+
+        $users = QueryBuilder::for(User::class)
+                ->allowedFilters([
+                    'first_name',
+                    'last_name',
+                    AllowedFilter::exact('id'),
+                    'email',
+                    'email_verified_at',
+                    'updated_at',
+                ])
+                ->allowedSorts([
+                    'first_name',
+                    'last_name',
+                    'id',
+                    'email',
+                    'email_verified_at',
+                    'updated_at',
+                ])
+                ->defaultSort('id')
+                ->paginate(1);
+
         return fractal($users)
             ->transformWith(new UserTransformer())
-            ->parseIncludes(['roles'])
             ->respond();
     }
 

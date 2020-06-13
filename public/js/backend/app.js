@@ -201,6 +201,362 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/assertThisInitialized.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+module.exports = _assertThisInitialized;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/classCallCheck.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/classCallCheck.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+module.exports = _classCallCheck;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/createClass.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/createClass.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+module.exports = _createClass;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/getPrototypeOf.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _getPrototypeOf(o) {
+  module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+module.exports = _getPrototypeOf;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/inherits.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/inherits.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf */ "./node_modules/@babel/runtime/helpers/setPrototypeOf.js");
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) setPrototypeOf(subClass, superClass);
+}
+
+module.exports = _inherits;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+module.exports = _interopRequireDefault;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ../helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+
+var assertThisInitialized = __webpack_require__(/*! ./assertThisInitialized */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return assertThisInitialized(self);
+}
+
+module.exports = _possibleConstructorReturn;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/setPrototypeOf.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/setPrototypeOf.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _setPrototypeOf(o, p) {
+  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+module.exports = _setPrototypeOf;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles */ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit */ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest */ "./node_modules/@babel/runtime/helpers/nonIterableRest.js");
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -17993,6 +18349,836 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/qs/lib/formats.js":
+/*!****************************************!*\
+  !*** ./node_modules/qs/lib/formats.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var replace = String.prototype.replace;
+var percentTwenties = /%20/g;
+
+module.exports = {
+    'default': 'RFC3986',
+    formatters: {
+        RFC1738: function (value) {
+            return replace.call(value, percentTwenties, '+');
+        },
+        RFC3986: function (value) {
+            return value;
+        }
+    },
+    RFC1738: 'RFC1738',
+    RFC3986: 'RFC3986'
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/qs/lib/index.js":
+/*!**************************************!*\
+  !*** ./node_modules/qs/lib/index.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var stringify = __webpack_require__(/*! ./stringify */ "./node_modules/qs/lib/stringify.js");
+var parse = __webpack_require__(/*! ./parse */ "./node_modules/qs/lib/parse.js");
+var formats = __webpack_require__(/*! ./formats */ "./node_modules/qs/lib/formats.js");
+
+module.exports = {
+    formats: formats,
+    parse: parse,
+    stringify: stringify
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/qs/lib/parse.js":
+/*!**************************************!*\
+  !*** ./node_modules/qs/lib/parse.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/qs/lib/utils.js");
+
+var has = Object.prototype.hasOwnProperty;
+
+var defaults = {
+    allowDots: false,
+    allowPrototypes: false,
+    arrayLimit: 20,
+    charset: 'utf-8',
+    charsetSentinel: false,
+    comma: false,
+    decoder: utils.decode,
+    delimiter: '&',
+    depth: 5,
+    ignoreQueryPrefix: false,
+    interpretNumericEntities: false,
+    parameterLimit: 1000,
+    parseArrays: true,
+    plainObjects: false,
+    strictNullHandling: false
+};
+
+var interpretNumericEntities = function (str) {
+    return str.replace(/&#(\d+);/g, function ($0, numberStr) {
+        return String.fromCharCode(parseInt(numberStr, 10));
+    });
+};
+
+// This is what browsers will submit when the ✓ character occurs in an
+// application/x-www-form-urlencoded body and the encoding of the page containing
+// the form is iso-8859-1, or when the submitted form has an accept-charset
+// attribute of iso-8859-1. Presumably also with other charsets that do not contain
+// the ✓ character, such as us-ascii.
+var isoSentinel = 'utf8=%26%2310003%3B'; // encodeURIComponent('&#10003;')
+
+// These are the percent-encoded utf-8 octets representing a checkmark, indicating that the request actually is utf-8 encoded.
+var charsetSentinel = 'utf8=%E2%9C%93'; // encodeURIComponent('✓')
+
+var parseValues = function parseQueryStringValues(str, options) {
+    var obj = {};
+    var cleanStr = options.ignoreQueryPrefix ? str.replace(/^\?/, '') : str;
+    var limit = options.parameterLimit === Infinity ? undefined : options.parameterLimit;
+    var parts = cleanStr.split(options.delimiter, limit);
+    var skipIndex = -1; // Keep track of where the utf8 sentinel was found
+    var i;
+
+    var charset = options.charset;
+    if (options.charsetSentinel) {
+        for (i = 0; i < parts.length; ++i) {
+            if (parts[i].indexOf('utf8=') === 0) {
+                if (parts[i] === charsetSentinel) {
+                    charset = 'utf-8';
+                } else if (parts[i] === isoSentinel) {
+                    charset = 'iso-8859-1';
+                }
+                skipIndex = i;
+                i = parts.length; // The eslint settings do not allow break;
+            }
+        }
+    }
+
+    for (i = 0; i < parts.length; ++i) {
+        if (i === skipIndex) {
+            continue;
+        }
+        var part = parts[i];
+
+        var bracketEqualsPos = part.indexOf(']=');
+        var pos = bracketEqualsPos === -1 ? part.indexOf('=') : bracketEqualsPos + 1;
+
+        var key, val;
+        if (pos === -1) {
+            key = options.decoder(part, defaults.decoder, charset);
+            val = options.strictNullHandling ? null : '';
+        } else {
+            key = options.decoder(part.slice(0, pos), defaults.decoder, charset);
+            val = options.decoder(part.slice(pos + 1), defaults.decoder, charset);
+        }
+
+        if (val && options.interpretNumericEntities && charset === 'iso-8859-1') {
+            val = interpretNumericEntities(val);
+        }
+
+        if (val && options.comma && val.indexOf(',') > -1) {
+            val = val.split(',');
+        }
+
+        if (has.call(obj, key)) {
+            obj[key] = utils.combine(obj[key], val);
+        } else {
+            obj[key] = val;
+        }
+    }
+
+    return obj;
+};
+
+var parseObject = function (chain, val, options) {
+    var leaf = val;
+
+    for (var i = chain.length - 1; i >= 0; --i) {
+        var obj;
+        var root = chain[i];
+
+        if (root === '[]' && options.parseArrays) {
+            obj = [].concat(leaf);
+        } else {
+            obj = options.plainObjects ? Object.create(null) : {};
+            var cleanRoot = root.charAt(0) === '[' && root.charAt(root.length - 1) === ']' ? root.slice(1, -1) : root;
+            var index = parseInt(cleanRoot, 10);
+            if (!options.parseArrays && cleanRoot === '') {
+                obj = { 0: leaf };
+            } else if (
+                !isNaN(index)
+                && root !== cleanRoot
+                && String(index) === cleanRoot
+                && index >= 0
+                && (options.parseArrays && index <= options.arrayLimit)
+            ) {
+                obj = [];
+                obj[index] = leaf;
+            } else {
+                obj[cleanRoot] = leaf;
+            }
+        }
+
+        leaf = obj;
+    }
+
+    return leaf;
+};
+
+var parseKeys = function parseQueryStringKeys(givenKey, val, options) {
+    if (!givenKey) {
+        return;
+    }
+
+    // Transform dot notation to bracket notation
+    var key = options.allowDots ? givenKey.replace(/\.([^.[]+)/g, '[$1]') : givenKey;
+
+    // The regex chunks
+
+    var brackets = /(\[[^[\]]*])/;
+    var child = /(\[[^[\]]*])/g;
+
+    // Get the parent
+
+    var segment = brackets.exec(key);
+    var parent = segment ? key.slice(0, segment.index) : key;
+
+    // Stash the parent if it exists
+
+    var keys = [];
+    if (parent) {
+        // If we aren't using plain objects, optionally prefix keys that would overwrite object prototype properties
+        if (!options.plainObjects && has.call(Object.prototype, parent)) {
+            if (!options.allowPrototypes) {
+                return;
+            }
+        }
+
+        keys.push(parent);
+    }
+
+    // Loop through children appending to the array until we hit depth
+
+    var i = 0;
+    while ((segment = child.exec(key)) !== null && i < options.depth) {
+        i += 1;
+        if (!options.plainObjects && has.call(Object.prototype, segment[1].slice(1, -1))) {
+            if (!options.allowPrototypes) {
+                return;
+            }
+        }
+        keys.push(segment[1]);
+    }
+
+    // If there's a remainder, just add whatever is left
+
+    if (segment) {
+        keys.push('[' + key.slice(segment.index) + ']');
+    }
+
+    return parseObject(keys, val, options);
+};
+
+var normalizeParseOptions = function normalizeParseOptions(opts) {
+    if (!opts) {
+        return defaults;
+    }
+
+    if (opts.decoder !== null && opts.decoder !== undefined && typeof opts.decoder !== 'function') {
+        throw new TypeError('Decoder has to be a function.');
+    }
+
+    if (typeof opts.charset !== 'undefined' && opts.charset !== 'utf-8' && opts.charset !== 'iso-8859-1') {
+        throw new Error('The charset option must be either utf-8, iso-8859-1, or undefined');
+    }
+    var charset = typeof opts.charset === 'undefined' ? defaults.charset : opts.charset;
+
+    return {
+        allowDots: typeof opts.allowDots === 'undefined' ? defaults.allowDots : !!opts.allowDots,
+        allowPrototypes: typeof opts.allowPrototypes === 'boolean' ? opts.allowPrototypes : defaults.allowPrototypes,
+        arrayLimit: typeof opts.arrayLimit === 'number' ? opts.arrayLimit : defaults.arrayLimit,
+        charset: charset,
+        charsetSentinel: typeof opts.charsetSentinel === 'boolean' ? opts.charsetSentinel : defaults.charsetSentinel,
+        comma: typeof opts.comma === 'boolean' ? opts.comma : defaults.comma,
+        decoder: typeof opts.decoder === 'function' ? opts.decoder : defaults.decoder,
+        delimiter: typeof opts.delimiter === 'string' || utils.isRegExp(opts.delimiter) ? opts.delimiter : defaults.delimiter,
+        depth: typeof opts.depth === 'number' ? opts.depth : defaults.depth,
+        ignoreQueryPrefix: opts.ignoreQueryPrefix === true,
+        interpretNumericEntities: typeof opts.interpretNumericEntities === 'boolean' ? opts.interpretNumericEntities : defaults.interpretNumericEntities,
+        parameterLimit: typeof opts.parameterLimit === 'number' ? opts.parameterLimit : defaults.parameterLimit,
+        parseArrays: opts.parseArrays !== false,
+        plainObjects: typeof opts.plainObjects === 'boolean' ? opts.plainObjects : defaults.plainObjects,
+        strictNullHandling: typeof opts.strictNullHandling === 'boolean' ? opts.strictNullHandling : defaults.strictNullHandling
+    };
+};
+
+module.exports = function (str, opts) {
+    var options = normalizeParseOptions(opts);
+
+    if (str === '' || str === null || typeof str === 'undefined') {
+        return options.plainObjects ? Object.create(null) : {};
+    }
+
+    var tempObj = typeof str === 'string' ? parseValues(str, options) : str;
+    var obj = options.plainObjects ? Object.create(null) : {};
+
+    // Iterate over the keys and setup the new object
+
+    var keys = Object.keys(tempObj);
+    for (var i = 0; i < keys.length; ++i) {
+        var key = keys[i];
+        var newObj = parseKeys(key, tempObj[key], options);
+        obj = utils.merge(obj, newObj, options);
+    }
+
+    return utils.compact(obj);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/qs/lib/stringify.js":
+/*!******************************************!*\
+  !*** ./node_modules/qs/lib/stringify.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/qs/lib/utils.js");
+var formats = __webpack_require__(/*! ./formats */ "./node_modules/qs/lib/formats.js");
+var has = Object.prototype.hasOwnProperty;
+
+var arrayPrefixGenerators = {
+    brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
+        return prefix + '[]';
+    },
+    comma: 'comma',
+    indices: function indices(prefix, key) { // eslint-disable-line func-name-matching
+        return prefix + '[' + key + ']';
+    },
+    repeat: function repeat(prefix) { // eslint-disable-line func-name-matching
+        return prefix;
+    }
+};
+
+var isArray = Array.isArray;
+var push = Array.prototype.push;
+var pushToArray = function (arr, valueOrArray) {
+    push.apply(arr, isArray(valueOrArray) ? valueOrArray : [valueOrArray]);
+};
+
+var toISO = Date.prototype.toISOString;
+
+var defaults = {
+    addQueryPrefix: false,
+    allowDots: false,
+    charset: 'utf-8',
+    charsetSentinel: false,
+    delimiter: '&',
+    encode: true,
+    encoder: utils.encode,
+    encodeValuesOnly: false,
+    formatter: formats.formatters[formats['default']],
+    // deprecated
+    indices: false,
+    serializeDate: function serializeDate(date) { // eslint-disable-line func-name-matching
+        return toISO.call(date);
+    },
+    skipNulls: false,
+    strictNullHandling: false
+};
+
+var stringify = function stringify( // eslint-disable-line func-name-matching
+    object,
+    prefix,
+    generateArrayPrefix,
+    strictNullHandling,
+    skipNulls,
+    encoder,
+    filter,
+    sort,
+    allowDots,
+    serializeDate,
+    formatter,
+    encodeValuesOnly,
+    charset
+) {
+    var obj = object;
+    if (typeof filter === 'function') {
+        obj = filter(prefix, obj);
+    } else if (obj instanceof Date) {
+        obj = serializeDate(obj);
+    } else if (generateArrayPrefix === 'comma' && isArray(obj)) {
+        obj = obj.join(',');
+    }
+
+    if (obj === null) {
+        if (strictNullHandling) {
+            return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder, charset) : prefix;
+        }
+
+        obj = '';
+    }
+
+    if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean' || utils.isBuffer(obj)) {
+        if (encoder) {
+            var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder, charset);
+            return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults.encoder, charset))];
+        }
+        return [formatter(prefix) + '=' + formatter(String(obj))];
+    }
+
+    var values = [];
+
+    if (typeof obj === 'undefined') {
+        return values;
+    }
+
+    var objKeys;
+    if (isArray(filter)) {
+        objKeys = filter;
+    } else {
+        var keys = Object.keys(obj);
+        objKeys = sort ? keys.sort(sort) : keys;
+    }
+
+    for (var i = 0; i < objKeys.length; ++i) {
+        var key = objKeys[i];
+
+        if (skipNulls && obj[key] === null) {
+            continue;
+        }
+
+        if (isArray(obj)) {
+            pushToArray(values, stringify(
+                obj[key],
+                typeof generateArrayPrefix === 'function' ? generateArrayPrefix(prefix, key) : prefix,
+                generateArrayPrefix,
+                strictNullHandling,
+                skipNulls,
+                encoder,
+                filter,
+                sort,
+                allowDots,
+                serializeDate,
+                formatter,
+                encodeValuesOnly,
+                charset
+            ));
+        } else {
+            pushToArray(values, stringify(
+                obj[key],
+                prefix + (allowDots ? '.' + key : '[' + key + ']'),
+                generateArrayPrefix,
+                strictNullHandling,
+                skipNulls,
+                encoder,
+                filter,
+                sort,
+                allowDots,
+                serializeDate,
+                formatter,
+                encodeValuesOnly,
+                charset
+            ));
+        }
+    }
+
+    return values;
+};
+
+var normalizeStringifyOptions = function normalizeStringifyOptions(opts) {
+    if (!opts) {
+        return defaults;
+    }
+
+    if (opts.encoder !== null && opts.encoder !== undefined && typeof opts.encoder !== 'function') {
+        throw new TypeError('Encoder has to be a function.');
+    }
+
+    var charset = opts.charset || defaults.charset;
+    if (typeof opts.charset !== 'undefined' && opts.charset !== 'utf-8' && opts.charset !== 'iso-8859-1') {
+        throw new TypeError('The charset option must be either utf-8, iso-8859-1, or undefined');
+    }
+
+    var format = formats['default'];
+    if (typeof opts.format !== 'undefined') {
+        if (!has.call(formats.formatters, opts.format)) {
+            throw new TypeError('Unknown format option provided.');
+        }
+        format = opts.format;
+    }
+    var formatter = formats.formatters[format];
+
+    var filter = defaults.filter;
+    if (typeof opts.filter === 'function' || isArray(opts.filter)) {
+        filter = opts.filter;
+    }
+
+    return {
+        addQueryPrefix: typeof opts.addQueryPrefix === 'boolean' ? opts.addQueryPrefix : defaults.addQueryPrefix,
+        allowDots: typeof opts.allowDots === 'undefined' ? defaults.allowDots : !!opts.allowDots,
+        charset: charset,
+        charsetSentinel: typeof opts.charsetSentinel === 'boolean' ? opts.charsetSentinel : defaults.charsetSentinel,
+        delimiter: typeof opts.delimiter === 'undefined' ? defaults.delimiter : opts.delimiter,
+        encode: typeof opts.encode === 'boolean' ? opts.encode : defaults.encode,
+        encoder: typeof opts.encoder === 'function' ? opts.encoder : defaults.encoder,
+        encodeValuesOnly: typeof opts.encodeValuesOnly === 'boolean' ? opts.encodeValuesOnly : defaults.encodeValuesOnly,
+        filter: filter,
+        formatter: formatter,
+        serializeDate: typeof opts.serializeDate === 'function' ? opts.serializeDate : defaults.serializeDate,
+        skipNulls: typeof opts.skipNulls === 'boolean' ? opts.skipNulls : defaults.skipNulls,
+        sort: typeof opts.sort === 'function' ? opts.sort : null,
+        strictNullHandling: typeof opts.strictNullHandling === 'boolean' ? opts.strictNullHandling : defaults.strictNullHandling
+    };
+};
+
+module.exports = function (object, opts) {
+    var obj = object;
+    var options = normalizeStringifyOptions(opts);
+
+    var objKeys;
+    var filter;
+
+    if (typeof options.filter === 'function') {
+        filter = options.filter;
+        obj = filter('', obj);
+    } else if (isArray(options.filter)) {
+        filter = options.filter;
+        objKeys = filter;
+    }
+
+    var keys = [];
+
+    if (typeof obj !== 'object' || obj === null) {
+        return '';
+    }
+
+    var arrayFormat;
+    if (opts && opts.arrayFormat in arrayPrefixGenerators) {
+        arrayFormat = opts.arrayFormat;
+    } else if (opts && 'indices' in opts) {
+        arrayFormat = opts.indices ? 'indices' : 'repeat';
+    } else {
+        arrayFormat = 'indices';
+    }
+
+    var generateArrayPrefix = arrayPrefixGenerators[arrayFormat];
+
+    if (!objKeys) {
+        objKeys = Object.keys(obj);
+    }
+
+    if (options.sort) {
+        objKeys.sort(options.sort);
+    }
+
+    for (var i = 0; i < objKeys.length; ++i) {
+        var key = objKeys[i];
+
+        if (options.skipNulls && obj[key] === null) {
+            continue;
+        }
+        pushToArray(keys, stringify(
+            obj[key],
+            key,
+            generateArrayPrefix,
+            options.strictNullHandling,
+            options.skipNulls,
+            options.encode ? options.encoder : null,
+            options.filter,
+            options.sort,
+            options.allowDots,
+            options.serializeDate,
+            options.formatter,
+            options.encodeValuesOnly,
+            options.charset
+        ));
+    }
+
+    var joined = keys.join(options.delimiter);
+    var prefix = options.addQueryPrefix === true ? '?' : '';
+
+    if (options.charsetSentinel) {
+        if (options.charset === 'iso-8859-1') {
+            // encodeURIComponent('&#10003;'), the "numeric entity" representation of a checkmark
+            prefix += 'utf8=%26%2310003%3B&';
+        } else {
+            // encodeURIComponent('✓')
+            prefix += 'utf8=%E2%9C%93&';
+        }
+    }
+
+    return joined.length > 0 ? prefix + joined : '';
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/qs/lib/utils.js":
+/*!**************************************!*\
+  !*** ./node_modules/qs/lib/utils.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var has = Object.prototype.hasOwnProperty;
+var isArray = Array.isArray;
+
+var hexTable = (function () {
+    var array = [];
+    for (var i = 0; i < 256; ++i) {
+        array.push('%' + ((i < 16 ? '0' : '') + i.toString(16)).toUpperCase());
+    }
+
+    return array;
+}());
+
+var compactQueue = function compactQueue(queue) {
+    while (queue.length > 1) {
+        var item = queue.pop();
+        var obj = item.obj[item.prop];
+
+        if (isArray(obj)) {
+            var compacted = [];
+
+            for (var j = 0; j < obj.length; ++j) {
+                if (typeof obj[j] !== 'undefined') {
+                    compacted.push(obj[j]);
+                }
+            }
+
+            item.obj[item.prop] = compacted;
+        }
+    }
+};
+
+var arrayToObject = function arrayToObject(source, options) {
+    var obj = options && options.plainObjects ? Object.create(null) : {};
+    for (var i = 0; i < source.length; ++i) {
+        if (typeof source[i] !== 'undefined') {
+            obj[i] = source[i];
+        }
+    }
+
+    return obj;
+};
+
+var merge = function merge(target, source, options) {
+    if (!source) {
+        return target;
+    }
+
+    if (typeof source !== 'object') {
+        if (isArray(target)) {
+            target.push(source);
+        } else if (target && typeof target === 'object') {
+            if ((options && (options.plainObjects || options.allowPrototypes)) || !has.call(Object.prototype, source)) {
+                target[source] = true;
+            }
+        } else {
+            return [target, source];
+        }
+
+        return target;
+    }
+
+    if (!target || typeof target !== 'object') {
+        return [target].concat(source);
+    }
+
+    var mergeTarget = target;
+    if (isArray(target) && !isArray(source)) {
+        mergeTarget = arrayToObject(target, options);
+    }
+
+    if (isArray(target) && isArray(source)) {
+        source.forEach(function (item, i) {
+            if (has.call(target, i)) {
+                var targetItem = target[i];
+                if (targetItem && typeof targetItem === 'object' && item && typeof item === 'object') {
+                    target[i] = merge(targetItem, item, options);
+                } else {
+                    target.push(item);
+                }
+            } else {
+                target[i] = item;
+            }
+        });
+        return target;
+    }
+
+    return Object.keys(source).reduce(function (acc, key) {
+        var value = source[key];
+
+        if (has.call(acc, key)) {
+            acc[key] = merge(acc[key], value, options);
+        } else {
+            acc[key] = value;
+        }
+        return acc;
+    }, mergeTarget);
+};
+
+var assign = function assignSingleSource(target, source) {
+    return Object.keys(source).reduce(function (acc, key) {
+        acc[key] = source[key];
+        return acc;
+    }, target);
+};
+
+var decode = function (str, decoder, charset) {
+    var strWithoutPlus = str.replace(/\+/g, ' ');
+    if (charset === 'iso-8859-1') {
+        // unescape never throws, no try...catch needed:
+        return strWithoutPlus.replace(/%[0-9a-f]{2}/gi, unescape);
+    }
+    // utf-8
+    try {
+        return decodeURIComponent(strWithoutPlus);
+    } catch (e) {
+        return strWithoutPlus;
+    }
+};
+
+var encode = function encode(str, defaultEncoder, charset) {
+    // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
+    // It has been adapted here for stricter adherence to RFC 3986
+    if (str.length === 0) {
+        return str;
+    }
+
+    var string = typeof str === 'string' ? str : String(str);
+
+    if (charset === 'iso-8859-1') {
+        return escape(string).replace(/%u[0-9a-f]{4}/gi, function ($0) {
+            return '%26%23' + parseInt($0.slice(2), 16) + '%3B';
+        });
+    }
+
+    var out = '';
+    for (var i = 0; i < string.length; ++i) {
+        var c = string.charCodeAt(i);
+
+        if (
+            c === 0x2D // -
+            || c === 0x2E // .
+            || c === 0x5F // _
+            || c === 0x7E // ~
+            || (c >= 0x30 && c <= 0x39) // 0-9
+            || (c >= 0x41 && c <= 0x5A) // a-z
+            || (c >= 0x61 && c <= 0x7A) // A-Z
+        ) {
+            out += string.charAt(i);
+            continue;
+        }
+
+        if (c < 0x80) {
+            out = out + hexTable[c];
+            continue;
+        }
+
+        if (c < 0x800) {
+            out = out + (hexTable[0xC0 | (c >> 6)] + hexTable[0x80 | (c & 0x3F)]);
+            continue;
+        }
+
+        if (c < 0xD800 || c >= 0xE000) {
+            out = out + (hexTable[0xE0 | (c >> 12)] + hexTable[0x80 | ((c >> 6) & 0x3F)] + hexTable[0x80 | (c & 0x3F)]);
+            continue;
+        }
+
+        i += 1;
+        c = 0x10000 + (((c & 0x3FF) << 10) | (string.charCodeAt(i) & 0x3FF));
+        out += hexTable[0xF0 | (c >> 18)]
+            + hexTable[0x80 | ((c >> 12) & 0x3F)]
+            + hexTable[0x80 | ((c >> 6) & 0x3F)]
+            + hexTable[0x80 | (c & 0x3F)];
+    }
+
+    return out;
+};
+
+var compact = function compact(value) {
+    var queue = [{ obj: { o: value }, prop: 'o' }];
+    var refs = [];
+
+    for (var i = 0; i < queue.length; ++i) {
+        var item = queue[i];
+        var obj = item.obj[item.prop];
+
+        var keys = Object.keys(obj);
+        for (var j = 0; j < keys.length; ++j) {
+            var key = keys[j];
+            var val = obj[key];
+            if (typeof val === 'object' && val !== null && refs.indexOf(val) === -1) {
+                queue.push({ obj: obj, prop: key });
+                refs.push(val);
+            }
+        }
+    }
+
+    compactQueue(queue);
+
+    return value;
+};
+
+var isRegExp = function isRegExp(obj) {
+    return Object.prototype.toString.call(obj) === '[object RegExp]';
+};
+
+var isBuffer = function isBuffer(obj) {
+    if (!obj || typeof obj !== 'object') {
+        return false;
+    }
+
+    return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
+};
+
+var combine = function combine(a, b) {
+    return [].concat(a, b);
+};
+
+module.exports = {
+    arrayToObject: arrayToObject,
+    assign: assign,
+    combine: combine,
+    compact: compact,
+    decode: decode,
+    encode: encode,
+    isBuffer: isBuffer,
+    isRegExp: isRegExp,
+    merge: merge
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/setimmediate/setImmediate.js":
 /*!***************************************************!*\
   !*** ./node_modules/setimmediate/setImmediate.js ***!
@@ -18772,6 +19958,1050 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (this && this.clearImmediate);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vue-api-query/build/Builder.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/vue-api-query/build/Builder.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js"));
+
+var _Parser = _interopRequireDefault(__webpack_require__(/*! ./Parser */ "./node_modules/vue-api-query/build/Parser.js"));
+
+/**
+ * Prepare attributes to be parsed
+ */
+var Builder = /*#__PURE__*/function () {
+  function Builder(model) {
+    (0, _classCallCheck2["default"])(this, Builder);
+    this.model = model;
+    this.includes = [];
+    this.appends = [];
+    this.sorts = [];
+    this.pageValue = null;
+    this.limitValue = null;
+    this.payload = null;
+    this.fields = {};
+    this.filters = {};
+    this.parser = new _Parser["default"](this);
+  } // query string parsed 
+
+
+  (0, _createClass2["default"])(Builder, [{
+    key: "query",
+    value: function query() {
+      return this.parser.query();
+    }
+    /**
+     * Query builder
+     */
+
+  }, {
+    key: "include",
+    value: function include() {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      this.includes = args;
+      return this;
+    }
+  }, {
+    key: "append",
+    value: function append() {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      this.appends = args;
+      return this;
+    }
+  }, {
+    key: "select",
+    value: function select() {
+      var _this = this;
+
+      for (var _len3 = arguments.length, fields = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        fields[_key3] = arguments[_key3];
+      }
+
+      if (fields.length === 0) {
+        throw new Error('You must specify the fields on select() method.');
+      } // single entity .select(['age', 'firstname'])
+
+
+      if (fields[0].constructor === String || Array.isArray(fields[0])) {
+        this.fields[this.model.resource()] = fields.join(',');
+      } // related entities .select({ posts: ['title', 'content'], user: ['age', 'firstname']} )
+
+
+      if (fields[0].constructor === Object) {
+        Object.entries(fields[0]).forEach(function (_ref) {
+          var _ref2 = (0, _slicedToArray2["default"])(_ref, 2),
+              key = _ref2[0],
+              value = _ref2[1];
+
+          _this.fields[key] = value.join(',');
+        });
+      }
+
+      return this;
+    }
+  }, {
+    key: "where",
+    value: function where(key, value) {
+      if (key === undefined || value === undefined) throw new Error('The KEY and VALUE are required on where() method.');
+      if (Array.isArray(value) || value instanceof Object) throw new Error('The VALUE must be primitive on where() method.');
+      this.filters[key] = value;
+      return this;
+    }
+  }, {
+    key: "whereIn",
+    value: function whereIn(key, array) {
+      if (!Array.isArray(array)) throw new Error('The second argument on whereIn() method must be an array.');
+      this.filters[key] = array.join(',');
+      return this;
+    }
+  }, {
+    key: "orderBy",
+    value: function orderBy() {
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
+      }
+
+      this.sorts = args;
+      return this;
+    }
+  }, {
+    key: "page",
+    value: function page(value) {
+      if (!Number.isInteger(value)) {
+        throw new Error('The VALUE must be an integer on page() method.');
+      }
+
+      this.pageValue = value;
+      return this;
+    }
+  }, {
+    key: "limit",
+    value: function limit(value) {
+      if (!Number.isInteger(value)) {
+        throw new Error('The VALUE must be an integer on limit() method.');
+      }
+
+      this.limitValue = value;
+      return this;
+    }
+  }, {
+    key: "params",
+    value: function params(payload) {
+      if (payload === undefined || payload.constructor !== Object) {
+        throw new Error('You must pass a payload/object as param.');
+      }
+
+      this.payload = payload;
+      return this;
+    }
+  }]);
+  return Builder;
+}();
+
+exports["default"] = Builder;
+
+/***/ }),
+
+/***/ "./node_modules/vue-api-query/build/Model.js":
+/*!***************************************************!*\
+  !*** ./node_modules/vue-api-query/build/Model.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js"));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js"));
+
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js"));
+
+var _Builder = _interopRequireDefault(__webpack_require__(/*! ./Builder */ "./node_modules/vue-api-query/build/Builder.js"));
+
+var _StaticModel2 = _interopRequireDefault(__webpack_require__(/*! ./StaticModel */ "./node_modules/vue-api-query/build/StaticModel.js"));
+
+function _createSuper(Derived) { return function () { var Super = (0, _getPrototypeOf2["default"])(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = (0, _getPrototypeOf2["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2["default"])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+var Model = /*#__PURE__*/function (_StaticModel) {
+  (0, _inherits2["default"])(Model, _StaticModel);
+
+  var _super = _createSuper(Model);
+
+  function Model() {
+    var _this;
+
+    (0, _classCallCheck2["default"])(this, Model);
+    _this = _super.call(this);
+
+    for (var _len = arguments.length, attributes = new Array(_len), _key = 0; _key < _len; _key++) {
+      attributes[_key] = arguments[_key];
+    }
+
+    if (attributes.length === 0) {
+      _this._builder = new _Builder["default"]((0, _assertThisInitialized2["default"])(_this));
+    } else {
+      Object.assign.apply(Object, [(0, _assertThisInitialized2["default"])(_this)].concat(attributes));
+    }
+
+    if (_this.baseURL === undefined) {
+      throw new Error('You must declare baseURL() method.');
+    }
+
+    if (_this.request === undefined) {
+      throw new Error('You must declare request() method.');
+    }
+
+    if (_this.$http === undefined) {
+      throw new Error('You must set $http property');
+    }
+
+    return _this;
+  }
+  /**
+   *  Setup
+   */
+
+
+  (0, _createClass2["default"])(Model, [{
+    key: "resource",
+    value: function resource() {
+      return "".concat(this.constructor.name.toLowerCase(), "s");
+    }
+  }, {
+    key: "primaryKey",
+    value: function primaryKey() {
+      return 'id';
+    }
+  }, {
+    key: "getPrimaryKey",
+    value: function getPrimaryKey() {
+      return this[this.primaryKey()];
+    }
+  }, {
+    key: "custom",
+    value: function custom() {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      if (args.length === 0) {
+        throw new Error('The custom() method takes a minimum of one argument.');
+      } // It would be unintuitive for users to manage where the '/' has to be for
+      // multiple arguments. We don't need it for the first argument if it's
+      // a string, but subsequent string arguments need the '/' at the beginning.
+      // We handle this implementation detail here to simplify the readme.
+
+
+      var slash = '';
+      var resource = '';
+      args.forEach(function (value) {
+        switch (true) {
+          case typeof value === 'string':
+            resource += slash + value.replace(/^\/+/, '');
+            break;
+
+          case value instanceof Model:
+            resource += slash + value.resource();
+
+            if (value.isValidId(value.getPrimaryKey())) {
+              resource += '/' + value.getPrimaryKey();
+            }
+
+            break;
+
+          default:
+            throw new Error('Arguments to custom() must be strings or instances of Model.');
+        }
+
+        if (!slash.length) {
+          slash = '/';
+        }
+      });
+      this._customResource = resource;
+      return this;
+    }
+  }, {
+    key: "hasMany",
+    value: function hasMany(model) {
+      var instance = new model();
+      var url = "".concat(this.baseURL(), "/").concat(this.resource(), "/").concat(this.getPrimaryKey(), "/").concat(instance.resource());
+
+      instance._from(url);
+
+      return instance;
+    }
+  }, {
+    key: "_from",
+    value: function _from(url) {
+      Object.defineProperty(this, '_fromResource', {
+        get: function get() {
+          return url;
+        }
+      });
+    }
+  }, {
+    key: "for",
+    value: function _for() {
+      var _this2 = this;
+
+      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+
+      if (args.length === 0) {
+        throw new Error('The for() method takes a minimum of one argument.');
+      }
+
+      var url = "".concat(this.baseURL());
+      args.forEach(function (object) {
+        if (object instanceof Model === false) {
+          throw new Error('The object referenced on for() method is not a valid Model.');
+        }
+
+        if (!_this2.isValidId(object.getPrimaryKey())) {
+          throw new Error('The object referenced on for() method has a invalid id.');
+        }
+
+        url += "/".concat(object.resource(), "/").concat(object.getPrimaryKey());
+      });
+      url += "/".concat(this.resource());
+
+      this._from(url);
+
+      return this;
+    }
+    /**
+     * Helpers
+     */
+
+  }, {
+    key: "hasId",
+    value: function hasId() {
+      var id = this.getPrimaryKey();
+      return this.isValidId(id);
+    }
+  }, {
+    key: "isValidId",
+    value: function isValidId(id) {
+      return id !== undefined && id !== 0 && id !== '';
+    }
+  }, {
+    key: "endpoint",
+    value: function endpoint() {
+      if (this._fromResource) {
+        if (this.hasId()) {
+          return "".concat(this._fromResource, "/").concat(this.getPrimaryKey());
+        } else {
+          return this._fromResource;
+        }
+      }
+
+      if (this.hasId()) {
+        return "".concat(this.baseURL(), "/").concat(this.resource(), "/").concat(this.getPrimaryKey());
+      } else {
+        return "".concat(this.baseURL(), "/").concat(this.resource());
+      }
+    }
+  }, {
+    key: "parameterNames",
+    value: function parameterNames() {
+      return {
+        include: 'include',
+        filter: 'filter',
+        sort: 'sort',
+        fields: 'fields',
+        append: 'append',
+        page: 'page',
+        limit: 'limit'
+      };
+    }
+    /**
+     *  Query
+     */
+
+  }, {
+    key: "include",
+    value: function include() {
+      var _this$_builder;
+
+      (_this$_builder = this._builder).include.apply(_this$_builder, arguments);
+
+      return this;
+    }
+  }, {
+    key: "append",
+    value: function append() {
+      var _this$_builder2;
+
+      (_this$_builder2 = this._builder).append.apply(_this$_builder2, arguments);
+
+      return this;
+    }
+  }, {
+    key: "select",
+    value: function select() {
+      var _this$_builder3;
+
+      (_this$_builder3 = this._builder).select.apply(_this$_builder3, arguments);
+
+      return this;
+    }
+  }, {
+    key: "where",
+    value: function where(field, value) {
+      this._builder.where(field, value);
+
+      return this;
+    }
+  }, {
+    key: "whereIn",
+    value: function whereIn(field, array) {
+      this._builder.whereIn(field, array);
+
+      return this;
+    }
+  }, {
+    key: "orderBy",
+    value: function orderBy() {
+      var _this$_builder4;
+
+      (_this$_builder4 = this._builder).orderBy.apply(_this$_builder4, arguments);
+
+      return this;
+    }
+  }, {
+    key: "page",
+    value: function page(value) {
+      this._builder.page(value);
+
+      return this;
+    }
+  }, {
+    key: "limit",
+    value: function limit(value) {
+      this._builder.limit(value);
+
+      return this;
+    }
+  }, {
+    key: "params",
+    value: function params(payload) {
+      this._builder.params(payload);
+
+      return this;
+    }
+    /**
+     * Result
+     */
+
+  }, {
+    key: "first",
+    value: function first() {
+      return this.get().then(function (response) {
+        var item;
+
+        if (response.data) {
+          item = response.data[0];
+        } else {
+          item = response[0];
+        }
+
+        return item || {};
+      });
+    }
+  }, {
+    key: "$first",
+    value: function $first() {
+      return this.first().then(function (response) {
+        return response.data || response;
+      });
+    }
+  }, {
+    key: "find",
+    value: function find(identifier) {
+      var _this3 = this;
+
+      if (identifier === undefined) {
+        throw new Error('You must specify the param on find() method.');
+      }
+
+      var base = this._fromResource || "".concat(this.baseURL(), "/").concat(this.resource());
+      var url = "".concat(base, "/").concat(identifier).concat(this._builder.query());
+      return this.request({
+        url: url,
+        method: 'GET'
+      }).then(function (response) {
+        var item = new _this3.constructor(response.data);
+
+        if (_this3._fromResource) {
+          item._from(_this3._fromResource);
+        }
+
+        return item;
+      });
+    }
+  }, {
+    key: "$find",
+    value: function $find(identifier) {
+      var _this4 = this;
+
+      if (identifier === undefined) {
+        throw new Error('You must specify the param on $find() method.');
+      }
+
+      return this.find(identifier).then(function (response) {
+        return new _this4.constructor(response.data || response);
+      });
+    }
+  }, {
+    key: "get",
+    value: function get() {
+      var _this5 = this;
+
+      var base = this._fromResource || "".concat(this.baseURL(), "/").concat(this.resource());
+      base = this._customResource ? "".concat(this.baseURL(), "/").concat(this._customResource) : base;
+      var url = "".concat(base).concat(this._builder.query());
+      return this.request({
+        url: url,
+        method: 'GET'
+      }).then(function (response) {
+        var collection = response.data.data || response.data;
+        collection = Array.isArray(collection) ? collection : [collection];
+        collection = collection.map(function (c) {
+          var item = new _this5.constructor(c);
+
+          if (_this5._fromResource) {
+            item._from(_this5._fromResource);
+          }
+
+          return item;
+        });
+
+        if (response.data.data !== undefined) {
+          response.data.data = collection;
+        } else {
+          response.data = collection;
+        }
+
+        return response.data;
+      });
+    }
+  }, {
+    key: "$get",
+    value: function $get() {
+      return this.get().then(function (response) {
+        return response.data || response;
+      });
+    }
+    /**
+     * Common CRUD operations
+     */
+
+  }, {
+    key: "delete",
+    value: function _delete() {
+      if (!this.hasId()) {
+        throw new Error('This model has a empty ID.');
+      }
+
+      return this.request({
+        url: this.endpoint(),
+        method: 'DELETE'
+      }).then(function (response) {
+        return response;
+      });
+    }
+  }, {
+    key: "save",
+    value: function save() {
+      return this.hasId() ? this._update() : this._create();
+    }
+  }, {
+    key: "_create",
+    value: function _create() {
+      var _this6 = this;
+
+      return this.request({
+        method: 'POST',
+        url: this.endpoint(),
+        data: this
+      }).then(function (response) {
+        var self = Object.assign(_this6, response.data);
+        return self;
+      });
+    }
+  }, {
+    key: "_update",
+    value: function _update() {
+      var _this7 = this;
+
+      return this.request({
+        method: 'PUT',
+        url: this.endpoint(),
+        data: this
+      }).then(function (response) {
+        var self = Object.assign(_this7, response.data);
+        return self;
+      });
+    }
+    /**
+     * Relationship operations
+     */
+
+  }, {
+    key: "attach",
+    value: function attach(params) {
+      return this.request({
+        method: 'POST',
+        url: this.endpoint(),
+        data: params
+      }).then(function (response) {
+        return response;
+      });
+    }
+  }, {
+    key: "sync",
+    value: function sync(params) {
+      return this.request({
+        method: 'PUT',
+        url: this.endpoint(),
+        data: params
+      }).then(function (response) {
+        return response;
+      });
+    }
+  }, {
+    key: "$http",
+    get: function get() {
+      return Model.$http;
+    }
+  }]);
+  return Model;
+}(_StaticModel2["default"]);
+
+exports["default"] = Model;
+
+/***/ }),
+
+/***/ "./node_modules/vue-api-query/build/Parser.js":
+/*!****************************************************!*\
+  !*** ./node_modules/vue-api-query/build/Parser.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js"));
+
+var _qs = _interopRequireDefault(__webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js"));
+
+/**
+ * Parse attributes from Builder into query string
+ */
+var Parser = /*#__PURE__*/function () {
+  function Parser(builder) {
+    (0, _classCallCheck2["default"])(this, Parser);
+    this.builder = builder;
+    this.uri = '';
+  } // final query string
+
+
+  (0, _createClass2["default"])(Parser, [{
+    key: "query",
+    value: function query() {
+      this.reset();
+      this.includes();
+      this.appends();
+      this.fields();
+      this.filters();
+      this.sorts();
+      this.page();
+      this.limit();
+      this.payload();
+      return this.uri;
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      this.uri = '';
+    }
+    /**
+     * Helpers
+     */
+
+  }, {
+    key: "hasIncludes",
+    value: function hasIncludes() {
+      return this.builder.includes.length > 0;
+    }
+  }, {
+    key: "hasAppends",
+    value: function hasAppends() {
+      return this.builder.appends.length > 0;
+    }
+  }, {
+    key: "hasFields",
+    value: function hasFields() {
+      return Object.keys(this.builder.fields).length > 0;
+    }
+  }, {
+    key: "hasFilters",
+    value: function hasFilters() {
+      return Object.keys(this.builder.filters).length > 0;
+    }
+  }, {
+    key: "hasSorts",
+    value: function hasSorts() {
+      return this.builder.sorts.length > 0;
+    }
+  }, {
+    key: "hasPage",
+    value: function hasPage() {
+      return this.builder.pageValue !== null;
+    }
+  }, {
+    key: "hasLimit",
+    value: function hasLimit() {
+      return this.builder.limitValue !== null;
+    }
+  }, {
+    key: "hasPayload",
+    value: function hasPayload() {
+      return this.builder.payload !== null;
+    }
+  }, {
+    key: "prepend",
+    value: function prepend() {
+      return this.uri === '' ? '?' : '&';
+    }
+  }, {
+    key: "parameterNames",
+    value: function parameterNames() {
+      return this.builder.model.parameterNames();
+    }
+    /**
+     * Parsers
+     */
+
+  }, {
+    key: "includes",
+    value: function includes() {
+      if (!this.hasIncludes()) {
+        return;
+      }
+
+      this.uri += this.prepend() + this.parameterNames().include + '=' + this.builder.includes;
+    }
+  }, {
+    key: "appends",
+    value: function appends() {
+      if (!this.hasAppends()) {
+        return;
+      }
+
+      this.uri += this.prepend() + this.parameterNames().append + '=' + this.builder.appends;
+    }
+  }, {
+    key: "fields",
+    value: function fields() {
+      if (!this.hasFields()) {
+        return;
+      }
+
+      var fields = (0, _defineProperty2["default"])({}, this.parameterNames().fields, this.builder.fields);
+      this.uri += this.prepend() + _qs["default"].stringify(fields, {
+        encode: false
+      });
+    }
+  }, {
+    key: "filters",
+    value: function filters() {
+      if (!this.hasFilters()) {
+        return;
+      }
+
+      var filters = (0, _defineProperty2["default"])({}, this.parameterNames().filter, this.builder.filters);
+      this.uri += this.prepend() + _qs["default"].stringify(filters, {
+        encode: false
+      });
+    }
+  }, {
+    key: "sorts",
+    value: function sorts() {
+      if (!this.hasSorts()) {
+        return;
+      }
+
+      this.uri += this.prepend() + this.parameterNames().sort + '=' + this.builder.sorts;
+    }
+  }, {
+    key: "page",
+    value: function page() {
+      if (!this.hasPage()) {
+        return;
+      }
+
+      this.uri += this.prepend() + this.parameterNames().page + '=' + this.builder.pageValue;
+    }
+  }, {
+    key: "limit",
+    value: function limit() {
+      if (!this.hasLimit()) {
+        return;
+      }
+
+      this.uri += this.prepend() + this.parameterNames().limit + '=' + this.builder.limitValue;
+    }
+  }, {
+    key: "payload",
+    value: function payload() {
+      if (!this.hasPayload()) {
+        return;
+      }
+
+      this.uri += this.prepend() + _qs["default"].stringify(this.builder.payload, {
+        encode: false
+      });
+    }
+  }]);
+  return Parser;
+}();
+
+exports["default"] = Parser;
+
+/***/ }),
+
+/***/ "./node_modules/vue-api-query/build/StaticModel.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/vue-api-query/build/StaticModel.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js"));
+
+/**
+ *  Provide static calls for all methods.
+ *
+ *  Instead this: let users = new User().with('country').get()
+ *  We can do this: let users = User.with('conutry').get()
+ *
+ */
+var StaticModel = /*#__PURE__*/function () {
+  function StaticModel() {
+    (0, _classCallCheck2["default"])(this, StaticModel);
+  }
+
+  (0, _createClass2["default"])(StaticModel, null, [{
+    key: "instance",
+    value: function instance() {
+      return new this();
+    }
+  }, {
+    key: "include",
+    value: function include() {
+      var self = this.instance();
+      self.include.apply(self, arguments);
+      return self;
+    }
+  }, {
+    key: "append",
+    value: function append() {
+      var self = this.instance();
+      self.append.apply(self, arguments);
+      return self;
+    }
+  }, {
+    key: "select",
+    value: function select() {
+      var self = this.instance();
+      self.select.apply(self, arguments);
+      return self;
+    }
+  }, {
+    key: "where",
+    value: function where(field, value) {
+      var self = this.instance();
+      self.where(field, value);
+      return self;
+    }
+  }, {
+    key: "whereIn",
+    value: function whereIn(field, array) {
+      var self = this.instance();
+      self.whereIn(field, array);
+      return self;
+    }
+  }, {
+    key: "orderBy",
+    value: function orderBy() {
+      var self = this.instance();
+      self.orderBy.apply(self, arguments);
+      return self;
+    }
+  }, {
+    key: "page",
+    value: function page(value) {
+      var self = this.instance();
+      self.page(value);
+      return self;
+    }
+  }, {
+    key: "limit",
+    value: function limit(value) {
+      var self = this.instance();
+      self.limit(value);
+      return self;
+    }
+  }, {
+    key: "custom",
+    value: function custom() {
+      var self = this.instance();
+      self.custom.apply(self, arguments);
+      return self;
+    }
+  }, {
+    key: "params",
+    value: function params(payload) {
+      var self = this.instance();
+      self.params(payload);
+      return self;
+    }
+  }, {
+    key: "first",
+    value: function first() {
+      var self = this.instance();
+      return self.first();
+    }
+  }, {
+    key: "$first",
+    value: function $first() {
+      var self = this.instance();
+      return self.$first();
+    }
+  }, {
+    key: "find",
+    value: function find(id) {
+      var self = this.instance();
+      return self.find(id);
+    }
+  }, {
+    key: "$find",
+    value: function $find(id) {
+      var self = this.instance();
+      return self.$find(id);
+    }
+  }, {
+    key: "get",
+    value: function get() {
+      var self = this.instance();
+      return self.get();
+    }
+  }, {
+    key: "$get",
+    value: function $get() {
+      var self = this.instance();
+      return self.$get();
+    }
+  }]);
+  return StaticModel;
+}();
+
+exports["default"] = StaticModel;
+
+/***/ }),
+
+/***/ "./node_modules/vue-api-query/build/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/vue-api-query/build/index.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "Model", {
+  enumerable: true,
+  get: function get() {
+    return _Model["default"];
+  }
+});
+
+var _Model = _interopRequireDefault(__webpack_require__(/*! ./Model */ "./node_modules/vue-api-query/build/Model.js"));
 
 /***/ }),
 
@@ -35407,7 +37637,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/index.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/backend/router.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store */ "./resources/js/backend/store.js");
-/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./App.vue */ "./resources/js/backend/App.vue");
+/* harmony import */ var vue_api_query__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-api-query */ "./node_modules/vue-api-query/build/index.js");
+/* harmony import */ var vue_api_query__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_api_query__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./App.vue */ "./resources/js/backend/App.vue");
 // Axios & Echo global
 __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
@@ -35422,6 +37654,11 @@ __webpack_require__(/*! @s/fake.scss */ "./resources/sass/fake.scss"); //fix lar
 
 
 
+/* Model */
+
+ // inject global axios instance as http client to Model
+
+vue_api_query__WEBPACK_IMPORTED_MODULE_4__["Model"].$http = axios;
 /* Vue. Main component */
 
 
@@ -35437,7 +37674,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
 
 /* Main component */
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("App", _App_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("App", _App_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
 /* Buefy */
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(buefy__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -35447,7 +37684,7 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   store: _store__WEBPACK_IMPORTED_MODULE_3__["default"],
   router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
   render: function render(h) {
-    return h(_App_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
+    return h(_App_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
   },
   mounted: function mounted() {
     console.log("mounted");
@@ -35684,13 +37921,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: "/",
     name: "dashboard",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
     }
   }, {
     path: "/users/index",
     name: "users.index",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
     }
   }, {
     path: "/users/new",

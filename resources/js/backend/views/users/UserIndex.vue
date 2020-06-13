@@ -28,23 +28,28 @@
                         </b-button>
                         <b-button
                             icon-left="refresh"
-                            @click="getData"
+                            @click="refresh"
                         ></b-button>
                         <b-button icon-left="dots-vertical"></b-button>
                     </div>
                 </div>
             </div>
             <b-table
-                :data="data"
+                :data="users"
                 :loading="isLoading"
                 checkable
                 :checked-rows.sync="checkedRows"
-                :paginated="isPaginated"
-                :per-page="perPage"
-                :current-page.sync="currentPage"
+                paginated
+                backend-pagination
+                @page-change="onPageChange"
+                :total="total"
+                :per-page="pagination.per_page"
+                :current-page.sync="pagination.current_page"
                 :pagination-simple="isPaginationSimple"
                 :pagination-position="paginationPosition"
                 pagination-size="is-small"
+                backend-sorting
+                @sort="onSort"
                 default-sort-direction="asc"
                 default-sort="id"
                 aria-next-label="Next page"
@@ -104,26 +109,28 @@
                     </b-table-column> -->
 
                     <b-table-column
-                        field="confirmed_at"
-                        label="Confirmed"
+                        field="email_verified_at"
+                        label="Verified at"
                         sortable
                         centered
                     >
                         <b-tooltip
                             :label="
-                                props.row.confirmed_at
+                                props.row.email_verified_at
                                     ? new Date(
-                                          props.row.confirmed_at
+                                          props.row.email_verified_at
                                       ).toLocaleDateString()
                                     : ''
                             "
                         >
                             <b-tag
                                 :type="
-                                    props.row.confirmed_at ? '' : 'is-danger'
+                                    props.row.email_verified_at
+                                        ? ''
+                                        : 'is-danger'
                                 "
                             >
-                                {{ props.row.confirmed_at ? "yes" : "no" }}
+                                {{ props.row.email_verified_at ? "yes" : "no" }}
                             </b-tag>
                         </b-tooltip>
                     </b-table-column>
@@ -185,41 +192,54 @@
 import TitleBar from "@b/components/TitleBar";
 import { mapState } from "vuex";
 
+import User from "@b/models/User";
+
 export default {
     name: "UserIndex",
     components: { TitleBar },
     data() {
         return {
             data: [],
+            users: [],
             isLoading: false,
 
             checkedRows: [],
             //paginate
-            isPaginated: true,
+            pagination: {
+                total: 0,
+                count: 0,
+                per_page: 0,
+                current_page: 1,
+                total_pages: 1,
+                links: {
+                    previous: "",
+                    next: ""
+                }
+            },
+            sort: {
+                field: "id",
+                order: "", // '-' or ''
+                sort: "id"
+            },
+
             isPaginationSimple: false,
-            paginationPosition: "bottom",
-            currentPage: 1,
-            perPage: 10,
-            //sort
-            defaultSortDirection: "asc",
-            sortIcon: "arrow-up",
-            sortIconSize: "is-small"
+            paginationPosition: "bottom"
         };
     },
     computed: {
         ...mapState(["api"]),
-
         total() {
-            return this.data.length;
+            return this.pagination.total;
         }
     },
     methods: {
-        getData() {
+        getData(page) {
             this.isLoading = true;
             axios
-                .get(this.api.users)
+                .get(this.api.users + `?page=${page}`)
                 .then(r => {
                     this.data = r.data.data;
+                    this.pagination = r.data.meta.pagination;
                     this.isLoading = false;
                 })
                 .catch(err => {
@@ -230,6 +250,21 @@ export default {
                     });
                     this.isLoading = false;
                 });
+        },
+        onPageChange(page) {
+            this.pagination.current_page = page;
+            this.getData(page);
+            this.getUsers();
+        },
+        onSort(field, order) {
+            this.sort.field = field;
+            this.sort.order = order == "desc" ? "-" : "";
+            this.sort.sort = `${this.sort.order}${this.sort.field}`;
+            this.getUsers();
+        },
+        refresh() {
+            this.checkedRows = [];
+            this.getUsers();
         },
         confirmDelete() {
             this.$buefy.dialog.confirm({
@@ -258,11 +293,21 @@ export default {
                 }
             });
             return true;
+        },
+        async getUsers() {
+            this.isLoading = true;
+
+            let response = await User.orderBy(this.sort.sort)
+                .page(this.pagination.current_page)
+                .get();
+            this.users = response.data;
+            this.pagination = response.meta.pagination;
+
+            this.isLoading = false;
         }
     },
     mounted() {
-        console.log("Component mounted.");
-        this.getData();
+        this.getUsers();
     },
     created() {}
 };

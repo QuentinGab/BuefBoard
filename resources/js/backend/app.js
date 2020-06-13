@@ -9,6 +9,12 @@ import Buefy from "buefy";
 import router from "./router";
 import store from "./store";
 
+/* Model */
+import { Model } from 'vue-api-query';
+
+// inject global axios instance as http client to Model
+Model.$http = axios;
+
 /* Vue. Main component */
 import App from "./App.vue";
 
