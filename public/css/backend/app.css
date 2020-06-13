@@ -18596,6 +18596,35 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   height: 100% !important;
 }
 
+.bb-table {
+  border: 1px solid var(--bb-white-ter, whitesmoke);
+  border-radius: 6px;
+}
+
+.bb-table .bb-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--bb-white-ter, whitesmoke);
+  min-height: 50px;
+}
+
+.bb-table .bb-table-header .title {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+}
+
+.bb-table .bb-table-header .level-left,
+.bb-table .bb-table-header .level-right {
+  align-items: flex-end;
+}
+
+.bb-table .bb-table-header .level-left > div,
+.bb-table .bb-table-header .level-right > div {
+  padding: 0 0.5rem;
+}
+
 .bb-table .table td,
 .bb-table .table th {
   border-color: var(--bb-white-ter, whitesmoke);
@@ -18609,6 +18638,23 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   color: #363636;
   cursor: default;
   pointer-events: none;
+}
+
+.bb-buttons-group {
+  display: flex;
+  align-items: center;
+}
+
+.bb-buttons-group .buttons {
+  margin-bottom: 0;
+}
+
+.bb-buttons-group .buttons:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.bb-buttons-group .button {
+  margin-bottom: 0;
 }
 
 html {

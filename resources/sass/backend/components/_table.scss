@@ -1,8 +1,30 @@
-.bb-table{
-    .table td,.table th{
-        border-color: var(--bb-white-ter,$white-ter);
+.bb-table {
+    border: 1px solid var(--bb-white-ter, $white-ter);
+    border-radius: $radius-large;
+    .bb-table-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 2px solid var(--bb-white-ter, $white-ter);
+        min-height: 50px;
+        .title {
+            margin: 0;
+            padding: 0.5rem 1rem;
+            font-size: $size-4;
+        }
+        .level-left,
+        .level-right {
+            align-items: flex-end;
+            > div {
+                padding: 0 0.5rem;
+            }
+        }
     }
-    .check{
-        border-color: var(--bb-grey-light,$grey-light);
+    .table td,
+    .table th {
+        border-color: var(--bb-white-ter, $white-ter);
+    }
+    .check {
+        border-color: var(--bb-grey-light, $grey-light);
     }
 }

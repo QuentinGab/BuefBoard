@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
-use Spatie\Fractal\Fractal;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
-use App\Http\Resources\UserResource;
 
 class UsersController extends Controller
 {
@@ -31,7 +29,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
 
-        $users = QueryBuilder::for(User::class)
+        $users = QueryBuilder::for(User::class) 
                 ->allowedFilters([
                     'first_name',
                     'last_name',
@@ -49,19 +47,9 @@ class UsersController extends Controller
                     'updated_at',
                 ])
                 ->defaultSort('id')
-                ->paginate(20);
+                ->paginate(15);
 
         return UserResource::collection($users);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -83,18 +71,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
+        return new UserResource($user);
     }
 
     /**
@@ -118,5 +95,41 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    /**
+     * Delete the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(User $user)
+    {
+        $user->delete();
+        return new UserResource($user);
+    }
+
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function restore(User $user)
+    {
+        $user->restore();
+        return new UserResource($user);
+    }
+
+    /**
+     * Block the user.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function block(User $user)
+    {
+        $user->block();
+        return new UserResource($user);
     }
 }
