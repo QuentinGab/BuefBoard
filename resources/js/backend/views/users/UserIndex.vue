@@ -180,7 +180,7 @@
                         <div>
                             <b>Total checked</b>: {{ checkedRows.length }}
                         </div>
-                        <div><b>Total row</b>: {{ total }}</div>
+                        <div><b>Total</b>: {{ total }}</div>
                     </div>
                 </template>
             </b-table>
@@ -299,7 +299,14 @@ export default {
 
             let response = await User.orderBy(this.sort.sort)
                 .page(this.pagination.current_page)
-                .get();
+                .get()
+                .catch(err => {
+                    this.$buefy.toast.open({
+                        message: `Error: ${err.message}`,
+                        type: "is-danger",
+                        queue: false
+                    });
+                });
             this.users = response.data;
             this.pagination = response.meta.pagination;
 

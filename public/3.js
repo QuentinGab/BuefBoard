@@ -395,7 +395,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _this4.isLoading = true;
                 _context.next = 3;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this4.sort.sort).page(_this4.pagination.current_page).get();
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this4.sort.sort).page(_this4.pagination.current_page).get()["catch"](function (err) {
+                  _this4.$buefy.toast.open({
+                    message: "Error: ".concat(err.message),
+                    type: "is-danger",
+                    queue: false
+                  });
+                });
 
               case 3:
                 response = _context.sent;
@@ -850,7 +856,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", [
-                    _c("b", [_vm._v("Total row")]),
+                    _c("b", [_vm._v("Total")]),
                     _vm._v(": " + _vm._s(_vm.total))
                   ])
                 ])

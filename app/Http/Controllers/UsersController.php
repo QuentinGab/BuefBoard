@@ -48,7 +48,7 @@ class UsersController extends Controller
                     'updated_at',
                 ])
                 ->defaultSort('id')
-                ->paginate(1);
+                ->paginate(20);
 
         return fractal($users)
             ->transformWith(new UserTransformer())
