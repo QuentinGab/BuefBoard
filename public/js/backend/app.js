@@ -37921,13 +37921,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: "/",
     name: "dashboard",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
     }
   }, {
     path: "/users/index",
     name: "users.index",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
     }
   }, {
     path: "/users/new",

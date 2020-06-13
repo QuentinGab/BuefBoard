@@ -22,5 +22,7 @@ class UserSeeder extends Seeder
 
         $user->assignRole('god');
 
+        factory(App\Models\User::class, 50)->create();
+
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Spatie\Fractal\Fractal;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Resources\UserResource;
 
 class UsersController extends Controller
 {
@@ -50,9 +51,7 @@ class UsersController extends Controller
                 ->defaultSort('id')
                 ->paginate(20);
 
-        return fractal($users)
-            ->transformWith(new UserTransformer())
-            ->respond();
+        return UserResource::collection($users);
     }
 
     /**
