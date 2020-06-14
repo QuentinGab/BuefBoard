@@ -388,8 +388,7 @@ export default {
         confirmDelete() {
             this.$buefy.dialog.confirm({
                 title: "Deleting users",
-                message:
-                    "Are you sure you want to <b>delete</b> your account? This action cannot be undone.",
+                message: `Are you sure you want to <b>delete</b> ${this.checkedRows.length} users? This action can be undone.`,
                 confirmText: "Delete Users",
                 type: "is-danger",
                 hasIcon: true,
@@ -414,17 +413,14 @@ export default {
                     .then(response => {
                         console.log(response);
                         this.$buefy.snackbar.open({
-                            duration: 5000,
+                            duration: 3000,
                             message: `${user.fullname} has been blocked`,
                             type: "is-danger",
                             position: "is-bottom-right",
                             actionText: "Undo",
-                            queue: false,
+                            queue: true,
                             onAction: () => {
-                                this.$buefy.toast.open({
-                                    message: "Action pressed",
-                                    queue: false
-                                });
+                                this.unblock(user);
                             }
                         });
                     })
@@ -439,21 +435,74 @@ export default {
 
             return true;
         },
-        bulkDelete() {
-            this.$buefy.snackbar.open({
-                duration: 5000,
-                message: `${user.fullname} has been deleted`,
-                type: "is-danger",
-                position: "is-bottom-right",
-                actionText: "Undo",
-                queue: false,
-                onAction: () => {
+        async unblock(user) {
+            user.unblock();
+            await user
+                .save()
+                .then(response => {
+                    this.$buefy.snackbar.open({
+                        duration: 2000,
+                        message: `${user.fullname} has been unblocked`,
+                        type: "is-info",
+                        position: "is-bottom-right",
+                        queue: true
+                    });
+                })
+                .catch(err => {
                     this.$buefy.toast.open({
-                        message: "Action pressed",
+                        message: `Error: ${err.message}`,
+                        type: "is-danger",
                         queue: false
                     });
-                }
+                });
+        },
+        async restore(user) {
+            await user
+                .restore()
+                .then(response => {
+                    this.$buefy.snackbar.open({
+                        duration: 2000,
+                        message: `${user.fullname} has been restored`,
+                        type: "is-info",
+                        position: "is-bottom-right",
+                        queue: true
+                    });
+                })
+                .catch(err => {
+                    this.$buefy.toast.open({
+                        message: `Error: ${err.message}`,
+                        type: "is-danger",
+                        queue: false
+                    });
+                });
+        },
+        bulkDelete() {
+            this.checkedRows.forEach(async user => {
+                await user
+                    .delete()
+                    .then(response => {
+                        console.log(response);
+                        this.$buefy.snackbar.open({
+                            duration: 3000,
+                            message: `${user.fullname} has been deleted`,
+                            type: "is-danger",
+                            position: "is-bottom-right",
+                            actionText: "Undo",
+                            queue: true,
+                            onAction: () => {
+                                this.restore(user);
+                            }
+                        });
+                    })
+                    .catch(err => {
+                        this.$buefy.toast.open({
+                            message: `Error: ${err.message}`,
+                            type: "is-danger",
+                            queue: false
+                        });
+                    });
             });
+
             return true;
         },
         async getUsers() {

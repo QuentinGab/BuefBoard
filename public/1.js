@@ -472,7 +472,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.$buefy.dialog.confirm({
         title: "Deleting users",
-        message: "Are you sure you want to <b>delete</b> your account? This action cannot be undone.",
+        message: "Are you sure you want to <b>delete</b> ".concat(this.checkedRows.length, " users? This action can be undone."),
         confirmText: "Delete Users",
         type: "is-danger",
         hasIcon: true,
@@ -510,17 +510,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     console.log(response);
 
                     _this3.$buefy.snackbar.open({
-                      duration: 5000,
+                      duration: 3000,
                       message: "".concat(user.fullname, " has been blocked"),
                       type: "is-danger",
                       position: "is-bottom-right",
                       actionText: "Undo",
-                      queue: false,
+                      queue: true,
                       onAction: function onAction() {
-                        _this3.$buefy.toast.open({
-                          message: "Action pressed",
-                          queue: false
-                        });
+                        _this3.unblock(user);
                       }
                     });
                   })["catch"](function (err) {
@@ -545,48 +542,142 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }());
       return true;
     },
-    bulkDelete: function bulkDelete() {
+    unblock: function unblock(user) {
       var _this4 = this;
 
-      this.$buefy.snackbar.open({
-        duration: 5000,
-        message: "".concat(user.fullname, " has been deleted"),
-        type: "is-danger",
-        position: "is-bottom-right",
-        actionText: "Undo",
-        queue: false,
-        onAction: function onAction() {
-          _this4.$buefy.toast.open({
-            message: "Action pressed",
-            queue: false
-          });
-        }
-      });
-      return true;
-    },
-    getUsers: function getUsers() {
-      var _this5 = this;
-
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var response, _response;
-
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this5.isLoading = true;
+                user.unblock();
+                _context2.next = 3;
+                return user.save().then(function (response) {
+                  _this4.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "".concat(user.fullname, " has been unblocked"),
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: true
+                  });
+                })["catch"](function (err) {
+                  _this4.$buefy.toast.open({
+                    message: "Error: ".concat(err.message),
+                    type: "is-danger",
+                    queue: false
+                  });
+                });
 
-                if (!_this5.isFiltered) {
-                  _context2.next = 8;
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    restore: function restore(user) {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return user.restore().then(function (response) {
+                  _this5.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "".concat(user.fullname, " has been restored"),
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: true
+                  });
+                })["catch"](function (err) {
+                  _this5.$buefy.toast.open({
+                    message: "Error: ".concat(err.message),
+                    type: "is-danger",
+                    queue: false
+                  });
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    bulkDelete: function bulkDelete() {
+      var _this6 = this;
+
+      this.checkedRows.forEach( /*#__PURE__*/function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(user) {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+            while (1) {
+              switch (_context4.prev = _context4.next) {
+                case 0:
+                  _context4.next = 2;
+                  return user["delete"]().then(function (response) {
+                    console.log(response);
+
+                    _this6.$buefy.snackbar.open({
+                      duration: 3000,
+                      message: "".concat(user.fullname, " has been deleted"),
+                      type: "is-danger",
+                      position: "is-bottom-right",
+                      actionText: "Undo",
+                      queue: true,
+                      onAction: function onAction() {
+                        _this6.restore(user);
+                      }
+                    });
+                  })["catch"](function (err) {
+                    _this6.$buefy.toast.open({
+                      message: "Error: ".concat(err.message),
+                      type: "is-danger",
+                      queue: false
+                    });
+                  });
+
+                case 2:
+                case "end":
+                  return _context4.stop();
+              }
+            }
+          }, _callee4);
+        }));
+
+        return function (_x2) {
+          return _ref2.apply(this, arguments);
+        };
+      }());
+      return true;
+    },
+    getUsers: function getUsers() {
+      var _this7 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var response, _response;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _this7.isLoading = true;
+
+                if (!_this7.isFiltered) {
+                  _context5.next = 8;
                   break;
                 }
 
-                _context2.next = 4;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this5.sort.value).where(_this5.filter.field, _this5.filter.value).page(_this5.pagination.current_page).get().then(function (response) {
-                  _this5.users = response.data;
-                  _this5.pagination = response.meta;
+                _context5.next = 4;
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this7.sort.value).where(_this7.filter.field, _this7.filter.value).page(_this7.pagination.current_page).get().then(function (response) {
+                  _this7.users = response.data;
+                  _this7.pagination = response.meta;
                 })["catch"](function (err) {
-                  _this5.$buefy.toast.open({
+                  _this7.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -594,18 +685,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 4:
-                response = _context2.sent;
-                _this5.isLoading = false;
-                _context2.next = 12;
+                response = _context5.sent;
+                _this7.isLoading = false;
+                _context5.next = 12;
                 break;
 
               case 8:
-                _context2.next = 10;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this5.sort.value).page(_this5.pagination.current_page).get().then(function (response) {
-                  _this5.users = response.data;
-                  _this5.pagination = response.meta;
+                _context5.next = 10;
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this7.sort.value).page(_this7.pagination.current_page).get().then(function (response) {
+                  _this7.users = response.data;
+                  _this7.pagination = response.meta;
                 })["catch"](function (err) {
-                  _this5.$buefy.toast.open({
+                  _this7.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -613,15 +704,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 10:
-                _response = _context2.sent;
-                _this5.isLoading = false;
+                _response = _context5.sent;
+                _this7.isLoading = false;
 
               case 12:
               case "end":
-                return _context2.stop();
+                return _context5.stop();
             }
           }
-        }, _callee2);
+        }, _callee5);
       }))();
     }
   },

@@ -14,4 +14,20 @@ export default class User extends Model {
     block() {
         this.blocked_at = new Date().toISOString();
     }
+
+    unblock() {
+        this.blocked_at = null;
+    }
+
+    restore() {
+        let url = `${this.endpoint()}/restore`;
+        return this.request({
+            method: "POST",
+            url: url,
+            data: this
+        }).then(response => {
+            let self = Object.assign(this, response.data);
+            return self;
+        });
+    }
 }

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 //Prefix:     api/v1
 //Namespace API
@@ -19,9 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 //Users
 //current
-Route::get('users/current','CurrentUserController@show');
-Route::post('users/current','CurrentUserController@update');
-Route::delete('users/current','CurrentUserController@destroy');
+Route::get('users/current', 'CurrentUserController@show');
+Route::post('users/current', 'CurrentUserController@update');
+Route::delete('users/current', 'CurrentUserController@destroy');
 //all
-Route::post('users/{id}/block','UserController@block');
-Route::apiResource('users', 'UsersController');
+Route::apiResource('users', 'UsersController')->except(['destroy']);
+Route::delete('users/{user}', 'UsersController@delete');
+Route::delete('users/{user}/destroy', 'UsersController@destroy');
+Route::post('users/{user}/restore', 'UsersController@restore');

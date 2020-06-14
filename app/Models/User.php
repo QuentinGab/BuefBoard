@@ -45,6 +45,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'blocked_at' => 'datetime',
     ];
 
+  
+    public function isBlocked()
+    {
+        return $this->blocked_at != null;
+    }
+
     /**
      * Block the user for $duration days or forever
      */

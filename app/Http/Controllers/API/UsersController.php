@@ -30,7 +30,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
 
-        $users = QueryBuilder::for(User::class)
+        $users = QueryBuilder::for(User::class) 
                 ->allowedFilters([
                     'first_name',
                     'last_name',
@@ -49,6 +49,7 @@ class UsersController extends Controller
                 ])
                 ->defaultSort('id')
                 ->paginate(15);
+        
 
         return UserResource::collection($users);
     }
@@ -94,6 +95,8 @@ class UsersController extends Controller
         );
         if ($request->filled('blocked_at')) {
             $user->block();
+        } else if ($user->isBlocked()) {
+            $user->unblock();
         }
 
         return new UserResource($user);
@@ -107,7 +110,8 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->forceDelete();
+        return new UserResource($user);
     }
 
     /**
@@ -125,11 +129,12 @@ class UsersController extends Controller
     /**
      * Restore the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param   $user
      * @return \Illuminate\Http\Response
      */
-    public function restore(User $user)
+    public function restore($user)
     {
+        $user = User::withTrashed()->find($user);
         $user->restore();
         return new UserResource($user);
     }

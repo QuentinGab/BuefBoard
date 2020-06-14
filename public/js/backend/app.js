@@ -38832,6 +38832,26 @@ var User = /*#__PURE__*/function (_Model) {
       this.blocked_at = new Date().toISOString();
     }
   }, {
+    key: "unblock",
+    value: function unblock() {
+      this.blocked_at = null;
+    }
+  }, {
+    key: "restore",
+    value: function restore() {
+      var _this = this;
+
+      var url = "".concat(this.endpoint(), "/restore");
+      return this.request({
+        method: "POST",
+        url: url,
+        data: this
+      }).then(function (response) {
+        var self = Object.assign(_this, response.data);
+        return self;
+      });
+    }
+  }, {
     key: "fullname",
     get: function get() {
       return "".concat(this.first_name, " ").concat(this.last_name);
