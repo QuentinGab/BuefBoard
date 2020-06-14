@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Prefix:     api/v1
+//Namespace API
 //middleware: web
 
+//Users
+//current
+Route::get('users/current','CurrentUserController@show');
+Route::post('users/current','CurrentUserController@update');
+Route::delete('users/current','CurrentUserController@destroy');
+//all
+Route::post('users/{id}/block','UserController@block');
 Route::apiResource('users', 'UsersController');

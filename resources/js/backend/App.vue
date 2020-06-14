@@ -12,8 +12,13 @@
 
 <script>
 // @b/ is an alias to /src/backend
+import { mapState } from "vuex";
+
 import AsideMenu from "@b/components/AsideMenu";
 import NavBar from "@b/components/NavBar";
+
+import User from "@b/models/User";
+
 export default {
     name: "App",
     components: { AsideMenu, NavBar },
@@ -65,7 +70,27 @@ export default {
             ]
         };
     },
-    computed: {},
-    created() {}
+    computed: {
+        ...mapState(["user"])
+    },
+    methods: {
+        async getUser() {
+            let response = await User.custom("users/current")
+                .$first()
+                .then(response => {
+                    this.$store.commit("updateUser", response);
+                })
+                .catch(err => {
+                    this.$buefy.toast.open({
+                        message: `Error: ${err.message}`,
+                        type: "is-danger",
+                        queue: false
+                    });
+                });
+        }
+    },
+    created() {
+        this.getUser();
+    }
 };
 </script>

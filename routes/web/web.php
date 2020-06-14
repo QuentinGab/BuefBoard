@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@welcome')->name('welcome');
 
-
-
 Auth::routes(['verify'=>true]);
 
 Route::get('/logout', 'Auth\LoginController@logout');

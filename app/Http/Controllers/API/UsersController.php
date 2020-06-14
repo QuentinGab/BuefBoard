@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
 
-        $users = QueryBuilder::for(User::class) 
+        $users = QueryBuilder::for(User::class)
                 ->allowedFilters([
                     'first_name',
                     'last_name',
@@ -83,7 +84,19 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->save();
+        $user->update(
+            $request->only([
+                'first_name',
+                'last_name',
+                'email',
+            ])
+        );
+        if ($request->filled('blocked_at')) {
+            $user->block();
+        }
+
+        return new UserResource($user);
     }
 
     /**

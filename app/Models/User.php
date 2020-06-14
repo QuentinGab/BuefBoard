@@ -18,7 +18,12 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'blocked_at', 'blocked_for',
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'blocked_at',
+        'blocked_for',
     ];
 
     /**
@@ -40,11 +45,25 @@ class User extends Authenticatable implements MustVerifyEmail
         'blocked_at' => 'datetime',
     ];
 
-
-    public function block($duration = null){
+    /**
+     * Block the user for $duration days or forever
+     */
+    public function block($duration = null)
+    {
         $this->update([
-            'blocked_at'=>now(),
-            'blocked_for'=>$duration
+            'blocked_at' => now(),
+            'blocked_for' => $duration,
+        ]);
+    }
+
+    /**
+     * Unblock a user
+     */
+    public function unblock()
+    {
+        $this->update([
+            'blocked_at' => null,
+            'blocked_for' => null,
         ]);
     }
 

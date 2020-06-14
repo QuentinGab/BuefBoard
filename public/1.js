@@ -80,12 +80,56 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -385,7 +429,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       paginationPosition: "bottom"
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])(["api"])), {}, {
+  computed: {
     total: function total() {
       return this.pagination.total;
     },
@@ -399,7 +443,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     isFiltered: function isFiltered() {
       return !!(this.filter.field && this.filter.value);
     }
-  }),
+  },
   methods: {
     onPageChange: function onPageChange(page) {
       this.pagination.current_page = page;
@@ -437,18 +481,82 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     },
-    bulkDelete: function bulkDelete() {
+    confirmBlock: function confirmBlock() {
       var _this2 = this;
+
+      this.$buefy.dialog.confirm({
+        title: "Blocking users",
+        message: "Are you sure you want to <b>block</b> ".concat(this.checkedRows.length, " users? This action can be undone."),
+        confirmText: "Block Users",
+        type: "is-warning",
+        hasIcon: true,
+        onConfirm: function onConfirm() {
+          return _this2.bulkBlock();
+        }
+      });
+    },
+    bulkBlock: function bulkBlock() {
+      var _this3 = this;
+
+      this.checkedRows.forEach( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(user) {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  user.block();
+                  _context.next = 3;
+                  return user.save().then(function (response) {
+                    console.log(response);
+
+                    _this3.$buefy.snackbar.open({
+                      duration: 5000,
+                      message: "".concat(user.fullname, " has been blocked"),
+                      type: "is-danger",
+                      position: "is-bottom-right",
+                      actionText: "Undo",
+                      queue: false,
+                      onAction: function onAction() {
+                        _this3.$buefy.toast.open({
+                          message: "Action pressed",
+                          queue: false
+                        });
+                      }
+                    });
+                  })["catch"](function (err) {
+                    _this3.$buefy.toast.open({
+                      message: "Error: ".concat(err.message),
+                      type: "is-danger",
+                      queue: false
+                    });
+                  });
+
+                case 3:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }());
+      return true;
+    },
+    bulkDelete: function bulkDelete() {
+      var _this4 = this;
 
       this.$buefy.snackbar.open({
         duration: 5000,
-        message: "users have been deleted",
+        message: "".concat(user.fullname, " has been deleted"),
         type: "is-danger",
         position: "is-bottom-right",
         actionText: "Undo",
         queue: false,
         onAction: function onAction() {
-          _this2.$buefy.toast.open({
+          _this4.$buefy.toast.open({
             message: "Action pressed",
             queue: false
           });
@@ -457,25 +565,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return true;
     },
     getUsers: function getUsers() {
-      var _this3 = this;
+      var _this5 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var response, _response;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _this3.isLoading = true;
+                _this5.isLoading = true;
 
-                if (!_this3.isFiltered) {
-                  _context.next = 9;
+                if (!_this5.isFiltered) {
+                  _context2.next = 8;
                   break;
                 }
 
-                _context.next = 4;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this3.sort.value).where(_this3.filter.field, _this3.filter.value).page(_this3.pagination.current_page).get()["catch"](function (err) {
-                  _this3.$buefy.toast.open({
+                _context2.next = 4;
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this5.sort.value).where(_this5.filter.field, _this5.filter.value).page(_this5.pagination.current_page).get().then(function (response) {
+                  _this5.users = response.data;
+                  _this5.pagination = response.meta;
+                })["catch"](function (err) {
+                  _this5.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -483,36 +594,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 4:
-                response = _context.sent;
-                _this3.users = response.data;
-                _this3.pagination = response.meta;
-                _context.next = 14;
+                response = _context2.sent;
+                _this5.isLoading = false;
+                _context2.next = 12;
                 break;
 
-              case 9:
-                _context.next = 11;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this3.sort.value).page(_this3.pagination.current_page).get()["catch"](function (err) {
-                  _this3.$buefy.toast.open({
+              case 8:
+                _context2.next = 10;
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this5.sort.value).page(_this5.pagination.current_page).get().then(function (response) {
+                  _this5.users = response.data;
+                  _this5.pagination = response.meta;
+                })["catch"](function (err) {
+                  _this5.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
                   });
                 });
 
-              case 11:
-                _response = _context.sent;
-                _this3.users = _response.data;
-                _this3.pagination = _response.meta;
+              case 10:
+                _response = _context2.sent;
+                _this5.isLoading = false;
 
-              case 14:
-                _this3.isLoading = false;
-
-              case 15:
+              case 12:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     }
   },
@@ -732,19 +841,36 @@ var render = function() {
                     "div",
                     { staticClass: "buttons has-addons are-small" },
                     [
-                      _c("b-button", {
-                        staticClass: "is-primary",
-                        attrs: {
-                          "icon-left": "plus-circle-outline",
-                          to: "/users/new",
-                          tag: "router-link"
-                        }
-                      }),
+                      _c(
+                        "b-tooltip",
+                        { attrs: { label: "Add", type: "is-light" } },
+                        [
+                          _c("b-button", {
+                            staticClass: "is-primary",
+                            attrs: {
+                              "icon-left": "plus-circle-outline",
+                              to: "/users/new",
+                              tag: "router-link"
+                            }
+                          })
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
-                      _c("b-button", {
-                        attrs: { "icon-left": "refresh" },
-                        on: { click: _vm.refresh }
-                      })
+                      _c(
+                        "b-tooltip",
+                        { attrs: { label: "Refresh", type: "is-light" } },
+                        [
+                          _c("b-button", {
+                            attrs: {
+                              loading: _vm.isLoading,
+                              "icon-left": "refresh"
+                            },
+                            on: { click: _vm.refresh }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
@@ -765,14 +891,41 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _c("b-button", {
-                        staticClass: "is-danger",
-                        attrs: {
-                          "icon-left": "delete",
-                          disabled: _vm.checkedRows.length > 0 ? false : true
-                        },
-                        on: { click: _vm.confirmDelete }
-                      })
+                      _c(
+                        "b-tooltip",
+                        { attrs: { label: "Delete", type: "is-light" } },
+                        [
+                          _c("b-button", {
+                            staticClass: "is-danger",
+                            attrs: {
+                              outlined: "",
+                              "icon-left": "delete-outline",
+                              disabled:
+                                _vm.checkedRows.length > 0 ? false : true
+                            },
+                            on: { click: _vm.confirmDelete }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-tooltip",
+                        { attrs: { label: "Block", type: "is-light" } },
+                        [
+                          _c("b-button", {
+                            staticClass: "is-warning",
+                            attrs: {
+                              outlined: "",
+                              "icon-left": "account-cancel-outline",
+                              disabled:
+                                _vm.checkedRows.length > 0 ? false : true
+                            },
+                            on: { click: _vm.confirmBlock }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
@@ -933,8 +1086,8 @@ var render = function() {
                           "b-table-column",
                           {
                             attrs: {
-                              field: "email_verified_at",
-                              label: "Verified at",
+                              field: "blocked_at",
+                              label: "Blocked",
                               sortable: "",
                               centered: ""
                             }
@@ -944,6 +1097,57 @@ var render = function() {
                               "b-tooltip",
                               {
                                 attrs: {
+                                  type: "is-light",
+                                  label: props.row.blocked_at
+                                    ? new Date(
+                                        props.row.blocked_at
+                                      ).toLocaleDateString()
+                                    : ""
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-tag",
+                                  {
+                                    attrs: {
+                                      type: props.row.blocked_at
+                                        ? "is-danger"
+                                        : ""
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(
+                                          props.row.blocked_at ? "yes" : "no"
+                                        ) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-table-column",
+                          {
+                            attrs: {
+                              field: "email_verified_at",
+                              label: "Verified",
+                              sortable: "",
+                              centered: ""
+                            }
+                          },
+                          [
+                            _c(
+                              "b-tooltip",
+                              {
+                                attrs: {
+                                  type: "is-light",
                                   label: props.row.email_verified_at
                                     ? new Date(
                                         props.row.email_verified_at
@@ -1168,134 +1372,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TitleBar_vue_vue_type_template_id_4d8683ea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TitleBar_vue_vue_type_template_id_4d8683ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/backend/models/Model.js":
-/*!**********************************************!*\
-  !*** ./resources/js/backend/models/Model.js ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Model; });
-/* harmony import */ var vue_api_query__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-api-query */ "./node_modules/vue-api-query/build/index.js");
-/* harmony import */ var vue_api_query__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_api_query__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-var Model = /*#__PURE__*/function (_BaseModel) {
-  _inherits(Model, _BaseModel);
-
-  var _super = _createSuper(Model);
-
-  function Model() {
-    _classCallCheck(this, Model);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(Model, [{
-    key: "baseURL",
-    // define a base url for a REST API
-    value: function baseURL() {
-      return "/api/v1";
-    } // implement a default request method
-
-  }, {
-    key: "request",
-    value: function request(config) {
-      return this.$http.request(config);
-    }
-  }]);
-
-  return Model;
-}(vue_api_query__WEBPACK_IMPORTED_MODULE_0__["Model"]);
-
-
-
-/***/ }),
-
-/***/ "./resources/js/backend/models/User.js":
-/*!*********************************************!*\
-  !*** ./resources/js/backend/models/User.js ***!
-  \*********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return User; });
-/* harmony import */ var _Model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Model */ "./resources/js/backend/models/Model.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-var User = /*#__PURE__*/function (_Model) {
-  _inherits(User, _Model);
-
-  var _super = _createSuper(User);
-
-  function User() {
-    _classCallCheck(this, User);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(User, [{
-    key: "resource",
-    value: function resource() {
-      return "users";
-    }
-  }]);
-
-  return User;
-}(_Model__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 

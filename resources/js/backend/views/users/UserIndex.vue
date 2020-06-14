@@ -61,18 +61,22 @@
                     <div class="level-right">
                         <div class="bb-buttons-group">
                             <div class="buttons has-addons are-small">
-                                <b-button
-                                    class="is-primary"
-                                    icon-left="plus-circle-outline"
-                                    to="/users/new"
-                                    tag="router-link"
-                                >
-                                </b-button>
-
-                                <b-button
-                                    icon-left="refresh"
-                                    @click="refresh"
-                                ></b-button>
+                                <b-tooltip label="Add" type="is-light">
+                                    <b-button
+                                        class="is-primary"
+                                        icon-left="plus-circle-outline"
+                                        to="/users/new"
+                                        tag="router-link"
+                                    >
+                                    </b-button>
+                                </b-tooltip>
+                                <b-tooltip label="Refresh" type="is-light">
+                                    <b-button
+                                        :loading="isLoading"
+                                        icon-left="refresh"
+                                        @click="refresh"
+                                    ></b-button>
+                                </b-tooltip>
                             </div>
                             <div class="buttons has-addons are-small">
                                 <b-button
@@ -81,15 +85,34 @@
                                 >
                                     {{ checkedRows.length }}
                                 </b-button>
-                                <b-button
-                                    class="is-danger"
-                                    icon-left="delete"
-                                    @click="confirmDelete"
-                                    :disabled="
-                                        checkedRows.length > 0 ? false : true
-                                    "
-                                >
-                                </b-button>
+                                <b-tooltip label="Delete" type="is-light">
+                                    <b-button
+                                        class="is-danger"
+                                        outlined
+                                        icon-left="delete-outline"
+                                        @click="confirmDelete"
+                                        :disabled="
+                                            checkedRows.length > 0
+                                                ? false
+                                                : true
+                                        "
+                                    >
+                                    </b-button>
+                                </b-tooltip>
+                                <b-tooltip label="Block" type="is-light">
+                                    <b-button
+                                        class="is-warning"
+                                        outlined
+                                        icon-left="account-cancel-outline"
+                                        @click="confirmBlock"
+                                        :disabled="
+                                            checkedRows.length > 0
+                                                ? false
+                                                : true
+                                        "
+                                    >
+                                    </b-button>
+                                </b-tooltip>
                             </div>
                             <div class="buttons has-addons are-small">
                                 <b-button icon-left="dots-vertical"></b-button>
@@ -172,12 +195,39 @@
                     </b-table-column> -->
 
                         <b-table-column
-                            field="email_verified_at"
-                            label="Verified at"
+                            field="blocked_at"
+                            label="Blocked"
                             sortable
                             centered
                         >
                             <b-tooltip
+                                type="is-light"
+                                :label="
+                                    props.row.blocked_at
+                                        ? new Date(
+                                              props.row.blocked_at
+                                          ).toLocaleDateString()
+                                        : ''
+                                "
+                            >
+                                <b-tag
+                                    :type="
+                                        props.row.blocked_at ? 'is-danger' : ''
+                                    "
+                                >
+                                    {{ props.row.blocked_at ? "yes" : "no" }}
+                                </b-tag>
+                            </b-tooltip>
+                        </b-table-column>
+
+                        <b-table-column
+                            field="email_verified_at"
+                            label="Verified"
+                            sortable
+                            centered
+                        >
+                            <b-tooltip
+                                type="is-light"
                                 :label="
                                     props.row.email_verified_at
                                         ? new Date(
@@ -300,7 +350,6 @@ export default {
         };
     },
     computed: {
-        ...mapState(["api"]),
         total() {
             return this.pagination.total;
         },
@@ -347,10 +396,53 @@ export default {
                 onConfirm: () => this.bulkDelete()
             });
         },
+        confirmBlock() {
+            this.$buefy.dialog.confirm({
+                title: "Blocking users",
+                message: `Are you sure you want to <b>block</b> ${this.checkedRows.length} users? This action can be undone.`,
+                confirmText: "Block Users",
+                type: "is-warning",
+                hasIcon: true,
+                onConfirm: () => this.bulkBlock()
+            });
+        },
+        bulkBlock() {
+            this.checkedRows.forEach(async user => {
+                user.block();
+                await user
+                    .save()
+                    .then(response => {
+                        console.log(response);
+                        this.$buefy.snackbar.open({
+                            duration: 5000,
+                            message: `${user.fullname} has been blocked`,
+                            type: "is-danger",
+                            position: "is-bottom-right",
+                            actionText: "Undo",
+                            queue: false,
+                            onAction: () => {
+                                this.$buefy.toast.open({
+                                    message: "Action pressed",
+                                    queue: false
+                                });
+                            }
+                        });
+                    })
+                    .catch(err => {
+                        this.$buefy.toast.open({
+                            message: `Error: ${err.message}`,
+                            type: "is-danger",
+                            queue: false
+                        });
+                    });
+            });
+
+            return true;
+        },
         bulkDelete() {
             this.$buefy.snackbar.open({
                 duration: 5000,
-                message: "users have been deleted",
+                message: `${user.fullname} has been deleted`,
                 type: "is-danger",
                 position: "is-bottom-right",
                 actionText: "Undo",
@@ -372,6 +464,10 @@ export default {
                     .where(this.filter.field, this.filter.value)
                     .page(this.pagination.current_page)
                     .get()
+                    .then(response => {
+                        this.users = response.data;
+                        this.pagination = response.meta;
+                    })
                     .catch(err => {
                         this.$buefy.toast.open({
                             message: `Error: ${err.message}`,
@@ -379,12 +475,15 @@ export default {
                             queue: false
                         });
                     });
-                this.users = response.data;
-                this.pagination = response.meta;
+                this.isLoading = false;
             } else {
                 let response = await User.orderBy(this.sort.value)
                     .page(this.pagination.current_page)
                     .get()
+                    .then(response => {
+                        this.users = response.data;
+                        this.pagination = response.meta;
+                    })
                     .catch(err => {
                         this.$buefy.toast.open({
                             message: `Error: ${err.message}`,
@@ -392,11 +491,8 @@ export default {
                             queue: false
                         });
                     });
-                this.users = response.data;
-                this.pagination = response.meta;
+                this.isLoading = false;
             }
-
-            this.isLoading = false;
         }
     },
     mounted() {

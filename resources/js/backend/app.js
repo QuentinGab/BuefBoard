@@ -10,7 +10,7 @@ import router from "./router";
 import store from "./store";
 
 /* Model */
-import { Model } from 'vue-api-query';
+import { Model } from "vue-api-query";
 
 // inject global axios instance as http client to Model
 Model.$http = axios;
@@ -22,8 +22,7 @@ import App from "./App.vue";
 // import AsideMenuList from "@b/components/AsideMenuList";
 
 /* Collapse mobile aside menu on route change */
-router.afterEach(() => {
-});
+router.afterEach(() => {});
 
 Vue.config.productionTip = false;
 
@@ -43,6 +42,6 @@ new Vue({
     router,
     render: h => h(App),
     mounted() {
-        console.log("mounted")
+        console.log("mounted");
     }
 }).$mount("#app");
