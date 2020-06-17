@@ -1,6 +1,7 @@
 .bb-table {
     border: 1px solid var(--bb-white-ter, $white-ter);
     border-radius: $radius-large;
+    background-color: var(--bb-white, $white);
     .bb-table-header {
         display: flex;
         align-items: center;
@@ -16,8 +17,14 @@
         .level-right {
             align-items: flex-end;
             > div {
-                padding: 0 0.5rem;
+                padding: 0.5rem;
             }
+        }
+    }
+    .b-table .level:last-child{
+        padding: 0;
+        > div{
+            padding: 0.5rem;
         }
     }
     .table td,

@@ -13,12 +13,17 @@ export default class User extends Model {
 
     block() {
         this.blocked_at = new Date().toISOString();
+        return this;
     }
 
     unblock() {
         this.blocked_at = null;
+        return this;
     }
 
+    /**
+     * restore after soft delete
+     */
     restore() {
         let url = `${this.endpoint()}/restore`;
         return this.request({

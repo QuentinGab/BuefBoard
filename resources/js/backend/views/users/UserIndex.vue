@@ -61,7 +61,7 @@
                     <div class="level-right">
                         <div class="bb-buttons-group">
                             <div class="buttons has-addons are-small">
-                                <b-tooltip label="Add" type="is-light">
+                                <b-tooltip label="Add" type="is-light" animated>
                                     <b-button
                                         class="is-primary"
                                         icon-left="plus-circle-outline"
@@ -70,11 +70,15 @@
                                     >
                                     </b-button>
                                 </b-tooltip>
-                                <b-tooltip label="Refresh" type="is-light">
+                                <b-tooltip
+                                    label="Refresh"
+                                    type="is-light"
+                                    animated
+                                >
                                     <b-button
                                         :loading="isLoading"
                                         icon-left="refresh"
-                                        @click="refresh"
+                                        @click="refreshAndClear"
                                     ></b-button>
                                 </b-tooltip>
                             </div>
@@ -85,7 +89,11 @@
                                 >
                                     {{ checkedRows.length }}
                                 </b-button>
-                                <b-tooltip label="Delete" type="is-light">
+                                <b-tooltip
+                                    label="Delete"
+                                    type="is-light"
+                                    animated
+                                >
                                     <b-button
                                         class="is-danger"
                                         outlined
@@ -99,7 +107,11 @@
                                     >
                                     </b-button>
                                 </b-tooltip>
-                                <b-tooltip label="Block" type="is-light">
+                                <b-tooltip
+                                    label="Block"
+                                    type="is-light"
+                                    animated
+                                >
                                     <b-button
                                         class="is-warning"
                                         outlined
@@ -114,8 +126,28 @@
                                     </b-button>
                                 </b-tooltip>
                             </div>
-                            <div class="buttons has-addons are-small">
-                                <b-button icon-left="dots-vertical"></b-button>
+
+                            <div class="buttons are-small">
+                                <b-dropdown
+                                    aria-role="list"
+                                    position="is-bottom-left"
+                                >
+                                    <button
+                                        class="button is-default"
+                                        slot="trigger"
+                                    >
+                                        <b-icon
+                                            icon="dots-vertical"
+                                            size="is-small"
+                                        ></b-icon>
+                                    </button>
+
+                                    <b-dropdown-item
+                                        aria-role="listitem"
+                                        @click="confirmUnblock"
+                                        >Unblock</b-dropdown-item
+                                    >
+                                </b-dropdown>
                             </div>
                         </div>
                     </div>
@@ -142,15 +174,10 @@
                     aria-previous-label="Previous page"
                     aria-page-label="Page"
                     aria-current-label="Current page"
+                    scrollable
                 >
                     <template slot-scope="props">
-                        <b-table-column
-                            field="id"
-                            label="ID"
-                            width="40"
-                            numeric
-                            sortable
-                        >
+                        <b-table-column field="id" label="ID" numeric sortable>
                             {{ props.row.id }}
                         </b-table-column>
                         <b-table-column
@@ -364,6 +391,7 @@ export default {
         }
     },
     methods: {
+        //table events
         onPageChange(page) {
             this.pagination.current_page = page;
             this.getUsers();
@@ -381,10 +409,39 @@ export default {
             this.checkedRows = [];
             setTimeout(this.getUsers, 500);
         },
+        //table actions
+        async getUsers() {
+            this.isLoading = true;
+
+            let user = User.orderBy(this.sort.value).page(
+                this.pagination.current_page
+            );
+            if (this.isFiltered) {
+                user.where(this.filter.field, this.filter.value);
+            }
+            let response = await user
+                .get()
+                .then(response => {
+                    this.users = response.data;
+                    this.pagination = response.meta;
+                    this.isLoading = false;
+                })
+                .catch(err => {
+                    this.$buefy.toast.open({
+                        message: `Error: ${err.message}`,
+                        type: "is-danger",
+                        queue: false
+                    });
+                });
+        },
         refresh() {
-            this.checkedRows = [];
             this.getUsers();
         },
+        refreshAndClear() {
+            this.checkedRows = [];
+            this.refresh();
+        },
+        //confirm actions
         confirmDelete() {
             this.$buefy.dialog.confirm({
                 title: "Deleting users",
@@ -405,13 +462,51 @@ export default {
                 onConfirm: () => this.bulkBlock()
             });
         },
+        confirmUnblock() {
+            this.$buefy.dialog.confirm({
+                title: "Unblocking users",
+                message: `Are you sure you want to <b>unblock</b> ${this.checkedRows.length} users? This action can be undone.`,
+                confirmText: "Unblock Users",
+                type: "is-warning",
+                hasIcon: true,
+                onConfirm: () => this.bulkUnblock()
+            });
+        },
+        // bulk actions
+        bulkDelete() {
+            this.checkedRows.forEach(async user => {
+                await user
+                    .delete()
+                    .then(response => {
+                        this.$buefy.snackbar.open({
+                            duration: 3000,
+                            message: `${user.fullname} has been deleted`,
+                            type: "is-danger",
+                            position: "is-bottom-right",
+                            actionText: "Undo",
+                            queue: true,
+                            onAction: () => {
+                                this.restore(user);
+                            }
+                        });
+                    })
+                    .catch(err => {
+                        this.$buefy.toast.open({
+                            message: `Error: ${err.message}`,
+                            type: "is-danger",
+                            queue: false
+                        });
+                    });
+            });
+
+            return true;
+        },
         bulkBlock() {
             this.checkedRows.forEach(async user => {
-                user.block();
                 await user
+                    .block()
                     .save()
                     .then(response => {
-                        console.log(response);
                         this.$buefy.snackbar.open({
                             duration: 3000,
                             message: `${user.fullname} has been blocked`,
@@ -435,9 +530,60 @@ export default {
 
             return true;
         },
-        async unblock(user) {
-            user.unblock();
+        bulkUnblock() {
+            this.checkedRows.forEach(async user => {
+                await user
+                    .unblock()
+                    .save()
+                    .then(response => {
+                        this.$buefy.snackbar.open({
+                            duration: 3000,
+                            message: `${user.fullname} has been unblocked`,
+                            type: "is-danger",
+                            position: "is-bottom-right",
+                            actionText: "Undo",
+                            queue: true,
+                            onAction: () => {
+                                this.block(user);
+                            }
+                        });
+                    })
+                    .catch(err => {
+                        this.$buefy.toast.open({
+                            message: `Error: ${err.message}`,
+                            type: "is-danger",
+                            queue: false
+                        });
+                    });
+            });
+
+            return true;
+        },
+        //single actions
+        async block(user) {
             await user
+                .block()
+                .save()
+                .then(response => {
+                    this.$buefy.snackbar.open({
+                        duration: 2000,
+                        message: `${user.fullname} has been blocked`,
+                        type: "is-info",
+                        position: "is-bottom-right",
+                        queue: true
+                    });
+                })
+                .catch(err => {
+                    this.$buefy.toast.open({
+                        message: `Error: ${err.message}`,
+                        type: "is-danger",
+                        queue: false
+                    });
+                });
+        },
+        async unblock(user) {
+            await user
+                .unblock()
                 .save()
                 .then(response => {
                     this.$buefy.snackbar.open({
@@ -475,73 +621,6 @@ export default {
                         queue: false
                     });
                 });
-        },
-        bulkDelete() {
-            this.checkedRows.forEach(async user => {
-                await user
-                    .delete()
-                    .then(response => {
-                        console.log(response);
-                        this.$buefy.snackbar.open({
-                            duration: 3000,
-                            message: `${user.fullname} has been deleted`,
-                            type: "is-danger",
-                            position: "is-bottom-right",
-                            actionText: "Undo",
-                            queue: true,
-                            onAction: () => {
-                                this.restore(user);
-                            }
-                        });
-                    })
-                    .catch(err => {
-                        this.$buefy.toast.open({
-                            message: `Error: ${err.message}`,
-                            type: "is-danger",
-                            queue: false
-                        });
-                    });
-            });
-
-            return true;
-        },
-        async getUsers() {
-            this.isLoading = true;
-
-            if (this.isFiltered) {
-                let response = await User.orderBy(this.sort.value)
-                    .where(this.filter.field, this.filter.value)
-                    .page(this.pagination.current_page)
-                    .get()
-                    .then(response => {
-                        this.users = response.data;
-                        this.pagination = response.meta;
-                    })
-                    .catch(err => {
-                        this.$buefy.toast.open({
-                            message: `Error: ${err.message}`,
-                            type: "is-danger",
-                            queue: false
-                        });
-                    });
-                this.isLoading = false;
-            } else {
-                let response = await User.orderBy(this.sort.value)
-                    .page(this.pagination.current_page)
-                    .get()
-                    .then(response => {
-                        this.users = response.data;
-                        this.pagination = response.meta;
-                    })
-                    .catch(err => {
-                        this.$buefy.toast.open({
-                            message: `Error: ${err.message}`,
-                            type: "is-danger",
-                            queue: false
-                        });
-                    });
-                this.isLoading = false;
-            }
         }
     },
     mounted() {

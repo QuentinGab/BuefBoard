@@ -114,6 +114,9 @@
                 display: none;
             }
             .menu-list {
+                a{
+                    padding: 1rem 1rem;
+                }
                 li {
                     a {
                         span:not(:first-child) {

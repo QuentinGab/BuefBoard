@@ -392,6 +392,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -445,6 +472,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    //table events
     onPageChange: function onPageChange(page) {
       this.pagination.current_page = page;
       this.getUsers();
@@ -463,12 +491,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.checkedRows = [];
       setTimeout(this.getUsers, 500);
     },
+    //table actions
+    getUsers: function getUsers() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var user, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.isLoading = true;
+                user = _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this.sort.value).page(_this.pagination.current_page);
+
+                if (_this.isFiltered) {
+                  user.where(_this.filter.field, _this.filter.value);
+                }
+
+                _context.next = 5;
+                return user.get().then(function (response) {
+                  _this.users = response.data;
+                  _this.pagination = response.meta;
+                  _this.isLoading = false;
+                })["catch"](function (err) {
+                  _this.$buefy.toast.open({
+                    message: "Error: ".concat(err.message),
+                    type: "is-danger",
+                    queue: false
+                  });
+                });
+
+              case 5:
+                response = _context.sent;
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     refresh: function refresh() {
-      this.checkedRows = [];
       this.getUsers();
     },
+    refreshAndClear: function refreshAndClear() {
+      this.checkedRows = [];
+      this.refresh();
+    },
+    //confirm actions
     confirmDelete: function confirmDelete() {
-      var _this = this;
+      var _this2 = this;
 
       this.$buefy.dialog.confirm({
         title: "Deleting users",
@@ -477,12 +550,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         type: "is-danger",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this.bulkDelete();
+          return _this2.bulkDelete();
         }
       });
     },
     confirmBlock: function confirmBlock() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$buefy.dialog.confirm({
         title: "Blocking users",
@@ -491,49 +564,61 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         type: "is-warning",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this2.bulkBlock();
+          return _this3.bulkBlock();
         }
       });
     },
-    bulkBlock: function bulkBlock() {
-      var _this3 = this;
+    confirmUnblock: function confirmUnblock() {
+      var _this4 = this;
+
+      this.$buefy.dialog.confirm({
+        title: "Unblocking users",
+        message: "Are you sure you want to <b>unblock</b> ".concat(this.checkedRows.length, " users? This action can be undone."),
+        confirmText: "Unblock Users",
+        type: "is-warning",
+        hasIcon: true,
+        onConfirm: function onConfirm() {
+          return _this4.bulkUnblock();
+        }
+      });
+    },
+    // bulk actions
+    bulkDelete: function bulkDelete() {
+      var _this5 = this;
 
       this.checkedRows.forEach( /*#__PURE__*/function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(user) {
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(user) {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
             while (1) {
-              switch (_context.prev = _context.next) {
+              switch (_context2.prev = _context2.next) {
                 case 0:
-                  user.block();
-                  _context.next = 3;
-                  return user.save().then(function (response) {
-                    console.log(response);
-
-                    _this3.$buefy.snackbar.open({
+                  _context2.next = 2;
+                  return user["delete"]().then(function (response) {
+                    _this5.$buefy.snackbar.open({
                       duration: 3000,
-                      message: "".concat(user.fullname, " has been blocked"),
+                      message: "".concat(user.fullname, " has been deleted"),
                       type: "is-danger",
                       position: "is-bottom-right",
                       actionText: "Undo",
                       queue: true,
                       onAction: function onAction() {
-                        _this3.unblock(user);
+                        _this5.restore(user);
                       }
                     });
                   })["catch"](function (err) {
-                    _this3.$buefy.toast.open({
+                    _this5.$buefy.toast.open({
                       message: "Error: ".concat(err.message),
                       type: "is-danger",
                       queue: false
                     });
                   });
 
-                case 3:
+                case 2:
                 case "end":
-                  return _context.stop();
+                  return _context2.stop();
               }
             }
-          }, _callee);
+          }, _callee2);
         }));
 
         return function (_x) {
@@ -542,99 +627,74 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }());
       return true;
     },
-    unblock: function unblock(user) {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                user.unblock();
-                _context2.next = 3;
-                return user.save().then(function (response) {
-                  _this4.$buefy.snackbar.open({
-                    duration: 2000,
-                    message: "".concat(user.fullname, " has been unblocked"),
-                    type: "is-info",
-                    position: "is-bottom-right",
-                    queue: true
-                  });
-                })["catch"](function (err) {
-                  _this4.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-                });
-
-              case 3:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    restore: function restore(user) {
-      var _this5 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return user.restore().then(function (response) {
-                  _this5.$buefy.snackbar.open({
-                    duration: 2000,
-                    message: "".concat(user.fullname, " has been restored"),
-                    type: "is-info",
-                    position: "is-bottom-right",
-                    queue: true
-                  });
-                })["catch"](function (err) {
-                  _this5.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-                });
-
-              case 2:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
-    bulkDelete: function bulkDelete() {
+    bulkBlock: function bulkBlock() {
       var _this6 = this;
 
       this.checkedRows.forEach( /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(user) {
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(user) {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
             while (1) {
-              switch (_context4.prev = _context4.next) {
+              switch (_context3.prev = _context3.next) {
                 case 0:
-                  _context4.next = 2;
-                  return user["delete"]().then(function (response) {
-                    console.log(response);
-
+                  _context3.next = 2;
+                  return user.block().save().then(function (response) {
                     _this6.$buefy.snackbar.open({
                       duration: 3000,
-                      message: "".concat(user.fullname, " has been deleted"),
+                      message: "".concat(user.fullname, " has been blocked"),
                       type: "is-danger",
                       position: "is-bottom-right",
                       actionText: "Undo",
                       queue: true,
                       onAction: function onAction() {
-                        _this6.restore(user);
+                        _this6.unblock(user);
                       }
                     });
                   })["catch"](function (err) {
                     _this6.$buefy.toast.open({
+                      message: "Error: ".concat(err.message),
+                      type: "is-danger",
+                      queue: false
+                    });
+                  });
+
+                case 2:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }));
+
+        return function (_x2) {
+          return _ref2.apply(this, arguments);
+        };
+      }());
+      return true;
+    },
+    bulkUnblock: function bulkUnblock() {
+      var _this7 = this;
+
+      this.checkedRows.forEach( /*#__PURE__*/function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(user) {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+            while (1) {
+              switch (_context4.prev = _context4.next) {
+                case 0:
+                  _context4.next = 2;
+                  return user.unblock().save().then(function (response) {
+                    _this7.$buefy.snackbar.open({
+                      duration: 3000,
+                      message: "".concat(user.fullname, " has been unblocked"),
+                      type: "is-danger",
+                      position: "is-bottom-right",
+                      actionText: "Undo",
+                      queue: true,
+                      onAction: function onAction() {
+                        _this7.block(user);
+                      }
+                    });
+                  })["catch"](function (err) {
+                    _this7.$buefy.toast.open({
                       message: "Error: ".concat(err.message),
                       type: "is-danger",
                       queue: false
@@ -649,70 +709,110 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }, _callee4);
         }));
 
-        return function (_x2) {
-          return _ref2.apply(this, arguments);
+        return function (_x3) {
+          return _ref3.apply(this, arguments);
         };
       }());
       return true;
     },
-    getUsers: function getUsers() {
-      var _this7 = this;
+    //single actions
+    block: function block(user) {
+      var _this8 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-        var response, _response;
-
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _this7.isLoading = true;
-
-                if (!_this7.isFiltered) {
-                  _context5.next = 8;
-                  break;
-                }
-
-                _context5.next = 4;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this7.sort.value).where(_this7.filter.field, _this7.filter.value).page(_this7.pagination.current_page).get().then(function (response) {
-                  _this7.users = response.data;
-                  _this7.pagination = response.meta;
+                _context5.next = 2;
+                return user.block().save().then(function (response) {
+                  _this8.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "".concat(user.fullname, " has been blocked"),
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: true
+                  });
                 })["catch"](function (err) {
-                  _this7.$buefy.toast.open({
+                  _this8.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
                   });
                 });
 
-              case 4:
-                response = _context5.sent;
-                _this7.isLoading = false;
-                _context5.next = 12;
-                break;
-
-              case 8:
-                _context5.next = 10;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this7.sort.value).page(_this7.pagination.current_page).get().then(function (response) {
-                  _this7.users = response.data;
-                  _this7.pagination = response.meta;
-                })["catch"](function (err) {
-                  _this7.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-                });
-
-              case 10:
-                _response = _context5.sent;
-                _this7.isLoading = false;
-
-              case 12:
+              case 2:
               case "end":
                 return _context5.stop();
             }
           }
         }, _callee5);
+      }))();
+    },
+    unblock: function unblock(user) {
+      var _this9 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return user.unblock().save().then(function (response) {
+                  _this9.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "".concat(user.fullname, " has been unblocked"),
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: true
+                  });
+                })["catch"](function (err) {
+                  _this9.$buefy.toast.open({
+                    message: "Error: ".concat(err.message),
+                    type: "is-danger",
+                    queue: false
+                  });
+                });
+
+              case 2:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
+    restore: function restore(user) {
+      var _this10 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return user.restore().then(function (response) {
+                  _this10.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "".concat(user.fullname, " has been restored"),
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: true
+                  });
+                })["catch"](function (err) {
+                  _this10.$buefy.toast.open({
+                    message: "Error: ".concat(err.message),
+                    type: "is-danger",
+                    queue: false
+                  });
+                });
+
+              case 2:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
       }))();
     }
   },
@@ -934,7 +1034,13 @@ var render = function() {
                     [
                       _c(
                         "b-tooltip",
-                        { attrs: { label: "Add", type: "is-light" } },
+                        {
+                          attrs: {
+                            label: "Add",
+                            type: "is-light",
+                            animated: ""
+                          }
+                        },
                         [
                           _c("b-button", {
                             staticClass: "is-primary",
@@ -950,14 +1056,20 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "b-tooltip",
-                        { attrs: { label: "Refresh", type: "is-light" } },
+                        {
+                          attrs: {
+                            label: "Refresh",
+                            type: "is-light",
+                            animated: ""
+                          }
+                        },
                         [
                           _c("b-button", {
                             attrs: {
                               loading: _vm.isLoading,
                               "icon-left": "refresh"
                             },
-                            on: { click: _vm.refresh }
+                            on: { click: _vm.refreshAndClear }
                           })
                         ],
                         1
@@ -984,7 +1096,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "b-tooltip",
-                        { attrs: { label: "Delete", type: "is-light" } },
+                        {
+                          attrs: {
+                            label: "Delete",
+                            type: "is-light",
+                            animated: ""
+                          }
+                        },
                         [
                           _c("b-button", {
                             staticClass: "is-danger",
@@ -1002,7 +1120,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "b-tooltip",
-                        { attrs: { label: "Block", type: "is-light" } },
+                        {
+                          attrs: {
+                            label: "Block",
+                            type: "is-light",
+                            animated: ""
+                          }
+                        },
                         [
                           _c("b-button", {
                             staticClass: "is-warning",
@@ -1023,11 +1147,46 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "buttons has-addons are-small" },
+                    { staticClass: "buttons are-small" },
                     [
-                      _c("b-button", {
-                        attrs: { "icon-left": "dots-vertical" }
-                      })
+                      _c(
+                        "b-dropdown",
+                        {
+                          attrs: {
+                            "aria-role": "list",
+                            position: "is-bottom-left"
+                          }
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "button is-default",
+                              attrs: { slot: "trigger" },
+                              slot: "trigger"
+                            },
+                            [
+                              _c("b-icon", {
+                                attrs: {
+                                  icon: "dots-vertical",
+                                  size: "is-small"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-dropdown-item",
+                            {
+                              attrs: { "aria-role": "listitem" },
+                              on: { click: _vm.confirmUnblock }
+                            },
+                            [_vm._v("Unblock")]
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
@@ -1057,7 +1216,8 @@ var render = function() {
                   "aria-next-label": "Next page",
                   "aria-previous-label": "Previous page",
                   "aria-page-label": "Page",
-                  "aria-current-label": "Current page"
+                  "aria-current-label": "Current page",
+                  scrollable: ""
                 },
                 on: {
                   "update:checkedRows": function($event) {
@@ -1086,7 +1246,6 @@ var render = function() {
                             attrs: {
                               field: "id",
                               label: "ID",
-                              width: "40",
                               numeric: "",
                               sortable: ""
                             }

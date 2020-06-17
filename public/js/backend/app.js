@@ -38830,12 +38830,18 @@ var User = /*#__PURE__*/function (_Model) {
     key: "block",
     value: function block() {
       this.blocked_at = new Date().toISOString();
+      return this;
     }
   }, {
     key: "unblock",
     value: function unblock() {
       this.blocked_at = null;
+      return this;
     }
+    /**
+     * restore after soft delete
+     */
+
   }, {
     key: "restore",
     value: function restore() {

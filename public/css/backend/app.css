@@ -15141,7 +15141,7 @@ label.panel-block:hover {
 }
 
 .b-sidebar .sidebar-content.is-mini {
-  width: 80px;
+  width: 60px;
 }
 
 .b-sidebar .sidebar-content.is-mini.is-mini-expand:hover {
@@ -15182,7 +15182,7 @@ label.panel-block:hover {
 
 @media screen and (max-width: 1023px) {
   .b-sidebar .sidebar-content.is-mini-mobile {
-    width: 80px;
+    width: 60px;
   }
 
   .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:hover:not(.is-fullwidth-mobile) {
@@ -18560,6 +18560,10 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   display: none;
 }
 
+.bb-sidebar .sidebar-content.is-mini .menu-list a {
+  padding: 1rem 1rem;
+}
+
 .bb-sidebar .sidebar-content.is-mini .menu-list li a span:not(:first-child) {
   display: none;
 }
@@ -18599,6 +18603,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .bb-table {
   border: 1px solid var(--bb-white-ter, whitesmoke);
   border-radius: 6px;
+  background-color: var(--bb-white, white);
 }
 
 .bb-table .bb-table-header {
@@ -18622,7 +18627,15 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .bb-table .bb-table-header .level-left > div,
 .bb-table .bb-table-header .level-right > div {
-  padding: 0 0.5rem;
+  padding: 0.5rem;
+}
+
+.bb-table .b-table .level:last-child {
+  padding: 0;
+}
+
+.bb-table .b-table .level:last-child > div {
+  padding: 0.5rem;
 }
 
 .bb-table .table td,
@@ -18657,12 +18670,26 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   margin-bottom: 0;
 }
 
+.buttons.has-addons > *:not(:first-child):not(:last-child) .button {
+  border-radius: 0 !important;
+}
+
+.buttons.has-addons > *:first-child .button {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.buttons.has-addons > *:last-child .button {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
 html {
   overflow: hidden;
 }
 
 body {
-  background-color: var(--bb-white, white);
+  background-color: var(--bb-light, whitesmoke);
 }
 
 .bb-content {
