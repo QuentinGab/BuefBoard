@@ -27,3 +27,5 @@ Route::apiResource('users', 'UsersController')->except(['destroy']);
 Route::delete('users/{user}', 'UsersController@delete');
 Route::delete('users/{user}/destroy', 'UsersController@destroy');
 Route::post('users/{user}/restore', 'UsersController@restore');
+
+Route::apiResource('roles', 'RolesController')->except(['destroy']);
