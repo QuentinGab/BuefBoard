@@ -458,6 +458,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -552,7 +559,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 if (_this.showTrashed) {
-                  user.custom("users/trashed");
+                  user.where("trashed", "only");
                 }
 
                 _context.next = 6;
@@ -696,7 +703,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         users.whereIn("id", usersId);
       }
 
-      users["export"]();
+      if (this.showTrashed) {
+        users.where("trashed", "only");
+      }
+
+      users["export"](this.showTrashed);
       this.$buefy.snackbar.open({
         duration: 3000,
         message: "".concat(this.checkedLength > 0 ? this.checkedLength : "all", " users have been exported"),
@@ -1046,7 +1057,10 @@ var render = function() {
                                     ]),
                                     _vm._v(" "),
                                     _c("b-icon", {
-                                      attrs: { icon: "menu-down" }
+                                      attrs: {
+                                        icon: "chevron-down",
+                                        size: "is-small"
+                                      }
                                     })
                                   ],
                                   1
@@ -1070,7 +1084,9 @@ var render = function() {
                           attrs: {
                             icon: "magnify",
                             type: "search",
-                            placeholder: "Search...",
+                            placeholder: _vm.filter.field
+                              ? "Search..."
+                              : "Select a column",
                             size: "is-small"
                           },
                           on: { input: _vm.onFilter },

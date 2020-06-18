@@ -8,6 +8,7 @@
         justify-content: space-between;
         border-bottom: 2px solid var(--bb-white-ter, $white-ter);
         min-height: 50px;
+        flex-wrap: wrap;
         .title {
             margin: 0;
             padding: 0.5rem 1rem;

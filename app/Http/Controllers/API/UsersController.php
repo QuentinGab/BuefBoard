@@ -36,44 +36,8 @@ class UsersController extends Controller
                     'first_name',
                     'last_name',
                     AllowedFilter::exact('id'),
+                    AllowedFilter::trashed(),
                     'email',
-                    'email_verified_at',
-                    'updated_at',
-                ])
-                ->allowedSorts([
-                    'first_name',
-                    'last_name',
-                    'id',
-                    'email',
-                    'email_verified_at',
-                    'updated_at',
-                    'blocked_at',
-                    'created_at',
-                ])
-                ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
-                ->defaultSort('id')
-                ->paginate(15);
-
-        return UserResource::collection($users);
-    }
-
-    /**
-     * Display all the users (not in trash).
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function trashed(Request $request)
-    {
-
-        $users = QueryBuilder::for(User::class)
-                ->onlyTrashed()
-                ->allowedFilters([
-                    'first_name',
-                    'last_name',
-                    AllowedFilter::exact('id'),
-                    'email',
-                    'email_verified_at',
-                    'updated_at',
                 ])
                 ->allowedSorts([
                     'first_name',
@@ -226,6 +190,7 @@ class UsersController extends Controller
         $users = QueryBuilder::for(User::class)
                 ->allowedFilters([
                     AllowedFilter::exact('id'),
+                    AllowedFilter::trashed()
                 ])
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
                 ->defaultSort('id')
@@ -236,6 +201,5 @@ class UsersController extends Controller
             $writerType = null,
             $headings = true
         );
-        // Excel::download(new UsersExport, 'users.xlsx');
     }
 }

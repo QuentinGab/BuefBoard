@@ -36,7 +36,10 @@
                                                     ? filter.field
                                                     : "Filters"
                                             }}</span>
-                                            <b-icon icon="menu-down"></b-icon>
+                                            <b-icon
+                                                icon="chevron-down"
+                                                size="is-small"
+                                            ></b-icon>
                                         </button>
 
                                         <b-dropdown-item
@@ -50,7 +53,11 @@
                                 <b-input
                                     icon="magnify"
                                     type="search"
-                                    placeholder="Search..."
+                                    :placeholder="
+                                        filter.field
+                                            ? 'Search...'
+                                            : 'Select a column'
+                                    "
                                     size="is-small"
                                     v-model="filter.value"
                                     v-on:input="onFilter"
@@ -463,7 +470,7 @@ export default {
                 user.where(this.filter.field, this.filter.value);
             }
             if (this.showTrashed) {
-                user.custom("users/trashed");
+                user.where("trashed", "only");
             }
             let response = await user
                 .get()
@@ -572,7 +579,10 @@ export default {
                 });
                 users.whereIn("id", usersId);
             }
-            users.export();
+            if (this.showTrashed) {
+                users.where("trashed", "only");
+            }
+            users.export(this.showTrashed);
             this.$buefy.snackbar.open({
                 duration: 3000,
                 message: `${

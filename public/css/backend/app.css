@@ -18612,6 +18612,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   justify-content: space-between;
   border-bottom: 2px solid var(--bb-white-ter, whitesmoke);
   min-height: 50px;
+  flex-wrap: wrap;
 }
 
 .bb-table .bb-table-header .title {
