@@ -8,6 +8,11 @@
             <div class="column is-6 has-background-white has-text-dark">
                 <div class="">
                     <h1 class="title has-text-dark"> {{__("Login")}} </h1>
+                    @if (session('message'))
+                    <div class="notification is-danger is-light">
+                        {{ session('message') }}
+                    </div>
+                    @endif
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="field">
