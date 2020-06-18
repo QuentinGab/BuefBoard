@@ -18,14 +18,17 @@ use Illuminate\Support\Facades\Route;
 //middleware: web
 
 //Users
-//current
+//current user
 Route::get('users/current', 'CurrentUserController@show');
 Route::post('users/current', 'CurrentUserController@update');
 Route::delete('users/current', 'CurrentUserController@destroy');
-//all
+//all users
+Route::get('users/export', 'UsersController@export');
 Route::apiResource('users', 'UsersController')->except(['destroy']);
 Route::delete('users/{user}', 'UsersController@delete');
-Route::delete('users/{user}/destroy', 'UsersController@destroy');
 Route::post('users/{user}/restore', 'UsersController@restore');
+Route::delete('users/{user}/destroy', 'UsersController@destroy');
+Route::post('users/{user}/send-email-verification', 'UsersController@sendEmailVerification');
 
+//Roles
 Route::apiResource('roles', 'RolesController')->except(['destroy']);

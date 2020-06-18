@@ -71,14 +71,16 @@ export default {
         };
     },
     computed: {
-        ...mapState(["user"])
+        ...mapState(["user", "loading"])
     },
     methods: {
         async getUser() {
-            let response = await User.custom("users/current")
-                .$first()
+            this.$store.commit("updateUserLoading", true);
+            return await new User()
+                .current()
                 .then(response => {
                     this.$store.commit("updateUser", response);
+                    this.$store.commit("updateUserLoading", false);
                 })
                 .catch(err => {
                     this.$buefy.toast.open({

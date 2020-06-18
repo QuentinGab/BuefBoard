@@ -5,7 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        user: {}
+        user: {},
+        loading: {
+            user: false
+        }
     },
     mutations: {
         /* A fit-them-all commit */
@@ -13,8 +16,11 @@ export default new Vuex.Store({
             state[payload.key] = payload.value;
         },
         /* User */
-        updateUser(state,user){
+        updateUser(state, user) {
             state.user = user;
+        },
+        updateUserLoading(state, isLoading) {
+            state.loading.user = isLoading;
         }
     },
     actions: {}

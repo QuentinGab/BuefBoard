@@ -87,7 +87,7 @@
                                     class=""
                                     icon-left="checkbox-marked-outline"
                                 >
-                                    {{ checkedRows.length }}
+                                    {{ checkedLength }}
                                 </b-button>
                                 <b-tooltip
                                     label="Delete"
@@ -100,9 +100,7 @@
                                         icon-left="delete-outline"
                                         @click="confirmDelete"
                                         :disabled="
-                                            checkedRows.length > 0
-                                                ? false
-                                                : true
+                                            checkedLength > 0 ? false : true
                                         "
                                     >
                                     </b-button>
@@ -118,9 +116,7 @@
                                         icon-left="account-cancel-outline"
                                         @click="confirmBlock"
                                         :disabled="
-                                            checkedRows.length > 0
-                                                ? false
-                                                : true
+                                            checkedLength > 0 ? false : true
                                         "
                                     >
                                     </b-button>
@@ -145,8 +141,25 @@
                                     <b-dropdown-item
                                         aria-role="listitem"
                                         @click="confirmUnblock"
+                                        :disabled="
+                                            checkedLength > 0 ? false : true
+                                        "
                                         >Unblock</b-dropdown-item
                                     >
+                                    <b-dropdown-item
+                                        aria-role="listitem"
+                                        @click="bulkSendEmailVerification"
+                                        :disabled="
+                                            checkedLength > 0 ? false : true
+                                        "
+                                        >Send Email
+                                        Verification</b-dropdown-item
+                                    >
+                                    <b-dropdown-item
+                                        aria-role="listitem"
+                                        @click="bulkExport"
+                                        >Export
+                                    </b-dropdown-item>
                                 </b-dropdown>
                             </div>
                         </div>
@@ -205,8 +218,8 @@
                                 <b-tag
                                     type="is-info"
                                     v-for="role in props.row.roles"
-                                    :key="role"
-                                    >{{ role }}</b-tag
+                                    :key="role.id"
+                                    >{{ role.name }}</b-tag
                                 >
                             </b-taglist>
                         </b-table-column>
@@ -296,13 +309,14 @@
                             label="Actions"
                             class="is-actions-cell"
                             width="40"
+                            numeric
                         >
                             <router-link
                                 :to="{
                                     name: 'users.edit',
                                     params: { id: props.row.id }
                                 }"
-                                class="button is-rounded is-small is-primary"
+                                class="button is-small"
                             >
                                 <b-icon icon="account-edit" size="is-small" />
                             </router-link>
@@ -325,9 +339,7 @@
 
                     <template slot="bottom-left">
                         <div>
-                            <div>
-                                <b>Total checked</b>: {{ checkedRows.length }}
-                            </div>
+                            <div><b>Total checked</b>: {{ checkedLength }}</div>
                             <div><b>Total</b>: {{ total }}</div>
                         </div>
                     </template>
@@ -388,6 +400,9 @@ export default {
         },
         isFiltered() {
             return !!(this.filter.field && this.filter.value);
+        },
+        checkedLength() {
+            return this.checkedRows.length;
         }
     },
     methods: {
@@ -413,9 +428,9 @@ export default {
         async getUsers() {
             this.isLoading = true;
 
-            let user = User.orderBy(this.sort.value).page(
-                this.pagination.current_page
-            );
+            let user = User.orderBy(this.sort.value)
+                .page(this.pagination.current_page)
+                .include("roles");
             if (this.isFiltered) {
                 user.where(this.filter.field, this.filter.value);
             }
@@ -424,7 +439,6 @@ export default {
                 .then(response => {
                     this.users = response.data;
                     this.pagination = response.meta;
-                    this.isLoading = false;
                 })
                 .catch(err => {
                     this.$buefy.toast.open({
@@ -433,6 +447,7 @@ export default {
                         queue: false
                     });
                 });
+            this.isLoading = false;
         },
         refresh() {
             this.getUsers();
@@ -445,7 +460,7 @@ export default {
         confirmDelete() {
             this.$buefy.dialog.confirm({
                 title: "Deleting users",
-                message: `Are you sure you want to <b>delete</b> ${this.checkedRows.length} users? This action can be undone.`,
+                message: `Are you sure you want to <b>delete</b> ${this.checkedLength} users? This action can be undone.`,
                 confirmText: "Delete Users",
                 type: "is-danger",
                 hasIcon: true,
@@ -455,7 +470,7 @@ export default {
         confirmBlock() {
             this.$buefy.dialog.confirm({
                 title: "Blocking users",
-                message: `Are you sure you want to <b>block</b> ${this.checkedRows.length} users? This action can be undone.`,
+                message: `Are you sure you want to <b>block</b> ${this.checkedLength} users? This action can be undone.`,
                 confirmText: "Block Users",
                 type: "is-warning",
                 hasIcon: true,
@@ -465,7 +480,7 @@ export default {
         confirmUnblock() {
             this.$buefy.dialog.confirm({
                 title: "Unblocking users",
-                message: `Are you sure you want to <b>unblock</b> ${this.checkedRows.length} users? This action can be undone.`,
+                message: `Are you sure you want to <b>unblock</b> ${this.checkedLength} users? This action can be undone.`,
                 confirmText: "Unblock Users",
                 type: "is-warning",
                 hasIcon: true,
@@ -474,92 +489,78 @@ export default {
         },
         // bulk actions
         bulkDelete() {
-            this.checkedRows.forEach(async user => {
-                await user
-                    .delete()
-                    .then(response => {
-                        this.$buefy.snackbar.open({
-                            duration: 3000,
-                            message: `${user.fullname} has been deleted`,
-                            type: "is-danger",
-                            position: "is-bottom-right",
-                            actionText: "Undo",
-                            queue: true,
-                            onAction: () => {
-                                this.restore(user);
-                            }
-                        });
-                    })
-                    .catch(err => {
-                        this.$buefy.toast.open({
-                            message: `Error: ${err.message}`,
-                            type: "is-danger",
-                            queue: false
-                        });
-                    });
+            this.checkedRows.forEach(user => {
+                this.delete(user);
             });
 
             return true;
         },
         bulkBlock() {
-            this.checkedRows.forEach(async user => {
-                await user
-                    .block()
-                    .save()
-                    .then(response => {
-                        this.$buefy.snackbar.open({
-                            duration: 3000,
-                            message: `${user.fullname} has been blocked`,
-                            type: "is-danger",
-                            position: "is-bottom-right",
-                            actionText: "Undo",
-                            queue: true,
-                            onAction: () => {
-                                this.unblock(user);
-                            }
-                        });
-                    })
-                    .catch(err => {
-                        this.$buefy.toast.open({
-                            message: `Error: ${err.message}`,
-                            type: "is-danger",
-                            queue: false
-                        });
-                    });
+            this.checkedRows.forEach(user => {
+                this.block(user);
             });
 
             return true;
         },
         bulkUnblock() {
-            this.checkedRows.forEach(async user => {
-                await user
-                    .unblock()
-                    .save()
-                    .then(response => {
-                        this.$buefy.snackbar.open({
-                            duration: 3000,
-                            message: `${user.fullname} has been unblocked`,
-                            type: "is-danger",
-                            position: "is-bottom-right",
-                            actionText: "Undo",
-                            queue: true,
-                            onAction: () => {
-                                this.block(user);
-                            }
-                        });
-                    })
-                    .catch(err => {
-                        this.$buefy.toast.open({
-                            message: `Error: ${err.message}`,
-                            type: "is-danger",
-                            queue: false
-                        });
-                    });
+            this.checkedRows.forEach(user => {
+                this.unblock(user);
             });
 
             return true;
         },
+        bulkSendEmailVerification() {
+            this.checkedRows.forEach(user => {
+                this.sendEmailVerification(user);
+            });
+
+            return true;
+        },
+        bulkExport() {
+            let users = new User().custom("users/export");
+            if (this.checkedLength > 0) {
+                let usersId = this.checkedRows.map(item => {
+                    return item.id;
+                });
+                users.whereIn("id", usersId);
+            }
+            users.export();
+            this.$buefy.snackbar.open({
+                duration: 3000,
+                message: `${
+                    this.checkedLength > 0 ? this.checkedLength : "all"
+                } users have been exported`,
+                type: "is-danger",
+                position: "is-bottom-right",
+                queue: true
+            });
+        },
         //single actions
+        async delete(user) {
+            await user
+                .delete()
+                .then(response => {
+                    this.$buefy.snackbar.open({
+                        duration: 3000,
+                        message: `${user.fullname} has been deleted`,
+                        type: "is-danger",
+                        position: "is-bottom-right",
+                        actionText: "Undo",
+                        queue: true,
+                        onAction: () => {
+                            this.restore(user);
+                        }
+                    });
+                })
+                .catch(err => {
+                    this.$buefy.toast.open({
+                        message: `Error: ${err.message}`,
+                        type: "is-danger",
+                        queue: false
+                    });
+                });
+            this.refresh();
+        },
         async block(user) {
             await user
                 .block()
@@ -568,9 +569,13 @@ export default {
                     this.$buefy.snackbar.open({
                         duration: 2000,
                         message: `${user.fullname} has been blocked`,
-                        type: "is-info",
+                        type: "is-danger",
                         position: "is-bottom-right",
-                        queue: true
+                        actionText: "Undo",
+                        queue: true,
+                        onAction: () => {
+                            this.unblock(user);
+                        }
                     });
                 })
                 .catch(err => {
@@ -621,11 +626,32 @@ export default {
                         queue: false
                     });
                 });
+            this.refresh();
+        },
+        async sendEmailVerification(user) {
+            await user
+                .sendEmailVerification()
+                .then(response => {
+                    this.$buefy.snackbar.open({
+                        duration: 2000,
+                        message: `An email has been send to <b>${user.fullname}</b>`,
+                        type: "is-info",
+                        position: "is-bottom-right",
+                        queue: true
+                    });
+                })
+                .catch(err => {
+                    this.$buefy.toast.open({
+                        message: `Error: ${err.message}`,
+                        type: "is-danger",
+                        queue: false
+                    });
+                });
         }
     },
-    mounted() {
+    mounted() {},
+    created() {
         this.getUsers();
-    },
-    created() {}
+    }
 };
 </script>

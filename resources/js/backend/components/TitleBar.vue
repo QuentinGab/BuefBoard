@@ -1,5 +1,5 @@
 <template>
-    <div class="level">
+    <div class="level is-marginless">
         <div class="level-left">
             <h1 class="title">{{ title }}</h1>
         </div>

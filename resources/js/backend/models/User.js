@@ -35,4 +35,26 @@ export default class User extends Model {
             return self;
         });
     }
+
+    current() {
+        return this.custom("users/current")
+            .$first()
+            .then(response => {
+                let self = Object.assign(this, response.data);
+                return self;
+            });
+    }
+
+    sendEmailVerification() {
+        let url = `${this.endpoint()}/send-email-verification`;
+        return this.request({
+            method: "POST",
+            url: url,
+            data: this
+        }).then(response => {
+            let self = Object.assign(this, response.data);
+            return self;
+        });
+    }
+
 }

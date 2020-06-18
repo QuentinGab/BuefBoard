@@ -2469,20 +2469,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }]
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["user"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["user", "loading"])),
   methods: {
     getUser: function getUser() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"].custom("users/current").$first().then(function (response) {
+                _this.$store.commit("updateUserLoading", true);
+
+                _context.next = 3;
+                return new _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"]().current().then(function (response) {
                   _this.$store.commit("updateUser", response);
+
+                  _this.$store.commit("updateUserLoading", false);
                 })["catch"](function (err) {
                   _this.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
@@ -2491,10 +2494,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
                 });
 
-              case 2:
-                response = _context.sent;
-
               case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -38764,6 +38767,14 @@ var Model = /*#__PURE__*/function (_BaseModel) {
     value: function request(config) {
       return this.$http.request(config);
     }
+  }, {
+    key: "export",
+    value: function _export() {
+      var base = this._fromResource || "".concat(this.baseURL(), "/").concat(this.resource());
+      base = this._customResource ? "".concat(this.baseURL(), "/").concat(this._customResource) : base;
+      var url = "".concat(base).concat(this._builder.query());
+      return window.location.replace(url);
+    }
   }]);
 
   return Model;
@@ -38858,6 +38869,31 @@ var User = /*#__PURE__*/function (_Model) {
       });
     }
   }, {
+    key: "current",
+    value: function current() {
+      var _this2 = this;
+
+      return this.custom("users/current").$first().then(function (response) {
+        var self = Object.assign(_this2, response.data);
+        return self;
+      });
+    }
+  }, {
+    key: "sendEmailVerification",
+    value: function sendEmailVerification() {
+      var _this3 = this;
+
+      var url = "".concat(this.endpoint(), "/send-email-verification");
+      return this.request({
+        method: "POST",
+        url: url,
+        data: this
+      }).then(function (response) {
+        var self = Object.assign(_this3, response.data);
+        return self;
+      });
+    }
+  }, {
     key: "fullname",
     get: function get() {
       return "".concat(this.first_name, " ").concat(this.last_name);
@@ -38936,7 +38972,10 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    user: {}
+    user: {},
+    loading: {
+      user: false
+    }
   },
   mutations: {
     /* A fit-them-all commit */
@@ -38947,6 +38986,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     /* User */
     updateUser: function updateUser(state, user) {
       state.user = user;
+    },
+    updateUserLoading: function updateUserLoading(state, isLoading) {
+      state.loading.user = isLoading;
     }
   },
   actions: {}

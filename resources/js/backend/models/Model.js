@@ -10,4 +10,14 @@ export default class Model extends BaseModel {
     request(config) {
         return this.$http.request(config);
     }
+
+    export() {
+        let base = this._fromResource || `${this.baseURL()}/${this.resource()}`;
+        base = this._customResource
+            ? `${this.baseURL()}/${this._customResource}`
+            : base;
+        let url = `${base}${this._builder.query()}`;
+
+        return window.location.replace(url);
+    }
 }

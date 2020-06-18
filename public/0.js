@@ -136,7 +136,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "level" }, [
+  return _c("div", { staticClass: "level is-marginless" }, [
     _c("div", { staticClass: "level-left" }, [
       _c("h1", { staticClass: "title" }, [_vm._v(_vm._s(_vm.title))])
     ]),
