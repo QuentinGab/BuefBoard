@@ -38898,6 +38898,11 @@ var User = /*#__PURE__*/function (_Model) {
     get: function get() {
       return "".concat(this.first_name, " ").concat(this.last_name);
     }
+  }, {
+    key: "trashed",
+    get: function get() {
+      return this.hasOwnProperty('deleted_at');
+    }
   }]);
 
   return User;

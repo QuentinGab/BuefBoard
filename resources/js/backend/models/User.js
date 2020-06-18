@@ -11,6 +11,10 @@ export default class User extends Model {
         return `${this.first_name} ${this.last_name}`;
     }
 
+    get trashed(){
+        return this.hasOwnProperty('deleted_at');
+    }
+
     block() {
         this.blocked_at = new Date().toISOString();
         return this;

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Exports\UsersExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -25,7 +24,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display all the users (not in trash).
      *
      * @return \Illuminate\Http\Response
      */
@@ -33,6 +32,41 @@ class UsersController extends Controller
     {
 
         $users = QueryBuilder::for(User::class)
+                ->allowedFilters([
+                    'first_name',
+                    'last_name',
+                    AllowedFilter::exact('id'),
+                    'email',
+                    'email_verified_at',
+                    'updated_at',
+                ])
+                ->allowedSorts([
+                    'first_name',
+                    'last_name',
+                    'id',
+                    'email',
+                    'email_verified_at',
+                    'updated_at',
+                    'blocked_at',
+                    'created_at',
+                ])
+                ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
+                ->defaultSort('id')
+                ->paginate(15);
+
+        return UserResource::collection($users);
+    }
+
+    /**
+     * Display all the users (not in trash).
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed(Request $request)
+    {
+
+        $users = QueryBuilder::for(User::class)
+                ->onlyTrashed()
                 ->allowedFilters([
                     'first_name',
                     'last_name',
@@ -72,11 +106,12 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::withTrashed()->find($id);
         return new UserResource($user);
     }
 
@@ -89,7 +124,11 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->save();
+        if ($user->hasRole('god') and !$request->user()->hasRole('god')) {
+            //only a god can update a god
+            return abort(403, 'User does not have the right roles.');
+        }
+
         $user->update(
             $request->only([
                 'first_name',
@@ -107,7 +146,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the user from storage.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
@@ -119,7 +158,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Delete the specified resource.
+     * Soft Delete the user.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
@@ -131,7 +170,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Restore the specified resource from storage.
+     * Restore the user from storage.
      *
      * @param   $user
      * @return \Illuminate\Http\Response
@@ -184,16 +223,15 @@ class UsersController extends Controller
      */
     public function export(Request $request)
     {
-        $users = QueryBuilder::for(User::class) 
+        $users = QueryBuilder::for(User::class)
                 ->allowedFilters([
                     AllowedFilter::exact('id'),
                 ])
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
                 ->defaultSort('id')
                 ->get();
-        
 
-        return $users->downloadExcel(
+        return UserResource::collection($users)->downloadExcel(
             'users.xlsx',
             $writerType = null,
             $headings = true

@@ -431,6 +431,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -443,6 +470,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       users: [],
       isLoading: false,
+      showTrashed: false,
       checkedRows: [],
       //paginate
       pagination: {
@@ -523,7 +551,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   user.where(_this.filter.field, _this.filter.value);
                 }
 
-                _context.next = 5;
+                if (_this.showTrashed) {
+                  user.custom("users/trashed");
+                }
+
+                _context.next = 6;
                 return user.get().then(function (response) {
                   _this.users = response.data;
                   _this.pagination = response.meta;
@@ -535,11 +567,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 5:
+              case 6:
                 response = _context.sent;
                 _this.isLoading = false;
 
-              case 7:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -597,36 +629,60 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
     },
-    // bulk actions
-    bulkDelete: function bulkDelete() {
+    confirmRestore: function confirmRestore() {
       var _this5 = this;
 
-      this.checkedRows.forEach(function (user) {
-        _this5["delete"](user);
+      this.$buefy.dialog.confirm({
+        title: "Restoring users",
+        message: "Are you sure you want to <b>restore</b> ".concat(this.checkedLength, " users? This action can be undone."),
+        confirmText: "Restore Users",
+        type: "is-warning",
+        hasIcon: true,
+        onConfirm: function onConfirm() {
+          return _this5.bulkRestore();
+        }
       });
-      return true;
     },
-    bulkBlock: function bulkBlock() {
+    // bulk actions
+    bulkDelete: function bulkDelete() {
       var _this6 = this;
 
       this.checkedRows.forEach(function (user) {
-        _this6.block(user);
+        _this6["delete"](user);
+      });
+      this.refreshAndClear();
+      return true;
+    },
+    bulkBlock: function bulkBlock() {
+      var _this7 = this;
+
+      this.checkedRows.forEach(function (user) {
+        _this7.block(user);
       });
       return true;
     },
     bulkUnblock: function bulkUnblock() {
-      var _this7 = this;
-
-      this.checkedRows.forEach(function (user) {
-        _this7.unblock(user);
-      });
-      return true;
-    },
-    bulkSendEmailVerification: function bulkSendEmailVerification() {
       var _this8 = this;
 
       this.checkedRows.forEach(function (user) {
-        _this8.sendEmailVerification(user);
+        _this8.unblock(user);
+      });
+      return true;
+    },
+    bulkRestore: function bulkRestore() {
+      var _this9 = this;
+
+      this.checkedRows.forEach(function (user) {
+        _this9.restore(user);
+      });
+      this.refreshAndClear();
+      return true;
+    },
+    bulkSendEmailVerification: function bulkSendEmailVerification() {
+      var _this10 = this;
+
+      this.checkedRows.forEach(function (user) {
+        _this10.sendEmailVerification(user);
       });
       return true;
     },
@@ -651,7 +707,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //single actions
     "delete": function _delete(user) {
-      var _this9 = this;
+      var _this11 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -660,7 +716,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return user["delete"]().then(function (response) {
-                  _this9.$buefy.snackbar.open({
+                  _this11.$buefy.snackbar.open({
                     duration: 3000,
                     message: "".concat(user.fullname, " has been deleted"),
                     type: "is-danger",
@@ -668,11 +724,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     actionText: "Undo",
                     queue: true,
                     onAction: function onAction() {
-                      _this9.restore(user);
+                      _this11.restore(user);
                     }
                   });
                 })["catch"](function (err) {
-                  _this9.$buefy.toast.open({
+                  _this11.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -680,9 +736,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                _this9.refresh();
-
-              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -691,7 +744,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     block: function block(user) {
-      var _this10 = this;
+      var _this12 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -700,7 +753,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context3.next = 2;
                 return user.block().save().then(function (response) {
-                  _this10.$buefy.snackbar.open({
+                  _this12.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(user.fullname, " has been blocked"),
                     type: "is-danger",
@@ -708,11 +761,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     actionText: "Undo",
                     queue: true,
                     onAction: function onAction() {
-                      _this10.unblock(user);
+                      _this12.unblock(user);
                     }
                   });
                 })["catch"](function (err) {
-                  _this10.$buefy.toast.open({
+                  _this12.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -728,7 +781,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     unblock: function unblock(user) {
-      var _this11 = this;
+      var _this13 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -737,7 +790,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context4.next = 2;
                 return user.unblock().save().then(function (response) {
-                  _this11.$buefy.snackbar.open({
+                  _this13.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(user.fullname, " has been unblocked"),
                     type: "is-info",
@@ -745,7 +798,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     queue: true
                   });
                 })["catch"](function (err) {
-                  _this11.$buefy.toast.open({
+                  _this13.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -761,7 +814,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     restore: function restore(user) {
-      var _this12 = this;
+      var _this14 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -770,7 +823,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context5.next = 2;
                 return user.restore().then(function (response) {
-                  _this12.$buefy.snackbar.open({
+                  _this14.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(user.fullname, " has been restored"),
                     type: "is-info",
@@ -778,7 +831,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     queue: true
                   });
                 })["catch"](function (err) {
-                  _this12.$buefy.toast.open({
+                  _this14.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -786,9 +839,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                _this12.refresh();
-
-              case 3:
               case "end":
                 return _context5.stop();
             }
@@ -797,7 +847,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     sendEmailVerification: function sendEmailVerification(user) {
-      var _this13 = this;
+      var _this15 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
@@ -806,7 +856,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context6.next = 2;
                 return user.sendEmailVerification().then(function (response) {
-                  _this13.$buefy.snackbar.open({
+                  _this15.$buefy.snackbar.open({
                     duration: 2000,
                     message: "An email has been send to <b>".concat(user.fullname, "</b>"),
                     type: "is-info",
@@ -814,7 +864,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     queue: true
                   });
                 })["catch"](function (err) {
-                  _this13.$buefy.toast.open({
+                  _this15.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -1037,6 +1087,58 @@ var render = function() {
                     )
                   ],
                   1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c(
+                      "b-field",
+                      [
+                        _c(
+                          "b-radio-button",
+                          {
+                            attrs: {
+                              "native-value": false,
+                              type: "is-primary",
+                              size: "is-small"
+                            },
+                            on: { input: _vm.refreshAndClear },
+                            model: {
+                              value: _vm.showTrashed,
+                              callback: function($$v) {
+                                _vm.showTrashed = $$v
+                              },
+                              expression: "showTrashed"
+                            }
+                          },
+                          [_c("span", [_vm._v("All")])]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-radio-button",
+                          {
+                            attrs: {
+                              "native-value": true,
+                              type: "is-danger",
+                              size: "is-small"
+                            },
+                            on: { input: _vm.refreshAndClear },
+                            model: {
+                              value: _vm.showTrashed,
+                              callback: function($$v) {
+                                _vm.showTrashed = $$v
+                              },
+                              expression: "showTrashed"
+                            }
+                          },
+                          [_c("span", [_vm._v("Trashed")])]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
                 )
               ]),
               _vm._v(" "),
@@ -1200,6 +1302,21 @@ var render = function() {
                             [_vm._v("Unblock")]
                           ),
                           _vm._v(" "),
+                          _vm.showTrashed
+                            ? _c(
+                                "b-dropdown-item",
+                                {
+                                  attrs: {
+                                    "aria-role": "listitem",
+                                    disabled:
+                                      _vm.checkedLength > 0 ? false : true
+                                  },
+                                  on: { click: _vm.confirmRestore }
+                                },
+                                [_vm._v("Restore")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c(
                             "b-dropdown-item",
                             {
@@ -1251,12 +1368,8 @@ var render = function() {
                   "pagination-position": _vm.paginationPosition,
                   "pagination-size": "is-small",
                   "backend-sorting": "",
-                  "default-sort-direction": "asc",
+                  "default-sort-direction": "desc",
                   "default-sort": "id",
-                  "aria-next-label": "Next page",
-                  "aria-previous-label": "Previous page",
-                  "aria-page-label": "Page",
-                  "aria-current-label": "Current page",
                   scrollable: ""
                 },
                 on: {
@@ -1478,8 +1591,8 @@ var render = function() {
                           "b-table-column",
                           {
                             attrs: {
-                              field: "updated_at",
-                              label: "Updated At",
+                              field: "created_at",
+                              label: "Created At",
                               sortable: ""
                             }
                           },
@@ -1488,7 +1601,7 @@ var render = function() {
                               "\n                        " +
                                 _vm._s(
                                   new Date(
-                                    props.row.updated_at
+                                    props.row.created_at
                                   ).toLocaleDateString()
                                 ) +
                                 "\n                    "

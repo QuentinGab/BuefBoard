@@ -57,6 +57,28 @@
                                 ></b-input>
                             </b-field>
                         </div>
+                        <div>
+                            <b-field>
+                                <b-radio-button
+                                    v-model="showTrashed"
+                                    :native-value="false"
+                                    type="is-primary"
+                                    size="is-small"
+                                    @input="refreshAndClear"
+                                >
+                                    <span>All</span>
+                                </b-radio-button>
+                                <b-radio-button
+                                    v-model="showTrashed"
+                                    :native-value="true"
+                                    type="is-danger"
+                                    size="is-small"
+                                    @input="refreshAndClear"
+                                >
+                                    <span>Trashed</span>
+                                </b-radio-button>
+                            </b-field>
+                        </div>
                     </div>
                     <div class="level-right">
                         <div class="bb-buttons-group">
@@ -148,6 +170,15 @@
                                     >
                                     <b-dropdown-item
                                         aria-role="listitem"
+                                        @click="confirmRestore"
+                                        v-if="showTrashed"
+                                        :disabled="
+                                            checkedLength > 0 ? false : true
+                                        "
+                                        >Restore</b-dropdown-item
+                                    >
+                                    <b-dropdown-item
+                                        aria-role="listitem"
                                         @click="bulkSendEmailVerification"
                                         :disabled="
                                             checkedLength > 0 ? false : true
@@ -181,12 +212,8 @@
                     pagination-size="is-small"
                     backend-sorting
                     @sort="onSort"
-                    default-sort-direction="asc"
+                    default-sort-direction="desc"
                     default-sort="id"
-                    aria-next-label="Next page"
-                    aria-previous-label="Previous page"
-                    aria-page-label="Page"
-                    aria-current-label="Current page"
                     scrollable
                 >
                     <template slot-scope="props">
@@ -293,13 +320,13 @@
                         </b-table-column>
 
                         <b-table-column
-                            field="updated_at"
-                            label="Updated At"
+                            field="created_at"
+                            label="Created At"
                             sortable
                         >
                             {{
                                 new Date(
-                                    props.row.updated_at
+                                    props.row.created_at
                                 ).toLocaleDateString()
                             }}
                         </b-table-column>
@@ -362,6 +389,7 @@ export default {
         return {
             users: [],
             isLoading: false,
+            showTrashed: false,
 
             checkedRows: [],
             //paginate
@@ -434,6 +462,9 @@ export default {
             if (this.isFiltered) {
                 user.where(this.filter.field, this.filter.value);
             }
+            if (this.showTrashed) {
+                user.custom("users/trashed");
+            }
             let response = await user
                 .get()
                 .then(response => {
@@ -487,12 +518,22 @@ export default {
                 onConfirm: () => this.bulkUnblock()
             });
         },
+        confirmRestore() {
+            this.$buefy.dialog.confirm({
+                title: "Restoring users",
+                message: `Are you sure you want to <b>restore</b> ${this.checkedLength} users? This action can be undone.`,
+                confirmText: "Restore Users",
+                type: "is-warning",
+                hasIcon: true,
+                onConfirm: () => this.bulkRestore()
+            });
+        },
         // bulk actions
         bulkDelete() {
             this.checkedRows.forEach(user => {
                 this.delete(user);
             });
-
+            this.refreshAndClear();
             return true;
         },
         bulkBlock() {
@@ -507,6 +548,13 @@ export default {
                 this.unblock(user);
             });
 
+            return true;
+        },
+        bulkRestore() {
+            this.checkedRows.forEach(user => {
+                this.restore(user);
+            });
+            this.refreshAndClear();
             return true;
         },
         bulkSendEmailVerification() {
@@ -559,7 +607,6 @@ export default {
                         queue: false
                     });
                 });
-            this.refresh();
         },
         async block(user) {
             await user
@@ -626,7 +673,6 @@ export default {
                         queue: false
                     });
                 });
-            this.refresh();
         },
         async sendEmailVerification(user) {
             await user

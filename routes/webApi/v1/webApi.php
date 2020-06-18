@@ -24,6 +24,7 @@ Route::post('users/current', 'CurrentUserController@update');
 Route::delete('users/current', 'CurrentUserController@destroy');
 //all users
 Route::get('users/export', 'UsersController@export');
+Route::get('users/trashed', 'UsersController@trashed');
 Route::apiResource('users', 'UsersController')->except(['destroy']);
 Route::delete('users/{user}', 'UsersController@delete');
 Route::post('users/{user}/restore', 'UsersController@restore');
