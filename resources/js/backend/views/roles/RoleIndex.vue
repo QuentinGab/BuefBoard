@@ -33,7 +33,7 @@
                         :active.sync="loading.permissions"
                     ></b-loading>
                     <div v-if="role.name == 'god'">
-                        <p>The god can do everthing</p>
+                        <p>A god can do everthing</p>
                     </div>
                     <div v-else class="field is-grouped is-grouped-multiline">
                         <b-checkbox-button
@@ -115,11 +115,8 @@ export default {
         async getRoles() {
             this.loading.roles = true;
 
-            let response = await Role.include("permissions")
-                .get()
-                .then(response => {
-                    this.roles = response.data;
-                })
+            this.roles = await Role.include("permissions")
+                .$get()
                 .catch(err => {
                     this.$buefy.toast.open({
                         message: `Error: ${err.message}`,

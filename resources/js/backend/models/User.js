@@ -11,15 +11,34 @@ export default class User extends Model {
         return `${this.first_name} ${this.last_name}`;
     }
 
-    get trashed(){
-        return this.hasOwnProperty('deleted_at');
+    get trashed() {
+        return this.hasOwnProperty("deleted_at") && this.deleted_at !== null;
     }
 
+    get blocked() {
+        return this.hasOwnProperty("blocked_at") && this.blocked_at !== null;
+    }
+
+    get email_verified() {
+        return (
+            this.hasOwnProperty("email_verified_at") &&
+            this.email_verified_at !== null
+        );
+    }
+
+    /**
+     * block the user
+     * a call to save is necessary
+     */
     block() {
         this.blocked_at = new Date().toISOString();
         return this;
     }
 
+    /**
+     * unblock the user
+     * a call to save is necessary
+     */
     unblock() {
         this.blocked_at = null;
         return this;
@@ -35,8 +54,21 @@ export default class User extends Model {
             url: url,
             data: this
         }).then(response => {
-            let self = Object.assign(this, response.data);
+            let self = Object.assign(this, response.data.data);
             return self;
+        });
+    }
+
+    /**
+     * destroy permanently user
+     */
+    destroy() {
+        let url = `${this.endpoint()}/destroy`;
+        return this.request({
+            method: "DELETE",
+            url: url
+        }).then(response => {
+            return this;
         });
     }
 
@@ -56,9 +88,7 @@ export default class User extends Model {
             url: url,
             data: this
         }).then(response => {
-            let self = Object.assign(this, response.data);
-            return self;
+            return this;
         });
     }
-
 }

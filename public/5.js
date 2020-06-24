@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[1],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/TitleBar.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
@@ -271,17 +271,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -322,7 +311,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     differenceRoles: function differenceRoles(r1, r2) {
       return lodash_differenceBy__WEBPACK_IMPORTED_MODULE_2___default()(r1, r2, "id");
     },
-    getRoles: function getRoles() {
+    saveUser: function saveUser() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -330,9 +319,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.loading.roles = true;
-                _context.next = 3;
-                return _b_models_Role__WEBPACK_IMPORTED_MODULE_3__["default"].include("permissions").$get()["catch"](function (err) {
+                _context.next = 2;
+                return _this.user.save().then(function (response) {
+                  _this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "".concat(_this.user.fullname, " has been updated"),
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
+                  });
+                })["catch"](function (err) {
                   _this.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
@@ -340,11 +336,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 3:
-                _this.roles = _context.sent;
-                _this.loading.roles = false;
-
-              case 5:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -352,7 +344,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    getUser: function getUser() {
+    deleteUser: function deleteUser() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
@@ -360,9 +352,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.loading.user = true;
-                _context2.next = 3;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"].include("roles").$find(_this2.id)["catch"](function (err) {
+                _context2.next = 2;
+                return _this2.user.save().then(function (response) {
+                  _this2.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "".concat(_this2.user.fullname, " has been updated"),
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
+                  });
+                })["catch"](function (err) {
                   _this2.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
@@ -370,11 +369,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 3:
-                _this2.user = _context2.sent;
-                _this2.loading.user = false;
-
-              case 5:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -382,7 +377,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    saveUser: function saveUser() {
+    unblockUser: function unblockUser() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
@@ -391,10 +386,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return _this3.user.save().then(function (response) {
+                return _this3.user.unblock().save().then(function (response) {
                   _this3.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this3.user.fullname, " has been updated"),
+                    message: "".concat(_this3.user.fullname, " has been unblocked"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
@@ -415,7 +410,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    blockUser: function blockUser() {
+    restoreUser: function restoreUser() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
@@ -424,10 +419,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return _this4.user.block().save().then(function (response) {
+                return _this4.user.restore().then(function (response) {
                   _this4.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this4.user.fullname, " has been blocked"),
+                    message: "".concat(_this4.user.fullname, " has been restored"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
@@ -448,7 +443,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-    unblockUser: function unblockUser() {
+    destroyUser: function destroyUser() {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
@@ -457,10 +452,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _this5.user.unblock().save().then(function (response) {
+                return _this5.user.destroy().then(function (response) {
                   _this5.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this5.user.fullname, " has been unblocked"),
+                    message: "".concat(_this5.user.fullname, " has been destroyed"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
@@ -481,7 +476,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    restoreUser: function restoreUser() {
+    getUser: function getUser() {
       var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
@@ -489,16 +484,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _context6.next = 2;
-                return _this6.user.restore().then(function (response) {
-                  _this6.$buefy.snackbar.open({
-                    duration: 2000,
-                    message: "".concat(_this6.user.fullname, " has been restored"),
-                    type: "is-info",
-                    position: "is-bottom-right",
-                    queue: false
-                  });
-                })["catch"](function (err) {
+                _this6.loading.user = true;
+                _context6.next = 3;
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"].include("roles").$find(_this6.id)["catch"](function (err) {
                   _this6.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
@@ -506,10 +494,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 2:
-                _this6.getUser();
-
               case 3:
+                _this6.user = _context6.sent;
+                _this6.loading.user = false;
+
+              case 5:
               case "end":
                 return _context6.stop();
             }
@@ -517,7 +506,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee6);
       }))();
     },
-    deleteUser: function deleteUser() {
+    getRoles: function getRoles() {
       var _this7 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
@@ -525,16 +514,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                _context7.next = 2;
-                return _this7.user["delete"]().then(function (response) {
-                  _this7.$buefy.snackbar.open({
-                    duration: 2000,
-                    message: "".concat(_this7.user.fullname, " has been trashed"),
-                    type: "is-info",
-                    position: "is-bottom-right",
-                    queue: false
-                  });
-                })["catch"](function (err) {
+                _this7.loading.roles = true;
+                _context7.next = 3;
+                return _b_models_Role__WEBPACK_IMPORTED_MODULE_3__["default"].include("permissions").$get()["catch"](function (err) {
                   _this7.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
@@ -542,10 +524,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 2:
-                _this7.getUser();
-
               case 3:
+                _this7.roles = _context7.sent;
+                _this7.loading.roles = false;
+
+              case 5:
               case "end":
                 return _context7.stop();
             }
@@ -553,46 +536,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee7);
       }))();
     },
-    destroyUser: function destroyUser() {
-      var _this8 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                _context8.next = 2;
-                return _this8.user.destroy().then(function (response) {
-                  _this8.$buefy.snackbar.open({
-                    duration: 2000,
-                    message: "".concat(_this8.user.fullname, " has been destroyed"),
-                    type: "is-info",
-                    position: "is-bottom-right",
-                    queue: false
-                  });
-                })["catch"](function (err) {
-                  _this8.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-                });
-
-              case 2:
-                router.push({
-                  name: "users"
-                });
-
-              case 3:
-              case "end":
-                return _context8.stop();
-            }
-          }
-        }, _callee8);
-      }))();
-    },
     confirmRestore: function confirmRestore() {
-      var _this9 = this;
+      var _this8 = this;
 
       this.$buefy.dialog.confirm({
         title: "Restoring user",
@@ -601,16 +546,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         type: "is-primary",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this9.restoreUser();
+          return _this8.restoreUser();
         }
       });
     },
     confirmDelete: function confirmDelete() {
-      var _this10 = this;
-
-      if (this.user.trashed) {
-        return this.confirmDestroy();
-      }
+      var _this9 = this;
 
       this.$buefy.dialog.confirm({
         title: "Deleting user",
@@ -619,12 +560,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         type: "is-danger",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this10.deleteUser();
+          return _this9.deletUser();
         }
       });
     },
     confirmDestroy: function confirmDestroy() {
-      var _this11 = this;
+      var _this10 = this;
 
       this.$buefy.dialog.confirm({
         title: "Destroying user",
@@ -633,7 +574,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         type: "is-danger",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this11.destroyUser();
+          return _this10.destroyUser();
         }
       });
     }
@@ -1048,43 +989,17 @@ var render = function() {
                               _c(
                                 "b-button",
                                 {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: !_vm.user.trashed,
-                                      expression: "!user.trashed"
-                                    }
-                                  ],
                                   attrs: {
                                     type: "is-light",
                                     loading: this.loading.user
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.user.blocked
-                                        ? _vm.unblockUser()
-                                        : _vm.blockUser()
+                                      _vm.user.trashed
+                                        ? _vm.confirmDelete()
+                                        : _vm.confirmDestroy()
                                     }
                                   }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.user.blocked ? "Unblock" : "Block"
-                                    )
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: {
-                                    type: "is-light",
-                                    loading: this.loading.user
-                                  },
-                                  on: { click: _vm.confirmDelete }
                                 },
                                 [
                                   _vm._v(

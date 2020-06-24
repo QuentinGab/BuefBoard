@@ -38839,10 +38839,20 @@ var User = /*#__PURE__*/function (_Model) {
 
   }, {
     key: "block",
+
+    /**
+     * block the user
+     * a call to save is necessary
+     */
     value: function block() {
       this.blocked_at = new Date().toISOString();
       return this;
     }
+    /**
+     * unblock the user
+     * a call to save is necessary
+     */
+
   }, {
     key: "unblock",
     value: function unblock() {
@@ -38864,24 +38874,41 @@ var User = /*#__PURE__*/function (_Model) {
         url: url,
         data: this
       }).then(function (response) {
-        var self = Object.assign(_this, response.data);
+        var self = Object.assign(_this, response.data.data);
         return self;
+      });
+    }
+    /**
+     * destroy permanently user
+     */
+
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      var _this2 = this;
+
+      var url = "".concat(this.endpoint(), "/destroy");
+      return this.request({
+        method: "DELETE",
+        url: url
+      }).then(function (response) {
+        return _this2;
       });
     }
   }, {
     key: "current",
     value: function current() {
-      var _this2 = this;
+      var _this3 = this;
 
       return this.custom("users/current").$first().then(function (response) {
-        var self = Object.assign(_this2, response.data);
+        var self = Object.assign(_this3, response.data);
         return self;
       });
     }
   }, {
     key: "sendEmailVerification",
     value: function sendEmailVerification() {
-      var _this3 = this;
+      var _this4 = this;
 
       var url = "".concat(this.endpoint(), "/send-email-verification");
       return this.request({
@@ -38889,8 +38916,7 @@ var User = /*#__PURE__*/function (_Model) {
         url: url,
         data: this
       }).then(function (response) {
-        var self = Object.assign(_this3, response.data);
-        return self;
+        return _this4;
       });
     }
   }, {
@@ -38901,7 +38927,17 @@ var User = /*#__PURE__*/function (_Model) {
   }, {
     key: "trashed",
     get: function get() {
-      return this.hasOwnProperty('deleted_at');
+      return this.hasOwnProperty("deleted_at") && this.deleted_at !== null;
+    }
+  }, {
+    key: "blocked",
+    get: function get() {
+      return this.hasOwnProperty("blocked_at") && this.blocked_at !== null;
+    }
+  }, {
+    key: "email_verified",
+    get: function get() {
+      return this.hasOwnProperty("email_verified_at") && this.email_verified_at !== null;
     }
   }]);
 
@@ -38933,26 +38969,26 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: "/",
     name: "dashboard",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
     }
   }, //User Management
   {
     path: "/users/index",
     name: "users.index",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
     }
   }, {
     path: "/users/new",
     name: "users.new",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
     }
   }, {
     path: "/users/:id",
     name: "users.edit",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
     },
     props: true
   }, // Roles Management
@@ -38960,7 +38996,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: "/roles/index",
     name: "roles.index",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
     }
   }]
 }));

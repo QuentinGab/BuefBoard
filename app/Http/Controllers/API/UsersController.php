@@ -64,7 +64,13 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $user = User::create($request->only([
+        //     'first_name',
+        //     'last_name',
+        //     'email',
+        // ]));
+
+        // return new UserResource($user);
     }
 
     /**
@@ -73,10 +79,13 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $user = User::withTrashed()->find($id);
-        return new UserResource($user);
+        $user = User::withTrashed();
+        if($request->input('include')){
+            $user->with('roles');
+        }
+        return new UserResource($user->find($id));
     }
 
     /**
@@ -98,10 +107,14 @@ class UsersController extends Controller
                 'first_name',
                 'last_name',
                 'email',
+                'roles'
             ])
         );
+
         if ($request->filled('blocked_at')) {
-            $user->block();
+            if(!$user->isBlocked()){
+                $user->block();
+            }
         } else if ($user->isBlocked()) {
             $user->unblock();
         }
@@ -190,7 +203,7 @@ class UsersController extends Controller
         $users = QueryBuilder::for(User::class)
                 ->allowedFilters([
                     AllowedFilter::exact('id'),
-                    AllowedFilter::trashed()
+                    AllowedFilter::trashed(),
                 ])
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
                 ->defaultSort('id')

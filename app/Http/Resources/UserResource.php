@@ -23,6 +23,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
             'email_verified_at' => $this->email_verified_at,
             'blocked_at' => $this->blocked_at,
             'deleted_at' => $this->when($this->trashed(), $this->deleted_at),
