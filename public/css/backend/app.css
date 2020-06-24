@@ -18685,6 +18685,46 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   border-bottom-left-radius: 0 !important;
 }
 
+.bb-box {
+  border: 1px solid var(--bb-white-ter, whitesmoke);
+  border-radius: 6px;
+  background-color: var(--bb-white, white);
+}
+
+.bb-box:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.bb-box .box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--bb-white-ter, whitesmoke);
+  min-height: 50px;
+  flex-wrap: wrap;
+}
+
+.bb-box .box-header .title {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+}
+
+.bb-box .box-header .level-left,
+.bb-box .box-header .level-right {
+  align-items: flex-end;
+}
+
+.bb-box .box-header .level-left > div,
+.bb-box .box-header .level-right > div {
+  padding: 0.5rem;
+}
+
+.bb-box .box-content {
+  padding: 1rem;
+  position: relative;
+}
+
 html {
   overflow: hidden;
 }

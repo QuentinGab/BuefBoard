@@ -11,22 +11,23 @@
     },
     "devDependencies": {
         "axios": "^0.19",
-        "buefy": "^0.8.20",
         "cross-env": "^7.0",
         "laravel-mix": "^5.0.1",
+        "laravel-mix-alias": "^1.0.2",
         "lodash": "^4.17.13",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.26.8",
-        "sass-loader": "^8.0.0",
+        "sass-loader": "^8.0.0"
+    },
+    "dependencies": {
+        "buefy": "^0.8.20",
         "vue": "^2.5.17",
         "vue-api-query": "^1.5.2",
         "vue-router": "^3.3.2",
         "vue-template-compiler": "^2.6.10",
-        "vuex": "^3.4.0"
-    },
-    "dependencies": {
+        
+        "vuex": "^3.4.0",
         "@mdi/font": "^5.3.45",
-        "laravel-mix-alias": "^1.0.2",
         "material-design-icons": "^3.0.1"
     }
 }

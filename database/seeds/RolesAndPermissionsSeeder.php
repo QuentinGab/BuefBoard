@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
@@ -24,17 +24,16 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'unpublish articles']);
 
         // create roles and assign created permissions
+        $role = Role::create(['name' => 'god'])
+            ->givePermissionTo(Permission::all());
 
         // this can be done as separate statements
-        $role = Role::create(['name' => 'admin']);
-        $role->givePermissionTo('edit articles');
+        $role = Role::create(['name' => 'admin'])
+            ->givePermissionTo('edit articles');
 
         // or may be done by chaining
         $role = Role::create(['name' => 'moderator'])
             ->givePermissionTo(['publish articles', 'unpublish articles']);
-
-        $role = Role::create(['name' => 'god']);
-        $role->givePermissionTo(Permission::all());
 
     }
 }

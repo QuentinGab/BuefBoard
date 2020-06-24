@@ -31,6 +31,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TitleBar",
   props: {
@@ -136,40 +140,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "level is-marginless" }, [
-    _c("div", { staticClass: "level-left" }, [
-      _c("h1", { staticClass: "title" }, [_vm._v(_vm._s(_vm.title))])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "level-right" }, [
-      _c(
-        "nav",
-        { staticClass: "breadcrumb", attrs: { "aria-label": "breadcrumbs" } },
-        [
-          _c(
-            "ul",
-            _vm._l(_vm.menu, function(menuItem, index) {
-              return _c(
-                "li",
-                { key: index },
-                [
-                  menuItem.to
-                    ? _c("router-link", { attrs: { to: menuItem.to } }, [
-                        _vm._v(_vm._s(menuItem.name))
-                      ])
-                    : menuItem.href
-                    ? _c("a", { attrs: { href: menuItem.href } }, [
-                        _vm._v(_vm._s(menuItem.name))
-                      ])
-                    : _vm._e()
-                ],
-                1
-              )
-            }),
-            0
-          )
-        ]
-      )
+  return _c("div", { staticClass: "bb-title-bar" }, [
+    _c("div", { staticClass: "level" }, [
+      _c("div", { staticClass: "level-left" }, [
+        _c("h1", { staticClass: "title" }, [_vm._v(_vm._s(_vm.title))])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "level-right" }, [
+        _c(
+          "nav",
+          { staticClass: "breadcrumb", attrs: { "aria-label": "breadcrumbs" } },
+          [
+            _c(
+              "ul",
+              _vm._l(_vm.menu, function(menuItem, index) {
+                return _c(
+                  "li",
+                  { key: index },
+                  [
+                    menuItem.to
+                      ? _c("router-link", { attrs: { to: menuItem.to } }, [
+                          _vm._v(_vm._s(menuItem.name))
+                        ])
+                      : menuItem.href
+                      ? _c("a", { attrs: { href: menuItem.href } }, [
+                          _vm._v(_vm._s(menuItem.name))
+                        ])
+                      : _vm._e()
+                  ],
+                  1
+                )
+              }),
+              0
+            )
+          ]
+        )
+      ])
     ])
   ])
 }

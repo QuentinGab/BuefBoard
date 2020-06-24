@@ -2446,9 +2446,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           icon: "account-multiple-outline",
           to: "/users/index"
         }, {
-          to: "/media",
-          icon: "folder-multiple-image",
-          label: "Media"
+          label: "Roles",
+          icon: "account-details-outline",
+          to: "/roles/index"
         }, {
           label: "Submenus",
           icon: "cog",
@@ -38935,7 +38935,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     component: function component() {
       return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
     }
-  }, {
+  }, //User Management
+  {
     path: "/users/index",
     name: "users.index",
     component: function component() {
@@ -38954,6 +38955,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
     },
     props: true
+  }, // Roles Management
+  {
+    path: "/roles/index",
+    name: "roles.index",
+    component: function component() {
+      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
+    }
   }]
 }));
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))

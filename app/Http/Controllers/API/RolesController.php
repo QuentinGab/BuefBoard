@@ -6,9 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\RoleResource;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class RolesController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(['role:admin|god']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +30,17 @@ class RolesController extends Controller
      */
     public function index()
     {
-        return RoleResource::collection(Role::all());
+        $roles = QueryBuilder::for(Role::class) 
+                ->allowedFilters([
+                    'name',
+                    AllowedFilter::exact('id'),
+                ])
+                ->allowedIncludes(['permissions'])
+                ->defaultSort('id')
+                ->get();
+        
+
+        return RoleResource::collection($roles);
     }
 
     /**
@@ -50,7 +74,11 @@ class RolesController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        
+        $permissions = collect($request->input('permissions'));
+        $role->syncPermissions($permissions->pluck('id'));
+        
+        return new RoleResource($role);
     }
 
     /**

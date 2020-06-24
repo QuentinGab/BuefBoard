@@ -31,6 +31,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TitleBar",
   props: {
@@ -60,10 +64,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/views/users/UserIndex.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/views/users/UserIndex.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersTable.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/UsersTable.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -71,9 +75,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _b_components_TitleBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/TitleBar */ "./resources/js/backend/components/TitleBar.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
+/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -394,84 +396,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "UserIndex",
-  components: {
-    TitleBar: _b_components_TitleBar__WEBPACK_IMPORTED_MODULE_1__["default"]
+  name: "UsersTable",
+  components: {},
+  props: {
+    canFilter: {
+      type: Boolean
+    },
+    canSelect: {
+      type: Boolean
+    },
+    canDelete: {
+      type: Boolean
+    },
+    canBlock: {
+      type: Boolean
+    },
+    canSeeTrashed: {
+      type: Boolean
+    }
   },
   data: function data() {
     return {
@@ -522,7 +466,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    //table events
     onPageChange: function onPageChange(page) {
       this.pagination.current_page = page;
       this.getUsers();
@@ -552,7 +495,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _this.isLoading = true;
-                user = _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].orderBy(_this.sort.value).page(_this.pagination.current_page).include("roles");
+                user = _b_models_User__WEBPACK_IMPORTED_MODULE_1__["default"].orderBy(_this.sort.value).page(_this.pagination.current_page).include("roles");
 
                 if (_this.isFiltered) {
                   user.where(_this.filter.field, _this.filter.value);
@@ -694,7 +637,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return true;
     },
     bulkExport: function bulkExport() {
-      var users = new _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"]().custom("users/export");
+      var users = new _b_models_User__WEBPACK_IMPORTED_MODULE_1__["default"]().custom("users/export");
 
       if (this.checkedLength > 0) {
         var usersId = this.checkedRows.map(function (item) {
@@ -891,10 +834,61 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     }
   },
-  mounted: function mounted() {},
   created: function created() {
     this.getUsers();
-  }
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/views/users/UserIndex.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/views/users/UserIndex.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _b_components_TitleBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @b/components/TitleBar */ "./resources/js/backend/components/TitleBar.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _b_components_users_UsersTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/components/users/UsersTable */ "./resources/js/backend/components/users/UsersTable.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "UserIndex",
+  components: {
+    TitleBar: _b_components_TitleBar__WEBPACK_IMPORTED_MODULE_0__["default"],
+    UsersTable: _b_components_users_UsersTable__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {};
+  },
+  computed: {},
+  methods: {},
+  mounted: function mounted() {},
+  created: function created() {}
 });
 
 /***/ }),
@@ -914,42 +908,762 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "level is-marginless" }, [
-    _c("div", { staticClass: "level-left" }, [
-      _c("h1", { staticClass: "title" }, [_vm._v(_vm._s(_vm.title))])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "level-right" }, [
-      _c(
-        "nav",
-        { staticClass: "breadcrumb", attrs: { "aria-label": "breadcrumbs" } },
-        [
+  return _c("div", { staticClass: "bb-title-bar" }, [
+    _c("div", { staticClass: "level" }, [
+      _c("div", { staticClass: "level-left" }, [
+        _c("h1", { staticClass: "title" }, [_vm._v(_vm._s(_vm.title))])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "level-right" }, [
+        _c(
+          "nav",
+          { staticClass: "breadcrumb", attrs: { "aria-label": "breadcrumbs" } },
+          [
+            _c(
+              "ul",
+              _vm._l(_vm.menu, function(menuItem, index) {
+                return _c(
+                  "li",
+                  { key: index },
+                  [
+                    menuItem.to
+                      ? _c("router-link", { attrs: { to: menuItem.to } }, [
+                          _vm._v(_vm._s(menuItem.name))
+                        ])
+                      : menuItem.href
+                      ? _c("a", { attrs: { href: menuItem.href } }, [
+                          _vm._v(_vm._s(menuItem.name))
+                        ])
+                      : _vm._e()
+                  ],
+                  1
+                )
+              }),
+              0
+            )
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersTable.vue?vue&type=template&id=3a31437d&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/UsersTable.vue?vue&type=template&id=3a31437d& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "bb-table" },
+    [
+      _c("div", { staticClass: "bb-table-header" }, [
+        _c("div", { staticClass: "level-left" }, [
+          _c("div", { staticClass: "title" }, [_vm._v("users")]),
+          _vm._v(" "),
           _c(
-            "ul",
-            _vm._l(_vm.menu, function(menuItem, index) {
-              return _c(
-                "li",
-                { key: index },
+            "div",
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.pagination.from) +
+                  "\n                "
+              ),
+              _c("b-icon", {
+                attrs: { icon: "chevron-right", size: "is-small" }
+              }),
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.pagination.to) +
+                  "\n                :\n                " +
+                  _vm._s(_vm.total) +
+                  "\n            "
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.canFilter
+            ? _c(
+                "div",
                 [
-                  menuItem.to
-                    ? _c("router-link", { attrs: { to: menuItem.to } }, [
-                        _vm._v(_vm._s(menuItem.name))
-                      ])
-                    : menuItem.href
-                    ? _c("a", { attrs: { href: menuItem.href } }, [
-                        _vm._v(_vm._s(menuItem.name))
-                      ])
-                    : _vm._e()
+                  _c(
+                    "b-field",
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "control" },
+                        [
+                          _c(
+                            "b-dropdown",
+                            {
+                              attrs: { "aria-role": "list" },
+                              model: {
+                                value: _vm.filter.field,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.filter, "field", $$v)
+                                },
+                                expression: "filter.field"
+                              }
+                            },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "button is-small",
+                                  attrs: { slot: "trigger" },
+                                  slot: "trigger"
+                                },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.filter.field
+                                          ? _vm.filter.field
+                                          : "Filters"
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-icon", {
+                                    attrs: {
+                                      icon: "chevron-down",
+                                      size: "is-small"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.fields, function(field) {
+                                return _c(
+                                  "b-dropdown-item",
+                                  { key: field, attrs: { value: field } },
+                                  [_vm._v(_vm._s(field))]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-input", {
+                        attrs: {
+                          icon: "magnify",
+                          type: "search",
+                          placeholder: _vm.filter.field
+                            ? "Search..."
+                            : "Select a column",
+                          size: "is-small"
+                        },
+                        on: { input: _vm.onFilter },
+                        model: {
+                          value: _vm.filter.value,
+                          callback: function($$v) {
+                            _vm.$set(_vm.filter, "value", $$v)
+                          },
+                          expression: "filter.value"
+                        }
+                      })
+                    ],
+                    1
+                  )
                 ],
                 1
               )
-            }),
-            0
-          )
-        ]
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.canSeeTrashed
+            ? _c(
+                "div",
+                [
+                  _c(
+                    "b-field",
+                    [
+                      _c(
+                        "b-radio-button",
+                        {
+                          attrs: {
+                            "native-value": false,
+                            type: "is-primary",
+                            size: "is-small"
+                          },
+                          on: { input: _vm.refreshAndClear },
+                          model: {
+                            value: _vm.showTrashed,
+                            callback: function($$v) {
+                              _vm.showTrashed = $$v
+                            },
+                            expression: "showTrashed"
+                          }
+                        },
+                        [_c("span", [_vm._v("All")])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-radio-button",
+                        {
+                          attrs: {
+                            "native-value": true,
+                            type: "is-danger",
+                            size: "is-small"
+                          },
+                          on: { input: _vm.refreshAndClear },
+                          model: {
+                            value: _vm.showTrashed,
+                            callback: function($$v) {
+                              _vm.showTrashed = $$v
+                            },
+                            expression: "showTrashed"
+                          }
+                        },
+                        [_c("span", [_vm._v("Trashed")])]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "level-right" }, [
+          _c("div", { staticClass: "bb-buttons-group" }, [
+            _c(
+              "div",
+              { staticClass: "buttons has-addons are-small" },
+              [
+                _c(
+                  "b-tooltip",
+                  { attrs: { label: "Add", type: "is-light", animated: "" } },
+                  [
+                    _c("b-button", {
+                      staticClass: "is-primary",
+                      attrs: {
+                        "icon-left": "plus-circle-outline",
+                        to: "/users/new",
+                        tag: "router-link"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-tooltip",
+                  {
+                    attrs: { label: "Refresh", type: "is-light", animated: "" }
+                  },
+                  [
+                    _c("b-button", {
+                      attrs: { loading: _vm.isLoading, "icon-left": "refresh" },
+                      on: { click: _vm.refreshAndClear }
+                    })
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm.canSelect
+              ? _c(
+                  "div",
+                  { staticClass: "buttons has-addons are-small" },
+                  [
+                    _c(
+                      "b-button",
+                      { attrs: { "icon-left": "checkbox-marked-outline" } },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.checkedLength) +
+                            "\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm.canDelete
+                      ? _c(
+                          "b-tooltip",
+                          {
+                            attrs: {
+                              label: "Delete",
+                              type: "is-light",
+                              animated: ""
+                            }
+                          },
+                          [
+                            _c("b-button", {
+                              staticClass: "is-danger",
+                              attrs: {
+                                outlined: "",
+                                "icon-left": "delete-outline",
+                                disabled: _vm.checkedLength > 0 ? false : true
+                              },
+                              on: { click: _vm.confirmDelete }
+                            })
+                          ],
+                          1
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.canBlock
+                      ? _c(
+                          "b-tooltip",
+                          {
+                            attrs: {
+                              label: "Block",
+                              type: "is-light",
+                              animated: ""
+                            }
+                          },
+                          [
+                            _c("b-button", {
+                              staticClass: "is-warning",
+                              attrs: {
+                                outlined: "",
+                                "icon-left": "account-cancel-outline",
+                                disabled: _vm.checkedLength > 0 ? false : true
+                              },
+                              on: { click: _vm.confirmBlock }
+                            })
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "buttons are-small" },
+              [
+                _c(
+                  "b-dropdown",
+                  {
+                    attrs: { "aria-role": "list", position: "is-bottom-left" }
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "button is-default",
+                        attrs: { slot: "trigger" },
+                        slot: "trigger"
+                      },
+                      [
+                        _c("b-icon", {
+                          attrs: { icon: "dots-vertical", size: "is-small" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm.canBlock
+                      ? _c(
+                          "b-dropdown-item",
+                          {
+                            attrs: {
+                              "aria-role": "listitem",
+                              disabled: _vm.checkedLength > 0 ? false : true
+                            },
+                            on: { click: _vm.confirmUnblock }
+                          },
+                          [_vm._v("Unblock")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showTrashed
+                      ? _c(
+                          "b-dropdown-item",
+                          {
+                            attrs: {
+                              "aria-role": "listitem",
+                              disabled: _vm.checkedLength > 0 ? false : true
+                            },
+                            on: { click: _vm.confirmRestore }
+                          },
+                          [_vm._v("Restore")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "b-dropdown-item",
+                      {
+                        attrs: {
+                          "aria-role": "listitem",
+                          disabled: _vm.checkedLength > 0 ? false : true
+                        },
+                        on: { click: _vm.bulkSendEmailVerification }
+                      },
+                      [_vm._v("Send Email Verification")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-dropdown-item",
+                      {
+                        attrs: { "aria-role": "listitem" },
+                        on: { click: _vm.bulkExport }
+                      },
+                      [_vm._v("Export\n                        ")]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-table",
+        {
+          attrs: {
+            data: _vm.users,
+            loading: _vm.isLoading,
+            checkable: _vm.canSelect,
+            "checked-rows": _vm.checkedRows,
+            paginated: "",
+            "backend-pagination": "",
+            total: _vm.total,
+            "per-page": _vm.pagination.per_page,
+            "current-page": _vm.pagination.current_page,
+            "pagination-simple": _vm.isPaginationSimple,
+            "pagination-position": _vm.paginationPosition,
+            "pagination-size": "is-small",
+            "backend-sorting": "",
+            "default-sort-direction": "desc",
+            "default-sort": "id",
+            scrollable: ""
+          },
+          on: {
+            "update:checkedRows": function($event) {
+              _vm.checkedRows = $event
+            },
+            "update:checked-rows": function($event) {
+              _vm.checkedRows = $event
+            },
+            "page-change": _vm.onPageChange,
+            "update:currentPage": function($event) {
+              return _vm.$set(_vm.pagination, "current_page", $event)
+            },
+            "update:current-page": function($event) {
+              return _vm.$set(_vm.pagination, "current_page", $event)
+            },
+            sort: _vm.onSort
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "default",
+              fn: function(props) {
+                return [
+                  _c(
+                    "b-table-column",
+                    {
+                      attrs: {
+                        field: "id",
+                        label: "ID",
+                        numeric: "",
+                        sortable: ""
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(props.row.id) +
+                          "\n            "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-table-column",
+                    {
+                      attrs: {
+                        field: "first_name",
+                        label: "First Name",
+                        sortable: ""
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(props.row.first_name) +
+                          "\n            "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-table-column",
+                    {
+                      attrs: {
+                        field: "last_name",
+                        label: "Last Name",
+                        sortable: ""
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(props.row.last_name) +
+                          "\n            "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-table-column",
+                    { attrs: { field: "email", label: "Email", sortable: "" } },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(props.row.email) +
+                          "\n            "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-table-column",
+                    { attrs: { field: "roles", label: "Roles" } },
+                    [
+                      _c(
+                        "b-taglist",
+                        _vm._l(props.row.roles, function(role) {
+                          return _c(
+                            "b-tag",
+                            { key: role.id, attrs: { type: "is-info" } },
+                            [_vm._v(_vm._s(role.name))]
+                          )
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-table-column",
+                    {
+                      attrs: {
+                        field: "blocked_at",
+                        label: "Blocked",
+                        sortable: "",
+                        centered: ""
+                      }
+                    },
+                    [
+                      _c(
+                        "b-tooltip",
+                        {
+                          attrs: {
+                            type: "is-light",
+                            label: props.row.blocked_at
+                              ? new Date(
+                                  props.row.blocked_at
+                                ).toLocaleDateString()
+                              : ""
+                          }
+                        },
+                        [
+                          _c(
+                            "b-tag",
+                            {
+                              attrs: {
+                                type: props.row.blocked_at ? "is-danger" : ""
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(props.row.blocked_at ? "yes" : "no") +
+                                  "\n                    "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-table-column",
+                    {
+                      attrs: {
+                        field: "email_verified_at",
+                        label: "Verified",
+                        sortable: "",
+                        centered: ""
+                      }
+                    },
+                    [
+                      _c(
+                        "b-tooltip",
+                        {
+                          attrs: {
+                            type: "is-light",
+                            label: props.row.email_verified_at
+                              ? new Date(
+                                  props.row.email_verified_at
+                                ).toLocaleDateString()
+                              : ""
+                          }
+                        },
+                        [
+                          _c(
+                            "b-tag",
+                            {
+                              attrs: {
+                                type: props.row.email_verified_at
+                                  ? ""
+                                  : "is-danger"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(
+                                    props.row.email_verified_at ? "yes" : "no"
+                                  ) +
+                                  "\n                    "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-table-column",
+                    {
+                      attrs: {
+                        field: "created_at",
+                        label: "Created At",
+                        sortable: ""
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(
+                            new Date(props.row.created_at).toLocaleDateString()
+                          ) +
+                          "\n            "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-table-column",
+                    {
+                      staticClass: "is-actions-cell",
+                      attrs: {
+                        "custom-key": "actions",
+                        label: "Actions",
+                        width: "40",
+                        numeric: ""
+                      }
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "button is-small",
+                          attrs: {
+                            to: {
+                              name: "users.edit",
+                              params: { id: props.row.id }
+                            }
+                          }
+                        },
+                        [
+                          _c("b-icon", {
+                            attrs: { icon: "account-edit", size: "is-small" }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ]
+              }
+            }
+          ])
+        },
+        [
+          _vm._v(" "),
+          _c("template", { slot: "empty" }, [
+            _c("section", { staticClass: "section" }, [
+              _c(
+                "div",
+                { staticClass: "content has-text-grey has-text-centered" },
+                [
+                  _c(
+                    "p",
+                    [
+                      _c("b-icon", {
+                        attrs: { icon: "emoticon-sad", size: "is-large" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Nothing here.")])
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("template", { slot: "bottom-left" }, [
+            _c("div", [
+              _c("div", [
+                _c("b", [_vm._v("Total checked")]),
+                _vm._v(": " + _vm._s(_vm.checkedLength))
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("b", [_vm._v("Total")]),
+                _vm._v(": " + _vm._s(_vm.total))
+              ])
+            ])
+          ])
+        ],
+        2
       )
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -984,734 +1698,22 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "p-1" }, [
-        _c(
-          "div",
-          { staticClass: "bb-table" },
-          [
-            _c("div", { staticClass: "bb-table-header" }, [
-              _c("div", { staticClass: "level-left" }, [
-                _c("div", { staticClass: "title" }, [_vm._v("users")]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.pagination.from) +
-                        "\n                        "
-                    ),
-                    _c("b-icon", {
-                      attrs: { icon: "chevron-right", size: "is-small" }
-                    }),
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.pagination.to) +
-                        "\n                        :\n                        " +
-                        _vm._s(_vm.total) +
-                        "\n                    "
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  [
-                    _c(
-                      "b-field",
-                      [
-                        _c(
-                          "p",
-                          { staticClass: "control" },
-                          [
-                            _c(
-                              "b-dropdown",
-                              {
-                                attrs: { "aria-role": "list" },
-                                model: {
-                                  value: _vm.filter.field,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.filter, "field", $$v)
-                                  },
-                                  expression: "filter.field"
-                                }
-                              },
-                              [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "button is-small",
-                                    attrs: { slot: "trigger" },
-                                    slot: "trigger"
-                                  },
-                                  [
-                                    _c("span", [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.filter.field
-                                            ? _vm.filter.field
-                                            : "Filters"
-                                        )
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("b-icon", {
-                                      attrs: {
-                                        icon: "chevron-down",
-                                        size: "is-small"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _vm._l(_vm.fields, function(field) {
-                                  return _c(
-                                    "b-dropdown-item",
-                                    { key: field, attrs: { value: field } },
-                                    [_vm._v(_vm._s(field))]
-                                  )
-                                })
-                              ],
-                              2
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("b-input", {
-                          attrs: {
-                            icon: "magnify",
-                            type: "search",
-                            placeholder: _vm.filter.field
-                              ? "Search..."
-                              : "Select a column",
-                            size: "is-small"
-                          },
-                          on: { input: _vm.onFilter },
-                          model: {
-                            value: _vm.filter.value,
-                            callback: function($$v) {
-                              _vm.$set(_vm.filter, "value", $$v)
-                            },
-                            expression: "filter.value"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  [
-                    _c(
-                      "b-field",
-                      [
-                        _c(
-                          "b-radio-button",
-                          {
-                            attrs: {
-                              "native-value": false,
-                              type: "is-primary",
-                              size: "is-small"
-                            },
-                            on: { input: _vm.refreshAndClear },
-                            model: {
-                              value: _vm.showTrashed,
-                              callback: function($$v) {
-                                _vm.showTrashed = $$v
-                              },
-                              expression: "showTrashed"
-                            }
-                          },
-                          [_c("span", [_vm._v("All")])]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-radio-button",
-                          {
-                            attrs: {
-                              "native-value": true,
-                              type: "is-danger",
-                              size: "is-small"
-                            },
-                            on: { input: _vm.refreshAndClear },
-                            model: {
-                              value: _vm.showTrashed,
-                              callback: function($$v) {
-                                _vm.showTrashed = $$v
-                              },
-                              expression: "showTrashed"
-                            }
-                          },
-                          [_c("span", [_vm._v("Trashed")])]
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "level-right" }, [
-                _c("div", { staticClass: "bb-buttons-group" }, [
-                  _c(
-                    "div",
-                    { staticClass: "buttons has-addons are-small" },
-                    [
-                      _c(
-                        "b-tooltip",
-                        {
-                          attrs: {
-                            label: "Add",
-                            type: "is-light",
-                            animated: ""
-                          }
-                        },
-                        [
-                          _c("b-button", {
-                            staticClass: "is-primary",
-                            attrs: {
-                              "icon-left": "plus-circle-outline",
-                              to: "/users/new",
-                              tag: "router-link"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-tooltip",
-                        {
-                          attrs: {
-                            label: "Refresh",
-                            type: "is-light",
-                            animated: ""
-                          }
-                        },
-                        [
-                          _c("b-button", {
-                            attrs: {
-                              loading: _vm.isLoading,
-                              "icon-left": "refresh"
-                            },
-                            on: { click: _vm.refreshAndClear }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "buttons has-addons are-small" },
-                    [
-                      _c(
-                        "b-button",
-                        { attrs: { "icon-left": "checkbox-marked-outline" } },
-                        [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.checkedLength) +
-                              "\n                            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-tooltip",
-                        {
-                          attrs: {
-                            label: "Delete",
-                            type: "is-light",
-                            animated: ""
-                          }
-                        },
-                        [
-                          _c("b-button", {
-                            staticClass: "is-danger",
-                            attrs: {
-                              outlined: "",
-                              "icon-left": "delete-outline",
-                              disabled: _vm.checkedLength > 0 ? false : true
-                            },
-                            on: { click: _vm.confirmDelete }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-tooltip",
-                        {
-                          attrs: {
-                            label: "Block",
-                            type: "is-light",
-                            animated: ""
-                          }
-                        },
-                        [
-                          _c("b-button", {
-                            staticClass: "is-warning",
-                            attrs: {
-                              outlined: "",
-                              "icon-left": "account-cancel-outline",
-                              disabled: _vm.checkedLength > 0 ? false : true
-                            },
-                            on: { click: _vm.confirmBlock }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "buttons are-small" },
-                    [
-                      _c(
-                        "b-dropdown",
-                        {
-                          attrs: {
-                            "aria-role": "list",
-                            position: "is-bottom-left"
-                          }
-                        },
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "button is-default",
-                              attrs: { slot: "trigger" },
-                              slot: "trigger"
-                            },
-                            [
-                              _c("b-icon", {
-                                attrs: {
-                                  icon: "dots-vertical",
-                                  size: "is-small"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-dropdown-item",
-                            {
-                              attrs: {
-                                "aria-role": "listitem",
-                                disabled: _vm.checkedLength > 0 ? false : true
-                              },
-                              on: { click: _vm.confirmUnblock }
-                            },
-                            [_vm._v("Unblock")]
-                          ),
-                          _vm._v(" "),
-                          _vm.showTrashed
-                            ? _c(
-                                "b-dropdown-item",
-                                {
-                                  attrs: {
-                                    "aria-role": "listitem",
-                                    disabled:
-                                      _vm.checkedLength > 0 ? false : true
-                                  },
-                                  on: { click: _vm.confirmRestore }
-                                },
-                                [_vm._v("Restore")]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c(
-                            "b-dropdown-item",
-                            {
-                              attrs: {
-                                "aria-role": "listitem",
-                                disabled: _vm.checkedLength > 0 ? false : true
-                              },
-                              on: { click: _vm.bulkSendEmailVerification }
-                            },
-                            [
-                              _vm._v(
-                                "Send Email\n                                    Verification"
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-dropdown-item",
-                            {
-                              attrs: { "aria-role": "listitem" },
-                              on: { click: _vm.bulkExport }
-                            },
-                            [_vm._v("Export\n                                ")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "b-table",
-              {
-                attrs: {
-                  data: _vm.users,
-                  loading: _vm.isLoading,
-                  checkable: "",
-                  "checked-rows": _vm.checkedRows,
-                  paginated: "",
-                  "backend-pagination": "",
-                  total: _vm.total,
-                  "per-page": _vm.pagination.per_page,
-                  "current-page": _vm.pagination.current_page,
-                  "pagination-simple": _vm.isPaginationSimple,
-                  "pagination-position": _vm.paginationPosition,
-                  "pagination-size": "is-small",
-                  "backend-sorting": "",
-                  "default-sort-direction": "desc",
-                  "default-sort": "id",
-                  scrollable: ""
-                },
-                on: {
-                  "update:checkedRows": function($event) {
-                    _vm.checkedRows = $event
-                  },
-                  "update:checked-rows": function($event) {
-                    _vm.checkedRows = $event
-                  },
-                  "page-change": _vm.onPageChange,
-                  "update:currentPage": function($event) {
-                    return _vm.$set(_vm.pagination, "current_page", $event)
-                  },
-                  "update:current-page": function($event) {
-                    return _vm.$set(_vm.pagination, "current_page", $event)
-                  },
-                  sort: _vm.onSort
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(props) {
-                      return [
-                        _c(
-                          "b-table-column",
-                          {
-                            attrs: {
-                              field: "id",
-                              label: "ID",
-                              numeric: "",
-                              sortable: ""
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(props.row.id) +
-                                "\n                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-table-column",
-                          {
-                            attrs: {
-                              field: "first_name",
-                              label: "First Name",
-                              sortable: ""
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(props.row.first_name) +
-                                "\n                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-table-column",
-                          {
-                            attrs: {
-                              field: "last_name",
-                              label: "Last Name",
-                              sortable: ""
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(props.row.last_name) +
-                                "\n                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-table-column",
-                          {
-                            attrs: {
-                              field: "email",
-                              label: "Email",
-                              sortable: ""
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(props.row.email) +
-                                "\n                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-table-column",
-                          { attrs: { field: "roles", label: "Roles" } },
-                          [
-                            _c(
-                              "b-taglist",
-                              _vm._l(props.row.roles, function(role) {
-                                return _c(
-                                  "b-tag",
-                                  { key: role.id, attrs: { type: "is-info" } },
-                                  [_vm._v(_vm._s(role.name))]
-                                )
-                              }),
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-table-column",
-                          {
-                            attrs: {
-                              field: "blocked_at",
-                              label: "Blocked",
-                              sortable: "",
-                              centered: ""
-                            }
-                          },
-                          [
-                            _c(
-                              "b-tooltip",
-                              {
-                                attrs: {
-                                  type: "is-light",
-                                  label: props.row.blocked_at
-                                    ? new Date(
-                                        props.row.blocked_at
-                                      ).toLocaleDateString()
-                                    : ""
-                                }
-                              },
-                              [
-                                _c(
-                                  "b-tag",
-                                  {
-                                    attrs: {
-                                      type: props.row.blocked_at
-                                        ? "is-danger"
-                                        : ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(
-                                          props.row.blocked_at ? "yes" : "no"
-                                        ) +
-                                        "\n                            "
-                                    )
-                                  ]
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-table-column",
-                          {
-                            attrs: {
-                              field: "email_verified_at",
-                              label: "Verified",
-                              sortable: "",
-                              centered: ""
-                            }
-                          },
-                          [
-                            _c(
-                              "b-tooltip",
-                              {
-                                attrs: {
-                                  type: "is-light",
-                                  label: props.row.email_verified_at
-                                    ? new Date(
-                                        props.row.email_verified_at
-                                      ).toLocaleDateString()
-                                    : ""
-                                }
-                              },
-                              [
-                                _c(
-                                  "b-tag",
-                                  {
-                                    attrs: {
-                                      type: props.row.email_verified_at
-                                        ? ""
-                                        : "is-danger"
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(
-                                          props.row.email_verified_at
-                                            ? "yes"
-                                            : "no"
-                                        ) +
-                                        "\n                            "
-                                    )
-                                  ]
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-table-column",
-                          {
-                            attrs: {
-                              field: "created_at",
-                              label: "Created At",
-                              sortable: ""
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(
-                                  new Date(
-                                    props.row.created_at
-                                  ).toLocaleDateString()
-                                ) +
-                                "\n                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-table-column",
-                          {
-                            staticClass: "is-actions-cell",
-                            attrs: {
-                              "custom-key": "actions",
-                              label: "Actions",
-                              width: "40",
-                              numeric: ""
-                            }
-                          },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "button is-small",
-                                attrs: {
-                                  to: {
-                                    name: "users.edit",
-                                    params: { id: props.row.id }
-                                  }
-                                }
-                              },
-                              [
-                                _c("b-icon", {
-                                  attrs: {
-                                    icon: "account-edit",
-                                    size: "is-small"
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ]
-                    }
-                  }
-                ])
-              },
-              [
-                _vm._v(" "),
-                _c("template", { slot: "empty" }, [
-                  _c("section", { staticClass: "section" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "content has-text-grey has-text-centered"
-                      },
-                      [
-                        _c(
-                          "p",
-                          [
-                            _c("b-icon", {
-                              attrs: { icon: "emoticon-sad", size: "is-large" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("p", [_vm._v("Nothing here.")])
-                      ]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("template", { slot: "bottom-left" }, [
-                  _c("div", [
-                    _c("div", [
-                      _c("b", [_vm._v("Total checked")]),
-                      _vm._v(": " + _vm._s(_vm.checkedLength))
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("b", [_vm._v("Total")]),
-                      _vm._v(": " + _vm._s(_vm.total))
-                    ])
-                  ])
-                ])
-              ],
-              2
-            )
-          ],
-          1
-        )
-      ])
+      _c(
+        "div",
+        { staticClass: "p-1" },
+        [
+          _c("users-table", {
+            attrs: {
+              canFilter: "",
+              canSelect: "",
+              canDelete: "",
+              canBlock: "",
+              canSeeTrashed: ""
+            }
+          })
+        ],
+        1
+      )
     ],
     1
   )
@@ -1787,6 +1789,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TitleBar_vue_vue_type_template_id_4d8683ea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TitleBar_vue_vue_type_template_id_4d8683ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/backend/components/users/UsersTable.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/backend/components/users/UsersTable.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UsersTable_vue_vue_type_template_id_3a31437d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UsersTable.vue?vue&type=template&id=3a31437d& */ "./resources/js/backend/components/users/UsersTable.vue?vue&type=template&id=3a31437d&");
+/* harmony import */ var _UsersTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UsersTable.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/users/UsersTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UsersTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UsersTable_vue_vue_type_template_id_3a31437d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UsersTable_vue_vue_type_template_id_3a31437d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/backend/components/users/UsersTable.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/backend/components/users/UsersTable.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/backend/components/users/UsersTable.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./UsersTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/backend/components/users/UsersTable.vue?vue&type=template&id=3a31437d&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/backend/components/users/UsersTable.vue?vue&type=template&id=3a31437d& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersTable_vue_vue_type_template_id_3a31437d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./UsersTable.vue?vue&type=template&id=3a31437d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersTable.vue?vue&type=template&id=3a31437d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersTable_vue_vue_type_template_id_3a31437d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersTable_vue_vue_type_template_id_3a31437d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

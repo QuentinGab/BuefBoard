@@ -40,9 +40,9 @@ export default {
                             to: "/users/index"
                         },
                         {
-                            to: "/media",
-                            icon: "folder-multiple-image",
-                            label: "Media"
+                            label: "Roles",
+                            icon: "account-details-outline",
+                            to: "/roles/index"
                         },
                         {
                             label: "Submenus",
