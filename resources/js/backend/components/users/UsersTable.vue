@@ -102,7 +102,7 @@
                                 outlined
                                 icon-left="delete-outline"
                                 @click="confirmDelete"
-                                :disabled="checkedLength > 0 ? false : true"
+                                :disabled="!isSelected"
                             >
                             </b-button>
                         </b-tooltip>
@@ -117,13 +117,13 @@
                                 outlined
                                 icon-left="account-cancel-outline"
                                 @click="confirmBlock"
-                                :disabled="checkedLength > 0 ? false : true"
+                                :disabled="!isSelected"
                             >
                             </b-button>
                         </b-tooltip>
                     </div>
 
-                    <div class="buttons are-small">
+                    <div class="buttons are-small" v-if="canSelect">
                         <b-dropdown aria-role="list" position="is-bottom-left">
                             <button class="button is-default" slot="trigger">
                                 <b-icon
@@ -133,25 +133,35 @@
                             </button>
 
                             <b-dropdown-item
-                                v-if="canBlock"
+                                v-if="canBlock && !showTrashed"
                                 aria-role="listitem"
                                 @click="confirmUnblock"
-                                :disabled="checkedLength > 0 ? false : true"
+                                :disabled="!isSelected"
                                 >Unblock</b-dropdown-item
                             >
                             <b-dropdown-item
+                                v-if="canDelete"
                                 aria-role="listitem"
                                 @click="confirmRestore"
-                                v-if="showTrashed"
-                                :disabled="checkedLength > 0 ? false : true"
+                                v-show="showTrashed"
+                                :disabled="!isSelected"
                                 >Restore</b-dropdown-item
                             >
                             <b-dropdown-item
+                                v-show="!showTrashed"
                                 aria-role="listitem"
                                 @click="bulkSendEmailVerification"
-                                :disabled="checkedLength > 0 ? false : true"
+                                :disabled="!isSelected"
                                 >Send Email Verification</b-dropdown-item
                             >
+                            <b-dropdown-item
+                                v-if="canDestroy"
+                                aria-role="listitem"
+                                @click="confirmDestroy"
+                                :disabled="!isSelected"
+                                >Destroy</b-dropdown-item
+                            >
+
                             <b-dropdown-item
                                 aria-role="listitem"
                                 @click="bulkExport"
@@ -328,6 +338,9 @@ export default {
         canDelete: {
             type: Boolean
         },
+        canDestroy: {
+            type: Boolean
+        },
         canBlock: {
             type: Boolean
         },
@@ -381,6 +394,9 @@ export default {
         },
         checkedLength() {
             return this.checkedRows.length;
+        },
+        isSelected() {
+            return this.checkedRows.length > 0;
         }
     },
     methods: {
@@ -447,6 +463,16 @@ export default {
                 onConfirm: () => this.bulkDelete()
             });
         },
+        confirmDestroy() {
+            this.$buefy.dialog.confirm({
+                title: "Destroying users",
+                message: `Are you sure you want to <b>destroy</b> ${this.checkedLength} users? This action can NOT be undone.`,
+                confirmText: "Destroy Users",
+                type: "is-danger",
+                hasIcon: true,
+                onConfirm: () => this.bulkDestroy()
+            });
+        },
         confirmBlock() {
             this.$buefy.dialog.confirm({
                 title: "Blocking users",
@@ -481,6 +507,13 @@ export default {
         bulkDelete() {
             this.checkedRows.forEach(user => {
                 this.delete(user);
+            });
+            this.refreshAndClear();
+            return true;
+        },
+        bulkDestroy() {
+            this.checkedRows.forEach(user => {
+                this.destroy(user);
             });
             this.refreshAndClear();
             return true;
@@ -550,6 +583,26 @@ export default {
                         onAction: () => {
                             this.restore(user);
                         }
+                    });
+                })
+                .catch(err => {
+                    this.$buefy.toast.open({
+                        message: `Error: ${err.message}`,
+                        type: "is-danger",
+                        queue: false
+                    });
+                });
+        },
+        async destroy(user) {
+            await user
+                .destroy()
+                .then(response => {
+                    this.$buefy.snackbar.open({
+                        duration: 2000,
+                        message: `${user.fullname} has been destroyed`,
+                        type: "is-info",
+                        position: "is-bottom-right",
+                        queue: false
                     });
                 })
                 .catch(err => {

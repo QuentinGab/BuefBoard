@@ -10,6 +10,7 @@
                 canFilter
                 canSelect
                 canDelete
+                canDestroy
                 canBlock
                 canSeeTrashed
             ></users-table>

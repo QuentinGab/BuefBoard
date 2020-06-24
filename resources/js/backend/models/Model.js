@@ -20,4 +20,29 @@ export default class Model extends BaseModel {
 
         return window.location.replace(url);
     }
+
+    /**
+     * wrapping in data
+     */
+    _create() {
+        return this.request({
+            method: "POST",
+            url: this.endpoint(),
+            data: this
+        }).then(response => {
+            let self = Object.assign(this, response.data.data);
+            return self;
+        });
+    }
+
+    _update() {
+        return this.request({
+            method: "PUT",
+            url: this.endpoint(),
+            data: this
+        }).then(response => {
+            let self = Object.assign(this, response.data.data);
+            return self;
+        });
+    }
 }

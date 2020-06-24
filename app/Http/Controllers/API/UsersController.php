@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Requests\UpdateUser;
 
 class UsersController extends Controller
 {
@@ -31,7 +32,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
 
-        $users = QueryBuilder::for(User::class)
+        $users = QueryBuilder::for(User::class) 
                 ->allowedFilters([
                     'first_name',
                     'last_name',
@@ -52,6 +53,7 @@ class UsersController extends Controller
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
                 ->defaultSort('id')
                 ->paginate(15);
+        
 
         return UserResource::collection($users);
     }
@@ -82,7 +84,7 @@ class UsersController extends Controller
     public function show(Request $request, $id)
     {
         $user = User::withTrashed();
-        if($request->input('include')){
+        if ($request->input('include')) {
             $user->with('roles');
         }
         return new UserResource($user->find($id));
@@ -91,33 +93,28 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateUser  $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUser $request, User $user)
     {
-        if ($user->hasRole('god') and !$request->user()->hasRole('god')) {
-            //only a god can update a god
-            return abort(403, 'User does not have the right roles.');
-        }
+        $validated = $request->validated();
 
         $user->update(
-            $request->only([
-                'first_name',
-                'last_name',
-                'email',
-                'roles'
-            ])
+            $validated
         );
 
-        if ($request->filled('blocked_at')) {
-            if(!$user->isBlocked()){
+        $user->syncRoles($validated['roles']);
+
+        if ($validated['blocked_at']) {
+            if (!$user->isBlocked()) {
                 $user->block();
             }
         } else if ($user->isBlocked()) {
             $user->unblock();
         }
+
 
         return new UserResource($user);
     }
@@ -125,11 +122,12 @@ class UsersController extends Controller
     /**
      * Remove the user from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
+        $user = User::withTrashed()->find($id);
         $user->forceDelete();
         return new UserResource($user);
     }
@@ -149,12 +147,12 @@ class UsersController extends Controller
     /**
      * Restore the user from storage.
      *
-     * @param   $user
+     * @param   int $id
      * @return \Illuminate\Http\Response
      */
-    public function restore($user)
+    public function restore($id)
     {
-        $user = User::withTrashed()->find($user);
+        $user = User::withTrashed()->find($id);
         $user->restore();
         return new UserResource($user);
     }

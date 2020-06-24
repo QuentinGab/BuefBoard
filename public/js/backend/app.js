@@ -38775,6 +38775,38 @@ var Model = /*#__PURE__*/function (_BaseModel) {
       var url = "".concat(base).concat(this._builder.query());
       return window.location.replace(url);
     }
+    /**
+     * wrapping in data
+     */
+
+  }, {
+    key: "_create",
+    value: function _create() {
+      var _this = this;
+
+      return this.request({
+        method: "POST",
+        url: this.endpoint(),
+        data: this
+      }).then(function (response) {
+        var self = Object.assign(_this, response.data.data);
+        return self;
+      });
+    }
+  }, {
+    key: "_update",
+    value: function _update() {
+      var _this2 = this;
+
+      return this.request({
+        method: "PUT",
+        url: this.endpoint(),
+        data: this
+      }).then(function (response) {
+        var self = Object.assign(_this2, response.data.data);
+        return self;
+      });
+    }
   }]);
 
   return Model;

@@ -61,6 +61,16 @@
                             </div>
                         </b-notification>
                         <div class="p-1">
+                            <b-field horizontal>
+                                <template slot="label">
+                                    <b-tag size="is-large"
+                                        >#{{ user.id }}</b-tag
+                                    >
+                                </template>
+                                <h1 class="title">
+                                    {{ user.fullname }}
+                                </h1>
+                            </b-field>
                             <b-field horizontal label="Information">
                                 <b-field
                                     label="First Name"
@@ -148,13 +158,22 @@
 
                             <b-field horizontal label="">
                                 <b-field>
-                                    <b-button
-                                        @click="saveUser"
-                                        type="is-primary"
-                                        :loading="this.loading.user"
-                                        icon-left="content-save"
-                                        >Save</b-button
-                                    >
+                                    <div class="buttons">
+                                        <b-button
+                                            @click="saveUser"
+                                            type="is-primary"
+                                            :loading="this.loading.user"
+                                            icon-left="content-save"
+                                            >Save</b-button
+                                        >
+                                        <b-button
+                                            @click="getUser"
+                                            type="is-default"
+                                            size="is-small"
+                                            :loading="this.loading.user"
+                                            icon-left="refresh"
+                                        ></b-button>
+                                    </div>
                                 </b-field>
                                 <b-field>
                                     <p class="control has-text-right">
@@ -211,17 +230,17 @@ export default {
     },
     data() {
         return {
-            user: {
+            user: new User({
                 id: null,
                 first_name: "",
                 last_name: "",
                 email: "",
                 created_at: "",
                 updated_at: "",
-                deleted_at: "",
+                deleted_at: null,
                 email_verified_at: null,
                 blocked_at: null
-            },
+            }),
             roles: [],
             loading: {
                 user: false,
@@ -262,6 +281,7 @@ export default {
                         queue: false
                     });
                 });
+
             this.loading.user = false;
         },
 
@@ -305,6 +325,7 @@ export default {
                         type: "is-danger",
                         queue: false
                     });
+                    this.getUser();
                 });
         },
         async unblockUser() {
@@ -383,6 +404,7 @@ export default {
                         position: "is-bottom-right",
                         queue: false
                     });
+                    router.push({ name: "users" });
                 })
                 .catch(err => {
                     this.$buefy.toast.open({
@@ -390,9 +412,8 @@ export default {
                         type: "is-danger",
                         queue: false
                     });
+                    this.getUser();
                 });
-
-            router.push({ name: "users" });
         },
 
         confirmRestore() {

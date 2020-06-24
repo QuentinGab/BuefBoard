@@ -282,6 +282,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -298,17 +317,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      user: {
+      user: new _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"]({
         id: null,
         first_name: "",
         last_name: "",
         email: "",
         created_at: "",
         updated_at: "",
-        deleted_at: "",
+        deleted_at: null,
         email_verified_at: null,
         blocked_at: null
-      },
+      }),
       roles: [],
       loading: {
         user: false,
@@ -438,6 +457,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     type: "is-danger",
                     queue: false
                   });
+
+                  _this4.getUser();
                 });
 
               case 2:
@@ -570,20 +591,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: "is-bottom-right",
                     queue: false
                   });
+
+                  router.push({
+                    name: "users"
+                  });
                 })["catch"](function (err) {
                   _this8.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
                   });
+
+                  _this8.getUser();
                 });
 
               case 2:
-                router.push({
-                  name: "users"
-                });
-
-              case 3:
               case "end":
                 return _context8.stop();
             }
@@ -843,6 +865,32 @@ var render = function() {
                   [
                     _c(
                       "b-field",
+                      { attrs: { horizontal: "" } },
+                      [
+                        _c(
+                          "template",
+                          { slot: "label" },
+                          [
+                            _c("b-tag", { attrs: { size: "is-large" } }, [
+                              _vm._v("#" + _vm._s(_vm.user.id))
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("h1", { staticClass: "title" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.user.fullname) +
+                              "\n                            "
+                          )
+                        ])
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-field",
                       { attrs: { horizontal: "", label: "Information" } },
                       [
                         _c(
@@ -1021,24 +1069,37 @@ var render = function() {
                       "b-field",
                       { attrs: { horizontal: "", label: "" } },
                       [
-                        _c(
-                          "b-field",
-                          [
-                            _c(
-                              "b-button",
-                              {
-                                attrs: {
-                                  type: "is-primary",
-                                  loading: this.loading.user,
-                                  "icon-left": "content-save"
+                        _c("b-field", [
+                          _c(
+                            "div",
+                            { staticClass: "buttons" },
+                            [
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: {
+                                    type: "is-primary",
+                                    loading: this.loading.user,
+                                    "icon-left": "content-save"
+                                  },
+                                  on: { click: _vm.saveUser }
                                 },
-                                on: { click: _vm.saveUser }
-                              },
-                              [_vm._v("Save")]
-                            )
-                          ],
-                          1
-                        ),
+                                [_vm._v("Save")]
+                              ),
+                              _vm._v(" "),
+                              _c("b-button", {
+                                attrs: {
+                                  type: "is-default",
+                                  size: "is-small",
+                                  loading: this.loading.user,
+                                  "icon-left": "refresh"
+                                },
+                                on: { click: _vm.getUser }
+                              })
+                            ],
+                            1
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("b-field", [
                           _c(

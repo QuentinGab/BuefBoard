@@ -396,6 +396,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "UsersTable",
@@ -408,6 +418,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       type: Boolean
     },
     canDelete: {
+      type: Boolean
+    },
+    canDestroy: {
       type: Boolean
     },
     canBlock: {
@@ -463,6 +476,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     checkedLength: function checkedLength() {
       return this.checkedRows.length;
+    },
+    isSelected: function isSelected() {
+      return this.checkedRows.length > 0;
     }
   },
   methods: {
@@ -551,8 +567,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
     },
-    confirmBlock: function confirmBlock() {
+    confirmDestroy: function confirmDestroy() {
       var _this3 = this;
+
+      this.$buefy.dialog.confirm({
+        title: "Destroying users",
+        message: "Are you sure you want to <b>destroy</b> ".concat(this.checkedLength, " users? This action can NOT be undone."),
+        confirmText: "Destroy Users",
+        type: "is-danger",
+        hasIcon: true,
+        onConfirm: function onConfirm() {
+          return _this3.bulkDestroy();
+        }
+      });
+    },
+    confirmBlock: function confirmBlock() {
+      var _this4 = this;
 
       this.$buefy.dialog.confirm({
         title: "Blocking users",
@@ -561,12 +591,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         type: "is-warning",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this3.bulkBlock();
+          return _this4.bulkBlock();
         }
       });
     },
     confirmUnblock: function confirmUnblock() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$buefy.dialog.confirm({
         title: "Unblocking users",
@@ -575,12 +605,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         type: "is-warning",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this4.bulkUnblock();
+          return _this5.bulkUnblock();
         }
       });
     },
     confirmRestore: function confirmRestore() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.$buefy.dialog.confirm({
         title: "Restoring users",
@@ -589,50 +619,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         type: "is-warning",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this5.bulkRestore();
+          return _this6.bulkRestore();
         }
       });
     },
     // bulk actions
     bulkDelete: function bulkDelete() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.checkedRows.forEach(function (user) {
-        _this6["delete"](user);
+        _this7["delete"](user);
+      });
+      this.refreshAndClear();
+      return true;
+    },
+    bulkDestroy: function bulkDestroy() {
+      var _this8 = this;
+
+      this.checkedRows.forEach(function (user) {
+        _this8.destroy(user);
       });
       this.refreshAndClear();
       return true;
     },
     bulkBlock: function bulkBlock() {
-      var _this7 = this;
+      var _this9 = this;
 
       this.checkedRows.forEach(function (user) {
-        _this7.block(user);
+        _this9.block(user);
       });
       return true;
     },
     bulkUnblock: function bulkUnblock() {
-      var _this8 = this;
+      var _this10 = this;
 
       this.checkedRows.forEach(function (user) {
-        _this8.unblock(user);
+        _this10.unblock(user);
       });
       return true;
     },
     bulkRestore: function bulkRestore() {
-      var _this9 = this;
+      var _this11 = this;
 
       this.checkedRows.forEach(function (user) {
-        _this9.restore(user);
+        _this11.restore(user);
       });
       this.refreshAndClear();
       return true;
     },
     bulkSendEmailVerification: function bulkSendEmailVerification() {
-      var _this10 = this;
+      var _this12 = this;
 
       this.checkedRows.forEach(function (user) {
-        _this10.sendEmailVerification(user);
+        _this12.sendEmailVerification(user);
       });
       return true;
     },
@@ -661,7 +700,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //single actions
     "delete": function _delete(user) {
-      var _this11 = this;
+      var _this13 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -670,7 +709,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return user["delete"]().then(function (response) {
-                  _this11.$buefy.snackbar.open({
+                  _this13.$buefy.snackbar.open({
                     duration: 3000,
                     message: "".concat(user.fullname, " has been deleted"),
                     type: "is-danger",
@@ -678,11 +717,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     actionText: "Undo",
                     queue: true,
                     onAction: function onAction() {
-                      _this11.restore(user);
+                      _this13.restore(user);
                     }
                   });
                 })["catch"](function (err) {
-                  _this11.$buefy.toast.open({
+                  _this13.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -697,8 +736,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    block: function block(user) {
-      var _this12 = this;
+    destroy: function destroy(user) {
+      var _this14 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -706,20 +745,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return user.block().save().then(function (response) {
-                  _this12.$buefy.snackbar.open({
+                return user.destroy().then(function (response) {
+                  _this14.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(user.fullname, " has been blocked"),
-                    type: "is-danger",
+                    message: "".concat(user.fullname, " has been destroyed"),
+                    type: "is-info",
                     position: "is-bottom-right",
-                    actionText: "Undo",
-                    queue: true,
-                    onAction: function onAction() {
-                      _this12.unblock(user);
-                    }
+                    queue: false
                   });
                 })["catch"](function (err) {
-                  _this12.$buefy.toast.open({
+                  _this14.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -734,8 +769,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    unblock: function unblock(user) {
-      var _this13 = this;
+    block: function block(user) {
+      var _this15 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -743,16 +778,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return user.unblock().save().then(function (response) {
-                  _this13.$buefy.snackbar.open({
+                return user.block().save().then(function (response) {
+                  _this15.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(user.fullname, " has been unblocked"),
-                    type: "is-info",
+                    message: "".concat(user.fullname, " has been blocked"),
+                    type: "is-danger",
                     position: "is-bottom-right",
-                    queue: true
+                    actionText: "Undo",
+                    queue: true,
+                    onAction: function onAction() {
+                      _this15.unblock(user);
+                    }
                   });
                 })["catch"](function (err) {
-                  _this13.$buefy.toast.open({
+                  _this15.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -767,8 +806,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-    restore: function restore(user) {
-      var _this14 = this;
+    unblock: function unblock(user) {
+      var _this16 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -776,16 +815,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return user.restore().then(function (response) {
-                  _this14.$buefy.snackbar.open({
+                return user.unblock().save().then(function (response) {
+                  _this16.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(user.fullname, " has been restored"),
+                    message: "".concat(user.fullname, " has been unblocked"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: true
                   });
                 })["catch"](function (err) {
-                  _this14.$buefy.toast.open({
+                  _this16.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -800,8 +839,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    sendEmailVerification: function sendEmailVerification(user) {
-      var _this15 = this;
+    restore: function restore(user) {
+      var _this17 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
@@ -809,16 +848,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return user.sendEmailVerification().then(function (response) {
-                  _this15.$buefy.snackbar.open({
+                return user.restore().then(function (response) {
+                  _this17.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "An email has been send to <b>".concat(user.fullname, "</b>"),
+                    message: "".concat(user.fullname, " has been restored"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: true
                   });
                 })["catch"](function (err) {
-                  _this15.$buefy.toast.open({
+                  _this17.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
                     queue: false
@@ -831,6 +870,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee6);
+      }))();
+    },
+    sendEmailVerification: function sendEmailVerification(user) {
+      var _this18 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return user.sendEmailVerification().then(function (response) {
+                  _this18.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "An email has been send to <b>".concat(user.fullname, "</b>"),
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: true
+                  });
+                })["catch"](function (err) {
+                  _this18.$buefy.toast.open({
+                    message: "Error: ".concat(err.message),
+                    type: "is-danger",
+                    queue: false
+                  });
+                });
+
+              case 2:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
       }))();
     }
   },
@@ -854,6 +926,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _b_components_TitleBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @b/components/TitleBar */ "./resources/js/backend/components/TitleBar.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _b_components_users_UsersTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/components/users/UsersTable */ "./resources/js/backend/components/users/UsersTable.vue");
+//
 //
 //
 //
@@ -1218,7 +1291,7 @@ var render = function() {
                               attrs: {
                                 outlined: "",
                                 "icon-left": "delete-outline",
-                                disabled: _vm.checkedLength > 0 ? false : true
+                                disabled: !_vm.isSelected
                               },
                               on: { click: _vm.confirmDelete }
                             })
@@ -1243,7 +1316,7 @@ var render = function() {
                               attrs: {
                                 outlined: "",
                                 "icon-left": "account-cancel-outline",
-                                disabled: _vm.checkedLength > 0 ? false : true
+                                disabled: !_vm.isSelected
                               },
                               on: { click: _vm.confirmBlock }
                             })
@@ -1256,85 +1329,120 @@ var render = function() {
                 )
               : _vm._e(),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "buttons are-small" },
-              [
-                _c(
-                  "b-dropdown",
-                  {
-                    attrs: { "aria-role": "list", position: "is-bottom-left" }
-                  },
+            _vm.canSelect
+              ? _c(
+                  "div",
+                  { staticClass: "buttons are-small" },
                   [
                     _c(
-                      "button",
-                      {
-                        staticClass: "button is-default",
-                        attrs: { slot: "trigger" },
-                        slot: "trigger"
-                      },
-                      [
-                        _c("b-icon", {
-                          attrs: { icon: "dots-vertical", size: "is-small" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm.canBlock
-                      ? _c(
-                          "b-dropdown-item",
-                          {
-                            attrs: {
-                              "aria-role": "listitem",
-                              disabled: _vm.checkedLength > 0 ? false : true
-                            },
-                            on: { click: _vm.confirmUnblock }
-                          },
-                          [_vm._v("Unblock")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.showTrashed
-                      ? _c(
-                          "b-dropdown-item",
-                          {
-                            attrs: {
-                              "aria-role": "listitem",
-                              disabled: _vm.checkedLength > 0 ? false : true
-                            },
-                            on: { click: _vm.confirmRestore }
-                          },
-                          [_vm._v("Restore")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "b-dropdown-item",
+                      "b-dropdown",
                       {
                         attrs: {
-                          "aria-role": "listitem",
-                          disabled: _vm.checkedLength > 0 ? false : true
-                        },
-                        on: { click: _vm.bulkSendEmailVerification }
+                          "aria-role": "list",
+                          position: "is-bottom-left"
+                        }
                       },
-                      [_vm._v("Send Email Verification")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-dropdown-item",
-                      {
-                        attrs: { "aria-role": "listitem" },
-                        on: { click: _vm.bulkExport }
-                      },
-                      [_vm._v("Export\n                        ")]
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "button is-default",
+                            attrs: { slot: "trigger" },
+                            slot: "trigger"
+                          },
+                          [
+                            _c("b-icon", {
+                              attrs: { icon: "dots-vertical", size: "is-small" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _vm.canBlock && !_vm.showTrashed
+                          ? _c(
+                              "b-dropdown-item",
+                              {
+                                attrs: {
+                                  "aria-role": "listitem",
+                                  disabled: !_vm.isSelected
+                                },
+                                on: { click: _vm.confirmUnblock }
+                              },
+                              [_vm._v("Unblock")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.canDelete
+                          ? _c(
+                              "b-dropdown-item",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.showTrashed,
+                                    expression: "showTrashed"
+                                  }
+                                ],
+                                attrs: {
+                                  "aria-role": "listitem",
+                                  disabled: !_vm.isSelected
+                                },
+                                on: { click: _vm.confirmRestore }
+                              },
+                              [_vm._v("Restore")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "b-dropdown-item",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.showTrashed,
+                                expression: "!showTrashed"
+                              }
+                            ],
+                            attrs: {
+                              "aria-role": "listitem",
+                              disabled: !_vm.isSelected
+                            },
+                            on: { click: _vm.bulkSendEmailVerification }
+                          },
+                          [_vm._v("Send Email Verification")]
+                        ),
+                        _vm._v(" "),
+                        _vm.canDestroy
+                          ? _c(
+                              "b-dropdown-item",
+                              {
+                                attrs: {
+                                  "aria-role": "listitem",
+                                  disabled: !_vm.isSelected
+                                },
+                                on: { click: _vm.confirmDestroy }
+                              },
+                              [_vm._v("Destroy")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "b-dropdown-item",
+                          {
+                            attrs: { "aria-role": "listitem" },
+                            on: { click: _vm.bulkExport }
+                          },
+                          [_vm._v("Export\n                        ")]
+                        )
+                      ],
+                      1
                     )
                   ],
                   1
                 )
-              ],
-              1
-            )
+              : _vm._e()
           ])
         ])
       ]),
@@ -1707,6 +1815,7 @@ var render = function() {
               canFilter: "",
               canSelect: "",
               canDelete: "",
+              canDestroy: "",
               canBlock: "",
               canSeeTrashed: ""
             }
