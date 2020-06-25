@@ -21,6 +21,8 @@ class RolesController extends Controller
     {
         $this->middleware('auth');
         $this->middleware(['role:admin|god']);
+        
+        $this->authorizeResource(Role::class, 'role');
     }
 
     /**
