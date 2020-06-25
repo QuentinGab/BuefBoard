@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap");
+
 @import "./variables";
 
 @import "../global/global";
@@ -8,17 +10,17 @@
 /* Theme components */
 @import "./components/all";
 
-html{
+html {
     overflow: hidden;
 }
 body {
-    background-color: var(--bb-light,$light);
+    background-color: var(--bb-background, $background);
 }
 
 .bb-content {
     height: calc(100vh - 3.25rem);
 }
-.bb-view{
+.bb-view {
     height: 100%;
     width: 100%;
     overflow: auto;

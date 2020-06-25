@@ -17,7 +17,7 @@ class CheckBlocked
     {
         $auth = auth();
         $user = $auth->user();
-        if ($auth && $user->isBlocked() && !$user->hasRole('god')) {
+        if ($auth && $user && $user->isBlocked() && !$user->hasRole('god')) {
             auth()->logout();
             $message = "Your account has been suspended. Please contact administrator.";
             return redirect()->route('login')->withMessage($message);

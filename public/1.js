@@ -301,6 +301,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -765,103 +768,29 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "p-1" }, [
-        _c("div", { staticClass: "columns" }, [
-          _c("div", { staticClass: "column is-10-desktop is-8-fullhd" }, [
-            _c(
-              "div",
-              { staticClass: "bb-box" },
-              [
-                _vm.user.trashed
-                  ? _c(
-                      "b-notification",
-                      {
-                        attrs: {
-                          type: "is-danger",
-                          role: "alert",
-                          closable: false
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "level" }, [
-                          _c(
-                            "div",
-                            { staticClass: "level-left" },
-                            [
-                              _c("b-icon", { attrs: { icon: "alert-circle" } }),
-                              _vm._v(
-                                "\n                                This user is trashed.\n                            "
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "level-right" },
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { type: "is-danger" },
-                                  on: { click: _vm.confirmRestore }
-                                },
-                                [_vm._v("Restore")]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      ]
-                    )
-                  : _vm.user.blocked
-                  ? _c(
-                      "b-notification",
-                      {
-                        staticClass: "is-marginless",
-                        attrs: {
-                          type: "is-warning",
-                          role: "alert",
-                          closable: false
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "level" }, [
-                          _c(
-                            "div",
-                            { staticClass: "level-left" },
-                            [
-                              _c("b-icon", { attrs: { icon: "alert" } }),
-                              _vm._v(
-                                "\n                                This user is blocked.\n                            "
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "level-right" },
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { type: "is-warning" },
-                                  on: { click: _vm.unblockUser }
-                                },
-                                [_vm._v("Unblock")]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
+      _c("div", { staticClass: "section" }, [
+        _c("div", { staticClass: "columns is-multiline" }, [
+          _c("div", { staticClass: "column is-12 is-8-desktop is-6-fullhd" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c(
+                  "p",
+                  { staticClass: "card-header-title" },
+                  [
+                    _c("b-icon", {
+                      attrs: { icon: "account-circle", size: "is-small" }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Information")])
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-content" }, [
                 _c(
                   "div",
-                  { staticClass: "p-1" },
+                  {},
                   [
                     _c(
                       "b-field",
@@ -880,9 +809,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("h1", { staticClass: "title" }, [
                           _vm._v(
-                            "\n                                " +
+                            "\n                                    " +
                               _vm._s(_vm.user.fullname) +
-                              "\n                            "
+                              "\n                                "
                           )
                         ])
                       ],
@@ -993,7 +922,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                    Resend the verification email\n                                "
+                                      "\n                                        Resend the verification email\n                                    "
                                     )
                                   ]
                                 )
@@ -1004,6 +933,8 @@ var render = function() {
                       ],
                       1
                     ),
+                    _vm._v(" "),
+                    _c("hr"),
                     _vm._v(" "),
                     _c(
                       "b-field",
@@ -1065,6 +996,8 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
                     _c(
                       "b-field",
                       { attrs: { horizontal: "", label: "" } },
@@ -1090,7 +1023,6 @@ var render = function() {
                               _c("b-button", {
                                 attrs: {
                                   type: "is-default",
-                                  size: "is-small",
                                   loading: this.loading.user,
                                   "icon-left": "refresh"
                                 },
@@ -1165,10 +1097,77 @@ var render = function() {
                   ],
                   1
                 )
-              ],
-              1
-            )
-          ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "column" },
+            [
+              _vm.user.trashed
+                ? _c(
+                    "b-notification",
+                    {
+                      attrs: {
+                        type: "is-danger",
+                        role: "alert",
+                        "has-icon": "",
+                        icon: "delete",
+                        closable: false
+                      }
+                    },
+                    [
+                      _c("p", [
+                        _vm._v(
+                          "\n                        This user is trashed.\n                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          attrs: { type: "is-danger" },
+                          on: { click: _vm.confirmRestore }
+                        },
+                        [_vm._v("Restore")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm.user.blocked
+                ? _c(
+                    "b-notification",
+                    {
+                      attrs: {
+                        type: "is-warning",
+                        "has-icon": "",
+                        role: "alert",
+                        closable: false
+                      }
+                    },
+                    [
+                      _c("p", [
+                        _vm._v(
+                          "\n                        This user is blocked.\n                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          attrs: { type: "is-warning" },
+                          on: { click: _vm.unblockUser }
+                        },
+                        [_vm._v("Unblock")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
         ])
       ])
     ],

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
-use App\Http\Requests\UpdateUser;
+
 
 class UsersController extends Controller
 {
@@ -29,10 +30,11 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
+        $this->authorize('viewAny', User::class);
 
-        $users = QueryBuilder::for(User::class) 
+        $users = QueryBuilder::for(User::class)
                 ->allowedFilters([
                     'first_name',
                     'last_name',
@@ -53,7 +55,6 @@ class UsersController extends Controller
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
                 ->defaultSort('id')
                 ->paginate(15);
-        
 
         return UserResource::collection($users);
     }
@@ -81,24 +82,31 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $userId)
     {
-        $user = User::withTrashed();
-        if ($request->input('include')) {
-            $user->with('roles');
+        
+        $query = User::withTrashed();
+        if ($request->input('include') == 'roles') {
+            $query->with('roles');
         }
-        return new UserResource($user->find($id));
+        $user = $query->find($userId);
+
+        $this->authorize('view', $user);
+
+        return new UserResource($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateUser  $request
+     * @param  \App\Http\Requests\Users\UpdateUserRequest  $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUser $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $validated = $request->validated();
 
         $user->update(
@@ -115,19 +123,20 @@ class UsersController extends Controller
             $user->unblock();
         }
 
-
         return new UserResource($user);
     }
 
     /**
      * Remove the user from storage.
-     *
+     * @param  \App\Http\Requests\Users\DestroyUser  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DestroyUser $request, $userId)
     {
-        $user = User::withTrashed()->find($id);
+        $this->authorize('forceDelete', $userId);
+
+        $user = User::withTrashed()->find($userId);
         $user->forceDelete();
         return new UserResource($user);
     }
@@ -140,6 +149,8 @@ class UsersController extends Controller
      */
     public function delete(User $user)
     {
+        $this->authorize('delete', $user);
+
         $user->delete();
         return new UserResource($user);
     }
@@ -150,8 +161,10 @@ class UsersController extends Controller
      * @param   int $id
      * @return \Illuminate\Http\Response
      */
-    public function restore($id)
+    public function restore($userId)
     {
+        $this->authorize('delete', $userId);
+
         $user = User::withTrashed()->find($id);
         $user->restore();
         return new UserResource($user);
@@ -163,8 +176,10 @@ class UsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function block(User $user)
+    public function block(BlockUser $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $user->block();
         return new UserResource($user);
     }
@@ -177,6 +192,8 @@ class UsersController extends Controller
      */
     public function sendEmailVerification(User $user)
     {
+        $this->authorize('update', $user);
+
         $user->sendEmailVerificationNotification();
         return new UserResource($user);
     }
@@ -189,6 +206,8 @@ class UsersController extends Controller
      */
     public function markEmailAsVerified(User $user)
     {
+        $this->authorize('update', $user);
+
         $user->markEmailAsVerified();
         return new UserResource($user);
     }
@@ -198,6 +217,8 @@ class UsersController extends Controller
      */
     public function export(Request $request)
     {
+        $this->authorize('viewAny', $user);
+
         $users = QueryBuilder::for(User::class)
                 ->allowedFilters([
                     AllowedFilter::exact('id'),

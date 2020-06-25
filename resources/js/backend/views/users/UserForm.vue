@@ -15,198 +15,201 @@
             ]"
         ></title-bar>
 
-        <div class="p-1">
-            <div class="columns">
-                <div class="column is-10-desktop is-8-fullhd">
-                    <div class="bb-box">
-                        <b-notification
-                            v-if="user.trashed"
-                            type="is-danger"
-                            role="alert"
-                            :closable="false"
-                        >
-                            <div class="level">
-                                <div class="level-left">
-                                    <b-icon icon="alert-circle"></b-icon>
-                                    This user is trashed.
-                                </div>
-                                <div class="level-right">
-                                    <b-button
-                                        type="is-danger"
-                                        @click="confirmRestore"
-                                        >Restore</b-button
-                                    >
-                                </div>
-                            </div>
-                        </b-notification>
-                        <b-notification
-                            v-else-if="user.blocked"
-                            type="is-warning"
-                            role="alert"
-                            :closable="false"
-                            class="is-marginless"
-                        >
-                            <div class="level">
-                                <div class="level-left">
-                                    <b-icon icon="alert"></b-icon>
-                                    This user is blocked.
-                                </div>
-                                <div class="level-right">
-                                    <b-button
-                                        type="is-warning"
-                                        @click="unblockUser"
-                                        >Unblock</b-button
-                                    >
-                                </div>
-                            </div>
-                        </b-notification>
-                        <div class="p-1">
-                            <b-field horizontal>
-                                <template slot="label">
-                                    <b-tag size="is-large"
-                                        >#{{ user.id }}</b-tag
-                                    >
-                                </template>
-                                <h1 class="title">
-                                    {{ user.fullname }}
-                                </h1>
-                            </b-field>
-                            <b-field horizontal label="Information">
-                                <b-field
-                                    label="First Name"
-                                    label-for="first_name"
-                                    expand
-                                >
-                                    <b-input
-                                        id="first_name"
-                                        v-model="user.first_name"
-                                    ></b-input>
-                                </b-field>
-                                <b-field
-                                    label="Last Name"
-                                    label-for="last_name"
-                                    expand
-                                >
-                                    <b-input
-                                        id="last_name"
-                                        v-model="user.last_name"
-                                    ></b-input>
-                                </b-field>
-                            </b-field>
-
-                            <b-field horizontal label="">
-                                <b-field
-                                    label="Email"
-                                    label-for="email"
-                                    :type="
-                                        !user.email_verified
-                                            ? 'is-warning'
-                                            : null
-                                    "
-                                    :message="
-                                        user.email_verified
-                                            ? 'This email is verified'
-                                            : 'This email is not verified'
-                                    "
-                                >
-                                    <b-input
-                                        id="email"
-                                        type="email"
-                                        disabled
-                                        v-model="user.email"
-                                    ></b-input>
-                                </b-field>
-
-                                <b-field
-                                    label="Email verification"
-                                    v-if="!user.email_verified"
-                                >
-                                    <b-button type="is-primary" outlined>
-                                        Resend the verification email
-                                    </b-button>
-                                </b-field>
-                            </b-field>
-
-                            <b-field horizontal label="Roles">
-                                <div
-                                    class="field is-grouped is-grouped-multiline"
-                                >
-                                    <b-checkbox-button
-                                        v-for="role in user.roles"
-                                        :key="role.id"
-                                        v-model="user.roles"
-                                        :native-value="role"
-                                        type="is-primary"
-                                    >
-                                        <span>{{ role.name }}</span>
-                                    </b-checkbox-button>
-
-                                    <b-checkbox-button
-                                        v-for="role in differenceRoles(
-                                            roles,
-                                            user.roles
-                                        )"
-                                        :key="role.id"
-                                        v-model="user.roles"
-                                        :native-value="role"
-                                        type="is-primary"
-                                    >
-                                        <span>{{ role.name }}</span>
-                                    </b-checkbox-button>
-                                </div>
-                            </b-field>
-
-                            <b-field horizontal label="">
-                                <b-field>
-                                    <div class="buttons">
-                                        <b-button
-                                            @click="saveUser"
-                                            type="is-primary"
-                                            :loading="this.loading.user"
-                                            icon-left="content-save"
-                                            >Save</b-button
+        <div class="section">
+            <div class="columns is-multiline">
+                <div class="column is-12 is-8-desktop is-6-fullhd">
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="card-header-title">
+                                <b-icon
+                                    icon="account-circle"
+                                    size="is-small"
+                                ></b-icon>
+                                <span>Information</span>
+                            </p>
+                        </div>
+                        <div class="card-content">
+                            <div class="">
+                                <b-field horizontal>
+                                    <template slot="label">
+                                        <b-tag size="is-large"
+                                            >#{{ user.id }}</b-tag
                                         >
-                                        <b-button
-                                            @click="getUser"
-                                            type="is-default"
-                                            size="is-small"
-                                            :loading="this.loading.user"
-                                            icon-left="refresh"
-                                        ></b-button>
+                                    </template>
+                                    <h1 class="title">
+                                        {{ user.fullname }}
+                                    </h1>
+                                </b-field>
+                                <b-field horizontal label="Information">
+                                    <b-field
+                                        label="First Name"
+                                        label-for="first_name"
+                                        expand
+                                    >
+                                        <b-input
+                                            id="first_name"
+                                            v-model="user.first_name"
+                                        ></b-input>
+                                    </b-field>
+                                    <b-field
+                                        label="Last Name"
+                                        label-for="last_name"
+                                        expand
+                                    >
+                                        <b-input
+                                            id="last_name"
+                                            v-model="user.last_name"
+                                        ></b-input>
+                                    </b-field>
+                                </b-field>
+
+                                <b-field horizontal label="">
+                                    <b-field
+                                        label="Email"
+                                        label-for="email"
+                                        :type="
+                                            !user.email_verified
+                                                ? 'is-warning'
+                                                : null
+                                        "
+                                        :message="
+                                            user.email_verified
+                                                ? 'This email is verified'
+                                                : 'This email is not verified'
+                                        "
+                                    >
+                                        <b-input
+                                            id="email"
+                                            type="email"
+                                            disabled
+                                            v-model="user.email"
+                                        ></b-input>
+                                    </b-field>
+
+                                    <b-field
+                                        label="Email verification"
+                                        v-if="!user.email_verified"
+                                    >
+                                        <b-button type="is-primary" outlined>
+                                            Resend the verification email
+                                        </b-button>
+                                    </b-field>
+                                </b-field>
+
+                                <hr />
+                                <b-field horizontal label="Roles">
+                                    <div
+                                        class="field is-grouped is-grouped-multiline"
+                                    >
+                                        <b-checkbox-button
+                                            v-for="role in user.roles"
+                                            :key="role.id"
+                                            v-model="user.roles"
+                                            :native-value="role"
+                                            type="is-primary"
+                                        >
+                                            <span>{{ role.name }}</span>
+                                        </b-checkbox-button>
+
+                                        <b-checkbox-button
+                                            v-for="role in differenceRoles(
+                                                roles,
+                                                user.roles
+                                            )"
+                                            :key="role.id"
+                                            v-model="user.roles"
+                                            :native-value="role"
+                                            type="is-primary"
+                                        >
+                                            <span>{{ role.name }}</span>
+                                        </b-checkbox-button>
                                     </div>
                                 </b-field>
-                                <b-field>
-                                    <p class="control has-text-right">
-                                        <b-button
-                                            v-show="!user.trashed"
-                                            @click="
-                                                user.blocked
-                                                    ? unblockUser()
-                                                    : blockUser()
-                                            "
-                                            type="is-light"
-                                            :loading="this.loading.user"
-                                            >{{
-                                                user.blocked
-                                                    ? "Unblock"
-                                                    : "Block"
-                                            }}</b-button
-                                        >
-                                        <b-button
-                                            @click="confirmDelete"
-                                            type="is-light"
-                                            :loading="this.loading.user"
-                                            >{{
-                                                user.trashed
-                                                    ? "Destroy"
-                                                    : "Delete"
-                                            }}</b-button
-                                        >
-                                    </p>
+                                <hr />
+                                <b-field horizontal label="">
+                                    <b-field>
+                                        <div class="buttons">
+                                            <b-button
+                                                @click="saveUser"
+                                                type="is-primary"
+                                                :loading="this.loading.user"
+                                                icon-left="content-save"
+                                                >Save</b-button
+                                            >
+                                            <b-button
+                                                @click="getUser"
+                                                type="is-default"
+                                                :loading="this.loading.user"
+                                                icon-left="refresh"
+                                            ></b-button>
+                                        </div>
+                                    </b-field>
+                                    <b-field>
+                                        <p class="control has-text-right">
+                                            <b-button
+                                                v-show="!user.trashed"
+                                                @click="
+                                                    user.blocked
+                                                        ? unblockUser()
+                                                        : blockUser()
+                                                "
+                                                type="is-light"
+                                                :loading="this.loading.user"
+                                                >{{
+                                                    user.blocked
+                                                        ? "Unblock"
+                                                        : "Block"
+                                                }}</b-button
+                                            >
+                                            <b-button
+                                                @click="confirmDelete"
+                                                type="is-light"
+                                                :loading="this.loading.user"
+                                                >{{
+                                                    user.trashed
+                                                        ? "Destroy"
+                                                        : "Delete"
+                                                }}</b-button
+                                            >
+                                        </p>
+                                    </b-field>
                                 </b-field>
-                            </b-field>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="column">
+                    <b-notification
+                        v-if="user.trashed"
+                        type="is-danger"
+                        role="alert"
+                        has-icon
+                        icon="delete"
+                        :closable="false"
+                    >
+                        <p>
+                            This user is trashed.
+                        </p>
+
+                        <b-button type="is-danger" @click="confirmRestore"
+                            >Restore</b-button
+                        >
+                    </b-notification>
+                    <b-notification
+                        v-else-if="user.blocked"
+                        type="is-warning"
+                        has-icon
+                        role="alert"
+                        :closable="false"
+                    >
+                        <p>
+                            This user is blocked.
+                        </p>
+
+                        <b-button type="is-warning" @click="unblockUser"
+                            >Unblock</b-button
+                        >
+                    </b-notification>
                 </div>
             </div>
         </div>

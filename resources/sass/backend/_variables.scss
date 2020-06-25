@@ -5,14 +5,25 @@ $sidebar-box-shadow: none;
 
 //colors
 // $dark:#2E2E2E;
-$dark-bis:#2E2E2E;
-$dark-ter:#2E2E2E;
+$dark-bis: #2e2e2e;
+$dark-ter: #2e2e2e;
 
-$blue:#0984E3;
-$blue-dark:#043053;
-$blue-light:#3a9ce8;
+$blue: #0984e3;
+$blue-dark: #043053;
+$blue-light: #3a9ce8;
 
-$primary:$blue;
+$primary: $blue;
 
 // Body
 // $light:#f1f4f9;
+
+//Typography
+$family-primary: "Nunito", BlinkMacSystemFont, -apple-system, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+
+//Card
+$card-shadow:none;
+$card-header-shadow:none;
+$card-radius:6px;

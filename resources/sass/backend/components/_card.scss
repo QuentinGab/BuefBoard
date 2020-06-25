@@ -1,0 +1,12 @@
+.card{
+    border-radius: $card-radius;
+    .card-header{
+        border-bottom:1px solid var(--bb-white-ter,$white-ter);
+    }
+    .card-content{
+        hr{
+            margin-left: -$card-content-padding;
+            margin-right: -$card-content-padding;
+        }
+    }
+}

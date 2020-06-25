@@ -30,7 +30,6 @@ Route::post('users/{user}/restore', 'UsersController@restore');
 Route::delete('users/{user}/destroy', 'UsersController@destroy');
 Route::post('users/{user}/send-email-verification', 'UsersController@sendEmailVerification');
 
-//Roles
+//Roles and Permissions
 Route::apiResource('roles', 'RolesController')->except(['destroy']);
-
 Route::apiResource('permissions', 'PermissionsController')->except(['destroy']);
