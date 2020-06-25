@@ -2483,7 +2483,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.$store.commit("updateUserLoading", true);
 
                 _context.next = 3;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"].current()["catch"](function (err) {
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"].include('roles').current()["catch"](function (err) {
                   _this.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
@@ -2666,6 +2666,52 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2694,6 +2740,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 // @b/ is an alias to /src/backend
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavBar",
   components: {},
@@ -2702,7 +2749,7 @@ __webpack_require__.r(__webpack_exports__);
       menu: []
     };
   },
-  computed: {},
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["user", "loading"])),
   created: function created() {}
 });
 
@@ -22083,14 +22130,119 @@ var render = function() {
         "template",
         { slot: "end" },
         [
-          _c("b-navbar-item", { attrs: { tag: "div" } }, [
-            _c(
-              "a",
-              { staticClass: "button is-light", attrs: { href: "/logout" } },
-              [_c("b-icon", { attrs: { icon: "account-arrow-right" } })],
-              1
-            )
-          ])
+          _c(
+            "b-dropdown",
+            {
+              staticClass: "bb-navbar-account",
+              attrs: {
+                position: "is-bottom-left",
+                "append-to-body": "",
+                "aria-role": "menu"
+              }
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "navbar-item",
+                  attrs: { slot: "trigger", role: "button" },
+                  slot: "trigger"
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "navbar-picture" },
+                    [_c("b-icon", { attrs: { icon: "account-circle" } })],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("span", { staticClass: "h6" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.user.fullname) +
+                          "\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "navbar-icon" },
+                    [_c("b-icon", { attrs: { icon: "chevron-down" } })],
+                    1
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-dropdown-item",
+                { attrs: { custom: "", "aria-role": "menuitem" } },
+                [
+                  _c(
+                    "b-taglist",
+                    _vm._l(_vm.user.roles, function(role) {
+                      return _c(
+                        "b-tag",
+                        { key: role.id, attrs: { type: "is-primary" } },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(role.name) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    }),
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("hr", { staticClass: "dropdown-divider" }),
+              _vm._v(" "),
+              _c(
+                "b-dropdown-item",
+                { attrs: { "has-link": "", "aria-role": "menuitem" } },
+                [
+                  _c(
+                    "router-link",
+                    { attrs: { to: { name: "dashboard" } } },
+                    [
+                      _c("b-icon", {
+                        attrs: { icon: "desktop-mac", size: "is-small" }
+                      }),
+                      _vm._v(
+                        "\n                    DashBoard\n                "
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-dropdown-item",
+                { attrs: { "has-link": "", "aria-role": "menuitem" } },
+                [
+                  _c(
+                    "a",
+                    { attrs: { href: "/logout" } },
+                    [
+                      _c("b-icon", {
+                        attrs: { icon: "logout", size: "is-small" }
+                      }),
+                      _vm._v("\n                    Logout\n                ")
+                    ],
+                    1
+                  )
+                ]
+              )
+            ],
+            1
+          )
         ],
         1
       )
@@ -38958,6 +39110,11 @@ var User = /*#__PURE__*/function (_Model) {
       });
     }
   }, {
+    key: "current",
+    value: function current() {
+      return this.custom("users/current").$first();
+    }
+  }, {
     key: "fullname",
     get: function get() {
       return "".concat(this.first_name, " ").concat(this.last_name);
@@ -38994,11 +39151,6 @@ var User = /*#__PURE__*/function (_Model) {
       }
 
       return new Date(this.deleted_at);
-    }
-  }], [{
-    key: "current",
-    value: function current() {
-      return this.custom("users/current").$first();
     }
   }]);
 

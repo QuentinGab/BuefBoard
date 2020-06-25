@@ -28,7 +28,16 @@
     }
 }
 
-
-.bb-title-bar{
-    
+.bb-navbar-account {
+    width: 100%;
+    .navbar-item{
+        display: flex;
+        align-items: center;
+    }
+    .navbar-picture {
+        padding: 0.5rem 1rem;
+    }
+    .navbar-icon {
+        padding-left: 0.5rem;
+    }
 }

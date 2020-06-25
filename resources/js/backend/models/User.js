@@ -97,7 +97,7 @@ export default class User extends Model {
         });
     }
 
-    static current() {
+    current() {
         return this.custom("users/current")
             .$first();
     }

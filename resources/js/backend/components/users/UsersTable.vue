@@ -218,16 +218,6 @@
                         >
                     </b-taglist>
                 </b-table-column>
-                <!-- <b-table-column field="permissions" label="Permissions">
-                        <b-taglist>
-                            <b-tag
-                                type="is-info"
-                                v-for="permission in props.row.permissions"
-                                :key="permission"
-                                >{{ permission }}</b-tag
-                            >
-                        </b-taglist>
-                    </b-table-column> -->
 
                 <b-table-column
                     field="blocked_at"

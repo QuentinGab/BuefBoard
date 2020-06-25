@@ -76,7 +76,7 @@ export default {
     methods: {
         async getUser() {
             this.$store.commit("updateUserLoading", true);
-            let user = await User.current()
+            let user = await User.include('roles').current()
                 .catch(err => {
                     this.$buefy.toast.open({
                         message: `Error: ${err.message}`,

@@ -18601,6 +18601,23 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   height: 100% !important;
 }
 
+.bb-navbar-account {
+  width: 100%;
+}
+
+.bb-navbar-account .navbar-item {
+  display: flex;
+  align-items: center;
+}
+
+.bb-navbar-account .navbar-picture {
+  padding: 0.5rem 1rem;
+}
+
+.bb-navbar-account .navbar-icon {
+  padding-left: 0.5rem;
+}
+
 .bb-table {
   border: 1px solid var(--bb-white-ter, whitesmoke);
   border-radius: 6px;
