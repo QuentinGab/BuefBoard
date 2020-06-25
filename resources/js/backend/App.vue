@@ -76,12 +76,7 @@ export default {
     methods: {
         async getUser() {
             this.$store.commit("updateUserLoading", true);
-            return await new User()
-                .current()
-                .then(response => {
-                    this.$store.commit("updateUser", response);
-                    this.$store.commit("updateUserLoading", false);
-                })
+            let user = await User.current()
                 .catch(err => {
                     this.$buefy.toast.open({
                         message: `Error: ${err.message}`,
@@ -89,6 +84,8 @@ export default {
                         queue: false
                     });
                 });
+            this.$store.commit("updateUser", user);
+            this.$store.commit("updateUserLoading", false);
         }
     },
     created() {

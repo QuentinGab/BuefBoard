@@ -17,7 +17,49 @@
 
         <div class="section">
             <div class="columns is-multiline">
-                <div class="column is-12 is-8-desktop is-6-fullhd">
+                <div class="column is-12 is-6-fullhd">
+                    <b-notification
+                        v-if="user.trashed"
+                        type="is-danger"
+                        role="alert"
+                        has-icon
+                        icon="delete"
+                        :closable="false"
+                    >
+                        <p>
+                            This user is trashed. <br />
+
+                            <b-tag>
+                                {{
+                                    user.date_diff(
+                                        new Date(),
+                                        user.deleted_date
+                                    )
+                                }}
+                                days ago</b-tag
+                            >
+                        </p>
+                    </b-notification>
+                    <b-notification
+                        v-else-if="user.blocked"
+                        type="is-warning"
+                        has-icon
+                        role="alert"
+                        :closable="false"
+                    >
+                        <p>
+                            This user is blocked. <br />
+                            <b-tag>
+                                {{
+                                    user.date_diff(
+                                        new Date(),
+                                        user.blocked_date
+                                    )
+                                }}
+                                days ago
+                            </b-tag>
+                        </p>
+                    </b-notification>
                     <div class="card">
                         <div class="card-header">
                             <p class="card-header-title">
@@ -32,9 +74,9 @@
                             <div class="">
                                 <b-field horizontal>
                                     <template slot="label">
-                                        <b-tag size="is-large"
-                                            >#{{ user.id }}</b-tag
-                                        >
+                                        <b-tag size="is-large">
+                                            #{{ user.id }}
+                                        </b-tag>
                                     </template>
                                     <h1 class="title">
                                         {{ user.fullname }}
@@ -98,6 +140,11 @@
 
                                 <hr />
                                 <b-field horizontal label="Roles">
+                                    <b-skeleton
+                                        height="36px"
+                                        :active="loading.roles"
+                                    ></b-skeleton>
+
                                     <div
                                         class="field is-grouped is-grouped-multiline"
                                     >
@@ -112,7 +159,7 @@
                                         </b-checkbox-button>
 
                                         <b-checkbox-button
-                                            v-for="role in differenceRoles(
+                                            v-for="role in differenceById(
                                                 roles,
                                                 user.roles
                                             )"
@@ -126,51 +173,56 @@
                                     </div>
                                 </b-field>
                                 <hr />
+                                <b-field
+                                    horizontal
+                                    label="Permissions"
+                                    v-if="user.permissions"
+                                >
+                                    <div
+                                        class="field is-grouped is-grouped-multiline"
+                                    >
+                                        <b-checkbox-button
+                                            v-for="permission in user.permissions"
+                                            :key="permission.id"
+                                            v-model="user.permissions"
+                                            :native-value="permission"
+                                            type="is-primary"
+                                        >
+                                            <span>{{ permission.name }}</span>
+                                        </b-checkbox-button>
+
+                                        <b-checkbox-button
+                                            v-for="permission in differenceById(
+                                                permissions,
+                                                user.permissions
+                                            )"
+                                            :key="permission.id"
+                                            v-model="user.permissions"
+                                            :native-value="permission"
+                                            type="is-primary"
+                                        >
+                                            <span>{{ permission.name }}</span>
+                                        </b-checkbox-button>
+                                    </div>
+                                </b-field>
+                                <hr />
                                 <b-field horizontal label="">
                                     <b-field>
-                                        <div class="buttons">
+                                        <p class="control has-text-right">
                                             <b-button
                                                 @click="saveUser"
                                                 type="is-primary"
-                                                :loading="this.loading.user"
+                                                :loading="this.loading.save"
                                                 icon-left="content-save"
+                                                :disabled="user.trashed"
                                                 >Save</b-button
                                             >
                                             <b-button
                                                 @click="getUser"
                                                 type="is-default"
-                                                :loading="this.loading.user"
+                                                :loading="this.loading.refresh"
                                                 icon-left="refresh"
                                             ></b-button>
-                                        </div>
-                                    </b-field>
-                                    <b-field>
-                                        <p class="control has-text-right">
-                                            <b-button
-                                                v-show="!user.trashed"
-                                                @click="
-                                                    user.blocked
-                                                        ? unblockUser()
-                                                        : blockUser()
-                                                "
-                                                type="is-light"
-                                                :loading="this.loading.user"
-                                                >{{
-                                                    user.blocked
-                                                        ? "Unblock"
-                                                        : "Block"
-                                                }}</b-button
-                                            >
-                                            <b-button
-                                                @click="confirmDelete"
-                                                type="is-light"
-                                                :loading="this.loading.user"
-                                                >{{
-                                                    user.trashed
-                                                        ? "Destroy"
-                                                        : "Delete"
-                                                }}</b-button
-                                            >
                                         </p>
                                     </b-field>
                                 </b-field>
@@ -179,37 +231,82 @@
                     </div>
                 </div>
                 <div class="column">
-                    <b-notification
-                        v-if="user.trashed"
-                        type="is-danger"
-                        role="alert"
-                        has-icon
-                        icon="delete"
-                        :closable="false"
-                    >
-                        <p>
-                            This user is trashed.
-                        </p>
-
-                        <b-button type="is-danger" @click="confirmRestore"
-                            >Restore</b-button
-                        >
-                    </b-notification>
-                    <b-notification
-                        v-else-if="user.blocked"
-                        type="is-warning"
-                        has-icon
-                        role="alert"
-                        :closable="false"
-                    >
-                        <p>
-                            This user is blocked.
-                        </p>
-
-                        <b-button type="is-warning" @click="unblockUser"
-                            >Unblock</b-button
-                        >
-                    </b-notification>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-header-title">
+                                <p>
+                                    <b-icon
+                                        icon="security"
+                                        size="is-small"
+                                    ></b-icon>
+                                    Security
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div>
+                                <b-field horizontal label="Password">
+                                    <b-field>
+                                        <b-button
+                                            @click="confirmResetPassword"
+                                            type="is-primary"
+                                            outlined
+                                            :loading="this.loading.password"
+                                            icon-left="send"
+                                            >Send reset Password
+                                            Notification</b-button
+                                        >
+                                    </b-field>
+                                </b-field>
+                                <hr />
+                                <b-field horizontal label="Block">
+                                    <b-field>
+                                        <b-button
+                                            @click="
+                                                user.blocked
+                                                    ? unblockUser()
+                                                    : blockUser()
+                                            "
+                                            type="is-warning"
+                                            :loading="this.loading.user"
+                                            outlined
+                                            >{{
+                                                user.blocked
+                                                    ? "Unblock"
+                                                    : "Block"
+                                            }}</b-button
+                                        >
+                                    </b-field>
+                                </b-field>
+                                <hr />
+                                <b-field horizontal label="Delete">
+                                    <b-field>
+                                        <div class="buttons">
+                                            <b-button
+                                                v-if="user.trashed"
+                                                @click="confirmRestore"
+                                                type="is-info"
+                                                outlined
+                                                :loading="this.loading.user"
+                                                >Restore</b-button
+                                            >
+                                            <b-button
+                                                @click="confirmDelete"
+                                                type="is-danger"
+                                                outlined
+                                                :loading="this.loading.user"
+                                                >{{
+                                                    user.trashed
+                                                        ? "Destroy"
+                                                        : "Delete"
+                                                }}</b-button
+                                            >
+                                        </div>
+                                    </b-field>
+                                </b-field>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -221,6 +318,7 @@ import TitleBar from "@b/components/TitleBar";
 import differenceBy from "lodash/differenceBy";
 
 import Role from "@b/models/Role";
+import Permission from "@b/models/Permission";
 import User from "@b/models/User";
 
 export default {
@@ -245,37 +343,52 @@ export default {
                 blocked_at: null
             }),
             roles: [],
+            permissions: [],
             loading: {
                 user: false,
                 roles: false,
+                permissions: false,
+                save: false,
+                refresh: false,
+                password: false,
                 email_verification: false
             }
         };
     },
     computed: {},
     methods: {
-        differenceRoles(r1, r2) {
-            return differenceBy(r1, r2, "id");
+        differenceById(item1, item2) {
+            return differenceBy(item1, item2, "id");
         },
         async getRoles() {
             this.loading.roles = true;
 
-            this.roles = await Role.include("permissions")
-                .$get()
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            this.roles = await Role.$get().catch(err => {
+                this.$buefy.toast.open({
+                    message: `Error: ${err.message}`,
+                    type: "is-danger",
+                    queue: false
                 });
+            });
             this.loading.roles = false;
+        },
+        async getPermissions() {
+            this.loading.permissions = true;
+
+            this.permissions = await Permission.$get().catch(err => {
+                this.$buefy.toast.open({
+                    message: `Error: ${err.message}`,
+                    type: "is-danger",
+                    queue: false
+                });
+            });
+            this.loading.permissions = false;
         },
 
         async getUser() {
-            this.loading.user = true;
+            this.loading.refresh = true;
 
-            this.user = await User.include("roles")
+            this.user = await User.include("roles", "permissions")
                 .$find(this.id)
                 .catch(err => {
                     this.$buefy.toast.open({
@@ -285,10 +398,11 @@ export default {
                     });
                 });
 
-            this.loading.user = false;
+            this.loading.refresh = false;
         },
 
         async saveUser() {
+            this.loading.save = true;
             await this.user
                 .save()
                 .then(response => {
@@ -307,6 +421,7 @@ export default {
                         queue: false
                     });
                 });
+            this.loading.save = false;
         },
 
         async blockUser() {
@@ -418,7 +533,9 @@ export default {
                     this.getUser();
                 });
         },
-
+        sendResetPasswordNotification() {
+            return;
+        },
         confirmRestore() {
             this.$buefy.dialog.confirm({
                 title: "Restoring user",
@@ -451,11 +568,22 @@ export default {
                 hasIcon: true,
                 onConfirm: () => this.destroyUser()
             });
+        },
+        confirmResetPassword() {
+            this.$buefy.dialog.confirm({
+                title: "Reset user password",
+                message: `Are you sure you want to send a reset password notification?`,
+                confirmText: "Send Notification",
+                type: "is-info",
+                hasIcon: true,
+                onConfirm: () => this.sendResetPasswordNotification()
+            });
         }
     },
     created() {
         this.getUser();
         this.getRoles();
+        this.getPermissions();
     },
     mounted() {}
 };

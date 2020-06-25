@@ -32,4 +32,4 @@ Route::post('users/{user}/send-email-verification', 'UsersController@sendEmailVe
 
 //Roles and Permissions
 Route::apiResource('roles', 'RolesController')->except(['destroy']);
-Route::apiResource('permissions', 'PermissionsController')->except(['destroy']);
+Route::apiResource('permissions', 'PermissionsController')->except(['destroy','create','update','store']);

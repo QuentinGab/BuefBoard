@@ -11,7 +11,6 @@ use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-
 class UsersController extends Controller
 {
     /**
@@ -79,17 +78,15 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $userId)
+    public function show($userId)
     {
-        
-        $query = User::withTrashed();
-        if ($request->input('include') == 'roles') {
-            $query->with('roles');
-        }
-        $user = $query->find($userId);
+        $user = QueryBuilder::for(User::class)
+                ->withTrashed()
+                ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
+                ->find($userId);
 
         $this->authorize('view', $user);
 
@@ -114,6 +111,7 @@ class UsersController extends Controller
         );
 
         $user->syncRoles($validated['roles']);
+        $user->syncPermissions($validated['permissions']);
 
         if ($validated['blocked_at']) {
             if (!$user->isBlocked()) {
@@ -128,15 +126,14 @@ class UsersController extends Controller
 
     /**
      * Remove the user from storage.
-     * @param  \App\Http\Requests\Users\DestroyUser  $request
-     * @param  int  $id
+     * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DestroyUser $request, $userId)
+    public function destroy($userId)
     {
+        $user = User::withTrashed()->find($userId);
         $this->authorize('forceDelete', $userId);
 
-        $user = User::withTrashed()->find($userId);
         $user->forceDelete();
         return new UserResource($user);
     }
@@ -158,14 +155,15 @@ class UsersController extends Controller
     /**
      * Restore the user from storage.
      *
-     * @param   int $id
+     * @param   int $userId
      * @return \Illuminate\Http\Response
      */
     public function restore($userId)
     {
-        $this->authorize('delete', $userId);
+        $user = User::withTrashed()->find($userId);
 
-        $user = User::withTrashed()->find($id);
+        $this->authorize('delete', $user);
+
         $user->restore();
         return new UserResource($user);
     }
@@ -176,7 +174,7 @@ class UsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function block(BlockUser $request, User $user)
+    public function block(User $user)
     {
         $this->authorize('update', $user);
 

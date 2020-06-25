@@ -26,6 +26,21 @@ export default class User extends Model {
         );
     }
 
+    get blocked_date() {
+        if (!this.blocked) {
+            return null;
+        }
+        return new Date(this.blocked_at);
+    }
+
+    get deleted_date() {
+        if (!this.trashed) {
+            return null;
+        }
+        return new Date(this.deleted_at);
+    }
+    
+
     /**
      * block the user
      * a call to save is necessary
@@ -54,8 +69,7 @@ export default class User extends Model {
             url: url,
             data: this
         }).then(response => {
-            let self = Object.assign(this, response.data.data);
-            return self;
+            return this;
         });
     }
 
@@ -72,15 +86,6 @@ export default class User extends Model {
         });
     }
 
-    current() {
-        return this.custom("users/current")
-            .$first()
-            .then(response => {
-                let self = Object.assign(this, response.data);
-                return self;
-            });
-    }
-
     sendEmailVerification() {
         let url = `${this.endpoint()}/send-email-verification`;
         return this.request({
@@ -90,5 +95,10 @@ export default class User extends Model {
         }).then(response => {
             return this;
         });
+    }
+
+    static current() {
+        return this.custom("users/current")
+            .$first();
     }
 }

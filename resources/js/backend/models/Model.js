@@ -45,4 +45,17 @@ export default class Model extends BaseModel {
             return self;
         });
     }
+
+    _date_diff_days(d1,d2){
+        let ONE_DAY = (1000 * 3600 * 24);
+        var diff = d2.getTime() - d1.getTime();
+        return Math.ceil(diff / ONE_DAY);
+    }
+    date_diff(d1,d2,type){
+        if(type == 'days'){
+            return this._date_diff_days(d1,d2);
+        }
+
+        return this._date_diff_days(d1,d2);
+    }
 }

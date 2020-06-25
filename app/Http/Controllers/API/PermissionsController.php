@@ -21,6 +21,7 @@ class PermissionsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware(['role:admin|god']);
+        
     }
 
     /**
@@ -35,23 +36,12 @@ class PermissionsController extends Controller
                     'name',
                     AllowedFilter::exact('id'),
                 ])
-                ->allowedIncludes(['roles'])
+                ->allowedIncludes(['permissions'])
                 ->defaultSort('id')
                 ->get();
         
 
         return PermissionResource::collection($permissions);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -62,29 +52,7 @@ class PermissionsController extends Controller
      */
     public function show(Permission $permission)
     {
-        //
+        return new PermissionResource($permission);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Spatie\Permission\Models\Permission  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  Spatie\Permission\Models\Permission  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Permission $permission)
-    {
-        //
-    }
 }

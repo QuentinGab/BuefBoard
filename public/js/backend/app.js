@@ -2475,6 +2475,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var user;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2482,11 +2483,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.$store.commit("updateUserLoading", true);
 
                 _context.next = 3;
-                return new _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"]().current().then(function (response) {
-                  _this.$store.commit("updateUser", response);
-
-                  _this.$store.commit("updateUserLoading", false);
-                })["catch"](function (err) {
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"].current()["catch"](function (err) {
                   _this.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
@@ -2495,9 +2492,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
-                return _context.abrupt("return", _context.sent);
+                user = _context.sent;
 
-              case 4:
+                _this.$store.commit("updateUser", user);
+
+                _this.$store.commit("updateUserLoading", false);
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -38807,6 +38808,22 @@ var Model = /*#__PURE__*/function (_BaseModel) {
         return self;
       });
     }
+  }, {
+    key: "_date_diff_days",
+    value: function _date_diff_days(d1, d2) {
+      var ONE_DAY = 1000 * 3600 * 24;
+      var diff = d2.getTime() - d1.getTime();
+      return Math.ceil(diff / ONE_DAY);
+    }
+  }, {
+    key: "date_diff",
+    value: function date_diff(d1, d2, type) {
+      if (type == 'days') {
+        return this._date_diff_days(d1, d2);
+      }
+
+      return this._date_diff_days(d1, d2);
+    }
   }]);
 
   return Model;
@@ -38906,8 +38923,7 @@ var User = /*#__PURE__*/function (_Model) {
         url: url,
         data: this
       }).then(function (response) {
-        var self = Object.assign(_this, response.data.data);
-        return self;
+        return _this;
       });
     }
     /**
@@ -38928,19 +38944,9 @@ var User = /*#__PURE__*/function (_Model) {
       });
     }
   }, {
-    key: "current",
-    value: function current() {
-      var _this3 = this;
-
-      return this.custom("users/current").$first().then(function (response) {
-        var self = Object.assign(_this3, response.data);
-        return self;
-      });
-    }
-  }, {
     key: "sendEmailVerification",
     value: function sendEmailVerification() {
-      var _this4 = this;
+      var _this3 = this;
 
       var url = "".concat(this.endpoint(), "/send-email-verification");
       return this.request({
@@ -38948,7 +38954,7 @@ var User = /*#__PURE__*/function (_Model) {
         url: url,
         data: this
       }).then(function (response) {
-        return _this4;
+        return _this3;
       });
     }
   }, {
@@ -38970,6 +38976,29 @@ var User = /*#__PURE__*/function (_Model) {
     key: "email_verified",
     get: function get() {
       return this.hasOwnProperty("email_verified_at") && this.email_verified_at !== null;
+    }
+  }, {
+    key: "blocked_date",
+    get: function get() {
+      if (!this.blocked) {
+        return null;
+      }
+
+      return new Date(this.blocked_at);
+    }
+  }, {
+    key: "deleted_date",
+    get: function get() {
+      if (!this.trashed) {
+        return null;
+      }
+
+      return new Date(this.deleted_at);
+    }
+  }], [{
+    key: "current",
+    value: function current() {
+      return this.custom("users/current").$first();
     }
   }]);
 
@@ -39008,19 +39037,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: "/users/index",
     name: "users.index",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
     }
   }, {
     path: "/users/new",
     name: "users.new",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
     }
   }, {
     path: "/users/:id",
     name: "users.edit",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
     },
     props: true
   }, // Roles Management
@@ -39028,7 +39057,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: "/roles/index",
     name: "roles.index",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
     }
   }]
 }));

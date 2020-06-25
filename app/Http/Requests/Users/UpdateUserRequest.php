@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,6 +26,31 @@ class UpdateUserRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
+        $this->prepareRoles();
+
+    }
+
+    protected function preparePermissions(){
+        $master = $this->user();
+
+        $permissionsCollection = collect($this->permissions);
+
+        if ($master->hasRole('god')) {
+            $permissions = $permissionsCollection->pluck('name');
+        } else {
+            //you can't give permissions that you don't have
+            $permissions = $permissionsCollection->pluck('name')->reject(function ($permission, $key) {
+                return !$master->can($permission);
+            });
+        }
+
+        $this->merge([
+            'permissions' => $permissions
+                ->toArray(),
+        ]);
+    }
+
+    protected function prepareRoles(){
         $master = $this->user();
 
         $rolesCollection = collect($this->roles);
@@ -41,7 +67,6 @@ class UpdateUserRequest extends FormRequest
             'roles' => $roles
                 ->toArray(),
         ]);
-
     }
 
     /**
@@ -55,7 +80,8 @@ class UpdateUserRequest extends FormRequest
             'email' => ['required', 'email'],
             'first_name' => ['required'],
             'last_name' => ['required'],
-            'roles' => ['array'],
+            'roles' => ['sometimes','array'],
+            'permissions' => ['sometimes','array'],
             'blocked_at' => ["nullable"],
         ];
     }
