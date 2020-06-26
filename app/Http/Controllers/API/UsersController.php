@@ -11,6 +11,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
+use Illuminate\Support\Carbon;
+
 class UsersController extends Controller
 {
     /**
@@ -39,6 +41,8 @@ class UsersController extends Controller
                     'last_name',
                     AllowedFilter::exact('id'),
                     AllowedFilter::trashed(),
+                    AllowedFilter::scope('created_before'),
+                    AllowedFilter::scope('created_after'),
                     'email',
                 ])
                 ->allowedSorts([

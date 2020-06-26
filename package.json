@@ -24,6 +24,7 @@
         "chart.js": "^2.9.3",
         "css-global-variables": "^3.0.2",
         "lodash": "^4.17.13",
+        "moment": "^2.27.0",
         "tinycolor2": "^1.4.1",
         "vue": "^2.5.17",
         "vue-api-query": "^1.5.2",

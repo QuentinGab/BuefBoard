@@ -23,11 +23,6 @@ export default {
                     alpha: 0
                 },
                 {
-                    step: 0.2,
-                    color: "#e5e5e5",
-                    alpha: 0
-                },
-                {
                     step: 1,
                     color: "#e5e5e5",
                     alpha: 1
@@ -35,6 +30,11 @@ export default {
             ],
             defaultOptions: {
                 light: {
+                    tooltips: {
+                        mode: "index",
+                        intersect: false
+                    },
+
                     legend: {
                         display: false
                     },
@@ -59,20 +59,38 @@ export default {
                     responsive: true,
                     maintainAspectRatio: false
                 },
-                full: null
+                full: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
             }
         };
     },
-    computed: {},
-    methods: {
-        prepareChartData() {
-            this.chartData.datasets.forEach(dataset => {
-                if (dataset.backgroundGradient) {
-                    let gradient = this.createGradient();
-                    dataset.backgroundColor = gradient;
-                }
-            });
+    watch: {
+        chartData() {
+            this.renderChart(this.finalChartData, this.finalOptions);
+
+            console.log("updates");
+        }
+    },
+    computed: {
+        finalOptions() {
+            return this.options ?? this.defaultOptions[this.mode];
         },
+        finalChartData() {
+            if (!this.chartData) {
+                return null;
+            }
+            for (let i = 0; i < this.chartData.datasets.length; i++) {
+                const dataset = this.chartData.datasets[i];
+                if (dataset.backgroundGradient) {
+                    dataset.backgroundColor = this.createGradient();
+                }
+            }
+            return this.chartData;
+        }
+    },
+    methods: {
         createGradient(colorStop) {
             let gradient = this.$refs.canvas
                 .getContext("2d")
@@ -94,8 +112,7 @@ export default {
         }
     },
     mounted() {
-        this.prepareChartData();
-        this.renderChart(this.chartData, this.defaultOptions[this.mode]);
+        this.renderChart(this.finalChartData, this.finalOptions);
     }
 };
 </script>

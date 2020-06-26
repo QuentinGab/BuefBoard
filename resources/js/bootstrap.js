@@ -79,3 +79,4 @@ window.axios.interceptors.response.use(function (response) {
 // });
 
 window.tinycolor = require("tinycolor2");
+window.moment = require("moment");

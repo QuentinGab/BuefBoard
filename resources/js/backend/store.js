@@ -17,7 +17,8 @@ export default new Vuex.Store({
         // cssVar: cssVar,
         loading: {
             user: false
-        }
+        },
+        
     },
     mutations: {
         /* A fit-them-all commit */
@@ -32,13 +33,12 @@ export default new Vuex.Store({
             state.loading.user = isLoading;
         },
         //Style
-        updateStyle(state,style){
+        updateStyle(state, style) {
             state.style = style;
         },
-        updateColors(state,colors){
+        updateColors(state, colors) {
             state.style.colors = colors;
-        },
-
+        }
     },
     actions: {}
 });

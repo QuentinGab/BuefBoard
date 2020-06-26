@@ -23,12 +23,17 @@ Route::get('users/current', 'CurrentUserController@show');
 Route::post('users/current', 'CurrentUserController@update');
 Route::delete('users/current', 'CurrentUserController@destroy');
 //all users
+//export
 Route::get('users/export', 'UsersController@export');
+//stats
+Route::get('users/stats','UsersStatsController@index');
+//common
 Route::apiResource('users', 'UsersController')->except(['destroy']);
 Route::delete('users/{user}', 'UsersController@delete');
 Route::post('users/{user}/restore', 'UsersController@restore');
 Route::delete('users/{user}/destroy', 'UsersController@destroy');
 Route::post('users/{user}/send-email-verification', 'UsersController@sendEmailVerification');
+
 
 //Roles and Permissions
 Route::apiResource('roles', 'RolesController')->except(['destroy']);

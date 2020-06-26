@@ -1,26 +1,29 @@
-.card{
+.card {
     border-radius: $card-radius;
-    .card-header{
-        border-bottom:1px solid var(--bb-white-ter,$white-ter);
+    .card-header {
+        border-bottom: 1px solid var(--bb-white-ter, $white-ter);
     }
-    .card-content{
-        hr{
+    .card-content {
+        hr {
             margin-left: -$card-content-padding;
             margin-right: -$card-content-padding;
         }
     }
 }
 
-.bb-card-chart{
+.bb-card-chart {
     overflow: hidden;
     width: 100%;
     min-height: 200px;
     position: relative;
-    .chart-container.is-background{
+    .chart-container.is-background {
         position: absolute;
         left: 0;
         bottom: 0;
         height: 70%;
         width: 100%;
+    }
+    .card-content {
+        position: relative;
     }
 }
