@@ -10,3 +10,17 @@
         }
     }
 }
+
+.bb-card-chart{
+    overflow: hidden;
+    width: 100%;
+    min-height: 200px;
+    position: relative;
+    .chart-container.is-background{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 70%;
+        width: 100%;
+    }
+}
