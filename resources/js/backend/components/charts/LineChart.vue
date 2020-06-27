@@ -4,8 +4,11 @@ import { Line, mixins } from "vue-chartjs";
 export default {
     name: "LineChart",
     extends: Line,
-    mixins: [mixins.reactiveProp],
+    // mixins: [mixins.reactiveProp],
     props: {
+        chartData: {
+            type: Object
+        },
         mode: {
             type: String,
             default: "light",
@@ -20,7 +23,7 @@ export default {
                 {
                     step: 0,
                     color: "#e5e5e5",
-                    alpha: 0
+                    alpha: 0.05
                 },
                 {
                     step: 1,
@@ -68,37 +71,36 @@ export default {
     },
     watch: {
         chartData() {
-            this.renderChart(this.finalChartData, this.finalOptions);
-
-            console.log("updates");
+            this.updateChartGradient();
+            this.renderChart(this.chartData, this.finalOptions);
         }
     },
     computed: {
         finalOptions() {
             return this.options ?? this.defaultOptions[this.mode];
-        },
-        finalChartData() {
-            if (!this.chartData) {
-                return null;
-            }
-            for (let i = 0; i < this.chartData.datasets.length; i++) {
-                const dataset = this.chartData.datasets[i];
-                if (dataset.backgroundGradient) {
-                    dataset.backgroundColor = this.createGradient();
-                }
-            }
-            return this.chartData;
         }
     },
     methods: {
+        updateChartGradient() {
+            if (!this.chartData) {
+                return null;
+            }
+            this.chartData.datasets.forEach(dataset => {
+                if (dataset.backgroundGradient) {
+                    dataset.backgroundColor = this.createGradient();
+                }
+            });
+            return this.chartData;
+        },
         createGradient(colorStop) {
+            colorStop = colorStop ?? this.defaultGradient;
             let gradient = this.$refs.canvas
                 .getContext("2d")
-                .createLinearGradient(0, this.$refs.canvas.height, 0, 0);
+                .createLinearGradient(0, this.$refs.canvas.clientHeight, 0, 0);
+            // console.log(this.$data);
 
-            if (colorStop == null) {
-                colorStop = this.defaultGradient;
-            }
+            // console.log(this.$data._chart.ctx);
+
             colorStop.forEach(e => {
                 gradient.addColorStop(
                     e.step,
@@ -112,7 +114,9 @@ export default {
         }
     },
     mounted() {
-        this.renderChart(this.finalChartData, this.finalOptions);
+        this.renderChart(this.chartData, this.finalOptions);
+        this.updateChartGradient();
+        this.$data._chart.update();
     }
 };
 </script>

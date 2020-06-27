@@ -14,8 +14,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LineChart",
   "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Line"],
-  mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactiveProp],
+  // mixins: [mixins.reactiveProp],
   props: {
+    chartData: {
+      type: Object
+    },
     mode: {
       type: String,
       "default": "light",
@@ -29,7 +32,7 @@ __webpack_require__.r(__webpack_exports__);
       defaultGradient: [{
         step: 0,
         color: "#e5e5e5",
-        alpha: 0
+        alpha: 0.05
       }, {
         step: 1,
         color: "#e5e5e5",
@@ -70,8 +73,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     chartData: function chartData() {
-      this.renderChart(this.finalChartData, this.finalOptions);
-      console.log("updates");
+      this.updateChartGradient();
+      this.renderChart(this.chartData, this.finalOptions);
     }
   },
   computed: {
@@ -79,30 +82,29 @@ __webpack_require__.r(__webpack_exports__);
       var _this$options;
 
       return (_this$options = this.options) !== null && _this$options !== void 0 ? _this$options : this.defaultOptions[this.mode];
-    },
-    finalChartData: function finalChartData() {
+    }
+  },
+  methods: {
+    updateChartGradient: function updateChartGradient() {
+      var _this = this;
+
       if (!this.chartData) {
         return null;
       }
 
-      for (var i = 0; i < this.chartData.datasets.length; i++) {
-        var dataset = this.chartData.datasets[i];
-
+      this.chartData.datasets.forEach(function (dataset) {
         if (dataset.backgroundGradient) {
-          dataset.backgroundColor = this.createGradient();
+          dataset.backgroundColor = _this.createGradient();
         }
-      }
-
+      });
       return this.chartData;
-    }
-  },
-  methods: {
+    },
     createGradient: function createGradient(colorStop) {
-      var gradient = this.$refs.canvas.getContext("2d").createLinearGradient(0, this.$refs.canvas.height, 0, 0);
+      var _colorStop;
 
-      if (colorStop == null) {
-        colorStop = this.defaultGradient;
-      }
+      colorStop = (_colorStop = colorStop) !== null && _colorStop !== void 0 ? _colorStop : this.defaultGradient;
+      var gradient = this.$refs.canvas.getContext("2d").createLinearGradient(0, this.$refs.canvas.clientHeight, 0, 0); // console.log(this.$data);
+      // console.log(this.$data._chart.ctx);
 
       colorStop.forEach(function (e) {
         gradient.addColorStop(e.step, tinycolor(e.color).setAlpha(e.alpha).toRgbString());
@@ -111,7 +113,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.renderChart(this.finalChartData, this.finalOptions);
+    this.renderChart(this.chartData, this.finalOptions);
+    this.updateChartGradient();
+
+    this.$data._chart.update();
   }
 });
 
@@ -235,22 +240,35 @@ __webpack_require__.r(__webpack_exports__);
       icon: null,
       usersData: null,
       total: 0,
-      dates: {
-        start: moment().subtract(1, "months"),
-        end: moment()
-      }
+      period: "Last Month"
     };
   },
   watch: {
-    dateStart: function dateStart(current, old) {
+    dates: function dates(current, old) {
+      console.log(current);
       this.getData();
     }
   },
   computed: {
     dateStart: function dateStart() {
-      return this.dates.start.format("YYY-MM-DD");
+      if (this.period == "Last Month") {
+        return moment().subtract(1, "months").format("YYYY-MM-DD");
+      }
+
+      if (this.period == "Last Week") {
+        return moment().subtract(1, "weeks").format("YYYY-MM-DD");
+      }
+
+      return moment(this.period).format("YYYY-MM-DD");
+    },
+    dateEnd: function dateEnd() {
+      return moment().format("YYYY-MM-DD");
     },
     chartData: function chartData() {
+      if (!this.usersData) {
+        return null;
+      }
+
       return {
         labels: this.labels,
         datasets: [{
@@ -265,7 +283,16 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     labels: function labels() {
-      return this.enumerateDaysBetweenDates(this.dates.start, this.dates.end, "ddd D MMM");
+      return this.getDateRange(moment(this.dateStart), moment(this.dateEnd), "ddd D MMM");
+    },
+    sum: function sum() {
+      if (!this.usersData) {
+        return 0;
+      }
+
+      return Object.values(this.usersData).reduce(function (previous, current) {
+        return previous + current;
+      }, 0);
     },
     cData: function cData() {
       var _this = this;
@@ -275,7 +302,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var data = [];
-      this.enumerateDaysBetweenDates(this.dates.start, this.dates.end, "YYYY-MM-DD").forEach(function (day) {
+      this.getDateRange(moment(this.dateStart), moment(this.dateEnd), "YYYY-MM-DD").forEach(function (day) {
         var _this$usersData$day;
 
         data.push((_this$usersData$day = _this.usersData[day]) !== null && _this$usersData$day !== void 0 ? _this$usersData$day : 0);
@@ -297,7 +324,7 @@ __webpack_require__.r(__webpack_exports__);
     }(function () {
       return moment();
     }),
-    enumerateDaysBetweenDates: function enumerateDaysBetweenDates(startDate, endDate, format) {
+    getDateRange: function getDateRange(startDate, endDate, format) {
       var now = startDate.clone(),
           dates = [];
 
@@ -313,13 +340,15 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/v1/users/stats", {
         params: {
-          "filter[created_after]": this.dates.start.format("YYYY-MM-DD")
+          "filter[created_after]": this.dateStart
         }
       }).then(function (response) {
         var d = response.data;
         _this2.usersData = d.data;
-        _this2.total = d.meta.total;
-        _this2.dates.start = moment(d.meta.after);
+
+        if (d.meta.total) {
+          _this2.total = d.meta.total;
+        }
       });
     }
   },
@@ -433,10 +462,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("card-count-chart", { attrs: { "chart-data": _vm.chartData } }, [
-    _c("div", { staticClass: "card-content is-flex" }, [
-      _c("div", [
+    _c("div", { staticClass: "columns is-marginless" }, [
+      _c("div", { staticClass: "column" }, [
         _c("p", { staticClass: "title is-1 is-marginless" }, [
-          _vm._v(_vm._s(_vm.total))
+          _vm._v(_vm._s(_vm.total || _vm.sum))
         ]),
         _vm._v(" "),
         _c("p", { staticClass: "heading" }, [_vm._v(_vm._s(_vm.subtitle))])
@@ -444,50 +473,46 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
+        { staticClass: "column is-narrow" },
         [
           _c(
             "b-dropdown",
             {
-              attrs: { "aria-role": "list" },
+              attrs: { "aria-role": "list", position: "is-bottom-left" },
               model: {
-                value: _vm.dates.start,
+                value: _vm.period,
                 callback: function($$v) {
-                  _vm.$set(_vm.dates, "start", $$v)
+                  _vm.period = $$v
                 },
-                expression: "dates.start"
+                expression: "period"
               }
             },
             [
               _c(
                 "button",
                 {
-                  staticClass: "button is-default",
+                  staticClass: "button is-default is-small",
                   attrs: { slot: "trigger" },
                   slot: "trigger"
                 },
-                [_c("b-icon", { attrs: { icon: "calendar" } })],
-                1
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.period) +
+                      "\n                "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
                 "b-dropdown-item",
-                {
-                  attrs: {
-                    "aria-role": "listitem",
-                    value: _vm.moment().subtract(1, "weeks")
-                  }
-                },
+                { attrs: { "aria-role": "listitem", value: "Last Week" } },
                 [_vm._v("Last Week")]
               ),
               _vm._v(" "),
               _c(
                 "b-dropdown-item",
-                {
-                  attrs: {
-                    "aria-role": "listitem",
-                    value: _vm.moment().subtract(1, "months")
-                  }
-                },
+                { attrs: { "aria-role": "listitem", value: "Last Month" } },
                 [_vm._v("Last Month")]
               )
             ],

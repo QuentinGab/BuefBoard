@@ -1,25 +1,25 @@
 <template>
     <card-count-chart :chart-data="chartData">
-        <div class="card-content is-flex">
-            <div>
-                <p class="title is-1 is-marginless">{{ total }}</p>
+        <div class="columns is-marginless">
+            <div class="column">
+                <p class="title is-1 is-marginless">{{ total || sum }}</p>
                 <p class="heading">{{ subtitle }}</p>
             </div>
 
-            <div>
-                <b-dropdown aria-role="list" v-model="dates.start">
-                    <button class="button is-default" slot="trigger">
-                        <b-icon icon="calendar"></b-icon>
+            <div class="column is-narrow">
+                <b-dropdown
+                    aria-role="list"
+                    v-model="period"
+                    position="is-bottom-left"
+                >
+                    <button class="button is-default is-small" slot="trigger">
+                        {{ period }}
                     </button>
 
-                    <b-dropdown-item
-                        aria-role="listitem"
-                        :value="moment().subtract(1, 'weeks')"
+                    <b-dropdown-item aria-role="listitem" value="Last Week"
                         >Last Week</b-dropdown-item
                     >
-                    <b-dropdown-item
-                        aria-role="listitem"
-                        :value="moment().subtract(1, 'months')"
+                    <b-dropdown-item aria-role="listitem" value="Last Month"
                         >Last Month</b-dropdown-item
                     >
                 </b-dropdown>
@@ -42,22 +42,36 @@ export default {
             icon: null,
             usersData: null,
             total: 0,
-            dates: {
-                start: moment().subtract(1, "months"),
-                end: moment()
-            }
+            period: "Last Month"
         };
     },
     watch: {
-        dateStart: function(current, old) {
+        dates: function(current, old) {
+            console.log(current);
             this.getData();
         }
     },
     computed: {
         dateStart() {
-            return this.dates.start.format("YYY-MM-DD");
+            if (this.period == "Last Month") {
+                return moment()
+                    .subtract(1, "months")
+                    .format("YYYY-MM-DD");
+            }
+            if (this.period == "Last Week") {
+                return moment()
+                    .subtract(1, "weeks")
+                    .format("YYYY-MM-DD");
+            }
+            return moment(this.period).format("YYYY-MM-DD");
+        },
+        dateEnd() {
+            return moment().format("YYYY-MM-DD");
         },
         chartData() {
+            if (!this.usersData) {
+                return null;
+            }
             return {
                 labels: this.labels,
                 datasets: [
@@ -74,20 +88,28 @@ export default {
             };
         },
         labels() {
-            return this.enumerateDaysBetweenDates(
-                this.dates.start,
-                this.dates.end,
+            return this.getDateRange(
+                moment(this.dateStart),
+                moment(this.dateEnd),
                 "ddd D MMM"
             );
+        },
+        sum() {
+            if (!this.usersData) {
+                return 0;
+            }
+            return Object.values(this.usersData).reduce((previous, current) => {
+                return previous + current;
+            }, 0);
         },
         cData() {
             if (!this.usersData) {
                 return null;
             }
             let data = [];
-            this.enumerateDaysBetweenDates(
-                this.dates.start,
-                this.dates.end,
+            this.getDateRange(
+                moment(this.dateStart),
+                moment(this.dateEnd),
                 "YYYY-MM-DD"
             ).forEach(day => {
                 data.push(this.usersData[day] ?? 0);
@@ -99,7 +121,7 @@ export default {
         moment() {
             return moment();
         },
-        enumerateDaysBetweenDates: function(startDate, endDate, format) {
+        getDateRange: function(startDate, endDate, format) {
             var now = startDate.clone(),
                 dates = [];
 
@@ -113,16 +135,15 @@ export default {
             axios
                 .get("/api/v1/users/stats", {
                     params: {
-                        "filter[created_after]": this.dates.start.format(
-                            "YYYY-MM-DD"
-                        )
+                        "filter[created_after]": this.dateStart
                     }
                 })
                 .then(response => {
                     let d = response.data;
                     this.usersData = d.data;
-                    this.total = d.meta.total;
-                    this.dates.start = moment(d.meta.after);
+                    if (d.meta.total) {
+                        this.total = d.meta.total;
+                    }
                 });
         }
     },

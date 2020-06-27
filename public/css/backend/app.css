@@ -18757,7 +18757,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 
 .bb-card-chart {
-  overflow: hidden;
   width: 100%;
   min-height: 200px;
   position: relative;
@@ -18769,6 +18768,8 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   bottom: 0;
   height: 70%;
   width: 100%;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 .bb-card-chart .card-content {
