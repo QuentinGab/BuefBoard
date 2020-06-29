@@ -40,7 +40,28 @@ export default {
                         ]
                     }
                 },
-                full: null
+                full: {
+                    scales: {
+                        xAxes: [
+                            {
+                                ticks: {
+                                    autoSkip: true,
+                                    maxRotation: 0,
+                                    minRotation: 0
+                                }
+                            }
+                        ],
+                        yAxes: [
+                            {
+                                ticks: {
+                                    autoSkip: true,
+                                    maxRotation: 0,
+                                    minRotation: 0
+                                }
+                            }
+                        ]
+                    }
+                }
             }
         };
     },

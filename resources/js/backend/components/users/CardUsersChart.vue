@@ -50,7 +50,7 @@ export default {
             labels: null,
             total: 0,
             period: "Last Month",
-            cumulative: true
+            cumulative: false
         };
     },
     watch: {
@@ -87,7 +87,7 @@ export default {
                         pointBackgroundColor: "transparent",
                         pointBorderColor: "transparent",
                         borderWidth: 1,
-                        lineTension: 0,
+                        lineTension: 0.3,
                         backgroundColor: function(context) {
                             let color = tinycolor(context.dataset.borderColor);
                             let gradient = context.chart.ctx.createLinearGradient(
@@ -98,11 +98,11 @@ export default {
                             );
                             gradient.addColorStop(
                                 0,
-                                color.setAlpha(0.02).toRgbString()
+                                color.setAlpha(0.01).toRgbString()
                             );
                             gradient.addColorStop(
                                 1,
-                                color.setAlpha(0.4).toRgbString()
+                                color.setAlpha(0.2).toRgbString()
                             );
 
                             return gradient;

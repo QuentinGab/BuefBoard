@@ -78034,9 +78034,6 @@ chart_js__WEBPACK_IMPORTED_MODULE_6___default.a.defaults.global.plugins.colorsch
 /* GridLines */
 
 chart_js__WEBPACK_IMPORTED_MODULE_6___default.a.defaults.scale.gridLines.color = "rgba(0,0,0,0.02)";
-/* Line */
-
-console.log(chart_js__WEBPACK_IMPORTED_MODULE_6___default.a.defaults);
 /* This is main entry point */
 
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({

@@ -1,14 +1,56 @@
 <template>
-    <card-full-chart :chart-data="chartData"> </card-full-chart>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-header-title level">
+                <p>Users</p>
+                <div class="level-right">
+                    <div class="field is-grouped">
+                        <b-radio-button
+                            v-model="dates.start"
+                            :native-value="
+                                moment()
+                                    .subtract(1, 'months')
+                                    .format('YYYY-MM-DD')
+                            "
+                            type="is-light"
+                            size="is-small"
+                        >
+                            <span>1 month</span>
+                        </b-radio-button>
+                        <b-radio-button
+                            v-model="dates.start"
+                            :native-value="
+                                moment()
+                                    .subtract(14, 'days')
+                                    .format('YYYY-MM-DD')
+                            "
+                            type="is-light"
+                            size="is-small"
+                            class="is-rounded"
+                        >
+                            <span>14 days</span>
+                        </b-radio-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <line-chart
+            mode="full"
+            :style="chartStyle"
+            :chart-data="chartData"
+            v-if="chartData"
+            ref="chart"
+        ></line-chart>
+    </div>
 </template>
 
 <script>
-import CardFullChart from "@b/components/charts/cards/CardFullChart";
+import LineChart from "@b/components/charts/LineChart";
 import User from "@b/models/User";
 
 export default {
-    name: "CardUserChartFull",
-    components: { CardFullChart },
+    name: "UsersChart",
+    components: { LineChart },
     props: {},
     data() {
         return {
@@ -16,8 +58,18 @@ export default {
             usersData: null,
             labels: null,
             total: 0,
-            period: "Last Month",
-            cumulative: false
+            cumulative: false,
+            chartStyle: {
+                height: "100%",
+                width: "100%",
+                position: "relative"
+            },
+            dates: {
+                start: moment()
+                    .subtract(1, "months")
+                    .format("YYYY-MM-DD"),
+                end: moment().format("YYYY-MM-DD")
+            }
         };
     },
     watch: {
@@ -27,17 +79,7 @@ export default {
     },
     computed: {
         dateStart() {
-            if (this.period == "Last Month") {
-                return moment()
-                    .subtract(1, "months")
-                    .format("YYYY-MM-DD");
-            }
-            if (this.period == "Last Week") {
-                return moment()
-                    .subtract(1, "weeks")
-                    .format("YYYY-MM-DD");
-            }
-            return moment(this.period).format("YYYY-MM-DD");
+            return this.dates.start;
         },
         dateEnd() {
             return moment().format("YYYY-MM-DD");
@@ -63,8 +105,14 @@ export default {
                                 0,
                                 0
                             );
-                            gradient.addColorStop(0, color.setAlpha(0.02).toRgbString());
-                            gradient.addColorStop(1, color.setAlpha(0.4).toRgbString());
+                            gradient.addColorStop(
+                                0,
+                                color.setAlpha(0.01).toRgbString()
+                            );
+                            gradient.addColorStop(
+                                1,
+                                color.setAlpha(0.2).toRgbString()
+                            );
 
                             return gradient;
                         },

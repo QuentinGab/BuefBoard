@@ -63,9 +63,6 @@ Chart.defaults.global.plugins.colorschemes.fillAlpha = 0.2;
 /* GridLines */
 Chart.defaults.scale.gridLines.color = "rgba(0,0,0,0.02)";
 
-/* Line */
-
-console.log(Chart.defaults);
 
 /* This is main entry point */
 
