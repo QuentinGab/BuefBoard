@@ -90,7 +90,7 @@ class UsersController extends Controller
         $user = QueryBuilder::for(User::class)
                 ->withTrashed()
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
-                ->find($userId);
+                ->findOrFail($userId);
 
         $this->authorize('view', $user);
 
@@ -135,7 +135,7 @@ class UsersController extends Controller
      */
     public function destroy($userId)
     {
-        $user = User::withTrashed()->find($userId);
+        $user = User::withTrashed()->findOrFail($userId);
         $this->authorize('forceDelete', $userId);
 
         $user->forceDelete();
@@ -164,7 +164,7 @@ class UsersController extends Controller
      */
     public function restore($userId)
     {
-        $user = User::withTrashed()->find($userId);
+        $user = User::withTrashed()->findOrFail($userId);
 
         $this->authorize('delete', $user);
 

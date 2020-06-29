@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
-use App\Http\Resources\UserStatsCollection;
+use App\Http\Metrics\UsersMetrics;
 
-class UsersStatsController extends Controller
+class UsersMetricsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -44,6 +44,6 @@ class UsersStatsController extends Controller
                 ->allowedFields(['id', 'first_name','last_name','created_at'])
                 ->get();
         
-        return new UserStatsCollection($users);
+        return new UsersMetrics($users);
     }
 }

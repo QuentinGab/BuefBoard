@@ -26,7 +26,7 @@ Route::delete('users/current', 'CurrentUserController@destroy');
 //export
 Route::get('users/export', 'UsersController@export');
 //stats
-Route::get('users/stats','UsersStatsController@index');
+Route::get('users/metrics','UsersMetricsController@index');
 //common
 Route::apiResource('users', 'UsersController')->except(['destroy']);
 Route::delete('users/{user}', 'UsersController@delete');

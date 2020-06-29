@@ -1,47 +1,14 @@
 <template>
-    <card-count-chart :chart-data="chartData">
-        <div class="columns is-marginless">
-            <div class="column">
-                <div>
-                    <div class="is-flex">
-                        <p class="is-1 title is-marginless">
-                            {{ total || sum }}
-                        </p>
-                        <b-icon :icon="this.variationIcon"></b-icon>
-                    </div>
-                    <p class="heading">{{ subtitle }}</p>
-                </div>
-            </div>
-
-            <div class="column is-narrow">
-                <b-dropdown
-                    aria-role="list"
-                    v-model="period"
-                    position="is-bottom-left"
-                >
-                    <button class="button is-default is-small" slot="trigger">
-                        {{ period }}
-                    </button>
-
-                    <b-dropdown-item aria-role="listitem" value="Last Week"
-                        >Last Week</b-dropdown-item
-                    >
-                    <b-dropdown-item aria-role="listitem" value="Last Month"
-                        >Last Month</b-dropdown-item
-                    >
-                </b-dropdown>
-            </div>
-        </div>
-    </card-count-chart>
+    <card-full-chart :chart-data="chartData"> </card-full-chart>
 </template>
 
 <script>
-import CardCountChart from "@b/components/charts/cards/CardCountChart";
+import CardFullChart from "@b/components/charts/cards/CardFullChart";
 import User from "@b/models/User";
 
 export default {
-    name: "CardUserChart",
-    components: { CardCountChart },
+    name: "CardUserChartFull",
+    components: { CardFullChart },
     props: {},
     data() {
         return {
@@ -50,7 +17,7 @@ export default {
             labels: null,
             total: 0,
             period: "Last Month",
-            cumulative: true
+            cumulative: false
         };
     },
     watch: {
@@ -84,10 +51,10 @@ export default {
                 datasets: [
                     {
                         label: "Users",
-                        pointBackgroundColor: "transparent",
                         pointBorderColor: "transparent",
+                        pointBackgroundColor: "transparent",
                         borderWidth: 1,
-                        lineTension: 0,
+                        lineTension: 0.3,
                         backgroundColor: function(context) {
                             let color = tinycolor(context.dataset.borderColor);
                             let gradient = context.chart.ctx.createLinearGradient(
@@ -96,14 +63,8 @@ export default {
                                 0,
                                 0
                             );
-                            gradient.addColorStop(
-                                0,
-                                color.setAlpha(0.02).toRgbString()
-                            );
-                            gradient.addColorStop(
-                                1,
-                                color.setAlpha(0.4).toRgbString()
-                            );
+                            gradient.addColorStop(0, color.setAlpha(0.02).toRgbString());
+                            gradient.addColorStop(1, color.setAlpha(0.4).toRgbString());
 
                             return gradient;
                         },
@@ -152,7 +113,7 @@ export default {
             this.labels = this.getDateRange(
                 moment(startDate),
                 moment(endDate),
-                format ?? "ddd D MMM"
+                format ?? "D MMM"
             );
         },
         prepareData(rawData) {

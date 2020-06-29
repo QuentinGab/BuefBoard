@@ -46,16 +46,31 @@ export default class Model extends BaseModel {
         });
     }
 
-    _date_diff_days(d1,d2){
-        let ONE_DAY = (1000 * 3600 * 24);
+    _date_diff_days(d1, d2) {
+        let ONE_DAY = 1000 * 3600 * 24;
         var diff = d2.getTime() - d1.getTime();
         return Math.ceil(diff / ONE_DAY);
     }
-    date_diff(d1,d2,type){
-        if(type == 'days'){
-            return this._date_diff_days(d1,d2);
+    date_diff(d1, d2, type) {
+        if (type == "days") {
+            return this._date_diff_days(d1, d2);
         }
 
-        return this._date_diff_days(d1,d2);
+        return this._date_diff_days(d1, d2);
+    }
+
+    _metrics() {
+
+        let base = this._fromResource || `${this.baseURL()}/${this.resource()}`;
+        base = this._customResource
+            ? `${this.baseURL()}/${this._customResource}`
+            : base;
+        let url = `${base}/metrics${this._builder.query()}`;
+
+        return axios.get(url);
+    }
+
+    static metrics(){
+        return this.instance()._metrics();
     }
 }
