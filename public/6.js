@@ -46,7 +46,24 @@ __webpack_require__.r(__webpack_exports__);
             }]
           }
         },
-        full: null
+        full: {
+          scales: {
+            xAxes: [{
+              ticks: {
+                autoSkip: true,
+                maxRotation: 0,
+                minRotation: 0
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                autoSkip: true,
+                maxRotation: 0,
+                minRotation: 0
+              }
+            }]
+          }
+        }
       }
     };
   },
@@ -102,69 +119,6 @@ __webpack_require__.r(__webpack_exports__);
     mode: {
       type: String,
       "default": "light",
-      validator: function validator(value) {
-        return ["light", "full"].indexOf(value) !== -1;
-      }
-    },
-    chartData: {
-      type: Object,
-      "default": null
-    }
-  },
-  data: function data() {
-    return {
-      chartStyle: {
-        height: "100%",
-        width: "100%",
-        position: "relative"
-      }
-    };
-  },
-  computed: {},
-  methods: {},
-  mounted: function mounted() {},
-  created: function created() {}
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/charts/LineChart */ "./resources/js/backend/components/charts/LineChart.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CardFullChart",
-  components: {
-    LineChart: _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  props: {
-    mode: {
-      type: String,
-      "default": "full",
       validator: function validator(value) {
         return ["light", "full"].indexOf(value) !== -1;
       }
@@ -254,7 +208,7 @@ __webpack_require__.r(__webpack_exports__);
       labels: null,
       total: 0,
       period: "Last Month",
-      cumulative: true
+      cumulative: false
     };
   },
   watch: {
@@ -289,12 +243,12 @@ __webpack_require__.r(__webpack_exports__);
           pointBackgroundColor: "transparent",
           pointBorderColor: "transparent",
           borderWidth: 1,
-          lineTension: 0,
+          lineTension: 0.3,
           backgroundColor: function backgroundColor(context) {
             var color = tinycolor(context.dataset.borderColor);
             var gradient = context.chart.ctx.createLinearGradient(0, context.chart.height, 0, 0);
-            gradient.addColorStop(0, color.setAlpha(0.02).toRgbString());
-            gradient.addColorStop(1, color.setAlpha(0.4).toRgbString());
+            gradient.addColorStop(0, color.setAlpha(0.01).toRgbString());
+            gradient.addColorStop(1, color.setAlpha(0.2).toRgbString());
             return gradient;
           },
           data: this.usersData
@@ -410,17 +364,59 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _b_components_charts_cards_CardFullChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @b/components/charts/cards/CardFullChart */ "./resources/js/backend/components/charts/cards/CardFullChart.vue");
+/* harmony import */ var _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @b/components/charts/LineChart */ "./resources/js/backend/components/charts/LineChart.vue");
 /* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -428,9 +424,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CardUserChartFull",
+  name: "UsersChart",
   components: {
-    CardFullChart: _b_components_charts_cards_CardFullChart__WEBPACK_IMPORTED_MODULE_0__["default"]
+    LineChart: _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {},
   data: function data() {
@@ -439,8 +435,16 @@ __webpack_require__.r(__webpack_exports__);
       usersData: null,
       labels: null,
       total: 0,
-      period: "Last Month",
-      cumulative: false
+      cumulative: false,
+      chartStyle: {
+        height: "100%",
+        width: "100%",
+        position: "relative"
+      },
+      dates: {
+        start: moment().subtract(1, "months").format("YYYY-MM-DD"),
+        end: moment().format("YYYY-MM-DD")
+      }
     };
   },
   watch: {
@@ -450,15 +454,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     dateStart: function dateStart() {
-      if (this.period == "Last Month") {
-        return moment().subtract(1, "months").format("YYYY-MM-DD");
-      }
-
-      if (this.period == "Last Week") {
-        return moment().subtract(1, "weeks").format("YYYY-MM-DD");
-      }
-
-      return moment(this.period).format("YYYY-MM-DD");
+      return this.dates.start;
     },
     dateEnd: function dateEnd() {
       return moment().format("YYYY-MM-DD");
@@ -479,8 +475,8 @@ __webpack_require__.r(__webpack_exports__);
           backgroundColor: function backgroundColor(context) {
             var color = tinycolor(context.dataset.borderColor);
             var gradient = context.chart.ctx.createLinearGradient(0, context.chart.height, 0, 0);
-            gradient.addColorStop(0, color.setAlpha(0.02).toRgbString());
-            gradient.addColorStop(1, color.setAlpha(0.4).toRgbString());
+            gradient.addColorStop(0, color.setAlpha(0.01).toRgbString());
+            gradient.addColorStop(1, color.setAlpha(0.2).toRgbString());
             return gradient;
           },
           data: this.usersData
@@ -606,7 +602,30 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _b_components_users_CardUsersChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @b/components/users/CardUsersChart */ "./resources/js/backend/components/users/CardUsersChart.vue");
-/* harmony import */ var _b_components_users_CardUsersChartFull__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/users/CardUsersChartFull */ "./resources/js/backend/components/users/CardUsersChartFull.vue");
+/* harmony import */ var _b_components_users_UsersChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/users/UsersChart */ "./resources/js/backend/components/users/UsersChart.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -628,7 +647,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "Dashboard",
   components: {
     CardUsersChart: _b_components_users_CardUsersChart__WEBPACK_IMPORTED_MODULE_0__["default"],
-    CardUsersChartFull: _b_components_users_CardUsersChartFull__WEBPACK_IMPORTED_MODULE_1__["default"]
+    UsersChart: _b_components_users_UsersChart__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {};
@@ -975,55 +994,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=template&id=5e4925ae&":
-/*!*************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=template&id=5e4925ae& ***!
-  \*************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "card bb-card-chart" },
-    [
-      _c(
-        "div",
-        { staticClass: "chart-container" },
-        [
-          _vm.chartData
-            ? _c("line-chart", {
-                ref: "chart",
-                attrs: {
-                  mode: _vm.mode,
-                  styles: _vm.chartStyle,
-                  "chart-data": _vm.chartData
-                }
-              })
-            : _vm._e()
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm._t("default")
-    ],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/CardUsersChart.vue?vue&type=template&id=7eb84b3d&":
 /*!*******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/CardUsersChart.vue?vue&type=template&id=7eb84b3d& ***!
@@ -1124,10 +1094,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=template&id=004a17ec&":
-/*!***********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=template&id=004a17ec& ***!
-  \***********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1139,7 +1109,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("card-full-chart", { attrs: { "chart-data": _vm.chartData } })
+  return _c(
+    "div",
+    { staticClass: "card" },
+    [
+      _c("div", { staticClass: "card-header" }, [
+        _c("div", { staticClass: "card-header-title level" }, [
+          _c("p", [_vm._v("Users")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "level-right" }, [
+            _c(
+              "div",
+              { staticClass: "field is-grouped" },
+              [
+                _c(
+                  "b-radio-button",
+                  {
+                    attrs: {
+                      "native-value": _vm
+                        .moment()
+                        .subtract(1, "months")
+                        .format("YYYY-MM-DD"),
+                      type: "is-light",
+                      size: "is-small"
+                    },
+                    model: {
+                      value: _vm.dates.start,
+                      callback: function($$v) {
+                        _vm.$set(_vm.dates, "start", $$v)
+                      },
+                      expression: "dates.start"
+                    }
+                  },
+                  [_c("span", [_vm._v("1 month")])]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-radio-button",
+                  {
+                    staticClass: "is-rounded",
+                    attrs: {
+                      "native-value": _vm
+                        .moment()
+                        .subtract(14, "days")
+                        .format("YYYY-MM-DD"),
+                      type: "is-light",
+                      size: "is-small"
+                    },
+                    model: {
+                      value: _vm.dates.start,
+                      callback: function($$v) {
+                        _vm.$set(_vm.dates, "start", $$v)
+                      },
+                      expression: "dates.start"
+                    }
+                  },
+                  [_c("span", [_vm._v("14 days")])]
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm.chartData
+        ? _c("line-chart", {
+            ref: "chart",
+            style: _vm.chartStyle,
+            attrs: { mode: "full", "chart-data": _vm.chartData }
+          })
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1165,11 +1208,57 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "section" }, [
     _c("div", { staticClass: "columns" }, [
+      _c("div", { staticClass: "column is-narrow" }, [
+        _c("div", { staticClass: "card bb-card-metrics" }, [
+          _c("div", { staticClass: "metrics-item is-success" }, [
+            _c("div", { staticClass: "metrics-title" }, [_vm._v("New Users")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "metrics-value title is-3" }, [
+              _vm._v("5,097")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "metrics-subvalue" },
+              [
+                _c("b-icon", { attrs: { icon: "arrow-up", size: "is-small" } }),
+                _vm._v(
+                  "\n                        +33.45%\n                    "
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "metrics-item is-danger" }, [
+            _c("div", { staticClass: "metrics-title" }, [_vm._v("New Users")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "metrics-value title is-3" }, [
+              _vm._v("5,097")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "metrics-subvalue" },
+              [
+                _c("b-icon", { attrs: { icon: "arrow-up", size: "is-small" } }),
+                _vm._v(
+                  "\n                        +33.45%\n                    "
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
       _c("div", { staticClass: "column is-6" }, [_c("card-users-chart")], 1)
     ]),
     _vm._v(" "),
+    _c("div", { staticClass: "columns" }),
+    _vm._v(" "),
     _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column" }, [_c("card-users-chart-full")], 1)
+      _c("div", { staticClass: "column is-10" }, [_c("users-chart")], 1)
     ])
   ])
 }
@@ -1299,75 +1388,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/backend/components/charts/cards/CardFullChart.vue":
-/*!************************************************************************!*\
-  !*** ./resources/js/backend/components/charts/cards/CardFullChart.vue ***!
-  \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardFullChart_vue_vue_type_template_id_5e4925ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardFullChart.vue?vue&type=template&id=5e4925ae& */ "./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=template&id=5e4925ae&");
-/* harmony import */ var _CardFullChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardFullChart.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CardFullChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardFullChart_vue_vue_type_template_id_5e4925ae___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardFullChart_vue_vue_type_template_id_5e4925ae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/backend/components/charts/cards/CardFullChart.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************!*\
-  !*** ./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardFullChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardFullChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardFullChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=template&id=5e4925ae&":
-/*!*******************************************************************************************************!*\
-  !*** ./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=template&id=5e4925ae& ***!
-  \*******************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardFullChart_vue_vue_type_template_id_5e4925ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardFullChart.vue?vue&type=template&id=5e4925ae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/cards/CardFullChart.vue?vue&type=template&id=5e4925ae&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardFullChart_vue_vue_type_template_id_5e4925ae___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardFullChart_vue_vue_type_template_id_5e4925ae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./resources/js/backend/components/users/CardUsersChart.vue":
 /*!******************************************************************!*\
   !*** ./resources/js/backend/components/users/CardUsersChart.vue ***!
@@ -1437,17 +1457,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/backend/components/users/CardUsersChartFull.vue":
-/*!**********************************************************************!*\
-  !*** ./resources/js/backend/components/users/CardUsersChartFull.vue ***!
-  \**********************************************************************/
+/***/ "./resources/js/backend/components/users/UsersChart.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/backend/components/users/UsersChart.vue ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardUsersChartFull_vue_vue_type_template_id_004a17ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardUsersChartFull.vue?vue&type=template&id=004a17ec& */ "./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=template&id=004a17ec&");
-/* harmony import */ var _CardUsersChartFull_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardUsersChartFull.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=script&lang=js&");
+/* harmony import */ var _UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UsersChart.vue?vue&type=template&id=0ef8578d& */ "./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d&");
+/* harmony import */ var _UsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UsersChart.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1457,9 +1477,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CardUsersChartFull_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardUsersChartFull_vue_vue_type_template_id_004a17ec___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardUsersChartFull_vue_vue_type_template_id_004a17ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _UsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1469,38 +1489,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/backend/components/users/CardUsersChartFull.vue"
+component.options.__file = "resources/js/backend/components/users/UsersChart.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************/
+/***/ "./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardUsersChartFull_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardUsersChartFull.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardUsersChartFull_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./UsersChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=template&id=004a17ec&":
-/*!*****************************************************************************************************!*\
-  !*** ./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=template&id=004a17ec& ***!
-  \*****************************************************************************************************/
+/***/ "./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d& ***!
+  \*********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardUsersChartFull_vue_vue_type_template_id_004a17ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardUsersChartFull.vue?vue&type=template&id=004a17ec& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/CardUsersChartFull.vue?vue&type=template&id=004a17ec&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardUsersChartFull_vue_vue_type_template_id_004a17ec___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./UsersChart.vue?vue&type=template&id=0ef8578d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardUsersChartFull_vue_vue_type_template_id_004a17ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
