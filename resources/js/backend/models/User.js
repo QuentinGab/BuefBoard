@@ -39,7 +39,6 @@ export default class User extends Model {
         }
         return new Date(this.deleted_at);
     }
-    
 
     /**
      * block the user
@@ -81,8 +80,6 @@ export default class User extends Model {
         return this.request({
             method: "DELETE",
             url: url
-        }).then(response => {
-            return this;
         });
     }
 
@@ -98,7 +95,6 @@ export default class User extends Model {
     }
 
     current() {
-        return this.custom("users/current")
-            .$first();
+        return this.custom("users/current").$first();
     }
 }

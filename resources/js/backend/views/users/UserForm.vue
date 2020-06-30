@@ -19,7 +19,7 @@
             <div class="columns is-multiline">
                 <div class="column is-12 is-6-fullhd">
                     <b-notification
-                        v-if="user.trashed"
+                        v-if="user.trashed && !loading.user"
                         type="is-danger"
                         role="alert"
                         has-icon
@@ -41,7 +41,7 @@
                         </p>
                     </b-notification>
                     <b-notification
-                        v-else-if="user.blocked"
+                        v-else-if="user.blocked && !loading.user"
                         type="is-warning"
                         has-icon
                         role="alert"
@@ -82,6 +82,7 @@
                                         {{ user.fullname }}
                                     </h1>
                                 </b-field>
+                                <hr />
                                 <b-field horizontal label="Information">
                                     <b-field
                                         label="First Name"
@@ -269,7 +270,6 @@
                                             "
                                             type="is-warning"
                                             :loading="this.loading.user"
-                                            outlined
                                             >{{
                                                 user.blocked
                                                     ? "Unblock"
@@ -425,6 +425,7 @@ export default {
         },
 
         async blockUser() {
+            this.loading.user = true;
             await this.user
                 .block()
                 .save()
@@ -445,8 +446,10 @@ export default {
                     });
                     this.getUser();
                 });
+            this.loading.user = false;
         },
         async unblockUser() {
+            this.loading.user = true;
             await this.user
                 .unblock()
                 .save()
@@ -466,8 +469,8 @@ export default {
                         queue: false
                     });
                 });
+            this.loading.user = false;
         },
-
         async restoreUser() {
             await this.user
                 .restore()
@@ -490,6 +493,7 @@ export default {
             this.getUser();
         },
         async deleteUser() {
+            this.loading.user = true;
             await this.user
                 .delete()
                 .then(response => {
@@ -508,7 +512,7 @@ export default {
                         queue: false
                     });
                 });
-
+            this.loading.user = false;
             this.getUser();
         },
         async destroyUser() {
@@ -522,7 +526,7 @@ export default {
                         position: "is-bottom-right",
                         queue: false
                     });
-                    router.push({ name: "users" });
+                    this.$router.push({ name: "users.index" });
                 })
                 .catch(err => {
                     this.$buefy.toast.open({

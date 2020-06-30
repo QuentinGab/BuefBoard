@@ -78493,20 +78493,16 @@ var User = /*#__PURE__*/function (_Model) {
   }, {
     key: "destroy",
     value: function destroy() {
-      var _this2 = this;
-
       var url = "".concat(this.endpoint(), "/destroy");
       return this.request({
         method: "DELETE",
         url: url
-      }).then(function (response) {
-        return _this2;
       });
     }
   }, {
     key: "sendEmailVerification",
     value: function sendEmailVerification() {
-      var _this3 = this;
+      var _this2 = this;
 
       var url = "".concat(this.endpoint(), "/send-email-verification");
       return this.request({
@@ -78514,7 +78510,7 @@ var User = /*#__PURE__*/function (_Model) {
         url: url,
         data: this
       }).then(function (response) {
-        return _this3;
+        return _this2;
       });
     }
   }, {
@@ -78590,7 +78586,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: "/",
     name: "dashboard",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
     }
   }, //User Management
   {

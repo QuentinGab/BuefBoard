@@ -5,9 +5,9 @@
                 <div>
                     <div class="is-flex">
                         <p class="is-1 title is-marginless">
-                            {{ total || sum }}
+                            {{ total || cTotal }}
                         </p>
-                        <b-icon :icon="this.variationIcon"></b-icon>
+                        <b-icon :icon="variationIcon"></b-icon>
                     </div>
                     <p class="heading">{{ subtitle }}</p>
                 </div>
@@ -49,13 +49,14 @@ export default {
             usersData: null,
             labels: null,
             total: 0,
-            period: "Last Month",
-            cumulative: false
+            period: "Last Week",
+            metrics: null,
+            cumulative: true
         };
     },
     watch: {
         dateStart: function(current, old) {
-            this.getData();
+            this.getMetrics();
         }
     },
     computed: {
@@ -116,40 +117,55 @@ export default {
         rawData() {
             return Object.values(this.usersData);
         },
-        sum() {
+        cTotal() {
             if (!this.usersData) {
                 return 0;
+            }
+            if (this.cumulative) {
+                return this.usersData[this.usersData.length - 1];
             }
             return this.rawData.reduce((previous, current) => {
                 return previous + current;
             }, 0);
         },
         variation() {
-            if (!this.cData) {
+            if (!this.metrics || !this.metrics.new) {
                 return 0;
             }
-            if (this.cData.length < 2) {
-                return 0;
-            }
-            return this.cData[this.cData.length - 1] - this.cData[0];
+            return Math.round(
+                this.computeVariation(
+                    this.metrics.total - this.metrics.new.day,
+                    this.metrics.total
+                ) * 100
+            );
         },
         variationIcon() {
-            if (this.variation < 0) {
-                return "arrow-bottom-right";
-            }
-            if (this.variation > 0) {
-                return "arrow-top-right";
-            }
-
-            return "minus";
+            return this.computeIcon(this.variation);
         }
     },
     methods: {
         moment() {
             return moment();
         },
+        computeIcon(value) {
+            if (value > 0) {
+                return "arrow-top-right-thick";
+            }
+            if (value < 0) {
+                return "arrow-down";
+            }
+            return "minus";
+        },
+        computeVariation(start, end) {
+            if (!start || !end) {
+                return 0;
+            }
+
+            return (end - start) / start;
+        },
+
         prepareLabels(startDate, endDate, format) {
-            this.labels = this.getDateRange(
+            return this.getDateRange(
                 moment(startDate),
                 moment(endDate),
                 format ?? "ddd D MMM"
@@ -167,7 +183,7 @@ export default {
                 "YYYY-MM-DD"
             ).forEach(day => {
                 if (this.cumulative) {
-                    let value = rawData[day] ? rawData[day] + prev : prev;
+                    let value = rawData[day] ? rawData[day] : prev;
                     finalData.push(value);
                     prev = value;
                 } else {
@@ -176,7 +192,7 @@ export default {
             });
             return finalData;
         },
-        getDateRange: function(startDate, endDate, format) {
+        getDateRange(startDate, endDate, format) {
             var now = startDate.clone(),
                 dates = [];
 
@@ -186,22 +202,23 @@ export default {
             }
             return dates;
         },
-        getData() {
-            User.where("created_after", this.dateStart)
-                .params({ cumulative: true })
+        async getMetrics() {
+            await User.where("created_after", this.dateStart)
+                .params({ cumulative: this.cumulative })
                 ._metrics()
                 .then(response => {
-                    let d = response.data;
-                    this.usersData = this.prepareData(d.data);
-                    this.prepareLabels(this.dateStart, this.dateEnd);
-                    if (d.meta.total) {
-                        this.total = d.meta.total;
-                    }
+                    this.metrics = response.data.overview;
+                    this.total = response.data.overview.total;
+                    this.usersData = this.prepareData(response.data.data);
+                    this.labels = this.prepareLabels(
+                        this.dateStart,
+                        this.dateEnd
+                    );
                 });
         }
     },
     mounted() {
-        this.getData();
+        this.getMetrics();
     }
 };
 </script>

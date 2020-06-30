@@ -519,7 +519,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.next = 2;
+                _this5.loading.user = true;
+                _context5.next = 3;
                 return _this5.user.block().save().then(function (response) {
                   _this5.$buefy.snackbar.open({
                     duration: 2000,
@@ -538,7 +539,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this5.getUser();
                 });
 
-              case 2:
+              case 3:
+                _this5.loading.user = false;
+
+              case 4:
               case "end":
                 return _context5.stop();
             }
@@ -554,7 +558,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _context6.next = 2;
+                _this6.loading.user = true;
+                _context6.next = 3;
                 return _this6.user.unblock().save().then(function (response) {
                   _this6.$buefy.snackbar.open({
                     duration: 2000,
@@ -571,7 +576,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 2:
+              case 3:
+                _this6.loading.user = false;
+
+              case 4:
               case "end":
                 return _context6.stop();
             }
@@ -623,7 +631,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
-                _context8.next = 2;
+                _this8.loading.user = true;
+                _context8.next = 3;
                 return _this8.user["delete"]().then(function (response) {
                   _this8.$buefy.snackbar.open({
                     duration: 2000,
@@ -640,10 +649,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 2:
+              case 3:
+                _this8.loading.user = false;
+
                 _this8.getUser();
 
-              case 3:
+              case 5:
               case "end":
                 return _context8.stop();
             }
@@ -669,8 +680,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     queue: false
                   });
 
-                  router.push({
-                    name: "users"
+                  _this9.$router.push({
+                    name: "users.index"
                   });
                 })["catch"](function (err) {
                   _this9.$buefy.toast.open({
@@ -805,7 +816,7 @@ var render = function() {
             "div",
             { staticClass: "column is-12 is-6-fullhd" },
             [
-              _vm.user.trashed
+              _vm.user.trashed && !_vm.loading.user
                 ? _c(
                     "b-notification",
                     {
@@ -843,7 +854,7 @@ var render = function() {
                       )
                     ]
                   )
-                : _vm.user.blocked
+                : _vm.user.blocked && !_vm.loading.user
                 ? _c(
                     "b-notification",
                     {
@@ -932,6 +943,8 @@ var render = function() {
                         ],
                         2
                       ),
+                      _vm._v(" "),
+                      _c("hr"),
                       _vm._v(" "),
                       _c(
                         "b-field",
@@ -1323,8 +1336,7 @@ var render = function() {
                               {
                                 attrs: {
                                   type: "is-warning",
-                                  loading: this.loading.user,
-                                  outlined: ""
+                                  loading: this.loading.user
                                 },
                                 on: {
                                   click: function($event) {
