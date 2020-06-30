@@ -7,6 +7,7 @@
                 <router-view />
             </div>
         </div>
+        <notification-center class="bb-notification-center" />
     </div>
 </template>
 
@@ -15,13 +16,14 @@
 import { mapState } from "vuex";
 
 import AsideMenu from "@b/components/AsideMenu";
+import NotificationCenter from "@b/components/NotificationCenter";
 import NavBar from "@b/components/NavBar";
 
 import User from "@b/models/User";
 
 export default {
     name: "App",
-    components: { AsideMenu, NavBar },
+    components: { AsideMenu, NavBar, NotificationCenter },
     data() {
         return {
             menu: [
@@ -76,7 +78,8 @@ export default {
     methods: {
         async getUser() {
             this.$store.commit("updateLoadingUser", true);
-            let user = await User.include('roles').current()
+            let user = await User.include("roles")
+                .current()
                 .catch(err => {
                     this.$buefy.toast.open({
                         message: `Error: ${err.message}`,

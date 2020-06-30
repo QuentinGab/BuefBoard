@@ -4,15 +4,15 @@
 export default {
     name: "ExampleComponent",
     components: {},
-    props:{},
+    props: {},
     data() {
         return {};
     },
 
     computed: {},
     methods: {},
-    mounted() {},
-    created() {}
+    created() {},
+    mounted() {}
 };
 </script>
 

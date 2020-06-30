@@ -22,25 +22,21 @@
                 aria-role="menu"
                 class="bb-navbar-account"
             >
-                <a class="navbar-item" slot="trigger" role="button">
-                    <div class="navbar-picture">
-                        <b-icon icon="account-circle"></b-icon>
-                    </div>
+                <a class="navbar-item has-divider" slot="trigger" role="button">
+                    <b-icon icon="account-circle"></b-icon>
                     <div>
                         <span class="h6">
                             {{ user.fullname }}
                         </span>
                     </div>
-                    <div class="navbar-icon">
-                        <b-icon icon="chevron-down"></b-icon>
-                    </div>
+                    <b-icon icon="chevron-down"></b-icon>
                 </a>
                 <b-dropdown-item custom aria-role="menuitem">
                     <b-taglist>
-                        <b-tag 
-                        v-for="role in user.roles"
-                        :key="role.id"
-                        type="is-primary"
+                        <b-tag
+                            v-for="role in user.roles"
+                            :key="role.id"
+                            type="is-primary"
                         >
                             {{ role.name }}
                         </b-tag>
@@ -60,13 +56,19 @@
                     </a>
                 </b-dropdown-item>
             </b-dropdown>
+            <b-navbar-item
+                @click="toggleNotificationCenter()"
+                class="has-divider is-icon"
+            >
+                <b-icon icon="bell-outline" size="is-small"></b-icon>
+            </b-navbar-item>
         </template>
     </b-navbar>
 </template>
 
 <script>
 // @b/ is an alias to /src/backend
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
     name: "NavBar",
@@ -78,6 +80,9 @@ export default {
     },
     computed: {
         ...mapState(["user", "loading"])
+    },
+    methods: {
+        ...mapMutations(["toggleNotificationCenter"])
     },
     created() {}
 };

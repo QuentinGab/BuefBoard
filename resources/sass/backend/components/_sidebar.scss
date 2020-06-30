@@ -74,7 +74,7 @@
         border-right: 1px solid var(--bb-light, $light);
     }
     .menu-label {
-        color: var(--bb-white-ter,$white-ter);
+        color: var(--bb-white-ter, $white-ter);
     }
     .menu-list {
         a {
@@ -114,7 +114,7 @@
                 display: none;
             }
             .menu-list {
-                a{
+                a {
                     padding: 1rem 1rem;
                 }
                 li {
@@ -126,5 +126,16 @@
                 }
             }
         }
+    }
+}
+
+.bb-notification-center {
+    .sidebar-content {
+        background-color: rgba($color: $white, $alpha: 0.5);
+        backdrop-filter: blur(10px);
+        width: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 }

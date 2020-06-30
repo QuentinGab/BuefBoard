@@ -2395,8 +2395,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _b_components_AsideMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/components/AsideMenu */ "./resources/js/backend/components/AsideMenu.vue");
-/* harmony import */ var _b_components_NavBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/components/NavBar */ "./resources/js/backend/components/NavBar.vue");
-/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
+/* harmony import */ var _b_components_NotificationCenter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/components/NotificationCenter */ "./resources/js/backend/components/NotificationCenter.vue");
+/* harmony import */ var _b_components_NavBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @b/components/NavBar */ "./resources/js/backend/components/NavBar.vue");
+/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2421,7 +2422,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 // @b/ is an alias to /src/backend
+
 
 
 
@@ -2430,7 +2433,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "App",
   components: {
     AsideMenu: _b_components_AsideMenu__WEBPACK_IMPORTED_MODULE_2__["default"],
-    NavBar: _b_components_NavBar__WEBPACK_IMPORTED_MODULE_3__["default"]
+    NavBar: _b_components_NavBar__WEBPACK_IMPORTED_MODULE_4__["default"],
+    NotificationCenter: _b_components_NotificationCenter__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
@@ -2483,7 +2487,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.$store.commit("updateLoadingUser", true);
 
                 _context.next = 3;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"].include('roles').current()["catch"](function (err) {
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_5__["default"].include("roles").current()["catch"](function (err) {
                   _this.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
@@ -2739,6 +2743,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 // @b/ is an alias to /src/backend
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2750,7 +2756,89 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["user", "loading"])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["toggleNotificationCenter"])),
   created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/NotificationCenter.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/NotificationCenter.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "NotificationCenter",
+  components: {},
+  props: {},
+  data: function data() {
+    return {};
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["notificationCenter", "loading"])),
+  methods: {},
+  created: function created() {},
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -61214,7 +61302,9 @@ var render = function() {
           _c("div", { staticClass: "bb-view" }, [_c("router-view")], 1)
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("notification-center", { staticClass: "bb-notification-center" })
     ],
     1
   )
@@ -61464,17 +61554,12 @@ var render = function() {
               _c(
                 "a",
                 {
-                  staticClass: "navbar-item",
+                  staticClass: "navbar-item has-divider",
                   attrs: { slot: "trigger", role: "button" },
                   slot: "trigger"
                 },
                 [
-                  _c(
-                    "div",
-                    { staticClass: "navbar-picture" },
-                    [_c("b-icon", { attrs: { icon: "account-circle" } })],
-                    1
-                  ),
+                  _c("b-icon", { attrs: { icon: "account-circle" } }),
                   _vm._v(" "),
                   _c("div", [
                     _c("span", { staticClass: "h6" }, [
@@ -61486,13 +61571,9 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "navbar-icon" },
-                    [_c("b-icon", { attrs: { icon: "chevron-down" } })],
-                    1
-                  )
-                ]
+                  _c("b-icon", { attrs: { icon: "chevron-down" } })
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
@@ -61562,12 +61643,151 @@ var render = function() {
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-navbar-item",
+            {
+              staticClass: "has-divider is-icon",
+              on: {
+                click: function($event) {
+                  return _vm.toggleNotificationCenter()
+                }
+              }
+            },
+            [
+              _c("b-icon", {
+                attrs: { icon: "bell-outline", size: "is-small" }
+              })
+            ],
+            1
           )
         ],
         1
       )
     ],
     2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/NotificationCenter.vue?vue&type=template&id=b3d62fe0&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/NotificationCenter.vue?vue&type=template&id=b3d62fe0& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "b-sidebar",
+    {
+      attrs: {
+        fullheight: true,
+        fullwidth: false,
+        overlay: false,
+        right: true,
+        open: _vm.notificationCenter.open
+      },
+      on: {
+        "update:open": function($event) {
+          return _vm.$set(_vm.notificationCenter, "open", $event)
+        }
+      }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "p-1" },
+        [
+          _c(
+            "b-message",
+            {
+              attrs: {
+                type: "is-primary",
+                "aria-close-label": "Close message",
+                size: "is-small"
+              }
+            },
+            [
+              _vm._v(
+                "\n            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce\n            id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet,\n            elit sapien laoreet elit\n        "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "b-message",
+            {
+              attrs: {
+                type: "is-primary",
+                "aria-close-label": "Close message",
+                size: "is-small"
+              }
+            },
+            [
+              _vm._v(
+                "\n            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce\n            id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet,\n            elit sapien laoreet elit\n        "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "b-message",
+            {
+              attrs: {
+                type: "is-primary",
+                "aria-close-label": "Close message",
+                size: "is-small"
+              }
+            },
+            [
+              _vm._v(
+                "\n            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce\n            id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet,\n            elit sapien laoreet elit\n        "
+              )
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "p-1 bb-sidebar-footer" }, [
+        _c(
+          "div",
+          { staticClass: "buttons" },
+          [
+            _c("b-button", { attrs: { type: "is-primary" } }, [
+              _vm._v("Primary")
+            ]),
+            _vm._v(" "),
+            _c("b-button", { attrs: { type: "is-success" } }, [
+              _vm._v("Success")
+            ]),
+            _vm._v(" "),
+            _c("b-button", { attrs: { type: "is-danger" } }, [
+              _vm._v("Danger")
+            ]),
+            _vm._v(" "),
+            _c("b-button", { attrs: { type: "is-warning" } }, [
+              _vm._v("Warning")
+            ])
+          ],
+          1
+        )
+      ])
+    ]
   )
 }
 var staticRenderFns = []
@@ -78256,6 +78476,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/backend/components/NotificationCenter.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/backend/components/NotificationCenter.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotificationCenter_vue_vue_type_template_id_b3d62fe0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NotificationCenter.vue?vue&type=template&id=b3d62fe0& */ "./resources/js/backend/components/NotificationCenter.vue?vue&type=template&id=b3d62fe0&");
+/* harmony import */ var _NotificationCenter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NotificationCenter.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/NotificationCenter.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NotificationCenter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NotificationCenter_vue_vue_type_template_id_b3d62fe0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NotificationCenter_vue_vue_type_template_id_b3d62fe0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/backend/components/NotificationCenter.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/backend/components/NotificationCenter.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/backend/components/NotificationCenter.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationCenter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./NotificationCenter.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/NotificationCenter.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationCenter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/backend/components/NotificationCenter.vue?vue&type=template&id=b3d62fe0&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/backend/components/NotificationCenter.vue?vue&type=template&id=b3d62fe0& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationCenter_vue_vue_type_template_id_b3d62fe0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./NotificationCenter.vue?vue&type=template&id=b3d62fe0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/NotificationCenter.vue?vue&type=template&id=b3d62fe0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationCenter_vue_vue_type_template_id_b3d62fe0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationCenter_vue_vue_type_template_id_b3d62fe0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/backend/models/Model.js":
 /*!**********************************************!*\
   !*** ./resources/js/backend/models/Model.js ***!
@@ -78645,8 +78934,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     user: {},
-    // style: allStyle,
-    // cssVar: cssVar,
+    notificationCenter: {
+      open: false
+    },
     loading: {
       user: false
     }
@@ -78664,12 +78954,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     updateLoadingUser: function updateLoadingUser(state, isLoading) {
       state.loading.user = isLoading;
     },
-    //Style
-    updateStyle: function updateStyle(state, style) {
-      state.style = style;
+
+    /* Notification center */
+    updateNotificationCenter: function updateNotificationCenter(state, isOpen) {
+      state.notificationCenter.open = isOpen;
     },
-    updateColors: function updateColors(state, colors) {
-      state.style.colors = colors;
+    toggleNotificationCenter: function toggleNotificationCenter(state) {
+      state.notificationCenter.open = !state.notificationCenter.open;
     }
   },
   actions: {}

@@ -13,12 +13,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         user: {},
-        // style: allStyle,
-        // cssVar: cssVar,
+        notificationCenter: {
+            open: false
+        },
+
         loading: {
             user: false
-        },
-        
+        }
     },
     mutations: {
         /* A fit-them-all commit */
@@ -32,12 +33,12 @@ export default new Vuex.Store({
         updateLoadingUser(state, isLoading) {
             state.loading.user = isLoading;
         },
-        //Style
-        updateStyle(state, style) {
-            state.style = style;
+        /* Notification center */
+        updateNotificationCenter(state, isOpen) {
+            state.notificationCenter.open = isOpen;
         },
-        updateColors(state, colors) {
-            state.style.colors = colors;
+        toggleNotificationCenter(state) {
+            state.notificationCenter.open = !state.notificationCenter.open;
         }
     },
     actions: {}

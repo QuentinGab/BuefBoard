@@ -657,7 +657,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -1226,17 +1225,15 @@ var render = function() {
     _c("div", { staticClass: "columns" }, [
       _c("div", { staticClass: "column" }, [
         _c("h1", { staticClass: "title is-1" }, [
-          _vm._v("👋 Bienvenue " + _vm._s(_vm.user.first_name))
+          _vm._v("👋 Welcome " + _vm._s(_vm.user.first_name))
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "column is-6" }, [_c("card-users-chart")], 1)
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "columns" }),
-    _vm._v(" "),
     _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column is-10" }, [_c("users-chart")], 1)
+      _c("div", { staticClass: "column is-12" }, [_c("users-chart")], 1)
     ])
   ])
 }
