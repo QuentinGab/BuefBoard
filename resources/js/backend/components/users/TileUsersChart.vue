@@ -1,53 +1,76 @@
 <template>
-    <div class="card">
-        <div class="card-header">
-            <div class="card-header-title level">
-                <p>Users</p>
-                <div class="level-right">
-                    <div class="field is-grouped">
-                        <b-radio-button
-                            v-model="startDate"
-                            :native-value="
-                                moment()
-                                    .subtract(1, 'months')
-                                    .format('YYYY-MM-DD')
-                            "
-                            type="is-light"
-                            size="is-small"
-                        >
-                            <span>1 month</span>
-                        </b-radio-button>
-                        <b-radio-button
-                            v-model="startDate"
-                            :native-value="
-                                moment()
-                                    .subtract(14, 'days')
-                                    .format('YYYY-MM-DD')
-                            "
-                            type="is-light"
-                            size="is-small"
-                            class="is-rounded"
-                        >
-                            <span>14 days</span>
-                        </b-radio-button>
+    <div class="card bb-card-chart">
+        <div class="columns is-marginless">
+            <div class="column">
+                <div>
+                    <div class="is-flex">
+                        <p class="is-1 title is-marginless">
+                            {{ total }}
+                        </p>
+                        <b-icon :icon="variationIcon"></b-icon>
                     </div>
+                    <p class="heading">{{ title }}</p>
+                </div>
+            </div>
+
+            <div class="column is-narrow">
+                <div class="field is-grouped">
+                    <b-radio-button
+                        v-model="startDate"
+                        :native-value="
+                            moment()
+                                .subtract(1, 'months')
+                                .format('YYYY-MM-DD')
+                        "
+                        type="is-light"
+                        size="is-small"
+                    >
+                        <span>1 month</span>
+                    </b-radio-button>
+                    <b-radio-button
+                        v-model="startDate"
+                        :native-value="
+                            moment()
+                                .subtract(14, 'days')
+                                .format('YYYY-MM-DD')
+                        "
+                        type="is-light"
+                        size="is-small"
+                        class="is-rounded"
+                    >
+                        <span>14 days</span>
+                    </b-radio-button>
+                    <b-radio-button
+                        v-model="startDate"
+                        :native-value="
+                            moment()
+                                .subtract(7, 'days')
+                                .format('YYYY-MM-DD')
+                        "
+                        type="is-light"
+                        size="is-small"
+                    >
+                        <span>7 days</span>
+                    </b-radio-button>
                 </div>
             </div>
         </div>
-        <template v-if="chartData">
-            <line-chart
-                v-if="type == 'line'"
-                :mode="mode"
-                :chart-data="chartData"
-                :style="chartStyle"
-            />
-            <bar-chart
-                v-else-if="type == 'bar'"
-                :mode="mode"
-                :chart-data="chartData"
-                :style="chartStyle"
-            />
-        </template>
+        <div class="chart-container is-background">
+            <template v-if="chartData">
+                <line-chart
+                    v-if="type == 'line'"
+                    :mode="mode"
+                    :chart-data="chartData"
+                    :style="chartStyle"
+                />
+                <bar-chart
+                    v-else-if="type == 'bar'"
+                    :mode="mode"
+                    :chart-data="chartData"
+                    :style="chartStyle"
+                />
+            </template>
+        </div>
     </div>
 </template>
 
@@ -58,7 +81,7 @@ import User from "@b/models/User";
 import { mapState } from "vuex";
 
 export default {
-    name: "UsersChart",
+    name: "TileUsersChart",
     components: { LineChart, BarChart },
     props: {
         mode: {
@@ -76,24 +99,24 @@ export default {
     },
     data() {
         return {
-            subtitle: "Users",
+            title: "Users",
             usersData: null,
             metrics: null,
             labels: null,
-            startDate: moment()
-                .subtract(1, "months")
-                .format("YYYY-MM-DD"),
-            endDate: moment().format("YYYY-MM-DD"),
             chartStyle: {
                 height: "100%",
                 width: "100%",
                 position: "relative"
             },
+            startDate: moment()
+                .subtract(7, "days")
+                .format("YYYY-MM-DD"),
+            endDate: moment().format("YYYY-MM-DD"),
             loading: false
         };
     },
     watch: {
-        startDate: function() {
+        startDate() {
             this.getMetrics();
         }
     },
@@ -251,3 +274,5 @@ export default {
     }
 };
 </script>
+
+<style></style>

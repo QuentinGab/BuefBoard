@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/LineChart.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/charts/LineChart.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/BarChart.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/charts/BarChart.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -12,13 +12,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "LineChart",
-  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Line"],
+  name: "BarChart",
+  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Bar"],
   mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactiveProp],
   props: {
     mode: {
       type: String,
-      "default": "light",
+      "default": "full",
       validator: function validator(value) {
         return ["light", "full"].indexOf(value) !== -1;
       }
@@ -82,65 +82,84 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/LineChart.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/charts/LineChart.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/charts/LineChart */ "./resources/js/backend/components/charts/LineChart.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
+/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CardCountChart",
-  components: {
-    LineChart: _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
+  name: "LineChart",
+  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Line"],
+  mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactiveProp],
   props: {
     mode: {
       type: String,
-      "default": "light",
+      "default": "full",
       validator: function validator(value) {
         return ["light", "full"].indexOf(value) !== -1;
       }
-    },
-    chartData: {
-      type: Object,
-      "default": null
     }
   },
   data: function data() {
     return {
-      chartStyle: {
-        height: "100%",
-        width: "100%",
-        position: "relative"
+      defaultOptions: {
+        light: {
+          legend: {
+            display: false
+          },
+          scales: {
+            xAxes: [{
+              display: false,
+              gridLines: {
+                display: false
+              }
+            }],
+            yAxes: [{
+              display: false,
+              gridLines: {
+                display: false
+              }
+            }]
+          }
+        },
+        full: {
+          scales: {
+            xAxes: [{
+              ticks: {
+                autoSkip: true,
+                maxRotation: 0,
+                minRotation: 0
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                autoSkip: true,
+                maxRotation: 0,
+                minRotation: 0
+              }
+            }]
+          }
+        }
       }
     };
   },
-  computed: {},
+  computed: {
+    finalOptions: function finalOptions() {
+      var _this$options;
+
+      return (_this$options = this.options) !== null && _this$options !== void 0 ? _this$options : this.defaultOptions[this.mode];
+    }
+  },
   methods: {},
-  mounted: function mounted() {},
-  created: function created() {}
+  mounted: function mounted() {
+    this.renderChart(this.chartData, this.finalOptions);
+  }
 });
 
 /***/ }),
@@ -156,14 +175,22 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _b_components_charts_cards_CardCountChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/charts/cards/CardCountChart */ "./resources/js/backend/components/charts/cards/CardCountChart.vue");
-/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
+/* harmony import */ var _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/charts/LineChart */ "./resources/js/backend/components/charts/LineChart.vue");
+/* harmony import */ var _b_components_charts_BarChart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/components/charts/BarChart */ "./resources/js/backend/components/charts/BarChart.vue");
+/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -201,45 +228,68 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CardUserChart",
+  name: "UsersChart",
   components: {
-    CardCountChart: _b_components_charts_cards_CardCountChart__WEBPACK_IMPORTED_MODULE_1__["default"]
+    LineChart: _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_1__["default"],
+    BarChart: _b_components_charts_BarChart__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  props: {},
+  props: {
+    mode: {
+      type: String,
+      "default": "full"
+    },
+    type: {
+      type: String,
+      "default": "line"
+    },
+    cumulative: {
+      type: Boolean,
+      "default": false
+    }
+  },
   data: function data() {
     return {
       subtitle: "Users",
       usersData: null,
-      labels: null,
-      total: 0,
-      period: "Last Week",
       metrics: null,
-      cumulative: true
+      labels: null,
+      startDate: moment().subtract(1, "months").format("YYYY-MM-DD"),
+      endDate: moment().format("YYYY-MM-DD"),
+      chartStyle: {
+        height: "100%",
+        width: "100%",
+        position: "relative"
+      },
+      loading: false
     };
   },
   watch: {
-    dateStart: function dateStart(current, old) {
+    startDate: function startDate() {
       this.getMetrics();
     }
   },
-  computed: {
-    dateStart: function dateStart() {
-      if (this.period == "Last Month") {
-        return moment().subtract(1, "months").format("YYYY-MM-DD");
-      }
-
-      if (this.period == "Last Week") {
-        return moment().subtract(1, "weeks").format("YYYY-MM-DD");
-      }
-
-      return moment(this.period).format("YYYY-MM-DD");
-    },
-    dateEnd: function dateEnd() {
-      return moment().format("YYYY-MM-DD");
-    },
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])(["charts"])), {}, {
     chartData: function chartData() {
       if (!this.usersData) {
         return null;
@@ -249,10 +299,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         labels: this.labels,
         datasets: [{
           label: "Users",
-          pointBackgroundColor: "transparent",
           pointBorderColor: "transparent",
-          borderWidth: 1,
+          pointBackgroundColor: "transparent",
+          borderWidth: 1.5,
           lineTension: 0.3,
+          borderColor: this.charts.colors[0],
           backgroundColor: function backgroundColor(context) {
             var color = tinycolor(context.dataset.borderColor);
             var gradient = context.chart.ctx.createLinearGradient(0, context.chart.height, 0, 0);
@@ -265,20 +316,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
     },
     rawData: function rawData() {
-      return Object.values(this.usersData);
-    },
-    cTotal: function cTotal() {
       if (!this.usersData) {
-        return 0;
+        return null;
       }
 
-      if (this.cumulative) {
-        return this.usersData[this.usersData.length - 1];
+      return Object.values(this.usersData);
+    },
+    sum: function sum() {
+      if (!this.rawData) {
+        return 0;
       }
 
       return this.rawData.reduce(function (previous, current) {
         return previous + current;
       }, 0);
+    },
+    total: function total() {
+      if (!this.metrics) {
+        return 0;
+      }
+
+      return this.metrics.total;
     },
     variation: function variation() {
       if (!this.metrics || !this.metrics["new"]) {
@@ -290,10 +348,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     variationIcon: function variationIcon() {
       return this.computeIcon(this.variation);
     }
-  },
+  }),
   methods: {
     moment: function (_moment) {
-      function moment() {
+      function moment(_x) {
         return _moment.apply(this, arguments);
       }
 
@@ -302,9 +360,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
 
       return moment;
-    }(function () {
-      return moment();
+    }(function (val) {
+      return moment(val);
     }),
+    dateRange: function dateRange(startDate, endDate, format) {
+      var now = startDate.clone(),
+          dates = [];
+
+      while (now.isSameOrBefore(endDate)) {
+        dates.push(now.format(format));
+        now.add(1, "days");
+      }
+
+      return dates;
+    },
     computeIcon: function computeIcon(value) {
       if (value > 0) {
         return "arrow-top-right-thick";
@@ -324,7 +393,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return (end - start) / start;
     },
     prepareLabels: function prepareLabels(startDate, endDate, format) {
-      return this.getDateRange(moment(startDate), moment(endDate), format !== null && format !== void 0 ? format : "ddd D MMM");
+      return this.dateRange(moment(startDate), moment(endDate), format !== null && format !== void 0 ? format : "D MMM");
     },
     prepareData: function prepareData(rawData) {
       var _this = this;
@@ -335,7 +404,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var finalData = [];
       var prev = 0;
-      this.getDateRange(moment(this.dateStart), moment(this.dateEnd), "YYYY-MM-DD").forEach(function (day) {
+      this.dateRange(moment(this.startDate), moment(this.endDate), "YYYY-MM-DD").forEach(function (day) {
         if (_this.cumulative) {
           var value = rawData[day] ? rawData[day] : prev;
           finalData.push(value);
@@ -348,17 +417,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
       return finalData;
     },
-    getDateRange: function getDateRange(startDate, endDate, format) {
-      var now = startDate.clone(),
-          dates = [];
-
-      while (now.isSameOrBefore(endDate)) {
-        dates.push(now.format(format));
-        now.add(1, "days");
-      }
-
-      return dates;
-    },
     getMetrics: function getMetrics() {
       var _this2 = this;
 
@@ -367,17 +425,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_2__["default"].where("created_after", _this2.dateStart).params({
+                _this2.loading = true;
+                _context.next = 3;
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].where("created_after", _this2.startDate).params({
                   cumulative: _this2.cumulative
                 })._metrics().then(function (response) {
-                  _this2.metrics = response.data.overview;
-                  _this2.total = response.data.overview.total;
                   _this2.usersData = _this2.prepareData(response.data.data);
-                  _this2.labels = _this2.prepareLabels(_this2.dateStart, _this2.dateEnd);
+                  _this2.labels = _this2.prepareLabels(_this2.startDate, _this2.endDate);
+                  _this2.metrics = response.data.overview;
                 });
 
-              case 2:
+              case 3:
+                _this2.loading = false;
+
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -393,17 +454,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/TileUsersChart.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/TileUsersChart.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @b/components/charts/LineChart */ "./resources/js/backend/components/charts/LineChart.vue");
-/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/charts/LineChart */ "./resources/js/backend/components/charts/LineChart.vue");
+/* harmony import */ var _b_components_charts_BarChart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/components/charts/BarChart */ "./resources/js/backend/components/charts/BarChart.vue");
+/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -450,44 +527,82 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "UsersChart",
+  name: "TileUsersChart",
   components: {
-    LineChart: _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_0__["default"]
+    LineChart: _b_components_charts_LineChart__WEBPACK_IMPORTED_MODULE_1__["default"],
+    BarChart: _b_components_charts_BarChart__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  props: {},
+  props: {
+    mode: {
+      type: String,
+      "default": "full"
+    },
+    type: {
+      type: String,
+      "default": "line"
+    },
+    cumulative: {
+      type: Boolean,
+      "default": false
+    }
+  },
   data: function data() {
     return {
-      subtitle: "Users",
+      title: "Users",
       usersData: null,
+      metrics: null,
       labels: null,
-      total: 0,
-      cumulative: false,
       chartStyle: {
         height: "100%",
         width: "100%",
         position: "relative"
       },
-      dates: {
-        start: moment().subtract(1, "months").format("YYYY-MM-DD"),
-        end: moment().format("YYYY-MM-DD")
-      }
+      startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
+      endDate: moment().format("YYYY-MM-DD"),
+      loading: false
     };
   },
   watch: {
-    dateStart: function dateStart(current, old) {
-      this.getData();
+    startDate: function startDate() {
+      this.getMetrics();
     }
   },
-  computed: {
-    dateStart: function dateStart() {
-      return this.dates.start;
-    },
-    dateEnd: function dateEnd() {
-      return moment().format("YYYY-MM-DD");
-    },
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])(["charts"])), {}, {
     chartData: function chartData() {
       if (!this.usersData) {
         return null;
@@ -499,8 +614,9 @@ __webpack_require__.r(__webpack_exports__);
           label: "Users",
           pointBorderColor: "transparent",
           pointBackgroundColor: "transparent",
-          borderWidth: 1,
+          borderWidth: 1.5,
           lineTension: 0.3,
+          borderColor: this.charts.colors[0],
           backgroundColor: function backgroundColor(context) {
             var color = tinycolor(context.dataset.borderColor);
             var gradient = context.chart.ctx.createLinearGradient(0, context.chart.height, 0, 0);
@@ -513,10 +629,14 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     rawData: function rawData() {
+      if (!this.usersData) {
+        return null;
+      }
+
       return Object.values(this.usersData);
     },
     sum: function sum() {
-      if (!this.usersData) {
+      if (!this.rawData) {
         return 0;
       }
 
@@ -524,32 +644,27 @@ __webpack_require__.r(__webpack_exports__);
         return previous + current;
       }, 0);
     },
+    total: function total() {
+      if (!this.metrics) {
+        return 0;
+      }
+
+      return this.metrics.total;
+    },
     variation: function variation() {
-      if (!this.cData) {
+      if (!this.metrics || !this.metrics["new"]) {
         return 0;
       }
 
-      if (this.cData.length < 2) {
-        return 0;
-      }
-
-      return this.cData[this.cData.length - 1] - this.cData[0];
+      return Math.round(this.computeVariation(this.metrics.total - this.metrics["new"].day, this.metrics.total) * 100);
     },
     variationIcon: function variationIcon() {
-      if (this.variation < 0) {
-        return "arrow-bottom-right";
-      }
-
-      if (this.variation > 0) {
-        return "arrow-top-right";
-      }
-
-      return "minus";
+      return this.computeIcon(this.variation);
     }
-  },
+  }),
   methods: {
     moment: function (_moment) {
-      function moment() {
+      function moment(_x) {
         return _moment.apply(this, arguments);
       }
 
@@ -558,35 +673,10 @@ __webpack_require__.r(__webpack_exports__);
       };
 
       return moment;
-    }(function () {
-      return moment();
+    }(function (val) {
+      return moment(val);
     }),
-    prepareLabels: function prepareLabels(startDate, endDate, format) {
-      this.labels = this.getDateRange(moment(startDate), moment(endDate), format !== null && format !== void 0 ? format : "D MMM");
-    },
-    prepareData: function prepareData(rawData) {
-      var _this = this;
-
-      if (!rawData) {
-        return null;
-      }
-
-      var finalData = [];
-      var prev = 0;
-      this.getDateRange(moment(this.dateStart), moment(this.dateEnd), "YYYY-MM-DD").forEach(function (day) {
-        if (_this.cumulative) {
-          var value = rawData[day] ? rawData[day] + prev : prev;
-          finalData.push(value);
-          prev = value;
-        } else {
-          var _rawData$day;
-
-          finalData.push((_rawData$day = rawData[day]) !== null && _rawData$day !== void 0 ? _rawData$day : 0);
-        }
-      });
-      return finalData;
-    },
-    getDateRange: function getDateRange(startDate, endDate, format) {
+    dateRange: function dateRange(startDate, endDate, format) {
       var now = startDate.clone(),
           dates = [];
 
@@ -597,25 +687,81 @@ __webpack_require__.r(__webpack_exports__);
 
       return dates;
     },
-    getData: function getData() {
-      var _this2 = this;
+    computeIcon: function computeIcon(value) {
+      if (value > 0) {
+        return "arrow-top-right-thick";
+      }
 
-      _b_models_User__WEBPACK_IMPORTED_MODULE_1__["default"].where("created_after", this.dateStart).params({
-        cumulative: true
-      })._metrics().then(function (response) {
-        var d = response.data;
-        _this2.usersData = _this2.prepareData(d.data);
+      if (value < 0) {
+        return "arrow-down";
+      }
 
-        _this2.prepareLabels(_this2.dateStart, _this2.dateEnd);
+      return "minus";
+    },
+    computeVariation: function computeVariation(start, end) {
+      if (!start || !end) {
+        return 0;
+      }
 
-        if (d.meta.total) {
-          _this2.total = d.meta.total;
+      return (end - start) / start;
+    },
+    prepareLabels: function prepareLabels(startDate, endDate, format) {
+      return this.dateRange(moment(startDate), moment(endDate), format !== null && format !== void 0 ? format : "D MMM");
+    },
+    prepareData: function prepareData(rawData) {
+      var _this = this;
+
+      if (!rawData) {
+        return null;
+      }
+
+      var finalData = [];
+      var prev = 0;
+      this.dateRange(moment(this.startDate), moment(this.endDate), "YYYY-MM-DD").forEach(function (day) {
+        if (_this.cumulative) {
+          var value = rawData[day] ? rawData[day] : prev;
+          finalData.push(value);
+          prev = value;
+        } else {
+          var _rawData$day;
+
+          finalData.push((_rawData$day = rawData[day]) !== null && _rawData$day !== void 0 ? _rawData$day : 0);
         }
       });
+      return finalData;
+    },
+    getMetrics: function getMetrics() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this2.loading = true;
+                _context.next = 3;
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].where("created_after", _this2.startDate).params({
+                  cumulative: _this2.cumulative
+                })._metrics().then(function (response) {
+                  _this2.usersData = _this2.prepareData(response.data.data);
+                  _this2.labels = _this2.prepareLabels(_this2.startDate, _this2.endDate);
+                  _this2.metrics = response.data.overview;
+                });
+
+              case 3:
+                _this2.loading = false;
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   },
   mounted: function mounted() {
-    this.getData();
+    this.getMetrics();
   }
 });
 
@@ -631,7 +777,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _b_components_users_CardUsersChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @b/components/users/CardUsersChart */ "./resources/js/backend/components/users/CardUsersChart.vue");
-/* harmony import */ var _b_components_users_UsersChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/users/UsersChart */ "./resources/js/backend/components/users/UsersChart.vue");
+/* harmony import */ var _b_components_users_TileUsersChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/users/TileUsersChart */ "./resources/js/backend/components/users/TileUsersChart.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -657,6 +803,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -664,11 +815,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "Dashboard",
   components: {
     CardUsersChart: _b_components_users_CardUsersChart__WEBPACK_IMPORTED_MODULE_0__["default"],
-    UsersChart: _b_components_users_UsersChart__WEBPACK_IMPORTED_MODULE_1__["default"]
+    TileUsersChart: _b_components_users_TileUsersChart__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {};
   },
+  methods: {},
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])(["user", "loading"])),
   mounted: function mounted() {},
   created: function created() {}
@@ -960,159 +1112,10 @@ var reactiveProp = {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=template&id=2547d7e5&":
-/*!**************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=template&id=2547d7e5& ***!
-  \**************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "card bb-card-chart" },
-    [
-      _c(
-        "div",
-        { staticClass: "chart-container is-background" },
-        [
-          _vm.chartData
-            ? _c("line-chart", {
-                ref: "chart",
-                attrs: {
-                  mode: _vm.mode,
-                  styles: _vm.chartStyle,
-                  "chart-data": _vm.chartData
-                }
-              })
-            : _vm._e()
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm._t("default")
-    ],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/CardUsersChart.vue?vue&type=template&id=7eb84b3d&":
 /*!*******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/CardUsersChart.vue?vue&type=template&id=7eb84b3d& ***!
   \*******************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("card-count-chart", { attrs: { "chart-data": _vm.chartData } }, [
-    _c("div", { staticClass: "columns is-marginless" }, [
-      _c("div", { staticClass: "column" }, [
-        _c("div", [
-          _c(
-            "div",
-            { staticClass: "is-flex" },
-            [
-              _c("p", { staticClass: "is-1 title is-marginless" }, [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.total || _vm.cTotal) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("b-icon", { attrs: { icon: _vm.variationIcon } })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("p", { staticClass: "heading" }, [_vm._v(_vm._s(_vm.subtitle))])
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "column is-narrow" },
-        [
-          _c(
-            "b-dropdown",
-            {
-              attrs: { "aria-role": "list", position: "is-bottom-left" },
-              model: {
-                value: _vm.period,
-                callback: function($$v) {
-                  _vm.period = $$v
-                },
-                expression: "period"
-              }
-            },
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "button is-default is-small",
-                  attrs: { slot: "trigger" },
-                  slot: "trigger"
-                },
-                [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(_vm.period) +
-                      "\n                "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-dropdown-item",
-                { attrs: { "aria-role": "listitem", value: "Last Week" } },
-                [_vm._v("Last Week")]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-dropdown-item",
-                { attrs: { "aria-role": "listitem", value: "Last Month" } },
-                [_vm._v("Last Month")]
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d&":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d& ***!
-  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1149,11 +1152,11 @@ var render = function() {
                       size: "is-small"
                     },
                     model: {
-                      value: _vm.dates.start,
+                      value: _vm.startDate,
                       callback: function($$v) {
-                        _vm.$set(_vm.dates, "start", $$v)
+                        _vm.startDate = $$v
                       },
-                      expression: "dates.start"
+                      expression: "startDate"
                     }
                   },
                   [_c("span", [_vm._v("1 month")])]
@@ -1172,11 +1175,11 @@ var render = function() {
                       size: "is-small"
                     },
                     model: {
-                      value: _vm.dates.start,
+                      value: _vm.startDate,
                       callback: function($$v) {
-                        _vm.$set(_vm.dates, "start", $$v)
+                        _vm.startDate = $$v
                       },
-                      expression: "dates.start"
+                      expression: "startDate"
                     }
                   },
                   [_c("span", [_vm._v("14 days")])]
@@ -1189,15 +1192,171 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm.chartData
-        ? _c("line-chart", {
-            ref: "chart",
-            style: _vm.chartStyle,
-            attrs: { mode: "full", "chart-data": _vm.chartData }
-          })
+        ? [
+            _vm.type == "line"
+              ? _c("line-chart", {
+                  style: _vm.chartStyle,
+                  attrs: { mode: _vm.mode, "chart-data": _vm.chartData }
+                })
+              : _vm.type == "bar"
+              ? _c("bar-chart", {
+                  style: _vm.chartStyle,
+                  attrs: { mode: _vm.mode, "chart-data": _vm.chartData }
+                })
+              : _vm._e()
+          ]
         : _vm._e()
     ],
-    1
+    2
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/TileUsersChart.vue?vue&type=template&id=2227765b&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/backend/components/users/TileUsersChart.vue?vue&type=template&id=2227765b& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card bb-card-chart" }, [
+    _c("div", { staticClass: "columns is-marginless" }, [
+      _c("div", { staticClass: "column" }, [
+        _c("div", [
+          _c(
+            "div",
+            { staticClass: "is-flex" },
+            [
+              _c("p", { staticClass: "is-1 title is-marginless" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.total) +
+                    "\n                    "
+                )
+              ]),
+              _vm._v(" "),
+              _c("b-icon", { attrs: { icon: _vm.variationIcon } })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("p", { staticClass: "heading" }, [_vm._v(_vm._s(_vm.title))])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "column is-narrow" }, [
+        _c(
+          "div",
+          { staticClass: "field is-grouped" },
+          [
+            _c(
+              "b-radio-button",
+              {
+                attrs: {
+                  "native-value": _vm
+                    .moment()
+                    .subtract(1, "months")
+                    .format("YYYY-MM-DD"),
+                  type: "is-light",
+                  size: "is-small"
+                },
+                model: {
+                  value: _vm.startDate,
+                  callback: function($$v) {
+                    _vm.startDate = $$v
+                  },
+                  expression: "startDate"
+                }
+              },
+              [_c("span", [_vm._v("1 month")])]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-radio-button",
+              {
+                staticClass: "is-rounded",
+                attrs: {
+                  "native-value": _vm
+                    .moment()
+                    .subtract(14, "days")
+                    .format("YYYY-MM-DD"),
+                  type: "is-light",
+                  size: "is-small"
+                },
+                model: {
+                  value: _vm.startDate,
+                  callback: function($$v) {
+                    _vm.startDate = $$v
+                  },
+                  expression: "startDate"
+                }
+              },
+              [_c("span", [_vm._v("14 days")])]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-radio-button",
+              {
+                attrs: {
+                  "native-value": _vm
+                    .moment()
+                    .subtract(7, "days")
+                    .format("YYYY-MM-DD"),
+                  type: "is-light",
+                  size: "is-small"
+                },
+                model: {
+                  value: _vm.startDate,
+                  callback: function($$v) {
+                    _vm.startDate = $$v
+                  },
+                  expression: "startDate"
+                }
+              },
+              [_c("span", [_vm._v("7 days")])]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "chart-container is-background" },
+      [
+        _vm.chartData
+          ? [
+              _vm.type == "line"
+                ? _c("line-chart", {
+                    style: _vm.chartStyle,
+                    attrs: { mode: _vm.mode, "chart-data": _vm.chartData }
+                  })
+                : _vm.type == "bar"
+                ? _c("bar-chart", {
+                    style: _vm.chartStyle,
+                    attrs: { mode: _vm.mode, "chart-data": _vm.chartData }
+                  })
+                : _vm._e()
+            ]
+          : _vm._e()
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1229,11 +1388,32 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "column is-6" }, [_c("card-users-chart")], 1)
+      _c(
+        "div",
+        { staticClass: "column is-6" },
+        [
+          _c("tile-users-chart", { attrs: { cumulative: true, mode: "light" } })
+        ],
+        1
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column is-12" }, [_c("users-chart")], 1)
+      _c(
+        "div",
+        { staticClass: "column is-12" },
+        [_c("card-users-chart", { attrs: { cumulative: true } })],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "columns" }, [
+      _c(
+        "div",
+        { staticClass: "column is-12" },
+        [_c("card-users-chart", { attrs: { type: "bar", cumulative: true } })],
+        1
+      )
     ])
   ])
 }
@@ -1241,6 +1421,56 @@ var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/js/backend/components/charts/BarChart.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/backend/components/charts/BarChart.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BarChart.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/charts/BarChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _BarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/backend/components/charts/BarChart.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/backend/components/charts/BarChart.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/backend/components/charts/BarChart.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./BarChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/BarChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -1291,75 +1521,6 @@ component.options.__file = "resources/js/backend/components/charts/LineChart.vue
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LineChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./LineChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/LineChart.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LineChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/backend/components/charts/cards/CardCountChart.vue":
-/*!*************************************************************************!*\
-  !*** ./resources/js/backend/components/charts/cards/CardCountChart.vue ***!
-  \*************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardCountChart_vue_vue_type_template_id_2547d7e5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardCountChart.vue?vue&type=template&id=2547d7e5& */ "./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=template&id=2547d7e5&");
-/* harmony import */ var _CardCountChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardCountChart.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CardCountChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardCountChart_vue_vue_type_template_id_2547d7e5___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardCountChart_vue_vue_type_template_id_2547d7e5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/backend/components/charts/cards/CardCountChart.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************!*\
-  !*** ./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCountChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCountChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCountChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=template&id=2547d7e5&":
-/*!********************************************************************************************************!*\
-  !*** ./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=template&id=2547d7e5& ***!
-  \********************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCountChart_vue_vue_type_template_id_2547d7e5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCountChart.vue?vue&type=template&id=2547d7e5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/charts/cards/CardCountChart.vue?vue&type=template&id=2547d7e5&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCountChart_vue_vue_type_template_id_2547d7e5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCountChart_vue_vue_type_template_id_2547d7e5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
 
 /***/ }),
 
@@ -1432,17 +1593,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/backend/components/users/UsersChart.vue":
-/*!**************************************************************!*\
-  !*** ./resources/js/backend/components/users/UsersChart.vue ***!
-  \**************************************************************/
+/***/ "./resources/js/backend/components/users/TileUsersChart.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/backend/components/users/TileUsersChart.vue ***!
+  \******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UsersChart.vue?vue&type=template&id=0ef8578d& */ "./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d&");
-/* harmony import */ var _UsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UsersChart.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js&");
+/* harmony import */ var _TileUsersChart_vue_vue_type_template_id_2227765b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TileUsersChart.vue?vue&type=template&id=2227765b& */ "./resources/js/backend/components/users/TileUsersChart.vue?vue&type=template&id=2227765b&");
+/* harmony import */ var _TileUsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TileUsersChart.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/users/TileUsersChart.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1452,9 +1613,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _UsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _TileUsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TileUsersChart_vue_vue_type_template_id_2227765b___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TileUsersChart_vue_vue_type_template_id_2227765b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1464,38 +1625,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/backend/components/users/UsersChart.vue"
+component.options.__file = "resources/js/backend/components/users/TileUsersChart.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/backend/components/users/TileUsersChart.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/backend/components/users/TileUsersChart.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./UsersChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersChart.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TileUsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./TileUsersChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/TileUsersChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TileUsersChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d& ***!
-  \*********************************************************************************************/
+/***/ "./resources/js/backend/components/users/TileUsersChart.vue?vue&type=template&id=2227765b&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/backend/components/users/TileUsersChart.vue?vue&type=template&id=2227765b& ***!
+  \*************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./UsersChart.vue?vue&type=template&id=0ef8578d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/UsersChart.vue?vue&type=template&id=0ef8578d&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TileUsersChart_vue_vue_type_template_id_2227765b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./TileUsersChart.vue?vue&type=template&id=2227765b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/components/users/TileUsersChart.vue?vue&type=template&id=2227765b&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TileUsersChart_vue_vue_type_template_id_2227765b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersChart_vue_vue_type_template_id_0ef8578d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TileUsersChart_vue_vue_type_template_id_2227765b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

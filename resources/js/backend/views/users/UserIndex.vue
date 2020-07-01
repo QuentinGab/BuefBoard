@@ -5,36 +5,40 @@
             title="Manage Users"
             :menu="[{ name: 'users', to: '/users/index' }]"
         ></title-bar>
-        <div class="p-1">
-            <card-metrics>
-                <card-metrics-item
-                    class="is-success"
-                    title="Total Users"
-                    :value="metrics.total"
-                    :subvalue="`${totalVariation}%`"
-                    :icon="totalIcon"
-                ></card-metrics-item>
-                <card-metrics-item
-                    class="is-danger"
-                    title="Blocked Users"
-                    :value="metrics.blocked"
-                ></card-metrics-item>
-                <card-metrics-item
-                    class="is-danger"
-                    title="Trashed Users"
-                    :value="metrics.deleted"
-                ></card-metrics-item>
-            </card-metrics>
+        <div class="columns is-marginless">
+            <div class="column is-narrow">
+                <card-metrics>
+                    <card-metrics-item
+                        class="is-success"
+                        title="Total Users"
+                        :value="metrics.total"
+                        :subvalue="`${totalVariation}%`"
+                        :icon="totalIcon"
+                    ></card-metrics-item>
+                    <card-metrics-item
+                        class="is-danger"
+                        title="Blocked Users"
+                        :value="metrics.blocked"
+                    ></card-metrics-item>
+                    <card-metrics-item
+                        class="is-danger"
+                        title="Trashed Users"
+                        :value="metrics.deleted"
+                    ></card-metrics-item>
+                </card-metrics>
+            </div>
         </div>
-        <div class="p-1">
-            <users-table
-                canFilter
-                canSelect
-                canDelete
-                canDestroy
-                canBlock
-                canSeeTrashed
-            ></users-table>
+        <div class="columns is-marginless">
+            <div class="column is-12">
+                <users-table
+                    canFilter
+                    canSelect
+                    canDelete
+                    canDestroy
+                    canBlock
+                    canSeeTrashed
+                />
+            </div>
         </div>
     </section>
 </template>

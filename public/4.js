@@ -1033,6 +1033,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2029,56 +2033,60 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "p-1" },
-        [
-          _c(
-            "card-metrics",
-            [
-              _c("card-metrics-item", {
-                staticClass: "is-success",
-                attrs: {
-                  title: "Total Users",
-                  value: _vm.metrics.total,
-                  subvalue: _vm.totalVariation + "%",
-                  icon: _vm.totalIcon
-                }
-              }),
-              _vm._v(" "),
-              _c("card-metrics-item", {
-                staticClass: "is-danger",
-                attrs: { title: "Blocked Users", value: _vm.metrics.blocked }
-              }),
-              _vm._v(" "),
-              _c("card-metrics-item", {
-                staticClass: "is-danger",
-                attrs: { title: "Trashed Users", value: _vm.metrics.deleted }
-              })
-            ],
-            1
-          )
-        ],
-        1
-      ),
+      _c("div", { staticClass: "columns is-marginless" }, [
+        _c(
+          "div",
+          { staticClass: "column is-narrow" },
+          [
+            _c(
+              "card-metrics",
+              [
+                _c("card-metrics-item", {
+                  staticClass: "is-success",
+                  attrs: {
+                    title: "Total Users",
+                    value: _vm.metrics.total,
+                    subvalue: _vm.totalVariation + "%",
+                    icon: _vm.totalIcon
+                  }
+                }),
+                _vm._v(" "),
+                _c("card-metrics-item", {
+                  staticClass: "is-danger",
+                  attrs: { title: "Blocked Users", value: _vm.metrics.blocked }
+                }),
+                _vm._v(" "),
+                _c("card-metrics-item", {
+                  staticClass: "is-danger",
+                  attrs: { title: "Trashed Users", value: _vm.metrics.deleted }
+                })
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "p-1" },
-        [
-          _c("users-table", {
-            attrs: {
-              canFilter: "",
-              canSelect: "",
-              canDelete: "",
-              canDestroy: "",
-              canBlock: "",
-              canSeeTrashed: ""
-            }
-          })
-        ],
-        1
-      )
+      _c("div", { staticClass: "columns is-marginless" }, [
+        _c(
+          "div",
+          { staticClass: "column is-12" },
+          [
+            _c("users-table", {
+              attrs: {
+                canFilter: "",
+                canSelect: "",
+                canDelete: "",
+                canDestroy: "",
+                canBlock: "",
+                canSeeTrashed: ""
+              }
+            })
+          ],
+          1
+        )
+      ])
     ],
     1
   )

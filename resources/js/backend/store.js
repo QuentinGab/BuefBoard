@@ -3,20 +3,15 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-// import { CSSGlobalVariables } from 'css-global-variables/src/css-global-variables.js';
-// let cssVar = new CSSGlobalVariables();
-// let allStyle = {};
-// for(let v in cssVar){
-//     allStyle[v] = cssVar[v];
-// }
-
 export default new Vuex.Store({
     state: {
         user: {},
         notificationCenter: {
             open: false
         },
-
+        charts:{
+            colors:['#0984E3','#043053'],
+        },
         loading: {
             user: false
         }
