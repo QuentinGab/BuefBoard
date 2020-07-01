@@ -25,6 +25,28 @@
                         title="Trashed Users"
                         :value="metrics.deleted"
                     ></card-metrics-item>
+                    <card-metrics-item>
+                        <doughnut-chart
+                            :style="chartStyle"
+                            :height="84"
+                            :width="84"
+                            :chart-data="{
+                                datasets: [
+                                    {
+                                        data: [
+                                            metrics.total,
+                                            metrics.blocked,
+                                            metrics.deleted
+                                        ],
+                                        backgroundColor: charts.colors,
+                                        label: 'Users'
+                                    }
+                                ],
+                                labels: ['active', 'blocked', 'trashed']
+                            }"
+                            mode="light"
+                        />
+                    </card-metrics-item>
                 </card-metrics>
             </div>
         </div>
@@ -48,6 +70,7 @@ import TitleBar from "@b/components/TitleBar";
 import CardMetrics from "@b/components/CardMetrics";
 import CardMetricsItem from "@b/components/CardMetricsItem";
 import UsersTable from "@b/components/users/UsersTable";
+import DoughnutChart from "@b/components/charts/DoughnutChart";
 
 import User from "@b/models/User";
 
@@ -55,7 +78,13 @@ import { mapState } from "vuex";
 
 export default {
     name: "UserIndex",
-    components: { TitleBar, UsersTable, CardMetrics, CardMetricsItem },
+    components: {
+        TitleBar,
+        UsersTable,
+        CardMetrics,
+        CardMetricsItem,
+        DoughnutChart
+    },
     data() {
         return {
             metrics: {
@@ -63,10 +92,16 @@ export default {
                 blocked: 0,
                 deleted: 0,
                 new: null
+            },
+            chartStyle: {
+                height: "100%",
+                width: "100%",
+                position: "relative"
             }
         };
     },
     computed: {
+        ...mapState(["charts"]),
         totalIcon() {
             return this.computeIcon(this.totalVariation);
         },

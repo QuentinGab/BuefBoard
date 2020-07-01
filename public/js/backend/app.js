@@ -77467,10 +77467,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("App", _App_vue__WEBPACK_IM
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(buefy__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /*chartjs */
 
- // import the plugin core
-// import 'chartjs-plugin-colorschemes/src/plugins/plugin.colorschemes';
-// import a particular color scheme
-// import { Blues3 } from 'chartjs-plugin-colorschemes/src/colorschemes/colorschemes.brewer';
 
 /* Glogal */
 
@@ -77482,11 +77478,7 @@ chart_js__WEBPACK_IMPORTED_MODULE_6___default.a.defaults.global.elements.line.bo
 chart_js__WEBPACK_IMPORTED_MODULE_6___default.a.defaults.global.elements.line.bordercolor = 'red';
 /* Color scheme */
 
-chart_js__WEBPACK_IMPORTED_MODULE_6___default.a.defaults.global.defaultFontColor = "rgba(0,0,0,0.3)"; // Chart.defaults.global.plugins.colorschemes.scheme = Blues3;
-// Chart.defaults.global.plugins.colorschemes.reverse = true;
-// Chart.defaults.global.plugins.colorschemes.override = false;
-// Chart.defaults.global.plugins.colorschemes.fillAlpha = 0.01;
-
+chart_js__WEBPACK_IMPORTED_MODULE_6___default.a.defaults.global.defaultFontColor = "rgba(0,0,0,0.3)";
 /* GridLines */
 
 chart_js__WEBPACK_IMPORTED_MODULE_6___default.a.defaults.scale.gridLines.color = "rgba(0,0,0,0.02)";

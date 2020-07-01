@@ -368,7 +368,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           dates = [];
 
       while (now.isSameOrBefore(endDate)) {
-        dates.push(now.format(format));
+        if (Array.isArray(format)) {
+          (function () {
+            var date = [];
+            format.forEach(function (el) {
+              date.push(now.format(el));
+            });
+            dates.push(date);
+          })();
+        } else {
+          dates.push(now.format(format));
+        }
+
         now.add(1, "days");
       }
 
@@ -431,7 +442,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   cumulative: _this2.cumulative
                 })._metrics().then(function (response) {
                   _this2.usersData = _this2.prepareData(response.data.data);
-                  _this2.labels = _this2.prepareLabels(_this2.startDate, _this2.endDate);
+                  _this2.labels = _this2.prepareLabels(_this2.startDate, _this2.endDate, ["D", "MMM"]);
                   _this2.metrics = response.data.overview;
                 });
 
@@ -785,6 +796,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -1401,10 +1413,12 @@ var render = function() {
     _c("div", { staticClass: "columns" }, [
       _c(
         "div",
-        { staticClass: "column is-12" },
+        { staticClass: "column is-9" },
         [_c("card-users-chart", { attrs: { cumulative: true } })],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "column is-3" })
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "columns" }, [

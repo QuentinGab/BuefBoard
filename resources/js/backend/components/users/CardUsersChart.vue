@@ -181,7 +181,16 @@ export default {
                 dates = [];
 
             while (now.isSameOrBefore(endDate)) {
-                dates.push(now.format(format));
+                if (Array.isArray(format)) {
+                    let date = [];
+                    format.forEach(el => {
+                        date.push(now.format(el));
+                    });
+                    dates.push(date);
+                } else {
+                    dates.push(now.format(format));
+                }
+
                 now.add(1, "days");
             }
             return dates;
@@ -239,7 +248,8 @@ export default {
                     this.usersData = this.prepareData(response.data.data);
                     this.labels = this.prepareLabels(
                         this.startDate,
-                        this.endDate
+                        this.endDate,
+                        ["D", "MMM"]
                     );
                     this.metrics = response.data.overview;
                 });
