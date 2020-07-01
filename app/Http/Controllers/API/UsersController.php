@@ -114,8 +114,12 @@ class UsersController extends Controller
             $validated
         );
 
-        $user->syncRoles($validated['roles']);
-        $user->syncPermissions($validated['permissions']);
+        if (key_exists('roles',$validated)) {
+            $user->syncRoles($validated['roles']);
+        }
+        if (key_exists('permissions',$validated)) {
+            $user->syncPermissions($validated['permissions']);
+        }
 
         if ($validated['blocked_at']) {
             if (!$user->isBlocked()) {

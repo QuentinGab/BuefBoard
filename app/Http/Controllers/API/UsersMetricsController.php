@@ -31,6 +31,7 @@ class UsersMetricsController extends Controller
         $this->authorize('viewAny', User::class);
 
         $users = QueryBuilder::for(User::class)
+                ->withTrashed()
                 ->allowedFilters([
                     'first_name',
                     'last_name',
@@ -43,7 +44,7 @@ class UsersMetricsController extends Controller
                 ->defaultSort('id')
                 ->allowedFields(['id', 'first_name','last_name','created_at'])
                 ->get();
-        
+
         return new UsersMetrics($users);
     }
 }
