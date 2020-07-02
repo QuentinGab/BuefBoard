@@ -5,10 +5,10 @@ Permissions, users management, chartjs, material icons, buefy, axios, ...
 
 Buefborad is a Laravel + VueJS + Bulma SPA Dashboard, it is a great starter point for your website.
 
-- Full users management ready to go: Auth, block, softDelete, update.
+- Full users management ready to go: block, update, delete, export users easily.
 - Permissions and roles ready to go: Based on [spatie package](https://github.com/spatie/laravel-permission)
 - ChartJS ready to go
-- UsersPolicy ready to go
+- Policy: Users and Roles.
 - API: keep it clean with [spatie query builder package](https://github.com/spatie/laravel-query-builder) and [vue-api-query](https://github.com/robsontenorio/vue-api-query)
 
 ## Packages:
