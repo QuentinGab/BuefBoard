@@ -246,20 +246,6 @@
                         </div>
                         <div class="card-content">
                             <div>
-                                <b-field horizontal label="Password">
-                                    <b-field>
-                                        <b-button
-                                            @click="confirmResetPassword"
-                                            type="is-primary"
-                                            outlined
-                                            :loading="this.loading.password"
-                                            icon-left="send"
-                                            >Send reset Password
-                                            Notification</b-button
-                                        >
-                                    </b-field>
-                                </b-field>
-                                <hr />
                                 <b-field horizontal label="Block">
                                     <b-field>
                                         <b-button
@@ -537,9 +523,7 @@ export default {
                     this.getUser();
                 });
         },
-        sendResetPasswordNotification() {
-            return;
-        },
+
         confirmRestore() {
             this.$buefy.dialog.confirm({
                 title: "Restoring user",
@@ -571,16 +555,6 @@ export default {
                 type: "is-danger",
                 hasIcon: true,
                 onConfirm: () => this.destroyUser()
-            });
-        },
-        confirmResetPassword() {
-            this.$buefy.dialog.confirm({
-                title: "Reset user password",
-                message: `Are you sure you want to send a reset password notification?`,
-                confirmText: "Send Notification",
-                type: "is-info",
-                hasIcon: true,
-                onConfirm: () => this.sendResetPasswordNotification()
             });
         }
     },

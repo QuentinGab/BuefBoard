@@ -1,32 +1,46 @@
 import Vue from "vue";
 import Router from "vue-router";
+/* NProgress */
+import NProgress from "nprogress";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     base: process.env.BASE_URL,
     routes: [
         {
             path: "/",
             name: "dashboard",
-            component: () => import("./views/Dashboard.vue")
+            component: () =>
+                import(
+                    /* webpackChunkName: "dashboard" */ "./views/Dashboard.vue"
+                )
         },
 
         //User Management
         {
             path: "/users/index",
             name: "users.index",
-            component: () => import("./views/users/UserIndex.vue")
+            component: () =>
+                import(
+                    /* webpackChunkName: "users.index" */ "./views/users/UserIndex.vue"
+                )
         },
         {
             path: "/users/new",
             name: "users.new",
-            component: () => import("./views/users/UserForm.vue")
+            component: () =>
+                import(
+                    /* webpackChunkName: "users.form" */ "./views/users/UserForm.vue"
+                )
         },
         {
             path: "/users/:id",
             name: "users.edit",
-            component: () => import("./views/users/UserForm.vue"),
+            component: () =>
+                import(
+                    /* webpackChunkName: "users.form" */ "./views/users/UserForm.vue"
+                ),
             props: true
         },
 
@@ -34,7 +48,27 @@ export default new Router({
         {
             path: "/roles/index",
             name: "roles.index",
-            component: () => import("./views/roles/RoleIndex.vue")
+            component: () =>
+                import(
+                    /* webpackChunkName: "roles.index" */ "./views/roles/RoleIndex.vue"
+                )
         }
     ]
 });
+
+/* Router loading indicator */
+router.beforeResolve((to, from, next) => {
+    // If this isn't an initial page load.
+    if (to.name) {
+        // Start the route progress bar.
+        NProgress.start();
+    }
+    next();
+});
+
+router.afterEach((to, from) => {
+    // Complete the animation of the route progress bar.
+    NProgress.done();
+});
+
+export default router;

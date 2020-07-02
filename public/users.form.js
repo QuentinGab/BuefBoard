@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[2],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["users.form"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/backend/views/users/UserForm.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
@@ -23,20 +23,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -701,9 +687,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee9);
       }))();
     },
-    sendResetPasswordNotification: function sendResetPasswordNotification() {
-      return;
-    },
     confirmRestore: function confirmRestore() {
       var _this10 = this;
 
@@ -747,20 +730,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         hasIcon: true,
         onConfirm: function onConfirm() {
           return _this12.destroyUser();
-        }
-      });
-    },
-    confirmResetPassword: function confirmResetPassword() {
-      var _this13 = this;
-
-      this.$buefy.dialog.confirm({
-        title: "Reset user password",
-        message: "Are you sure you want to send a reset password notification?",
-        confirmText: "Send Notification",
-        type: "is-info",
-        hasIcon: true,
-        onConfirm: function onConfirm() {
-          return _this13.sendResetPasswordNotification();
         }
       });
     }
@@ -1291,39 +1260,6 @@ var render = function() {
                 _c(
                   "div",
                   [
-                    _c(
-                      "b-field",
-                      { attrs: { horizontal: "", label: "Password" } },
-                      [
-                        _c(
-                          "b-field",
-                          [
-                            _c(
-                              "b-button",
-                              {
-                                attrs: {
-                                  type: "is-primary",
-                                  outlined: "",
-                                  loading: this.loading.password,
-                                  "icon-left": "send"
-                                },
-                                on: { click: _vm.confirmResetPassword }
-                              },
-                              [
-                                _vm._v(
-                                  "Send reset Password\n                                        Notification"
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
                     _c(
                       "b-field",
                       { attrs: { horizontal: "", label: "Block" } },
