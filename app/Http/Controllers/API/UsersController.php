@@ -43,6 +43,8 @@ class UsersController extends Controller
                     AllowedFilter::trashed(),
                     AllowedFilter::scope('created_before'),
                     AllowedFilter::scope('created_after'),
+                    AllowedFilter::scope('roles'),
+                    AllowedFilter::scope('permissions'),
                     'email',
                 ])
                 ->allowedSorts([
