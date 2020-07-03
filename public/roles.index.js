@@ -131,12 +131,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: "is-bottom-right",
                     queue: false
                   });
-                })["catch"](function (err) {
-                  _this.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
                 });
 
               case 2:
@@ -157,13 +151,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this2.loading.roles = true;
                 _context2.next = 3;
-                return _b_models_Role__WEBPACK_IMPORTED_MODULE_2__["default"].include("permissions").$get()["catch"](function (err) {
-                  _this2.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-                });
+                return _b_models_Role__WEBPACK_IMPORTED_MODULE_2__["default"].include("permissions").$get();
 
               case 3:
                 _this2.roles = _context2.sent;
@@ -190,12 +178,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.next = 3;
                 return _b_models_Permission__WEBPACK_IMPORTED_MODULE_3__["default"].get().then(function (response) {
                   _this3.permissions = response.data;
-                })["catch"](function (err) {
-                  _this3.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
                 });
 
               case 3:

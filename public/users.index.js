@@ -666,12 +666,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return user.get().then(function (response) {
                   _this.users = response.data;
                   _this.pagination = response.meta;
-                })["catch"](function (err) {
-                  _this.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
                 });
 
               case 6:
@@ -861,12 +855,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       _this13.restore(user);
                     }
                   });
-                })["catch"](function (err) {
-                  _this13.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
                 });
 
               case 2:
@@ -892,12 +880,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     message: "".concat(user.fullname, " has been destroyed"),
                     type: "is-info",
                     position: "is-bottom-right",
-                    queue: false
-                  });
-                })["catch"](function (err) {
-                  _this14.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
                     queue: false
                   });
                 });
@@ -931,12 +913,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       _this15.unblock(user);
                     }
                   });
-                })["catch"](function (err) {
-                  _this15.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
                 });
 
               case 2:
@@ -963,12 +939,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: true
-                  });
-                })["catch"](function (err) {
-                  _this16.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
                   });
                 });
 
@@ -997,12 +967,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: "is-bottom-right",
                     queue: true
                   });
-                })["catch"](function (err) {
-                  _this17.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
                 });
 
               case 2:
@@ -1029,12 +993,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: true
-                  });
-                })["catch"](function (err) {
-                  _this18.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
                   });
                 });
 

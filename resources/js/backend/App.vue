@@ -83,15 +83,7 @@ export default {
     methods: {
         async getUser() {
             this.$store.commit("updateLoadingUser", true);
-            let user = await User.include("roles","permissions")
-                .current()
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
-                });
+            let user = await User.include("roles", "permissions").current();
             this.$store.commit("updateUser", user);
             this.$store.commit("updateLoadingUser", false);
         }

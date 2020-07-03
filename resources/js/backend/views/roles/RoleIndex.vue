@@ -93,53 +93,30 @@ export default {
             return differenceBy(p1, p2, "id");
         },
         async saveRole(role) {
-            await role
-                .save()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `${role.name} has been updated`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            await role.save().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `${role.name} has been updated`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
                 });
+            });
         },
         async getRoles() {
             this.loading.roles = true;
 
-            this.roles = await Role.include("permissions")
-                .$get()
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
-                });
+            this.roles = await Role.include("permissions").$get();
+
             this.loading.roles = false;
         },
         async getPermissions() {
             this.loading.permissions = true;
 
-            let response = await Permission.get()
-                .then(response => {
-                    this.permissions = response.data;
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
-                });
+            let response = await Permission.get().then(response => {
+                this.permissions = response.data;
+            });
+
             this.loading.permissions = false;
         }
     },

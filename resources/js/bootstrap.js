@@ -1,10 +1,10 @@
 /*
-* Lodash
-*
-* We use only a couple of  functions by importing them directly inside components
-* So, no need to import full package
-*
-* */
+ * Lodash
+ *
+ * We use only a couple of  functions by importing them directly inside components
+ * So, no need to import full package
+ *
+ * */
 // window._ = require('lodash');
 
 /**
@@ -13,10 +13,9 @@
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+window.axios = require("axios");
 
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -27,24 +26,36 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error(
+        "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
+    );
 }
 
 /**
-* We'll add interceptors to redirect user to login once we get 401 response
-* */
+ * We'll add interceptors to redirect user to login once we get 401 response
+ * */
+import { ToastProgrammatic as Toast } from "buefy";
 
-window.axios.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {
-  if (error.response.status === 401) {
-    window.location.href = '/login'
-  }
+window.axios.interceptors.response.use(
+    function(response) {
+        return response;
+    },
+    function(error) {
+        if (error.response.status === 401) {
+            window.location.href = "/login";
+        } else {
+            Toast.open({
+                message: `Error: ${error.message}`,
+                type: "is-danger",
+                queue: false
+            });
+        }
 
-  return Promise.reject(error);
-});
+        return Promise.reject(error);
+    }
+);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

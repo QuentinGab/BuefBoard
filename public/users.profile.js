@@ -362,13 +362,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.$store.commit("updateLoadingUser", true);
 
                 _context.next = 4;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_2__["default"].include("roles", "permissions").current()["catch"](function (err) {
-                  _this.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-                });
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_2__["default"].include("roles", "permissions").current();
 
               case 4:
                 user = _context.sent;
@@ -405,12 +399,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     position: "is-bottom-right",
                     queue: false
                   });
-                })["catch"](function (err) {
-                  _this2.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
                 });
 
               case 3:
@@ -440,12 +428,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     message: "".concat(_this3.user.fullname, " has been trashed"),
                     type: "is-info",
                     position: "is-bottom-right",
-                    queue: false
-                  });
-                })["catch"](function (err) {
-                  _this3.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
                     queue: false
                   });
                 });
@@ -485,12 +467,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     name: "users.index"
                   });
                 })["catch"](function (err) {
-                  _this4.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-
                   _this4.getUser();
                 });
 

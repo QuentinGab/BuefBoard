@@ -420,19 +420,11 @@ export default {
             if (this.showTrashed) {
                 user.where("trashed", "only");
             }
-            let response = await user
-                .get()
-                .then(response => {
-                    this.users = response.data;
-                    this.pagination = response.meta;
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
-                });
+            let response = await user.get().then(response => {
+                this.users = response.data;
+                this.pagination = response.meta;
+            });
+
             this.isLoading = false;
         },
         refresh() {
@@ -560,48 +552,30 @@ export default {
         },
         //single actions
         async delete(user) {
-            await user
-                .delete()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 3000,
-                        message: `${user.fullname} has been deleted`,
-                        type: "is-danger",
-                        position: "is-bottom-right",
-                        actionText: "Undo",
-                        queue: true,
-                        onAction: () => {
-                            this.restore(user);
-                        }
-                    });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            await user.delete().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 3000,
+                    message: `${user.fullname} has been deleted`,
+                    type: "is-danger",
+                    position: "is-bottom-right",
+                    actionText: "Undo",
+                    queue: true,
+                    onAction: () => {
+                        this.restore(user);
+                    }
                 });
+            });
         },
         async destroy(user) {
-            await user
-                .destroy()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `${user.fullname} has been destroyed`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            await user.destroy().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `${user.fullname} has been destroyed`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
                 });
+            });
         },
         async block(user) {
             await user
@@ -619,13 +593,6 @@ export default {
                             this.unblock(user);
                         }
                     });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
                 });
         },
         async unblock(user) {
@@ -640,54 +607,29 @@ export default {
                         position: "is-bottom-right",
                         queue: true
                     });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
                 });
         },
         async restore(user) {
-            await user
-                .restore()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `${user.fullname} has been restored`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: true
-                    });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            await user.restore().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `${user.fullname} has been restored`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: true
                 });
+            });
         },
         async sendEmailVerification(user) {
-            await user
-                .sendEmailVerification()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `An email has been send to <b>${user.fullname}</b>`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: true
-                    });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            await user.sendEmailVerification().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `An email has been send to <b>${user.fullname}</b>`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: true
                 });
+            });
         }
     },
     created() {

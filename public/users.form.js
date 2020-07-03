@@ -424,13 +424,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this.loading.roles = true;
                 _context.next = 3;
-                return _b_models_Role__WEBPACK_IMPORTED_MODULE_3__["default"].$get()["catch"](function (err) {
-                  _this.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-                });
+                return _b_models_Role__WEBPACK_IMPORTED_MODULE_3__["default"].$get();
 
               case 3:
                 _this.roles = _context.sent;
@@ -454,13 +448,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this2.loading.permissions = true;
                 _context2.next = 3;
-                return _b_models_Permission__WEBPACK_IMPORTED_MODULE_4__["default"].$get()["catch"](function (err) {
-                  _this2.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-                });
+                return _b_models_Permission__WEBPACK_IMPORTED_MODULE_4__["default"].$get();
 
               case 3:
                 _this2.permissions = _context2.sent;
@@ -484,13 +472,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this3.loading.refresh = true;
                 _context3.next = 3;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_5__["default"].include("roles", "permissions").$find(_this3.id)["catch"](function (err) {
-                  _this3.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-                });
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_5__["default"].include("roles", "permissions").$find(_this3.id);
 
               case 3:
                 _this3.user = _context3.sent;
@@ -533,12 +515,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       }
                     });
                   }
-                })["catch"](function (err) {
-                  _this4.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
                 });
 
               case 4:
@@ -570,14 +546,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: "is-bottom-right",
                     queue: false
                   });
-                })["catch"](function (err) {
-                  _this5.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-
-                  _this5.getUser();
                 });
 
               case 3:
@@ -607,12 +575,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     message: "".concat(_this6.user.fullname, " has been unblocked"),
                     type: "is-info",
                     position: "is-bottom-right",
-                    queue: false
-                  });
-                })["catch"](function (err) {
-                  _this6.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
                     queue: false
                   });
                 });
@@ -645,12 +607,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: "is-bottom-right",
                     queue: false
                   });
-                })["catch"](function (err) {
-                  _this7.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
                 });
 
               case 2:
@@ -680,12 +636,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     message: "".concat(_this8.user.fullname, " has been trashed"),
                     type: "is-info",
                     position: "is-bottom-right",
-                    queue: false
-                  });
-                })["catch"](function (err) {
-                  _this8.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
                     queue: false
                   });
                 });
@@ -724,14 +674,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this9.$router.push({
                     name: "users.index"
                   });
-                })["catch"](function (err) {
-                  _this9.$buefy.toast.open({
-                    message: "Error: ".concat(err.message),
-                    type: "is-danger",
-                    queue: false
-                  });
-
-                  _this9.getUser();
                 });
 
               case 2:

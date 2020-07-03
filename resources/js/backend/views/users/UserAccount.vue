@@ -261,15 +261,8 @@ export default {
         async getUser() {
             this.loading.refresh = true;
             this.$store.commit("updateLoadingUser", true);
-            let user = await User.include("roles", "permissions")
-                .current()
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
-                });
+            let user = await User.include("roles", "permissions").current();
+
             this.$store.commit("updateUser", user);
             this.$store.commit("updateLoadingUser", false);
 
@@ -277,47 +270,30 @@ export default {
         },
         async saveUser() {
             this.loading.save = true;
-            await this.user
-                .save()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `Your account has been updated`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            await this.user.save().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `Your account has been updated`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
                 });
+            });
 
             this.loading.save = false;
         },
         async deleteUser() {
             this.loading.user = true;
-            await this.user
-                .delete()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `${this.user.fullname} has been trashed`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            await this.user.delete().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `${this.user.fullname} has been trashed`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
                 });
+            });
+
             this.loading.user = false;
             this.getUser();
         },
@@ -335,11 +311,6 @@ export default {
                     this.$router.push({ name: "users.index" });
                 })
                 .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
                     this.getUser();
                 });
         },

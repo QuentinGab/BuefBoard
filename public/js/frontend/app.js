@@ -52842,16 +52842,19 @@ module.exports = function(module) {
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
   \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/index.js");
 /*
-* Lodash
-*
-* We use only a couple of  functions by importing them directly inside components
-* So, no need to import full package
-*
-* */
+ * Lodash
+ *
+ * We use only a couple of  functions by importing them directly inside components
+ * So, no need to import full package
+ *
+ * */
 // window._ = require('lodash');
 
 /**
@@ -52860,7 +52863,7 @@ module.exports = function(module) {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
@@ -52870,20 +52873,27 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
 }
 /**
-* We'll add interceptors to redirect user to login once we get 401 response
-* */
+ * We'll add interceptors to redirect user to login once we get 401 response
+ * */
+
 
 
 window.axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
   if (error.response.status === 401) {
-    window.location.href = '/login';
+    window.location.href = "/login";
+  } else {
+    buefy__WEBPACK_IMPORTED_MODULE_0__["ToastProgrammatic"].open({
+      message: "Error: ".concat(error.message),
+      type: "is-danger",
+      queue: false
+    });
   }
 
   return Promise.reject(error);

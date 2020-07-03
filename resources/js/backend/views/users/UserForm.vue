@@ -393,70 +393,43 @@ export default {
         async getRoles() {
             this.loading.roles = true;
 
-            this.roles = await Role.$get().catch(err => {
-                this.$buefy.toast.open({
-                    message: `Error: ${err.message}`,
-                    type: "is-danger",
-                    queue: false
-                });
-            });
+            this.roles = await Role.$get();
             this.loading.roles = false;
         },
         async getPermissions() {
             this.loading.permissions = true;
 
-            this.permissions = await Permission.$get().catch(err => {
-                this.$buefy.toast.open({
-                    message: `Error: ${err.message}`,
-                    type: "is-danger",
-                    queue: false
-                });
-            });
+            this.permissions = await Permission.$get();
             this.loading.permissions = false;
         },
 
         async getUser() {
             this.loading.refresh = true;
 
-            this.user = await User.include("roles", "permissions")
-                .$find(this.id)
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
-                });
+            this.user = await User.include("roles", "permissions").$find(
+                this.id
+            );
 
             this.loading.refresh = false;
         },
         async saveUser() {
             this.loading.save = true;
             let exists = this.exists;
-            await this.user
-                .save()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `${this.user.fullname} has been updated`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
-                    if (!exists) {
-                        this.$router.push({
-                            name: "users.edit",
-                            params: { id: this.user.id }
-                        });
-                    }
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            await this.user.save().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `${this.user.fullname} has been updated`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
                 });
+                if (!exists) {
+                    this.$router.push({
+                        name: "users.edit",
+                        params: { id: this.user.id }
+                    });
+                }
+            });
 
             this.loading.save = false;
         },
@@ -473,15 +446,8 @@ export default {
                         position: "is-bottom-right",
                         queue: false
                     });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
-                    this.getUser();
                 });
+
             this.loading.user = false;
         },
         async unblockUser() {
@@ -497,81 +463,49 @@ export default {
                         position: "is-bottom-right",
                         queue: false
                     });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
                 });
+
             this.loading.user = false;
         },
         async restoreUser() {
-            await this.user
-                .restore()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `${this.user.fullname} has been restored`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            await this.user.restore().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `${this.user.fullname} has been restored`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
                 });
+            });
+
             this.getUser();
         },
         async deleteUser() {
             this.loading.user = true;
-            await this.user
-                .delete()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `${this.user.fullname} has been trashed`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
+            await this.user.delete().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `${this.user.fullname} has been trashed`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
                 });
+            });
+
             this.loading.user = false;
             this.getUser();
         },
         async destroyUser() {
-            await this.user
-                .destroy()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `${this.user.fullname} has been destroyed`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
-                    this.$router.push({ name: "users.index" });
-                })
-                .catch(err => {
-                    this.$buefy.toast.open({
-                        message: `Error: ${err.message}`,
-                        type: "is-danger",
-                        queue: false
-                    });
-                    this.getUser();
+            await this.user.destroy().then(response => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `${this.user.fullname} has been destroyed`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
                 });
+                this.$router.push({ name: "users.index" });
+            });
         },
         confirmRestore() {
             this.$buefy.dialog.confirm({
