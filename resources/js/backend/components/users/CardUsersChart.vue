@@ -1,6 +1,6 @@
 <template>
-    <div class="card">
-        <div class="card-header">
+    <div class="card bb-card-chart">
+        <div class="card-header" v-if="mode == 'full'">
             <div class="card-header-title level">
                 <p>Users</p>
                 <div class="level-right">
@@ -34,20 +34,81 @@
                 </div>
             </div>
         </div>
-        <template v-if="chartData">
-            <line-chart
-                v-if="type == 'line'"
-                :mode="mode"
-                :chart-data="chartData"
-                :style="chartStyle"
-            />
-            <bar-chart
-                v-else-if="type == 'bar'"
-                :mode="mode"
-                :chart-data="chartData"
-                :style="chartStyle"
-            />
-        </template>
+
+        <div
+            class="chart-container"
+            :class="[mode == 'light' ? 'is-background' : '']"
+        >
+            <template v-if="chartData">
+                <line-chart
+                    v-if="type == 'line'"
+                    :mode="mode"
+                    :chart-data="chartData"
+                    :style="chartStyle"
+                />
+                <bar-chart
+                    v-else-if="type == 'bar'"
+                    :mode="mode"
+                    :chart-data="chartData"
+                    :style="chartStyle"
+                />
+            </template>
+        </div>
+        <div class="columns is-marginless" v-if="mode == 'light'">
+            <div class="column">
+                <div>
+                    <div class="is-flex">
+                        <p class="is-1 title is-marginless">
+                            {{ total }}
+                        </p>
+                        <b-icon :icon="variationIcon"></b-icon>
+                    </div>
+                    <p class="heading">{{ title }}</p>
+                </div>
+            </div>
+
+            <div class="column is-narrow">
+                <div class="field is-grouped">
+                    <b-radio-button
+                        v-model="startDate"
+                        :native-value="
+                            moment()
+                                .subtract(1, 'months')
+                                .format('YYYY-MM-DD')
+                        "
+                        type="is-light"
+                        size="is-small"
+                    >
+                        <span>1 month</span>
+                    </b-radio-button>
+                    <b-radio-button
+                        v-model="startDate"
+                        :native-value="
+                            moment()
+                                .subtract(14, 'days')
+                                .format('YYYY-MM-DD')
+                        "
+                        type="is-light"
+                        size="is-small"
+                        class="is-rounded"
+                    >
+                        <span>14 days</span>
+                    </b-radio-button>
+                    <b-radio-button
+                        v-model="startDate"
+                        :native-value="
+                            moment()
+                                .subtract(7, 'days')
+                                .format('YYYY-MM-DD')
+                        "
+                        type="is-light"
+                        size="is-small"
+                    >
+                        <span>7 days</span>
+                    </b-radio-button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -76,9 +137,10 @@ export default {
     },
     data() {
         return {
-            subtitle: "Users",
+            title: "Users",
             usersData: null,
-            metrics: null,
+            overview: null,
+            activity: null,
             labels: null,
             startDate: moment()
                 .subtract(1, "months")
@@ -152,19 +214,19 @@ export default {
             }, 0);
         },
         total() {
-            if (!this.metrics) {
+            if (!this.overview) {
                 return 0;
             }
-            return this.metrics.total;
+            return this.overview.total;
         },
         variation() {
-            if (!this.metrics || !this.metrics.new) {
+            if (!this.activity) {
                 return 0;
             }
             return Math.round(
                 this.computeVariation(
-                    this.metrics.total - this.metrics.new.day,
-                    this.metrics.total
+                    this.total - this.activity.created + this.activity.deleted,
+                    this.total
                 ) * 100
             );
         },
@@ -251,7 +313,8 @@ export default {
                         this.endDate,
                         ["D", "MMM"]
                     );
-                    this.metrics = response.data.overview;
+                    this.overview = response.data.overview;
+                    this.activity = response.data.activity;
                 });
             this.loading = false;
         }

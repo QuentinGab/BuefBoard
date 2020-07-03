@@ -16,7 +16,6 @@ const router = new Router({
                     /* webpackChunkName: "dashboard" */ "./views/Dashboard.vue"
                 )
         },
-
         //User Management
         {
             path: "/users/index",

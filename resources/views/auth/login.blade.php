@@ -4,9 +4,17 @@
 <div class="hero is-primary is-fullheight">
     <div class="hero-body is-columns">
         <div class="columns">
-            <div class="column is-6"></div>
+            <div class="column is-6">
+                <div class="has-text-centered">
+                    <h1 class="title is-1">
+                        👋 Welcome to BuefBoard
+                    </h1>
+                    <p class="subtitle">The best starter dashboard</p>
+                </div>
+                
+            </div>
             <div class="column is-6 has-background-white has-text-dark">
-                <div class="">
+                <div class="section">
                     <h1 class="title has-text-dark"> {{__("Login")}} </h1>
                     @if (session('message'))
                     <div class="notification is-danger is-light">

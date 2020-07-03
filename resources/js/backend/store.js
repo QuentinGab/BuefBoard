@@ -9,8 +9,10 @@ export default new Vuex.Store({
         notificationCenter: {
             open: false
         },
-        charts:{
-            colors:['#0984E3','#043053'],
+        charts: {
+            colors: ["#0984E3", "#B86BFF", "#043053"],
+            
+            
         },
         loading: {
             user: false

@@ -68,15 +68,23 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UpdateUserRequest $request)
     {
-        // $user = User::create($request->only([
-        //     'first_name',
-        //     'last_name',
-        //     'email',
-        // ]));
+        $this->authorize('create', User::class);
+        $validated = $request->validated();
 
-        // return new UserResource($user);
+        $user = User::create(
+            $validated
+        );
+
+        if (key_exists('roles',$validated)) {
+            $user->syncRoles($validated['roles']);
+        }
+        if (key_exists('permissions',$validated)) {
+            $user->syncPermissions($validated['permissions']);
+        }
+
+        return new UserResource($user);
     }
 
     /**

@@ -4,9 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\QueryBuilder\AllowedFilter;
+use Illuminate\Support\Carbon;
+
 use Spatie\QueryBuilder\QueryBuilder;
-use App\Http\Metrics\UsersMetrics;
 
 class UsersMetricsController extends Controller
 {
@@ -22,29 +25,51 @@ class UsersMetricsController extends Controller
     }
 
     /**
-     * Display all the users (not in trash).
+     * Display all the users
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', User::class);
 
         $users = QueryBuilder::for(User::class)
                 ->withTrashed()
                 ->allowedFilters([
-                    'first_name',
-                    'last_name',
-                    AllowedFilter::exact('id'),
-                    AllowedFilter::trashed(),
                     AllowedFilter::scope('created_before'),
                     AllowedFilter::scope('created_after'),
-                    'email',
                 ])
-                ->defaultSort('id')
-                ->allowedFields(['id', 'first_name','last_name','created_at'])
                 ->get();
 
-        return new UsersMetrics($users);
+        /* Overview */
+        $active = User::count();
+        $blocked = User::where('blocked_at', '!=', null)->count();
+        $trashed = User::onlyTrashed()->count();
+
+        $countByDay = $users->countBy(function ($item) {
+            return $item->created_at->format('Y-m-d');
+        });
+
+        /* Activities */
+        $activities = Activity::inLog('users');
+        if ($request->filled('filter.created_after')) {
+            $startDate = Carbon::parse($request->input('filter.created_after'));
+            $activities->where('created_at', '>=', $startDate);
+        }
+        $activities = $activities->get();
+
+        return [
+            'data' => $countByDay,
+            'overview' => [
+                'total' => $active + $trashed,
+                'active' => $active,
+                'blocked' => $blocked,
+                'trashed' => $trashed,
+            ],
+            'activity' => [
+                'created' => $activities->where('description', 'created')->count(),
+                'deleted' => $activities->where('description', 'deleted')->count(),
+            ],
+        ];
     }
 }

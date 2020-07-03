@@ -111,7 +111,7 @@
                                         label="Email"
                                         label-for="email"
                                         :type="
-                                            !user.email_verified
+                                            exists && !user.email_verified
                                                 ? 'is-warning'
                                                 : null
                                         "
@@ -124,18 +124,52 @@
                                         <b-input
                                             id="email"
                                             type="email"
-                                            disabled
                                             v-model="user.email"
                                         ></b-input>
                                     </b-field>
 
                                     <b-field
                                         label="Email verification"
-                                        v-if="!user.email_verified"
+                                        v-if="exists && !user.email_verified"
                                     >
                                         <b-button type="is-primary" outlined>
                                             Resend the verification email
                                         </b-button>
+                                    </b-field>
+                                </b-field>
+
+                                <b-field horizontal label="" v-if="!exists">
+                                    <b-field
+                                        label="Password"
+                                        label-for="password"
+                                        expand
+                                    >
+                                        <b-input
+                                            id="password"
+                                            type="password"
+                                            v-model="user.password"
+                                        ></b-input>
+                                    </b-field>
+                                    <b-field
+                                        label="Confirm Password"
+                                        label-for="password_confirmation"
+                                        expand
+                                        :type="
+                                            !passwordConfirmed
+                                                ? 'is-danger'
+                                                : null
+                                        "
+                                        :message="
+                                            !passwordConfirmed
+                                                ? 'The passwords does not match'
+                                                : null
+                                        "
+                                    >
+                                        <b-input
+                                            id="password_confirmation"
+                                            type="password"
+                                            v-model="user.password_confirmation"
+                                        ></b-input>
                                     </b-field>
                                 </b-field>
 
@@ -214,11 +248,15 @@
                                                 @click="saveUser"
                                                 type="is-primary"
                                                 :loading="this.loading.save"
-                                                icon-left="content-save"
-                                                :disabled="user.trashed"
-                                                >Save</b-button
+                                                :disabled="
+                                                    user.trashed ||
+                                                        !passwordConfirmed
+                                                "
                                             >
+                                                {{ exists ? "Save" : "Create" }}
+                                            </b-button>
                                             <b-button
+                                                v-if="exists"
                                                 @click="getUser"
                                                 type="is-default"
                                                 :loading="this.loading.refresh"
@@ -245,7 +283,7 @@
                             </div>
                         </div>
                         <div class="card-content">
-                            <div>
+                            <div v-if="exists">
                                 <b-field horizontal label="Block">
                                     <b-field>
                                         <b-button
@@ -318,15 +356,14 @@ export default {
     data() {
         return {
             user: new User({
-                id: null,
                 first_name: "",
                 last_name: "",
                 email: "",
-                created_at: "",
-                updated_at: "",
                 deleted_at: null,
-                email_verified_at: null,
-                blocked_at: null
+                password: null,
+                password_confirmation: null,
+                roles: [],
+                permissions: []
             }),
             roles: [],
             permissions: [],
@@ -341,7 +378,14 @@ export default {
             }
         };
     },
-    computed: {},
+    computed: {
+        exists() {
+            return !!this.id;
+        },
+        passwordConfirmed() {
+            return this.user.password === this.user.password_confirmation;
+        }
+    },
     methods: {
         differenceById(item1, item2) {
             return differenceBy(item1, item2, "id");
@@ -386,9 +430,9 @@ export default {
 
             this.loading.refresh = false;
         },
-
         async saveUser() {
             this.loading.save = true;
+            let exists = this.exists;
             await this.user
                 .save()
                 .then(response => {
@@ -399,6 +443,12 @@ export default {
                         position: "is-bottom-right",
                         queue: false
                     });
+                    if (!exists) {
+                        this.$router.push({
+                            name: "users.edit",
+                            params: { id: this.user.id }
+                        });
+                    }
                 })
                 .catch(err => {
                     this.$buefy.toast.open({
@@ -407,9 +457,9 @@ export default {
                         queue: false
                     });
                 });
+
             this.loading.save = false;
         },
-
         async blockUser() {
             this.loading.user = true;
             await this.user
@@ -523,7 +573,6 @@ export default {
                     this.getUser();
                 });
         },
-
         confirmRestore() {
             this.$buefy.dialog.confirm({
                 title: "Restoring user",
@@ -559,7 +608,9 @@ export default {
         }
     },
     created() {
-        this.getUser();
+        if (this.exists) {
+            this.getUser();
+        }
         this.getRoles();
         this.getPermissions();
     },

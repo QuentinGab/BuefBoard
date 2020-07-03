@@ -161,6 +161,9 @@ __webpack_require__.r(__webpack_exports__);
           legend: {
             display: false
           },
+          tooltips: {
+            intersect: true
+          },
           scales: {
             xAxes: [{
               display: false,
@@ -1149,6 +1152,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -1167,12 +1171,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      metrics: {
-        total: 0,
+      overview: {
+        active: 0,
         blocked: 0,
-        deleted: 0,
-        "new": null
+        trashed: 0
       },
+      activity: null,
       chartStyle: {
         height: "100%",
         width: "100%",
@@ -1181,18 +1185,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapState"])(["charts"])), {}, {
-    totalIcon: function totalIcon() {
-      return this.computeIcon(this.totalVariation);
-    },
-    totalVariation: function totalVariation() {
-      if (!this.metrics["new"]) {
+    activeVariation: function activeVariation() {
+      if (!this.activity) {
         return 0;
       }
 
-      return Math.round(this.computeVariation(this.metrics.total - this.metrics["new"].month, this.metrics.total) * 100);
+      return Math.round(this.computeVariation(this.overview.total - this.activity.created + this.activity.deleted, this.overview.total) * 100);
+    },
+    activeVariationIcon: function activeVariationIcon() {
+      return this.computeIcon(this.activeVariation);
     }
   }),
   methods: {
+    tinycolor: function (_tinycolor) {
+      function tinycolor(_x) {
+        return _tinycolor.apply(this, arguments);
+      }
+
+      tinycolor.toString = function () {
+        return _tinycolor.toString();
+      };
+
+      return tinycolor;
+    }(function (val) {
+      return tinycolor(val);
+    }),
     computeIcon: function computeIcon(value) {
       if (value > 0) {
         return "arrow-top-right-thick";
@@ -1221,7 +1238,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context.next = 2;
                 return _b_models_User__WEBPACK_IMPORTED_MODULE_6__["default"].metrics().then(function (response) {
-                  _this.metrics = response.data.overview;
+                  _this.overview = response.data.overview;
+                  _this.activity = response.data.activity;
                 });
 
               case 2:
@@ -2460,51 +2478,22 @@ var render = function() {
                 _c("card-metrics-item", {
                   staticClass: "is-success",
                   attrs: {
-                    title: "Total Users",
-                    value: _vm.metrics.total,
-                    subvalue: _vm.totalVariation + "%",
-                    icon: _vm.totalIcon
+                    title: "Active Users",
+                    value: _vm.overview.active,
+                    subvalue: _vm.activeVariation + "%",
+                    icon: _vm.activeVariationIcon
                   }
                 }),
                 _vm._v(" "),
                 _c("card-metrics-item", {
                   staticClass: "is-danger",
-                  attrs: { title: "Blocked Users", value: _vm.metrics.blocked }
+                  attrs: { title: "Blocked Users", value: _vm.overview.blocked }
                 }),
                 _vm._v(" "),
                 _c("card-metrics-item", {
                   staticClass: "is-danger",
-                  attrs: { title: "Trashed Users", value: _vm.metrics.deleted }
-                }),
-                _vm._v(" "),
-                _c(
-                  "card-metrics-item",
-                  [
-                    _c("doughnut-chart", {
-                      style: _vm.chartStyle,
-                      attrs: {
-                        height: 84,
-                        width: 84,
-                        "chart-data": {
-                          datasets: [
-                            {
-                              data: [
-                                _vm.metrics.total,
-                                _vm.metrics.blocked,
-                                _vm.metrics.deleted
-                              ],
-                              backgroundColor: _vm.charts.colors,
-                              label: "Users"
-                            }
-                          ],
-                          labels: ["active", "blocked", "trashed"]
-                        },
-                        mode: "light"
-                      }
-                    })
-                  ],
-                  1
-                )
+                  attrs: { title: "Trashed Users", value: _vm.overview.trashed }
+                })
               ],
               1
             )

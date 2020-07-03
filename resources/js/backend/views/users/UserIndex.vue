@@ -10,22 +10,22 @@
                 <card-metrics>
                     <card-metrics-item
                         class="is-success"
-                        title="Total Users"
-                        :value="metrics.total"
-                        :subvalue="`${totalVariation}%`"
-                        :icon="totalIcon"
+                        title="Active Users"
+                        :value="overview.active"
+                        :subvalue="`${activeVariation}%`"
+                        :icon="activeVariationIcon"
                     ></card-metrics-item>
                     <card-metrics-item
                         class="is-danger"
                         title="Blocked Users"
-                        :value="metrics.blocked"
+                        :value="overview.blocked"
                     ></card-metrics-item>
                     <card-metrics-item
                         class="is-danger"
                         title="Trashed Users"
-                        :value="metrics.deleted"
+                        :value="overview.trashed"
                     ></card-metrics-item>
-                    <card-metrics-item>
+                    <!-- <card-metrics-item>
                         <doughnut-chart
                             :style="chartStyle"
                             :height="84"
@@ -34,10 +34,11 @@
                                 datasets: [
                                     {
                                         data: [
-                                            metrics.total,
-                                            metrics.blocked,
-                                            metrics.deleted
+                                            overview.active,
+                                            overview.blocked,
+                                            overview.trashed
                                         ],
+                                        borderColor: charts.colors,
                                         backgroundColor: charts.colors,
                                         label: 'Users'
                                     }
@@ -46,7 +47,7 @@
                             }"
                             mode="light"
                         />
-                    </card-metrics-item>
+                    </card-metrics-item> -->
                 </card-metrics>
             </div>
         </div>
@@ -87,12 +88,12 @@ export default {
     },
     data() {
         return {
-            metrics: {
-                total: 0,
+            overview: {
+                active: 0,
                 blocked: 0,
-                deleted: 0,
-                new: null
+                trashed: 0
             },
+            activity: null,
             chartStyle: {
                 height: "100%",
                 width: "100%",
@@ -102,22 +103,27 @@ export default {
     },
     computed: {
         ...mapState(["charts"]),
-        totalIcon() {
-            return this.computeIcon(this.totalVariation);
-        },
-        totalVariation() {
-            if (!this.metrics.new) {
+        activeVariation() {
+            if (!this.activity) {
                 return 0;
             }
             return Math.round(
                 this.computeVariation(
-                    this.metrics.total - this.metrics.new.month,
-                    this.metrics.total
+                    this.overview.total -
+                        this.activity.created +
+                        this.activity.deleted,
+                    this.overview.total
                 ) * 100
             );
+        },
+        activeVariationIcon() {
+            return this.computeIcon(this.activeVariation);
         }
     },
     methods: {
+        tinycolor(val) {
+            return tinycolor(val);
+        },
         computeIcon(value) {
             if (value > 0) {
                 return "arrow-top-right-thick";
@@ -136,7 +142,8 @@ export default {
         },
         async getMetrics() {
             await User.metrics().then(response => {
-                this.metrics = response.data.overview;
+                this.overview = response.data.overview;
+                this.activity = response.data.activity;
             });
         }
     },

@@ -2,10 +2,23 @@
     <section class="section">
         <div class="columns">
             <div class="column">
-                <h1 class="title is-1">👋 Welcome {{ user.first_name }}</h1>
+                <h1 class="title is-1">
+                    <b>Hello</b> <br />
+                    {{ user.first_name }} 👋
+                </h1>
+                <p class="subtitle">
+                    you are a
+                    <b-tag
+                        v-for="role in user.roles"
+                        :key="role.id"
+                        type="is-primary"
+                    >
+                        {{ role.name }}
+                    </b-tag>
+                </p>
             </div>
             <div class="column is-6">
-                <tile-users-chart :cumulative="true" mode="light" />
+                <card-users-chart mode="light" />
             </div>
         </div>
         <div class="columns">
@@ -24,13 +37,12 @@
 
 <script>
 import CardUsersChart from "@b/components/users/CardUsersChart";
-import TileUsersChart from "@b/components/users/TileUsersChart";
 
 import { mapState } from "vuex";
 
 export default {
     name: "Dashboard",
-    components: { CardUsersChart, TileUsersChart },
+    components: { CardUsersChart },
     data() {
         return {};
     },

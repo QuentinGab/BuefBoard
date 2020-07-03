@@ -30,7 +30,8 @@ class UpdateUserRequest extends FormRequest
 
     }
 
-    protected function preparePermissions(){
+    protected function preparePermissions()
+    {
         $master = $this->user();
 
         $permissionsCollection = collect($this->permissions);
@@ -50,7 +51,8 @@ class UpdateUserRequest extends FormRequest
         ]);
     }
 
-    protected function prepareRoles(){
+    protected function prepareRoles()
+    {
         $master = $this->user();
 
         $rolesCollection = collect($this->roles);
@@ -80,8 +82,18 @@ class UpdateUserRequest extends FormRequest
             'email' => ['required', 'email'],
             'first_name' => ['required'],
             'last_name' => ['required'],
-            'roles' => ['sometimes','array'],
-            'permissions' => ['sometimes','array'],
+            'roles' => ['sometimes', 'array'],
+            'permissions' => ['sometimes', 'array'],
+            'password' => [
+                'sometimes',
+                'min:6',
+                'regex:/[a-z]/', // must contain at least one lowercase letter
+                'regex:/[A-Z]/', // must contain at least one uppercase letter
+                'regex:/[0-9]/', // must contain at least one digit
+                'regex:/[@$!%*#?&]/', // must contain a special character
+                'confirmed',
+            ],
+            'password_confirmation' => ['sometimes'],
             'blocked_at' => ["nullable"],
         ];
     }

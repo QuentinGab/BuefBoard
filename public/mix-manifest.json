@@ -1,13 +1,13 @@
 {
-    "/js/backend/app.js": "/js/backend/app.js?id=14c82e9690629caefcb6",
+    "/js/backend/app.js": "/js/backend/app.js?id=5f129bd8a7d0a6a4f743",
     "/css/backend/app.css": "/css/backend/app.css?id=ff5138081cb8836cc657",
-    "/css/frontend/app.css": "/css/frontend/app.css?id=a11744bc2e3a3971689d",
+    "/css/frontend/app.css": "/css/frontend/app.css?id=2034d47fa089fb9493bf",
     "/js/frontend/app.js": "/js/frontend/app.js?id=b33bb847893357fb5e29",
+    "/dashboard.js": "/dashboard.js?id=b64e6e8c83b593886fbd",
     "/roles.index.js": "/roles.index.js?id=d7e7c5436d79fdd213c1",
     "/roles.index~users.form.js": "/roles.index~users.form.js?id=c40bd0c7675033165d4c",
-    "/users.form.js": "/users.form.js?id=13a1f05012edaefad2a4",
-    "/users.index.js": "/users.index.js?id=d9822613f10725dc9836",
+    "/users.form.js": "/users.form.js?id=b3b15aed804e96802927",
+    "/users.index.js": "/users.index.js?id=3ba6a8fc6b7dcdf9fe95",
     "/vendors~roles.index~users.form.js": "/vendors~roles.index~users.form.js?id=b2708e4478186e7a37d7",
-    "/css/vendor.css": "/css/vendor.css?id=62228c45364ef3ecd930",
-    "/dashboard.js": "/dashboard.js?id=87296890c7eb719689fa"
+    "/css/vendor.css": "/css/vendor.css?id=62228c45364ef3ecd930"
 }

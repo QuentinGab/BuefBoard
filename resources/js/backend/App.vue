@@ -93,6 +93,20 @@ export default {
     },
     created() {
         this.getUser();
+    },
+    mounted() {
+        window.addEventListener("offline", () => {
+            this.$buefy.snackbar.open({
+                duration: 10000,
+                message:
+                    "You are not online anymore, please check your internet connection",
+                type: "is-danger",
+                position: "is-bottom",
+                actionText: "Close",
+                queue: false,
+                onAction: () => {}
+            });
+        });
     }
 };
 </script>

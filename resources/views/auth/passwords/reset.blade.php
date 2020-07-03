@@ -5,7 +5,15 @@
     <div class="hero-body">
         <div class="container">
             <div class="columns">
-                <div class="column is-6"></div>
+                <div class="column is-6">
+                    <div class="has-text-centered">
+                        <h1 class="title is-1">
+                            👋 Welcome to BuefBoard
+                        </h1>
+                        <p class="subtitle">The best starter dashboard</p>
+                    </div>
+
+                </div>
                 <div class="column is-6">
                     <div class="box">
                         <h1>{{ __('Reset Password') }}</h1>
@@ -17,14 +25,15 @@
                                 <label for="email" class="label">{{ __('E-Mail Address') }}</label>
                                 <div class="control has-icons-left">
                                     <input id="email" class="input @error('email') is-danger @enderror" type="email"
-                                        name="email" placeholder="platon@gmail.com" value="{{ $email ?? old('email') }}"
-                                        required autocomplete="email">
+                                        name="email" placeholder="platon@gmail.com"
+                                        value="{{ $email ?? old('email') }}" required
+                                        autocomplete="email">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-envelope"></i>
                                     </span>
                                 </div>
                                 @error('email')
-                                <p class="help is-danger"><strong>{{ $message }}</strong></p>
+                                    <p class="help is-danger"><strong>{{ $message }}</strong></p>
                                 @enderror
                             </div>
 
@@ -38,28 +47,31 @@
                                     </span>
                                 </div>
                                 @error('password')
-                                <p class="help is-danger"><strong>{{ $message }}</strong></p>
+                                    <p class="help is-danger"><strong>{{ $message }}</strong></p>
                                 @enderror
                             </div>
 
                             <div class="field">
-                                <label class="label" for="password-confirm">{{ __('Confirm Password') }}</label>
+                                <label class="label"
+                                    for="password-confirm">{{ __('Confirm Password') }}</label>
                                 <div class="control has-icons-left">
                                     <input id="password-confirm" class="input @error('password') is-danger @enderror"
-                                        type="password" name="password_confirmation" value="{{ old('email') }}" required
-                                        required autocomplete="new-password">
+                                        type="password" name="password_confirmation"
+                                        value="{{ old('email') }}" required required
+                                        autocomplete="new-password">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-pass"></i>
                                     </span>
                                 </div>
                                 @error('password')
-                                <p class="help is-danger"><strong>{{ $message }}</strong></p>
+                                    <p class="help is-danger"><strong>{{ $message }}</strong></p>
                                 @enderror
                             </div>
 
                             <div class="field is-grouped">
                                 <div class="control">
-                                    <button type="submit" class="button is-link">{{ __('Reset Password') }}</button>
+                                    <button type="submit"
+                                        class="button is-link">{{ __('Reset Password') }}</button>
                                 </div>
                             </div>
 

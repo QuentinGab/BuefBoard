@@ -324,6 +324,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -342,15 +380,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       user: new _b_models_User__WEBPACK_IMPORTED_MODULE_5__["default"]({
-        id: null,
         first_name: "",
         last_name: "",
         email: "",
-        created_at: "",
-        updated_at: "",
         deleted_at: null,
-        email_verified_at: null,
-        blocked_at: null
+        password: null,
+        password_confirmation: null,
+        roles: [],
+        permissions: []
       }),
       roles: [],
       permissions: [],
@@ -365,7 +402,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
   },
-  computed: {},
+  computed: {
+    exists: function exists() {
+      return !!this.id;
+    },
+    passwordConfirmed: function passwordConfirmed() {
+      return this.user.password === this.user.password_confirmation;
+    }
+  },
   methods: {
     differenceById: function differenceById(item1, item2) {
       return lodash_differenceBy__WEBPACK_IMPORTED_MODULE_2___default()(item1, item2, "id");
@@ -464,12 +508,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var exists;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _this4.loading.save = true;
-                _context4.next = 3;
+                exists = _this4.exists;
+                _context4.next = 4;
                 return _this4.user.save().then(function (response) {
                   _this4.$buefy.snackbar.open({
                     duration: 2000,
@@ -478,6 +524,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: "is-bottom-right",
                     queue: false
                   });
+
+                  if (!exists) {
+                    _this4.$router.push({
+                      name: "users.edit",
+                      params: {
+                        id: _this4.user.id
+                      }
+                    });
+                  }
                 })["catch"](function (err) {
                   _this4.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
@@ -486,10 +541,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 3:
+              case 4:
                 _this4.loading.save = false;
 
-              case 4:
+              case 5:
               case "end":
                 return _context4.stop();
             }
@@ -735,7 +790,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   created: function created() {
-    this.getUser();
+    if (this.exists) {
+      this.getUser();
+    }
+
     this.getRoles();
     this.getPermissions();
   },
@@ -980,9 +1038,10 @@ var render = function() {
                               attrs: {
                                 label: "Email",
                                 "label-for": "email",
-                                type: !_vm.user.email_verified
-                                  ? "is-warning"
-                                  : null,
+                                type:
+                                  _vm.exists && !_vm.user.email_verified
+                                    ? "is-warning"
+                                    : null,
                                 message: _vm.user.email_verified
                                   ? "This email is verified"
                                   : "This email is not verified"
@@ -990,11 +1049,7 @@ var render = function() {
                             },
                             [
                               _c("b-input", {
-                                attrs: {
-                                  id: "email",
-                                  type: "email",
-                                  disabled: ""
-                                },
+                                attrs: { id: "email", type: "email" },
                                 model: {
                                   value: _vm.user.email,
                                   callback: function($$v) {
@@ -1007,7 +1062,7 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          !_vm.user.email_verified
+                          _vm.exists && !_vm.user.email_verified
                             ? _c(
                                 "b-field",
                                 { attrs: { label: "Email verification" } },
@@ -1033,6 +1088,76 @@ var render = function() {
                         ],
                         1
                       ),
+                      _vm._v(" "),
+                      !_vm.exists
+                        ? _c(
+                            "b-field",
+                            { attrs: { horizontal: "", label: "" } },
+                            [
+                              _c(
+                                "b-field",
+                                {
+                                  attrs: {
+                                    label: "Password",
+                                    "label-for": "password",
+                                    expand: ""
+                                  }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: { id: "password", type: "password" },
+                                    model: {
+                                      value: _vm.user.password,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.user, "password", $$v)
+                                      },
+                                      expression: "user.password"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-field",
+                                {
+                                  attrs: {
+                                    label: "Confirm Password",
+                                    "label-for": "password_confirmation",
+                                    expand: "",
+                                    type: !_vm.passwordConfirmed
+                                      ? "is-danger"
+                                      : null,
+                                    message: !_vm.passwordConfirmed
+                                      ? "The passwords does not match"
+                                      : null
+                                  }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      id: "password_confirmation",
+                                      type: "password"
+                                    },
+                                    model: {
+                                      value: _vm.user.password_confirmation,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.user,
+                                          "password_confirmation",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "user.password_confirmation"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("hr"),
                       _vm._v(" "),
@@ -1205,22 +1330,31 @@ var render = function() {
                                     attrs: {
                                       type: "is-primary",
                                       loading: this.loading.save,
-                                      "icon-left": "content-save",
-                                      disabled: _vm.user.trashed
+                                      disabled:
+                                        _vm.user.trashed ||
+                                        !_vm.passwordConfirmed
                                     },
                                     on: { click: _vm.saveUser }
                                   },
-                                  [_vm._v("Save")]
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(_vm.exists ? "Save" : "Create") +
+                                        "\n                                        "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(" "),
-                                _c("b-button", {
-                                  attrs: {
-                                    type: "is-default",
-                                    loading: this.loading.refresh,
-                                    "icon-left": "refresh"
-                                  },
-                                  on: { click: _vm.getUser }
-                                })
+                                _vm.exists
+                                  ? _c("b-button", {
+                                      attrs: {
+                                        type: "is-default",
+                                        loading: this.loading.refresh,
+                                        "icon-left": "refresh"
+                                      },
+                                      on: { click: _vm.getUser }
+                                    })
+                                  : _vm._e()
                               ],
                               1
                             )
@@ -1257,98 +1391,104 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-content" }, [
-                _c(
-                  "div",
-                  [
-                    _c(
-                      "b-field",
-                      { attrs: { horizontal: "", label: "Block" } },
+                _vm.exists
+                  ? _c(
+                      "div",
                       [
                         _c(
                           "b-field",
+                          { attrs: { horizontal: "", label: "Block" } },
                           [
                             _c(
-                              "b-button",
-                              {
-                                attrs: {
-                                  type: "is-warning",
-                                  loading: this.loading.user
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.user.blocked
-                                      ? _vm.unblockUser()
-                                      : _vm.blockUser()
-                                  }
-                                }
-                              },
+                              "b-field",
                               [
-                                _vm._v(
-                                  _vm._s(_vm.user.blocked ? "Unblock" : "Block")
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      type: "is-warning",
+                                      loading: this.loading.user
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.user.blocked
+                                          ? _vm.unblockUser()
+                                          : _vm.blockUser()
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.user.blocked ? "Unblock" : "Block"
+                                      )
+                                    )
+                                  ]
                                 )
-                              ]
+                              ],
+                              1
                             )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c(
+                          "b-field",
+                          { attrs: { horizontal: "", label: "Delete" } },
+                          [
+                            _c("b-field", [
+                              _c(
+                                "div",
+                                { staticClass: "buttons" },
+                                [
+                                  _vm.user.trashed
+                                    ? _c(
+                                        "b-button",
+                                        {
+                                          attrs: {
+                                            type: "is-info",
+                                            outlined: "",
+                                            loading: this.loading.user
+                                          },
+                                          on: { click: _vm.confirmRestore }
+                                        },
+                                        [_vm._v("Restore")]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-button",
+                                    {
+                                      attrs: {
+                                        type: "is-danger",
+                                        outlined: "",
+                                        loading: this.loading.user
+                                      },
+                                      on: { click: _vm.confirmDelete }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.user.trashed
+                                            ? "Destroy"
+                                            : "Delete"
+                                        )
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
                           ],
                           1
                         )
                       ],
                       1
-                    ),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c(
-                      "b-field",
-                      { attrs: { horizontal: "", label: "Delete" } },
-                      [
-                        _c("b-field", [
-                          _c(
-                            "div",
-                            { staticClass: "buttons" },
-                            [
-                              _vm.user.trashed
-                                ? _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        type: "is-info",
-                                        outlined: "",
-                                        loading: this.loading.user
-                                      },
-                                      on: { click: _vm.confirmRestore }
-                                    },
-                                    [_vm._v("Restore")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: {
-                                    type: "is-danger",
-                                    outlined: "",
-                                    loading: this.loading.user
-                                  },
-                                  on: { click: _vm.confirmDelete }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.user.trashed ? "Destroy" : "Delete"
-                                    )
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      ],
-                      1
                     )
-                  ],
-                  1
-                )
+                  : _vm._e()
               ])
             ])
           ])
