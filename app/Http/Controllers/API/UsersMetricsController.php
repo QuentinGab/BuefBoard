@@ -50,7 +50,7 @@ class UsersMetricsController extends Controller
             return $item->created_at->format('Y-m-d');
         });
 
-        /* Activities */
+        /* Activity */
         $activities = Activity::inLog('users');
         if ($request->filled('filter.created_after')) {
             $startDate = Carbon::parse($request->input('filter.created_after'));

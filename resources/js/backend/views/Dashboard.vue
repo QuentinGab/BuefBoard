@@ -6,8 +6,7 @@
                     <b>Hello</b> <br />
                     {{ user.first_name }} 👋
                 </h1>
-                <p class="subtitle">
-                    you are a
+                <b-taglist class="subtitle">
                     <b-tag
                         v-for="role in user.roles"
                         :key="role.id"
@@ -15,17 +14,16 @@
                     >
                         {{ role.name }}
                     </b-tag>
-                </p>
+                </b-taglist>
             </div>
             <div class="column is-6">
                 <card-users-chart mode="light" />
             </div>
         </div>
         <div class="columns">
-            <div class="column is-9">
+            <div class="column is-12">
                 <card-users-chart :cumulative="true" />
             </div>
-            <div class="column is-3"></div>
         </div>
         <div class="columns">
             <div class="column is-12">

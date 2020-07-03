@@ -42,6 +42,14 @@ const router = new Router({
                 ),
             props: true
         },
+        {
+            path: "/account",
+            name: "users.account",
+            component: () =>
+                import(
+                    /* webpackChunkName: "users.profile" */ "./views/users/UserAccount.vue"
+                )
+        },
 
         // Roles Management
         {

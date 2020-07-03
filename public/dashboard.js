@@ -580,8 +580,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1116,23 +1114,24 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "section" }, [
     _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column" }, [
-        _c("h1", { staticClass: "title is-1" }, [
-          _c("b", [_vm._v("Hello")]),
+      _c(
+        "div",
+        { staticClass: "column" },
+        [
+          _c("h1", { staticClass: "title is-1" }, [
+            _c("b", [_vm._v("Hello")]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.user.first_name) +
+                " 👋\n            "
+            )
+          ]),
           _vm._v(" "),
-          _c("br"),
-          _vm._v(
-            "\n                " +
-              _vm._s(_vm.user.first_name) +
-              " 👋\n            "
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "p",
-          { staticClass: "subtitle" },
-          [
-            _vm._v("\n                you are a\n                "),
+          _c(
+            "b-taglist",
+            { staticClass: "subtitle" },
             _vm._l(_vm.user.roles, function(role) {
               return _c(
                 "b-tag",
@@ -1145,11 +1144,12 @@ var render = function() {
                   )
                 ]
               )
-            })
-          ],
-          2
-        )
-      ]),
+            }),
+            1
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -1162,12 +1162,10 @@ var render = function() {
     _c("div", { staticClass: "columns" }, [
       _c(
         "div",
-        { staticClass: "column is-9" },
+        { staticClass: "column is-12" },
         [_c("card-users-chart", { attrs: { cumulative: true } })],
         1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "column is-3" })
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "columns" }, [

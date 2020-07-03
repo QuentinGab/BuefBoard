@@ -65,9 +65,14 @@ export default {
                     ]
                 },
                 {
-                    label: "Info 2",
-                    icon: "desktop",
-                    to: "/"
+                    label: "You",
+                    menu: [
+                        {
+                            label: "My Account",
+                            icon: "account-circle-outline",
+                            to: "/account"
+                        }
+                    ]
                 }
             ]
         };
@@ -78,7 +83,7 @@ export default {
     methods: {
         async getUser() {
             this.$store.commit("updateLoadingUser", true);
-            let user = await User.include("roles")
+            let user = await User.include("roles","permissions")
                 .current()
                 .catch(err => {
                     this.$buefy.toast.open({

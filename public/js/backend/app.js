@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"dashboard":"dashboard","users.index":"users.index","vendors~roles.index~users.form":"vendors~roles.index~users.form","roles.index~users.form":"roles.index~users.form","roles.index":"roles.index","users.form":"users.form"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"dashboard":"dashboard","users.index":"users.index","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","roles.index~users.form":"roles.index~users.form","roles.index":"roles.index","users.form":"users.form"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -2467,9 +2467,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }]
         }]
       }, {
-        label: "Info 2",
-        icon: "desktop",
-        to: "/"
+        label: "You",
+        menu: [{
+          label: "My Account",
+          icon: "account-circle-outline",
+          to: "/account"
+        }]
       }]
     };
   },
@@ -2487,7 +2490,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.$store.commit("updateLoadingUser", true);
 
                 _context.next = 3;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_5__["default"].include("roles").current()["catch"](function (err) {
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_5__["default"].include("roles", "permissions").current()["catch"](function (err) {
                   _this.$buefy.toast.open({
                     message: "Error: ".concat(err.message),
                     type: "is-danger",
@@ -78779,6 +78782,12 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       return Promise.all(/*! import() | users.form */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.form"), __webpack_require__.e("users.form")]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
     },
     props: true
+  }, {
+    path: "/account",
+    name: "users.account",
+    component: function component() {
+      return __webpack_require__.e(/*! import() | users.profile */ "users.profile").then(__webpack_require__.bind(null, /*! ./views/users/UserAccount.vue */ "./resources/js/backend/views/users/UserAccount.vue"));
+    }
   }, // Roles Management
   {
     path: "/roles/index",
