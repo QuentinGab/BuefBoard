@@ -19,7 +19,7 @@ import AsideMenu from "@b/components/AsideMenu";
 import NotificationCenter from "@b/components/NotificationCenter";
 import NavBar from "@b/components/NavBar";
 
-import User from "@b/models/User";
+import CurrentUser from "@b/models/CurrentUser";
 
 export default {
     name: "App",
@@ -46,19 +46,15 @@ export default {
                             icon: "account-details-outline",
                             to: "/roles/index"
                         },
+
                         {
-                            label: "Submenus",
-                            icon: "cog",
+                            label: "Settings",
+                            icon: "cog-outline",
                             menu: [
                                 {
-                                    to: "/sub1",
-                                    icon: "folder-multiple-image",
-                                    label: "Sub-item One"
-                                },
-                                {
-                                    to: "/sub2",
-                                    icon: "folder-multiple-image",
-                                    label: "Sub-item Two"
+                                    label: "Activity",
+                                    icon: "radar",
+                                    to: "/activities/index"
                                 }
                             ]
                         }
@@ -81,15 +77,17 @@ export default {
         ...mapState(["user", "loading"])
     },
     methods: {
-        async getUser() {
+        async getCurrentUser() {
             this.$store.commit("updateLoadingUser", true);
-            let user = await User.include("roles", "permissions").current();
+            let user = await CurrentUser.include("roles", "permissions").$find(
+                "current"
+            );
             this.$store.commit("updateUser", user);
             this.$store.commit("updateLoadingUser", false);
         }
     },
     created() {
-        this.getUser();
+        this.getCurrentUser();
     },
     mounted() {
         window.addEventListener("offline", () => {

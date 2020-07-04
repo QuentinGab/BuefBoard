@@ -19,22 +19,31 @@ use Illuminate\Support\Facades\Route;
 
 //Users
 //current user
-Route::get('users/current', 'CurrentUserController@show');
-Route::post('users/current', 'CurrentUserController@update');
-Route::delete('users/current', 'CurrentUserController@destroy');
-//all users
-//export
-Route::get('users/export', 'UsersController@export');
-//stats
-Route::get('users/metrics','UsersMetricsController@index');
-//common
-Route::apiResource('users', 'UsersController')->except(['destroy']);
-Route::delete('users/{user}', 'UsersController@delete');
-Route::post('users/{user}/restore', 'UsersController@restore');
-Route::delete('users/{user}/destroy', 'UsersController@destroy');
-Route::post('users/{user}/send-email-verification', 'UsersController@sendEmailVerification');
+Route::prefix('/users/current')->group(function () {
+    Route::get('', 'CurrentUserController@show');
+    Route::put('', 'CurrentUserController@update');
+    Route::put('/password', 'CurrentUserController@update');
+    Route::delete('', 'CurrentUserController@destroy');
+});
 
+Route::prefix('/users')->group(function () {
+    //all users
+    //export
+    Route::get('export', 'UsersController@export');
+    //stats
+    Route::get('metrics', 'UsersMetricsController@index');
+    //common
+    Route::delete('{user}', 'UsersController@delete');
+    Route::post('{user}/restore', 'UsersController@restore');
+    Route::delete('{user}/destroy', 'UsersController@destroy');
+    Route::post('{user}/send-email-verification', 'UsersController@sendEmailVerification');
+
+});
+Route::apiResource('users', 'UsersController')->except(['destroy']);
 
 //Roles and Permissions
 Route::apiResource('roles', 'RolesController')->except(['destroy']);
-Route::apiResource('permissions', 'PermissionsController')->except(['destroy','create','update','store']);
+Route::apiResource('permissions', 'PermissionsController')->except(['destroy', 'create', 'update', 'store']);
+
+//ActivityLog
+Route::get('activities', 'ActivitiesController@index');

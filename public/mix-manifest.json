@@ -1,17 +1,15 @@
 {
-    "/js/backend/app.js": "/js/backend/app.js?id=a0b2c9761b46fcf6abea",
+    "/js/backend/app.js": "/js/backend/app.js?id=fe20bee0e5fff4f5cfca",
     "/css/backend/app.css": "/css/backend/app.css?id=ff5138081cb8836cc657",
     "/css/frontend/app.css": "/css/frontend/app.css?id=2034d47fa089fb9493bf",
-    "/js/frontend/app.js": "/js/frontend/app.js?id=95440dfbbd1e97083c7b",
-    "/dashboard.js": "/dashboard.js?id=ce74784eb2ebea05a60e",
-    "/roles.index.js": "/roles.index.js?id=0f2eedca0d75a51a29ed",
+    "/js/frontend/app.js": "/js/frontend/app.js?id=9e36101bd7dc1c6fa498",
+    "/dashboard.js": "/dashboard.js?id=e0225c7540d35bb81e98",
+    "/roles.index.js": "/roles.index.js?id=dbf7462de471e12c0452",
     "/roles.index~users.form.js": "/roles.index~users.form.js?id=c40bd0c7675033165d4c",
-    "/users.form.js": "/users.form.js?id=9421b3948adadb788c9c",
-    "/users.index.js": "/users.index.js?id=4445be588526b72bad01",
+    "/users.form.js": "/users.form.js?id=362d4d9ff291f3aa46a5",
+    "/users.index.js": "/users.index.js?id=a693e1e0357b092a40aa",
+    "/users.profile.js": "/users.profile.js?id=ad37bced724f9b6daff5",
     "/vendors~roles.index~users.form.js": "/vendors~roles.index~users.form.js?id=b2708e4478186e7a37d7",
     "/css/vendor.css": "/css/vendor.css?id=62228c45364ef3ecd930",
-    "/roles.index~users.form~users.profile.js": "/roles.index~users.form~users.profile.js?id=c8120383e1545dac12cf",
-    "/users.profile.js": "/users.profile.js?id=3910e1e17b483485fdee",
-    "/vendors~roles.index~users.form~users.profile.js": "/vendors~roles.index~users.form~users.profile.js?id=9a453239607c82cef3ae",
-    "/vendors~roles.index.js": "/vendors~roles.index.js?id=8a8db8bdf5ff275c249a"
+    "/dashboard~users.index.js": "/dashboard~users.index.js?id=e1ce70cff12bfd096ee8"
 }

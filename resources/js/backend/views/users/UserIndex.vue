@@ -9,11 +9,13 @@
             <div class="column is-narrow">
                 <card-metrics>
                     <card-metrics-item
-                        class="is-success"
+                        :class="[
+                            activeVariation >= 0 ? 'is-success' : 'is-danger'
+                        ]"
                         title="Active Users"
                         :value="overview.active"
                         :subvalue="`${activeVariation}%`"
-                        :icon="activeVariationIcon"
+                        :icon="computeIcon(activeVariation)"
                     ></card-metrics-item>
                     <card-metrics-item
                         class="is-danger"
@@ -115,9 +117,6 @@ export default {
                     this.overview.total
                 ) * 100
             );
-        },
-        activeVariationIcon() {
-            return this.computeIcon(this.activeVariation);
         }
     },
     methods: {
@@ -126,10 +125,9 @@ export default {
         },
         computeIcon(value) {
             if (value > 0) {
-                return "arrow-top-right-thick";
-            }
-            if (value < 0) {
-                return "arrow-down";
+                return "trending-up";
+            } else if (value < 0) {
+                return "trending-down";
             }
             return "minus";
         },

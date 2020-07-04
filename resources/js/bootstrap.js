@@ -36,7 +36,10 @@ if (token) {
 /**
  * We'll add interceptors to redirect user to login once we get 401 response
  * */
-import { ToastProgrammatic as Toast } from "buefy";
+import {
+    ToastProgrammatic as Toast,
+    NotificationProgrammatic as Notification
+} from "buefy";
 
 window.axios.interceptors.response.use(
     function(response) {
@@ -46,6 +49,19 @@ window.axios.interceptors.response.use(
         if (error.response.status === 401) {
             window.location.href = "/login";
         } else {
+            let errors = error.response.data.errors;
+            for (let field in errors) {
+                errors[field].forEach(msg => {
+                    Notification.open({
+                        duration: 10000,
+                        message: `${msg}`,
+                        position: "is-bottom-right",
+                        type: "is-danger",
+                        queue: false
+                    });
+                });
+            }
+
             Toast.open({
                 message: `Error: ${error.message}`,
                 type: "is-danger",

@@ -305,6 +305,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -331,12 +333,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      title: "Users",
+      title: "New Users",
       usersData: null,
       overview: null,
       activity: null,
       labels: null,
-      startDate: moment().subtract(1, "months").format("YYYY-MM-DD"),
+      startDate: moment().subtract(14, "days").format("YYYY-MM-DD"),
       endDate: moment().format("YYYY-MM-DD"),
       chartStyle: {
         height: "100%",
@@ -449,11 +451,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     computeIcon: function computeIcon(value) {
       if (value > 0) {
-        return "arrow-top-right-thick";
+        return "trending-up";
       }
 
       if (value < 0) {
-        return "arrow-down";
+        return "trending-down";
       }
 
       return "minus";
@@ -901,7 +903,7 @@ var render = function() {
     _vm.mode == "full"
       ? _c("div", { staticClass: "card-header" }, [
           _c("div", { staticClass: "card-header-title level" }, [
-            _c("p", [_vm._v("Users")]),
+            _c("p", [_vm._v(_vm._s(_vm.title))]),
             _vm._v(" "),
             _c("div", { staticClass: "level-right" }, [
               _c(
@@ -1002,7 +1004,12 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("b-icon", { attrs: { icon: _vm.variationIcon } })
+                  _c(
+                    "b-tooltip",
+                    { attrs: { label: _vm.variation + "%" } },
+                    [_c("b-icon", { attrs: { icon: _vm.variationIcon } })],
+                    1
+                  )
                 ],
                 1
               ),
@@ -1160,19 +1167,14 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "columns" }, [
-      _c(
-        "div",
-        { staticClass: "column is-12" },
-        [_c("card-users-chart", { attrs: { cumulative: true } })],
-        1
-      )
+      _c("div", { staticClass: "column is-12" }, [_c("card-users-chart")], 1)
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "columns" }, [
       _c(
         "div",
         { staticClass: "column is-12" },
-        [_c("card-users-chart", { attrs: { type: "bar", cumulative: true } })],
+        [_c("card-users-chart", { attrs: { type: "bar" } })],
         1
       )
     ])

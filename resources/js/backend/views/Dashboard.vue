@@ -22,12 +22,12 @@
         </div>
         <div class="columns">
             <div class="column is-12">
-                <card-users-chart :cumulative="true" />
+                <card-users-chart />
             </div>
         </div>
         <div class="columns">
             <div class="column is-12">
-                <card-users-chart type="bar" :cumulative="true" />
+                <card-users-chart type="bar" />
             </div>
         </div>
     </section>

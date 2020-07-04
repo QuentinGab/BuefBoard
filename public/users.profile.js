@@ -76,7 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _b_components_TitleBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/TitleBar */ "./resources/js/backend/components/TitleBar.vue");
-/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
+/* harmony import */ var _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/models/CurrentUser */ "./resources/js/backend/models/CurrentUser.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
@@ -313,6 +313,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -325,6 +326,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       roles: [],
       permissions: [],
+      password: null,
+      password_confirmation: null,
       loading: {
         user: false,
         roles: false,
@@ -344,7 +347,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return !!this.id;
     },
     passwordConfirmed: function passwordConfirmed() {
-      return this.user.password === this.user.password_confirmation;
+      return this.password === this.password_confirmation;
+    },
+    passwordValidated: function passwordValidated() {
+      if (this.password == null || this.password == "") {
+        return false;
+      }
+
+      return this.passwordConfirmed;
     }
   }),
   methods: {
@@ -362,7 +372,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.$store.commit("updateLoadingUser", true);
 
                 _context.next = 4;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_2__["default"].include("roles", "permissions").current();
+                return _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_2__["default"].include("roles", "permissions").$find("current");
 
               case 4:
                 user = _context.sent;
@@ -412,7 +422,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee2);
       }))();
     },
-    deleteUser: function deleteUser() {
+    changePassword: function changePassword() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
@@ -420,24 +430,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this3.loading.user = true;
-                _context3.next = 3;
-                return _this3.user["delete"]().then(function (response) {
+                _this3.loading.password = true;
+                axios.put("".concat(_this3.user.endpoint(), "/password"), {
+                  password: _this3.password,
+                  password_confirmation: _this3.password_confirmation
+                }).then(function (r) {
                   _this3.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this3.user.fullname, " has been trashed"),
+                    message: "Your password has been changed",
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
                   });
                 });
+                _this3.loading.password = false;
 
               case 3:
-                _this3.loading.user = false;
-
-                _this3.getUser();
-
-              case 5:
               case "end":
                 return _context3.stop();
             }
@@ -445,7 +453,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee3);
       }))();
     },
-    destroyUser: function destroyUser() {
+    deleteUser: function deleteUser() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
@@ -453,24 +461,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
-                return _this4.user.destroy().then(function (response) {
+                _this4.loading.user = true;
+                _context4.next = 3;
+                return _this4.user["delete"]().then(function (response) {
                   _this4.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this4.user.fullname, " has been destroyed"),
+                    message: "".concat(_this4.user.fullname, " has been trashed"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
                   });
-
-                  _this4.$router.push({
-                    name: "users.index"
-                  });
-                })["catch"](function (err) {
-                  _this4.getUser();
                 });
 
-              case 2:
+              case 3:
+                _this4.loading.user = false;
+
+                _this4.getUser();
+
+              case 5:
               case "end":
                 return _context4.stop();
             }
@@ -488,7 +496,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "is-danger",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this5.destroyUser();
+          return _this5.deleteUser();
         }
       });
     }
@@ -586,8 +594,8 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "section" }, [
-        _c("div", { staticClass: "columns is-multiline" }, [
+      _c("div", {}, [
+        _c("div", { staticClass: "columns is-marginless is-multiline" }, [
           _c("div", { staticClass: "column is-12 is-6-fullhd" }, [
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header" }, [
@@ -893,11 +901,11 @@ var render = function() {
                           _c("b-input", {
                             attrs: { id: "password", type: "password" },
                             model: {
-                              value: _vm.user.password,
+                              value: _vm.password,
                               callback: function($$v) {
-                                _vm.$set(_vm.user, "password", $$v)
+                                _vm.password = $$v
                               },
-                              expression: "user.password"
+                              expression: "password"
                             }
                           })
                         ],
@@ -924,11 +932,11 @@ var render = function() {
                               type: "password"
                             },
                             model: {
-                              value: _vm.user.password_confirmation,
+                              value: _vm.password_confirmation,
                               callback: function($$v) {
-                                _vm.$set(_vm.user, "password_confirmation", $$v)
+                                _vm.password_confirmation = $$v
                               },
-                              expression: "user.password_confirmation"
+                              expression: "password_confirmation"
                             }
                           })
                         ],
@@ -952,9 +960,10 @@ var render = function() {
                               {
                                 attrs: {
                                   type: "is-primary",
-                                  loading: this.loading.save
+                                  loading: this.loading.password,
+                                  disabled: !this.passwordValidated
                                 },
-                                on: { click: _vm.saveUser }
+                                on: { click: _vm.changePassword }
                               },
                               [
                                 _vm._v(

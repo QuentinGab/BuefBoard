@@ -22,7 +22,7 @@ export default class Model extends BaseModel {
     }
 
     /**
-     * wrapping in data
+     * overide to set default data wrapping
      */
     _create() {
         return this.request({
@@ -34,7 +34,9 @@ export default class Model extends BaseModel {
             return self;
         });
     }
-
+    /**
+     * overide to set default data wrapping
+     */
     _update() {
         return this.request({
             method: "PUT",
@@ -60,7 +62,6 @@ export default class Model extends BaseModel {
     }
 
     _metrics() {
-
         let base = this._fromResource || `${this.baseURL()}/${this.resource()}`;
         base = this._customResource
             ? `${this.baseURL()}/${this._customResource}`
@@ -70,7 +71,7 @@ export default class Model extends BaseModel {
         return axios.get(url);
     }
 
-    static metrics(){
+    static metrics() {
         return this.instance()._metrics();
     }
 }

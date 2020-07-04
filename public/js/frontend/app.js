@@ -52889,6 +52889,20 @@ window.axios.interceptors.response.use(function (response) {
   if (error.response.status === 401) {
     window.location.href = "/login";
   } else {
+    var errors = error.response.data.errors;
+
+    for (var field in errors) {
+      errors[field].forEach(function (msg) {
+        buefy__WEBPACK_IMPORTED_MODULE_0__["NotificationProgrammatic"].open({
+          duration: 10000,
+          message: "".concat(msg),
+          position: "is-bottom-right",
+          type: "is-danger",
+          queue: false
+        });
+      });
+    }
+
     buefy__WEBPACK_IMPORTED_MODULE_0__["ToastProgrammatic"].open({
       message: "Error: ".concat(error.message),
       type: "is-danger",

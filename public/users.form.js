@@ -779,8 +779,8 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "section" }, [
-        _c("div", { staticClass: "columns is-multiline" }, [
+      _c("div", {}, [
+        _c("div", { staticClass: "columns is-marginless is-multiline" }, [
           _c(
             "div",
             { staticClass: "column is-12 is-6-fullhd" },

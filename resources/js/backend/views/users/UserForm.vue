@@ -15,8 +15,8 @@
             ]"
         ></title-bar>
 
-        <div class="section">
-            <div class="columns is-multiline">
+        <div class="">
+            <div class="columns is-marginless is-multiline">
                 <div class="column is-12 is-6-fullhd">
                     <b-notification
                         v-if="user.trashed && !loading.user"

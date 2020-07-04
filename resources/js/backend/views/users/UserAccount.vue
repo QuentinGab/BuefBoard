@@ -6,8 +6,8 @@
             :menu="[{ name: 'dashboard', to: { name: 'dashboard' } }]"
         ></title-bar>
 
-        <div class="section">
-            <div class="columns is-multiline">
+        <div class="">
+            <div class="columns is-marginless is-multiline">
                 <div class="column is-12 is-6-fullhd">
                     <div class="card">
                         <div class="card-header">
@@ -162,7 +162,7 @@
                                     <b-input
                                         id="password"
                                         type="password"
-                                        v-model="user.password"
+                                        v-model="password"
                                     ></b-input>
                                 </b-field>
                                 <b-field
@@ -181,7 +181,7 @@
                                     <b-input
                                         id="password_confirmation"
                                         type="password"
-                                        v-model="user.password_confirmation"
+                                        v-model="password_confirmation"
                                     ></b-input>
                                 </b-field>
                             </b-field>
@@ -189,9 +189,10 @@
                                 <b-field>
                                     <p class="control has-text-right">
                                         <b-button
-                                            @click="saveUser"
+                                            @click="changePassword"
                                             type="is-primary"
-                                            :loading="this.loading.save"
+                                            :loading="this.loading.password"
+                                            :disabled="!this.passwordValidated"
                                         >
                                             Change password
                                         </b-button>
@@ -223,7 +224,7 @@
 
 <script>
 import TitleBar from "@b/components/TitleBar";
-import User from "@b/models/User";
+import CurrentUser from "@b/models/CurrentUser";
 
 import { mapState } from "vuex";
 
@@ -234,6 +235,8 @@ export default {
         return {
             roles: [],
             permissions: [],
+            password: null,
+            password_confirmation: null,
             loading: {
                 user: false,
                 roles: false,
@@ -254,14 +257,22 @@ export default {
             return !!this.id;
         },
         passwordConfirmed() {
-            return this.user.password === this.user.password_confirmation;
+            return this.password === this.password_confirmation;
+        },
+        passwordValidated(){
+            if (this.password == null || this.password == "") {
+                return false;
+            }
+            return this.passwordConfirmed;
         }
     },
     methods: {
         async getUser() {
             this.loading.refresh = true;
             this.$store.commit("updateLoadingUser", true);
-            let user = await User.include("roles", "permissions").current();
+            let user = await CurrentUser.include("roles", "permissions").$find(
+                "current"
+            );
 
             this.$store.commit("updateUser", user);
             this.$store.commit("updateLoadingUser", false);
@@ -282,6 +293,26 @@ export default {
 
             this.loading.save = false;
         },
+        async changePassword() {
+            this.loading.password = true;
+
+            axios
+                .put(`${this.user.endpoint()}/password`, {
+                    password: this.password,
+                    password_confirmation: this.password_confirmation
+                })
+                .then(r => {
+                    this.$buefy.snackbar.open({
+                        duration: 2000,
+                        message: `Your password has been changed`,
+                        type: "is-info",
+                        position: "is-bottom-right",
+                        queue: false
+                    });
+                });
+
+            this.loading.password = false;
+        },
         async deleteUser() {
             this.loading.user = true;
             await this.user.delete().then(response => {
@@ -297,23 +328,7 @@ export default {
             this.loading.user = false;
             this.getUser();
         },
-        async destroyUser() {
-            await this.user
-                .destroy()
-                .then(response => {
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `${this.user.fullname} has been destroyed`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
-                    this.$router.push({ name: "users.index" });
-                })
-                .catch(err => {
-                    this.getUser();
-                });
-        },
+
         confirmDestroy() {
             this.$buefy.dialog.confirm({
                 title: "Destroying your account",
@@ -321,7 +336,7 @@ export default {
                 confirmText: "Destroy me",
                 type: "is-danger",
                 hasIcon: true,
-                onConfirm: () => this.destroyUser()
+                onConfirm: () => this.deleteUser()
             });
         }
     },

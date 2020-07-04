@@ -2,7 +2,7 @@
     <div class="card bb-card-chart">
         <div class="card-header" v-if="mode == 'full'">
             <div class="card-header-title level">
-                <p>Users</p>
+                <p>{{ title }}</p>
                 <div class="level-right">
                     <div class="field is-grouped">
                         <b-radio-button
@@ -61,7 +61,9 @@
                         <p class="is-1 title is-marginless">
                             {{ total }}
                         </p>
-                        <b-icon :icon="variationIcon"></b-icon>
+                        <b-tooltip :label="`${variation}%`">
+                            <b-icon :icon="variationIcon"></b-icon>
+                        </b-tooltip>
                     </div>
                     <p class="heading">{{ title }}</p>
                 </div>
@@ -137,13 +139,13 @@ export default {
     },
     data() {
         return {
-            title: "Users",
+            title: "New Users",
             usersData: null,
             overview: null,
             activity: null,
             labels: null,
             startDate: moment()
-                .subtract(1, "months")
+                .subtract(14, "days")
                 .format("YYYY-MM-DD"),
             endDate: moment().format("YYYY-MM-DD"),
             chartStyle: {
@@ -259,10 +261,10 @@ export default {
         },
         computeIcon(value) {
             if (value > 0) {
-                return "arrow-top-right-thick";
+                return "trending-up";
             }
             if (value < 0) {
-                return "arrow-down";
+                return "trending-down";
             }
             return "minus";
         },

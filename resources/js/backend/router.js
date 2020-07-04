@@ -59,7 +59,17 @@ const router = new Router({
                 import(
                     /* webpackChunkName: "roles.index" */ "./views/roles/RoleIndex.vue"
                 )
-        }
+        },
+
+        // Activities Management
+        {
+            path: "/activities/index",
+            name: "activities.index",
+            component: () =>
+                import(
+                    /* webpackChunkName: "roles.index" */ "./views/activities/ActivitiesIndex.vue"
+                )
+        },
     ]
 });
 

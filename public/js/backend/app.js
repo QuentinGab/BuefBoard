@@ -2397,7 +2397,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _b_components_AsideMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/components/AsideMenu */ "./resources/js/backend/components/AsideMenu.vue");
 /* harmony import */ var _b_components_NotificationCenter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/components/NotificationCenter */ "./resources/js/backend/components/NotificationCenter.vue");
 /* harmony import */ var _b_components_NavBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @b/components/NavBar */ "./resources/js/backend/components/NavBar.vue");
-/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
+/* harmony import */ var _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @b/models/CurrentUser */ "./resources/js/backend/models/CurrentUser.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2454,16 +2454,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           icon: "account-details-outline",
           to: "/roles/index"
         }, {
-          label: "Submenus",
-          icon: "cog",
+          label: "Settings",
+          icon: "cog-outline",
           menu: [{
-            to: "/sub1",
-            icon: "folder-multiple-image",
-            label: "Sub-item One"
-          }, {
-            to: "/sub2",
-            icon: "folder-multiple-image",
-            label: "Sub-item Two"
+            label: "Activity",
+            icon: "radar",
+            to: "/activities/index"
           }]
         }]
       }, {
@@ -2478,7 +2474,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["user", "loading"])),
   methods: {
-    getUser: function getUser() {
+    getCurrentUser: function getCurrentUser() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -2490,7 +2486,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.$store.commit("updateLoadingUser", true);
 
                 _context.next = 3;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_5__["default"].include("roles", "permissions").current();
+                return _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_5__["default"].include("roles", "permissions").$find("current");
 
               case 3:
                 user = _context.sent;
@@ -2509,7 +2505,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   created: function created() {
-    this.getUser();
+    this.getCurrentUser();
   },
   mounted: function mounted() {
     var _this2 = this;
@@ -78419,6 +78415,66 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/backend/models/CurrentUser.js":
+/*!****************************************************!*\
+  !*** ./resources/js/backend/models/CurrentUser.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CurrentUser; });
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./User */ "./resources/js/backend/models/User.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var CurrentUser = /*#__PURE__*/function (_User) {
+  _inherits(CurrentUser, _User);
+
+  var _super = _createSuper(CurrentUser);
+
+  function CurrentUser() {
+    _classCallCheck(this, CurrentUser);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(CurrentUser, [{
+    key: "getPrimaryKey",
+    value: function getPrimaryKey() {
+      return "current";
+    }
+  }]);
+
+  return CurrentUser;
+}(_User__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
 /***/ "./resources/js/backend/models/Model.js":
 /*!**********************************************!*\
   !*** ./resources/js/backend/models/Model.js ***!
@@ -78487,7 +78543,7 @@ var Model = /*#__PURE__*/function (_BaseModel) {
       return window.location.replace(url);
     }
     /**
-     * wrapping in data
+     * overide to set default data wrapping
      */
 
   }, {
@@ -78504,6 +78560,10 @@ var Model = /*#__PURE__*/function (_BaseModel) {
         return self;
       });
     }
+    /**
+     * overide to set default data wrapping
+     */
+
   }, {
     key: "_update",
     value: function _update() {
@@ -78677,11 +78737,6 @@ var User = /*#__PURE__*/function (_Model) {
       });
     }
   }, {
-    key: "current",
-    value: function current() {
-      return this.custom("users/current").$first();
-    }
-  }, {
     key: "fullname",
     get: function get() {
       return "".concat(this.first_name, " ").concat(this.last_name);
@@ -78788,6 +78843,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: "roles.index",
     component: function component() {
       return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.form"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
+    }
+  }, // Activities Management
+  {
+    path: "/activities/index",
+    name: "activities.index",
+    component: function component() {
+      return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.form"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/activities/ActivitiesIndex.vue */ "./resources/js/backend/views/activities/ActivitiesIndex.vue"));
     }
   }]
 });
@@ -78917,6 +78979,20 @@ window.axios.interceptors.response.use(function (response) {
   if (error.response.status === 401) {
     window.location.href = "/login";
   } else {
+    var errors = error.response.data.errors;
+
+    for (var field in errors) {
+      errors[field].forEach(function (msg) {
+        buefy__WEBPACK_IMPORTED_MODULE_0__["NotificationProgrammatic"].open({
+          duration: 10000,
+          message: "".concat(msg),
+          position: "is-bottom-right",
+          type: "is-danger",
+          queue: false
+        });
+      });
+    }
+
     buefy__WEBPACK_IMPORTED_MODULE_0__["ToastProgrammatic"].open({
       message: "Error: ".concat(error.message),
       type: "is-danger",

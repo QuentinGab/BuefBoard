@@ -405,7 +405,7 @@ export default {
                 return;
             }
             this.checkedRows = [];
-            setTimeout(this.getUsers, 500);
+            this.getUsers();
         },
         //table actions
         async getUsers() {

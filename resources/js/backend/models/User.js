@@ -93,8 +93,4 @@ export default class User extends Model {
             return this;
         });
     }
-
-    current() {
-        return this.custom("users/current").$first();
-    }
 }

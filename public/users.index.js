@@ -639,7 +639,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       this.checkedRows = [];
-      setTimeout(this.getUsers, 500);
+      this.getUsers();
     },
     //table actions
     getUsers: function getUsers() {
@@ -1111,6 +1111,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -1149,9 +1151,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return Math.round(this.computeVariation(this.overview.total - this.activity.created + this.activity.deleted, this.overview.total) * 100);
-    },
-    activeVariationIcon: function activeVariationIcon() {
-      return this.computeIcon(this.activeVariation);
     }
   }),
   methods: {
@@ -1170,11 +1169,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }),
     computeIcon: function computeIcon(value) {
       if (value > 0) {
-        return "arrow-top-right-thick";
-      }
-
-      if (value < 0) {
-        return "arrow-down";
+        return "trending-up";
+      } else if (value < 0) {
+        return "trending-down";
       }
 
       return "minus";
@@ -2434,12 +2431,14 @@ var render = function() {
               "card-metrics",
               [
                 _c("card-metrics-item", {
-                  staticClass: "is-success",
+                  class: [
+                    _vm.activeVariation >= 0 ? "is-success" : "is-danger"
+                  ],
                   attrs: {
                     title: "Active Users",
                     value: _vm.overview.active,
                     subvalue: _vm.activeVariation + "%",
-                    icon: _vm.activeVariationIcon
+                    icon: _vm.computeIcon(_vm.activeVariation)
                   }
                 }),
                 _vm._v(" "),
