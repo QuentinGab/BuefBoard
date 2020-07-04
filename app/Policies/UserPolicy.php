@@ -82,7 +82,7 @@ class UserPolicy
             return false;
         }
 
-        if ($user->can('manage users')) {
+        if ($user->hasAnyPermission(['manage users','delete users'])) {
             return true;
         }
 
@@ -103,7 +103,7 @@ class UserPolicy
             return false;
         }
 
-        if ($user->can('manage users')) {
+        if ($user->hasAnyPermission(['manage users','delete users'])) {
             return true;
         }
 
@@ -119,12 +119,12 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        //only a god can delete a god
+        //only a god can destroy a god
         if ($model->hasRole('god')) {
             return false;
         }
 
-        if ($user->can('manage users')) {
+        if ($user->hasAnyPermission(['manage users','destroy users'])) {
             return true;
         }
 

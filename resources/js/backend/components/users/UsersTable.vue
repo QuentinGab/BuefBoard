@@ -315,6 +315,8 @@
 <script>
 import User from "@b/models/User";
 
+import debounce from "lodash/debounce";
+
 export default {
     name: "UsersTable",
     components: {},
@@ -356,9 +358,9 @@ export default {
                 total: 0
             },
             sort: {
-                field: "id",
-                order: "", // '-' or ''
-                value: "id"
+                field: "created_at",
+                order: "-", // '-' or ''
+                value: "-created_at"
             },
             filter: {
                 field: null,
@@ -374,10 +376,16 @@ export default {
             return this.pagination.total;
         },
         fields() {
-            if (this.users && this.users.length > 0) {
-                return Object.keys(this.users[0]);
-            }
-            return [];
+            return [
+                "id",
+                "email",
+                "first_name",
+                "last_name",
+                "created_before",
+                "created_after",
+                "roles",
+                "permissions"
+            ];
         },
         isFiltered() {
             return !!(this.filter.field && this.filter.value);
@@ -400,13 +408,13 @@ export default {
             this.sort.value = `${this.sort.order}${this.sort.field}`;
             this.getUsers();
         },
-        onFilter() {
+        onFilter: debounce(function() {
             if (!this.filter.field) {
                 return;
             }
             this.checkedRows = [];
             this.getUsers();
-        },
+        }, 500),
         //table actions
         async getUsers() {
             this.isLoading = true;

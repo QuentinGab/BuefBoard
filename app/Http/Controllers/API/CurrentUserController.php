@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Requests\Users\UpdateUserPasswordRequest;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Hash;
-
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CurrentUserController extends Controller
 {
@@ -22,7 +21,7 @@ class CurrentUserController extends Controller
      */
     public function show(Request $request)
     {
-        $user = QueryBuilder::for(User::class)
+        $user = QueryBuilder::for(User::class) 
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
                 ->find($request->user()->id);
 
@@ -58,15 +57,29 @@ class CurrentUserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updatePassword( UpdateUserPasswordRequest $request ) {
+    public function updatePassword(UpdateUserPasswordRequest $request)
+    {
         $user = $request->user();
         $this->authorize('update', $user);
-        
+
         $validated = $request->validated();
 
         $user->password = Hash::make($validated['password']);
         $user->save();
 
+        return new UserResource($user);
+    }
+
+    /**
+     * Remove the user from storage.
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+        $user = $request->user();
+        $this->authorize('forceDelete', $user);
+
+        $user->forceDelete();
         return new UserResource($user);
     }
 

@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"dashboard":"dashboard","users.index":"users.index","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","roles.index~users.form":"roles.index~users.form","roles.index":"roles.index","users.form":"users.form"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"dashboard":"dashboard","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","roles.index~users.form":"roles.index~users.form","roles.index":"roles.index","users.form":"users.form","vendors~users.index":"vendors~users.index","users.index":"users.index"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -78816,7 +78816,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/users/index",
     name: "users.index",
     component: function component() {
-      return __webpack_require__.e(/*! import() | users.index */ "users.index").then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
+      return Promise.all(/*! import() | users.index */[__webpack_require__.e("vendors~users.index"), __webpack_require__.e("users.index")]).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
     }
   }, {
     path: "/users/new",

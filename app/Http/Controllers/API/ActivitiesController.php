@@ -28,21 +28,20 @@ class ActivitiesController extends Controller
      */
     public function index()
     {
-        $activities = QueryBuilder::for(Activity::class) 
+        $activities = QueryBuilder::for(Activity::class)
                 ->allowedFilters([
                     'log_name',
                     'description',
                     AllowedFilter::exact('id'),
                 ])
-                ->allowedSorts([
+                ->defaultSort('-created_at')
+                ->allowedSorts(
                     'id',
                     'log_name',
                     'description',
-                    'created_at',
-                ])
-                ->defaultSort('id')
+                    'created_at'
+                )
                 ->paginate(15);
-        
 
         return ActivityResource::collection($activities);
     }

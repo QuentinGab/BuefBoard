@@ -95,7 +95,7 @@
                         backend-sorting
                         @sort="onSort"
                         default-sort-direction="desc"
-                        default-sort="id"
+                        default-sort="created_at"
                         scrollable
                     >
                         <template slot-scope="props">
@@ -177,6 +177,7 @@
 import TitleBar from "@b/components/TitleBar";
 
 import Activity from "@b/models/Activity";
+import debounce from "lodash/debounce";
 
 import { mapState } from "vuex";
 
@@ -199,9 +200,9 @@ export default {
                 total: 0
             },
             sort: {
-                field: "id",
-                order: "", // '-' or ''
-                value: "id"
+                field: "created_at",
+                order: "-", // '-' or ''
+                value: null
             },
             filter: {
                 field: null,
@@ -221,6 +222,9 @@ export default {
         },
         isFiltered() {
             return !!(this.filter.field && this.filter.value);
+        },
+        isSorted() {
+            return this.sort.value;
         }
     },
     methods: {
@@ -236,9 +240,10 @@ export default {
         async getActivities() {
             this.isLoading = true;
 
-            let activities = Activity.orderBy(this.sort.value).page(
-                this.pagination.current_page
-            );
+            let activities = Activity.page(this.pagination.current_page);
+            if (this.isSorted) {
+                activities.orderBy(this.sort.value);
+            }
             if (this.isFiltered) {
                 activities.where(this.filter.field, this.filter.value);
             }
@@ -262,12 +267,12 @@ export default {
             this.sort.value = `${this.sort.order}${this.sort.field}`;
             this.getActivities();
         },
-        onFilter() {
+        onFilter: debounce(function() {
             if (!this.filter.field) {
                 return;
             }
             this.getActivities();
-        }
+        }, 500)
     },
     created() {
         this.getActivities();

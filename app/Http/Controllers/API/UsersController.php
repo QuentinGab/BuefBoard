@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
-
-use Illuminate\Support\Carbon;
 
 class UsersController extends Controller
 {
@@ -35,7 +35,7 @@ class UsersController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        $users = QueryBuilder::for(User::class)
+        $users = QueryBuilder::for(User::class) 
                 ->allowedFilters([
                     'first_name',
                     'last_name',
@@ -47,7 +47,7 @@ class UsersController extends Controller
                     AllowedFilter::scope('permissions'),
                     'email',
                 ])
-                ->allowedSorts([
+                ->allowedSorts(
                     'first_name',
                     'last_name',
                     'id',
@@ -55,11 +55,11 @@ class UsersController extends Controller
                     'email_verified_at',
                     'updated_at',
                     'blocked_at',
-                    'created_at',
-                ])
+                    'created_at'
+                )
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
-                ->defaultSort('id')
                 ->paginate(15);
+        
 
         return UserResource::collection($users);
     }
@@ -70,19 +70,21 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UpdateUserRequest $request)
+    public function store(CreateUserRequest $request)
     {
         $this->authorize('create', User::class);
         $validated = $request->validated();
+
+        $validated['password'] = Hash::make($validated['password']);
 
         $user = User::create(
             $validated
         );
 
-        if (key_exists('roles',$validated)) {
+        if (key_exists('roles', $validated)) {
             $user->syncRoles($validated['roles']);
         }
-        if (key_exists('permissions',$validated)) {
+        if (key_exists('permissions', $validated)) {
             $user->syncPermissions($validated['permissions']);
         }
 
@@ -97,10 +99,11 @@ class UsersController extends Controller
      */
     public function show($userId)
     {
-        $user = QueryBuilder::for(User::class)
+        $user = QueryBuilder::for(User::class) 
                 ->withTrashed()
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
                 ->findOrFail($userId);
+        
 
         $this->authorize('view', $user);
 
@@ -124,10 +127,10 @@ class UsersController extends Controller
             $validated
         );
 
-        if (key_exists('roles',$validated)) {
+        if (key_exists('roles', $validated)) {
             $user->syncRoles($validated['roles']);
         }
-        if (key_exists('permissions',$validated)) {
+        if (key_exists('permissions', $validated)) {
             $user->syncPermissions($validated['permissions']);
         }
 
@@ -150,10 +153,10 @@ class UsersController extends Controller
     public function destroy($userId)
     {
         $user = User::withTrashed()->findOrFail($userId);
-        $this->authorize('forceDelete', $userId);
+        $this->authorize('forceDelete', $user);
 
         $user->forceDelete();
-        return new UserResource($user);
+        return $user;
     }
 
     /**
