@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"dashboard":"dashboard","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","roles.index~users.form":"roles.index~users.form","roles.index":"roles.index","users.form":"users.form","vendors~users.index":"vendors~users.index","users.index":"users.index"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"404":"404","dashboard":"dashboard","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","roles.index~users.form":"roles.index~users.form","roles.index":"roles.index","users.form":"users.form","vendors~users.index":"vendors~users.index","users.index":"users.index"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -78011,6 +78011,7 @@ vue_api_query__WEBPACK_IMPORTED_MODULE_4__["Model"].$http = axios;
 /* Glogal */
 
 chart_js__WEBPACK_IMPORTED_MODULE_5___default.a.defaults.global.defaultFontFamily = "'Nunito','Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+chart_js__WEBPACK_IMPORTED_MODULE_5___default.a.defaults.global.legend.align = "end";
 chart_js__WEBPACK_IMPORTED_MODULE_5___default.a.defaults.global.tooltips.mode = "index";
 chart_js__WEBPACK_IMPORTED_MODULE_5___default.a.defaults.global.tooltips.intersect = false;
 chart_js__WEBPACK_IMPORTED_MODULE_5___default.a.defaults.global.maintainAspectRatio = false;
@@ -78695,6 +78696,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: "activities.index",
     component: function component() {
       return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.form"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/activities/ActivitiesIndex.vue */ "./resources/js/backend/views/activities/ActivitiesIndex.vue"));
+    }
+  }, // NotFound
+  {
+    path: "*",
+    name: "404",
+    component: function component() {
+      return __webpack_require__.e(/*! import() | 404 */ "404").then(__webpack_require__.bind(null, /*! ./views/NotFound.vue */ "./resources/js/backend/views/NotFound.vue"));
     }
   }]
 });

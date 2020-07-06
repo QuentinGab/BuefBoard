@@ -70,6 +70,13 @@ const router = new Router({
                     /* webpackChunkName: "roles.index" */ "./views/activities/ActivitiesIndex.vue"
                 )
         },
+        // NotFound
+        {
+            path: "*",
+            name: "404",
+            component: () =>
+                import(/* webpackChunkName: "404" */ "./views/NotFound.vue")
+        }
     ]
 });
 

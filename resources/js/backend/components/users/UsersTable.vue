@@ -193,7 +193,7 @@
             scrollable
         >
             <template slot-scope="props">
-                <b-table-column field="id" label="ID" numeric sortable>
+                <b-table-column field="id" label="ID" numeric sortable width="40">
                     {{ props.row.id }}
                 </b-table-column>
                 <b-table-column field="first_name" label="First Name" sortable>
@@ -646,5 +646,3 @@ export default {
     mounted() {}
 };
 </script>
-
-<style></style>

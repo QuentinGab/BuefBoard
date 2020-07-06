@@ -59,7 +59,7 @@
                 <div>
                     <div class="is-flex">
                         <p class="is-1 title is-marginless">
-                            {{ total }}
+                            {{ active }}
                         </p>
                         <b-tooltip :label="`${variation}%`">
                             <b-icon :icon="variationIcon"></b-icon>
@@ -220,6 +220,12 @@ export default {
                 return 0;
             }
             return this.overview.total;
+        },
+        active() {
+            if (!this.overview) {
+                return 0;
+            }
+            return this.overview.active;
         },
         variation() {
             if (!this.activity) {

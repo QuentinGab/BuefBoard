@@ -1827,7 +1827,8 @@ var render = function() {
                         field: "id",
                         label: "ID",
                         numeric: "",
-                        sortable: ""
+                        sortable: "",
+                        width: "40"
                       }
                     },
                     [

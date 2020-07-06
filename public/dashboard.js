@@ -402,6 +402,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return this.overview.total;
     },
+    active: function active() {
+      if (!this.overview) {
+        return 0;
+      }
+
+      return this.overview.active;
+    },
     variation: function variation() {
       if (!this.activity) {
         return 0;
@@ -999,7 +1006,7 @@ var render = function() {
                   _c("p", { staticClass: "is-1 title is-marginless" }, [
                     _vm._v(
                       "\n                        " +
-                        _vm._s(_vm.total) +
+                        _vm._s(_vm.active) +
                         "\n                    "
                     )
                   ]),

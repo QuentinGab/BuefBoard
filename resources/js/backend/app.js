@@ -20,6 +20,7 @@ import Chart from "chart.js";
 /* Glogal */
 Chart.defaults.global.defaultFontFamily =
     "'Nunito','Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+Chart.defaults.global.legend.align = "end";
 Chart.defaults.global.tooltips.mode = "index";
 Chart.defaults.global.tooltips.intersect = false;
 Chart.defaults.global.maintainAspectRatio = false;
