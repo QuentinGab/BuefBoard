@@ -2607,7 +2607,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     // ...mapState([])
     isMobile: function isMobile() {
-      return window.innerWidth < 769;
+      return window.innerWidth < 960;
     }
   },
   methods: {},
@@ -2721,7 +2721,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       menu: []
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["user", "loading"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["user", "loading", "logo"])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["toggleNotificationCenter"])),
   created: function created() {}
 });
@@ -2744,26 +2744,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -61171,6 +61151,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "b-navbar",
+    { attrs: { "mobile-burger": false } },
     [
       _c(
         "template",
@@ -61182,7 +61163,7 @@ var render = function() {
             [
               _c("img", {
                 attrs: {
-                  src: "/images/LOGO.png",
+                  src: _vm.logo,
                   alt: "Lightweight UI components for Vue.js based on Bulma"
                 }
               })
@@ -61414,55 +61395,23 @@ var render = function() {
         "div",
         { staticClass: "p-1" },
         [
-          _c(
-            "b-message",
-            {
-              attrs: {
-                type: "is-primary",
-                "aria-close-label": "Close message",
-                size: "is-small"
-              }
-            },
-            [
-              _vm._v(
-                "\n            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce\n            id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet,\n            elit sapien laoreet elit\n        "
-              )
-            ]
-          ),
+          _c("p", { staticClass: "menu-label" }, [
+            _vm._v("Notification Center")
+          ]),
           _vm._v(" "),
-          _c(
-            "b-message",
-            {
-              attrs: {
-                type: "is-primary",
-                "aria-close-label": "Close message",
-                size: "is-small"
-              }
-            },
-            [
-              _vm._v(
-                "\n            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce\n            id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet,\n            elit sapien laoreet elit\n        "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "b-message",
-            {
-              attrs: {
-                type: "is-primary",
-                "aria-close-label": "Close message",
-                size: "is-small"
-              }
-            },
-            [
-              _vm._v(
-                "\n            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce\n            id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet,\n            elit sapien laoreet elit\n        "
-              )
-            ]
-          )
+          _vm._l(_vm.notificationCenter.notifications, function(notification) {
+            return _c(
+              "b-notification",
+              { key: notification.id, attrs: { type: notification.type } },
+              [
+                _vm._v(
+                  "\n            " + _vm._s(notification.message) + "\n        "
+                )
+              ]
+            )
+          })
         ],
-        1
+        2
       ),
       _vm._v(" "),
       _c("div", { staticClass: "p-1 bb-sidebar-footer" }, [
@@ -78788,11 +78737,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   state: {
     user: {},
     notificationCenter: {
-      open: false
+      open: false,
+      notifications: [{
+        id: 1,
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit",
+        type: "is-primary"
+      }, {
+        id: 2,
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit",
+        type: "is-default"
+      }]
     },
     charts: {
       colors: ["#0984E3", "#B86BFF", "#043053"]
     },
+    logo: "/images/LOGO.png",
     loading: {
       user: false
     }

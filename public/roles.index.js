@@ -417,6 +417,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1237,112 +1246,91 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "p-1" },
+        { staticClass: "columns is-marginless is-multiline" },
         _vm._l(_vm.roles, function(role) {
-          return _c("div", { key: role.id, staticClass: "bb-box" }, [
-            _c("div", { staticClass: "box-header" }, [
-              _c("div", { staticClass: "level-left" }, [
-                _c(
-                  "h6",
-                  { staticClass: "title" },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(role.name) +
-                        "\n                        "
-                    ),
-                    _c("b-tag", { attrs: { rounded: "" } }, [
-                      _vm._v(_vm._s(role.users_count))
-                    ])
-                  ],
-                  1
-                )
+          return _c("div", { key: role.id, staticClass: "column is-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c("div", { staticClass: "card-header-title level" }, [
+                  _c("div", { staticClass: "level-left" }, [
+                    _c(
+                      "h6",
+                      { staticClass: "title" },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(role.name) +
+                            "\n                                "
+                        ),
+                        _c("b-tag", { attrs: { rounded: "" } }, [
+                          _vm._v(_vm._s(role.users_count))
+                        ])
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-right" }, [
+                    _c(
+                      "div",
+                      [
+                        role.name !== "god"
+                          ? _c(
+                              "b-button",
+                              {
+                                attrs: {
+                                  "icon-left": "content-save-outline",
+                                  type: "is-primary",
+                                  size: "is-small"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.saveRole(role)
+                                  }
+                                }
+                              },
+                              [_vm._v("save")]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ])
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "level-right" }, [
-                _c(
-                  "div",
-                  [
-                    role.name !== "god"
-                      ? _c(
-                          "b-button",
-                          {
-                            attrs: {
-                              "icon-left": "content-save-outline",
-                              type: "is-primary",
-                              size: "is-small"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.saveRole(role)
-                              }
-                            }
-                          },
-                          [_vm._v("save")]
-                        )
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "box-content" },
-              [
-                _c("b-loading", {
-                  attrs: {
-                    "is-full-page": false,
-                    active: _vm.loading.permissions
-                  },
-                  on: {
-                    "update:active": function($event) {
-                      return _vm.$set(_vm.loading, "permissions", $event)
+              _c(
+                "div",
+                { staticClass: "card-content" },
+                [
+                  _c("b-loading", {
+                    attrs: {
+                      "is-full-page": false,
+                      active: _vm.loading.permissions
+                    },
+                    on: {
+                      "update:active": function($event) {
+                        return _vm.$set(_vm.loading, "permissions", $event)
+                      }
                     }
-                  }
-                }),
-                _vm._v(" "),
-                role.name == "god"
-                  ? _c("div", [_c("p", [_vm._v("A god can do everthing")])])
-                  : _c(
-                      "div",
-                      { staticClass: "field is-grouped is-grouped-multiline" },
-                      [
-                        _vm._l(role.permissions, function(permission) {
-                          return _c(
-                            "b-checkbox-button",
-                            {
-                              key: permission.id,
-                              attrs: {
-                                "native-value": permission,
-                                type: "is-light"
-                              },
-                              model: {
-                                value: role.permissions,
-                                callback: function($$v) {
-                                  _vm.$set(role, "permissions", $$v)
-                                },
-                                expression: "role.permissions"
-                              }
-                            },
-                            [_c("span", [_vm._v(_vm._s(permission.name))])]
-                          )
-                        }),
-                        _vm._v(" "),
-                        _vm._l(
-                          _vm.differencePermissions(
-                            _vm.permissions,
-                            role.permissions
-                          ),
-                          function(permission) {
+                  }),
+                  _vm._v(" "),
+                  role.name == "god"
+                    ? _c("div", [_c("p", [_vm._v("A god can do everthing")])])
+                    : _c(
+                        "div",
+                        {
+                          staticClass: "field is-grouped is-grouped-multiline"
+                        },
+                        [
+                          _vm._l(role.permissions, function(permission) {
                             return _c(
                               "b-checkbox-button",
                               {
                                 key: permission.id,
                                 attrs: {
                                   "native-value": permission,
-                                  type: "is-primary"
+                                  type: "is-light"
                                 },
                                 model: {
                                   value: role.permissions,
@@ -1354,14 +1342,41 @@ var render = function() {
                               },
                               [_c("span", [_vm._v(_vm._s(permission.name))])]
                             )
-                          }
-                        )
-                      ],
-                      2
-                    )
-              ],
-              1
-            )
+                          }),
+                          _vm._v(" "),
+                          _vm._l(
+                            _vm.differencePermissions(
+                              _vm.permissions,
+                              role.permissions
+                            ),
+                            function(permission) {
+                              return _c(
+                                "b-checkbox-button",
+                                {
+                                  key: permission.id,
+                                  attrs: {
+                                    "native-value": permission,
+                                    type: "is-primary"
+                                  },
+                                  model: {
+                                    value: role.permissions,
+                                    callback: function($$v) {
+                                      _vm.$set(role, "permissions", $$v)
+                                    },
+                                    expression: "role.permissions"
+                                  }
+                                },
+                                [_c("span", [_vm._v(_vm._s(permission.name))])]
+                              )
+                            }
+                          )
+                        ],
+                        2
+                      )
+                ],
+                1
+              )
+            ])
           ])
         }),
         0

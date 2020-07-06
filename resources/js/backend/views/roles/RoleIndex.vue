@@ -5,59 +5,68 @@
             title="Manage Roles"
             :menu="[{ name: 'roles', to: '/roles/index' }]"
         ></title-bar>
-        <div class="p-1">
-            <div class="bb-box" v-for="role in roles" :key="role.id">
-                <div class="box-header">
-                    <div class="level-left">
-                        <h6 class="title">
-                            {{ role.name }}
-                            <b-tag rounded>{{ role.users_count }}</b-tag>
-                        </h6>
-                    </div>
-                    <div class="level-right">
-                        <div>
-                            <b-button
-                                v-if="role.name !== 'god'"
-                                @click="saveRole(role)"
-                                icon-left="content-save-outline"
-                                type="is-primary"
-                                size="is-small"
-                                >save</b-button
-                            >
+        <div class="columns is-marginless is-multiline">
+            <div class="column is-12" v-for="role in roles" :key="role.id">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-title level">
+                            <div class="level-left">
+                                <h6 class="title">
+                                    {{ role.name }}
+                                    <b-tag rounded>{{
+                                        role.users_count
+                                    }}</b-tag>
+                                </h6>
+                            </div>
+                            <div class="level-right">
+                                <div>
+                                    <b-button
+                                        v-if="role.name !== 'god'"
+                                        @click="saveRole(role)"
+                                        icon-left="content-save-outline"
+                                        type="is-primary"
+                                        size="is-small"
+                                        >save</b-button
+                                    >
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="box-content">
-                    <b-loading
-                        :is-full-page="false"
-                        :active.sync="loading.permissions"
-                    ></b-loading>
-                    <div v-if="role.name == 'god'">
-                        <p>A god can do everthing</p>
-                    </div>
-                    <div v-else class="field is-grouped is-grouped-multiline">
-                        <b-checkbox-button
-                            v-for="permission in role.permissions"
-                            :key="permission.id"
-                            v-model="role.permissions"
-                            :native-value="permission"
-                            type="is-light"
+                    <div class="card-content">
+                        <b-loading
+                            :is-full-page="false"
+                            :active.sync="loading.permissions"
+                        ></b-loading>
+                        <div v-if="role.name == 'god'">
+                            <p>A god can do everthing</p>
+                        </div>
+                        <div
+                            v-else
+                            class="field is-grouped is-grouped-multiline"
                         >
-                            <span>{{ permission.name }}</span>
-                        </b-checkbox-button>
+                            <b-checkbox-button
+                                v-for="permission in role.permissions"
+                                :key="permission.id"
+                                v-model="role.permissions"
+                                :native-value="permission"
+                                type="is-light"
+                            >
+                                <span>{{ permission.name }}</span>
+                            </b-checkbox-button>
 
-                        <b-checkbox-button
-                            v-for="permission in differencePermissions(
-                                permissions,
-                                role.permissions
-                            )"
-                            :key="permission.id"
-                            v-model="role.permissions"
-                            :native-value="permission"
-                            type="is-primary"
-                        >
-                            <span>{{ permission.name }}</span>
-                        </b-checkbox-button>
+                            <b-checkbox-button
+                                v-for="permission in differencePermissions(
+                                    permissions,
+                                    role.permissions
+                                )"
+                                :key="permission.id"
+                                v-model="role.permissions"
+                                :native-value="permission"
+                                type="is-primary"
+                            >
+                                <span>{{ permission.name }}</span>
+                            </b-checkbox-button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/users/current')->group(function () {
     Route::get('', 'CurrentUserController@show');
     Route::put('', 'CurrentUserController@update');
-    Route::put('/password', 'CurrentUserController@update');
+    Route::put('/password', 'CurrentUserController@updatePassword');
     Route::delete('', 'CurrentUserController@destroy');
 });
 

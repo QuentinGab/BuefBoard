@@ -6648,7 +6648,7 @@ fieldset[disabled] .select select:hover {
 .dropdown-content {
   background-color: white;
   border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  box-shadow: 0 0.5em 1em -0.125em rgba(0, 0, 0, 0.1), 0 0px 0 1px rgba(0, 0, 0, 0.02);
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
 }
@@ -13458,7 +13458,7 @@ label.panel-block:hover {
 .datepicker .dropdown-content {
   background-color: white;
   border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  box-shadow: 0 0.5em 1em -0.125em rgba(0, 0, 0, 0.1), 0 0px 0 1px rgba(0, 0, 0, 0.02);
 }
 
 .datepicker .dropdown-item,
@@ -18670,18 +18670,14 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   width: 100%;
 }
 
-.bb-navbar-account .dropdown-trigger {
-  width: 100%;
-}
-
-.bb-navbar-account .navbar-item {
-  display: flex;
-  align-items: center;
-}
-
-.bb-navbar-account .icon {
+.bb-navbar-account .dropdown-trigger .icon {
   padding-right: 1.5rem;
   padding-left: 1.5rem;
+}
+
+.bb-navbar-account .dropdown-trigger .navbar-item {
+  display: flex;
+  align-items: center;
 }
 
 .bb-table {

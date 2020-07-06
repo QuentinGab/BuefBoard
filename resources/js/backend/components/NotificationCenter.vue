@@ -7,34 +7,14 @@
         :open.sync="notificationCenter.open"
     >
         <div class="p-1">
-            <b-message
-                type="is-primary"
-                aria-close-label="Close message"
-                size="is-small"
+            <p class="menu-label">Notification Center</p>
+            <b-notification
+                v-for="notification in notificationCenter.notifications"
+                :key="notification.id"
+                :type="notification.type"
             >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-                id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet,
-                elit sapien laoreet elit
-            </b-message>
-
-            <b-message
-                type="is-primary"
-                aria-close-label="Close message"
-                size="is-small"
-            >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-                id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet,
-                elit sapien laoreet elit
-            </b-message>
-            <b-message
-                type="is-primary"
-                aria-close-label="Close message"
-                size="is-small"
-            >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-                id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet,
-                elit sapien laoreet elit
-            </b-message>
+                {{ notification.message }}
+            </b-notification>
         </div>
         <div class="p-1 bb-sidebar-footer">
             <div class="buttons">

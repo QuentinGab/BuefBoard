@@ -1,9 +1,9 @@
 <template>
-    <b-navbar>
+    <b-navbar :mobile-burger="false">
         <template slot="brand">
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
-                    src="/images/LOGO.png"
+                    :src="logo"
                     alt="Lightweight UI components for Vue.js based on Bulma"
                 />
             </b-navbar-item>
@@ -88,7 +88,7 @@ export default {
         };
     },
     computed: {
-        ...mapState(["user", "loading"])
+        ...mapState(["user", "loading", "logo"])
     },
     methods: {
         ...mapMutations(["toggleNotificationCenter"])

@@ -60,14 +60,12 @@ $colors: (
     "primary-light": $primary-light,
     "info": $info,
     "light": $light,
-    "background":$background
+    "background": $background
 );
-
 
 :root {
     // Custom variable values only support SassScript inside `#{}`.
     @each $color, $value in $colors {
         --bb-#{$color}: #{$value};
     }
-
 }

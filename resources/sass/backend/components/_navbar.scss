@@ -43,14 +43,13 @@
 .bb-navbar-account {
     width: 100%;
     .dropdown-trigger {
-        width: 100%;
-    }
-    .navbar-item {
-        display: flex;
-        align-items: center;
-    }
-    .icon {
-        padding-right: 1.5rem;
-        padding-left: 1.5rem;
+        .icon {
+            padding-right: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        .navbar-item {
+            display: flex;
+            align-items: center;
+        }
     }
 }

@@ -71,7 +71,7 @@ export default {
     computed: {
         // ...mapState([])
         isMobile() {
-            return window.innerWidth < 769;
+            return window.innerWidth < 960;
         }
     },
     methods: {},

@@ -7,13 +7,26 @@ export default new Vuex.Store({
     state: {
         user: {},
         notificationCenter: {
-            open: false
+            open: false,
+            notifications: [
+                {
+                    id:1,
+                    message:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit",
+                    type: "is-primary"
+                },
+                {
+                    id:2,
+                    message:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit",
+                    type: "is-default"
+                }
+            ]
         },
         charts: {
-            colors: ["#0984E3", "#B86BFF", "#043053"],
-            
-            
+            colors: ["#0984E3", "#B86BFF", "#043053"]
         },
+        logo: "/images/LOGO.png",
         loading: {
             user: false
         }
