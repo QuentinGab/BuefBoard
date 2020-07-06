@@ -13,11 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@welcome')->name('welcome');
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes(['verify'=>true]);
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'BackendController@index')->name('admin');

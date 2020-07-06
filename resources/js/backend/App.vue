@@ -4,7 +4,9 @@
         <div class="is-flex bb-content">
             <aside-menu :menu="menu" class="bb-sidebar" />
             <div class="bb-view">
-                <router-view />
+                <transition name="slideIn">
+                    <router-view />
+                </transition>
             </div>
         </div>
         <notification-center class="bb-notification-center" />
@@ -46,17 +48,10 @@ export default {
                             icon: "account-details-outline",
                             to: "/roles/index"
                         },
-
                         {
-                            label: "Settings",
-                            icon: "cog-outline",
-                            menu: [
-                                {
-                                    label: "Activity",
-                                    icon: "radar",
-                                    to: "/activities/index"
-                                }
-                            ]
+                            label: "Activity",
+                            icon: "radar",
+                            to: "/activities/index"
                         }
                     ]
                 },

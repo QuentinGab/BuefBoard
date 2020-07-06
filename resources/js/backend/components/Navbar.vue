@@ -50,6 +50,15 @@
                     </router-link>
                 </b-dropdown-item>
                 <b-dropdown-item has-link aria-role="menuitem">
+                    <router-link :to="{ name: 'users.account' }">
+                        <b-icon
+                            icon="account-circle-outline"
+                            size="is-small"
+                        ></b-icon>
+                        My Account
+                    </router-link>
+                </b-dropdown-item>
+                <b-dropdown-item has-link aria-role="menuitem">
                     <a href="/logout">
                         <b-icon icon="logout" size="is-small"></b-icon>
                         Logout

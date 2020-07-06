@@ -130,7 +130,7 @@
                             </b-table-column>
 
                             <b-table-column field="causer" label="Causer">
-                                <b-tag>
+                                <b-tag v-if="props.row.causer">
                                     {{
                                         `${props.row.causer.first_name} ${props.row.causer.last_name}`
                                     }}

@@ -52,11 +52,10 @@
 
 <script>
 import { mapState } from "vuex";
-import AsideMenuList from "@b/components/AsideMenuList";
 
 export default {
     name: "AsideMenu",
-    components: { AsideMenuList },
+    components: {},
     data() {
         return {
             mobile: "reduce",

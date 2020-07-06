@@ -38,10 +38,9 @@
         </div>
         <div class="p-1 bb-sidebar-footer">
             <div class="buttons">
-                <b-button type="is-primary">Primary</b-button>
-                <b-button type="is-success">Success</b-button>
-                <b-button type="is-danger">Danger</b-button>
-                <b-button type="is-warning">Warning</b-button>
+                <b-button type="is-default">option 1</b-button>
+                <b-button type="is-default">option 2</b-button>
+                <b-button type="is-default">option 3</b-button>
             </div>
         </div>
     </b-sidebar>

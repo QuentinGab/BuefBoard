@@ -1119,17 +1119,19 @@ var render = function() {
                             "b-table-column",
                             { attrs: { field: "causer", label: "Causer" } },
                             [
-                              _c("b-tag", [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(
-                                      props.row.causer.first_name +
-                                        " " +
-                                        props.row.causer.last_name
-                                    ) +
-                                    "\n                            "
-                                )
-                              ])
+                              props.row.causer
+                                ? _c("b-tag", [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(
+                                          props.row.causer.first_name +
+                                            " " +
+                                            props.row.causer.last_name
+                                        ) +
+                                        "\n                            "
+                                    )
+                                  ])
+                                : _vm._e()
                             ],
                             1
                           ),

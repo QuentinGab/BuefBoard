@@ -25,3 +25,18 @@ body {
     width: 100%;
     overflow: auto;
 }
+
+.slideIn-enter-active {
+    animation: fade-in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.995);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
