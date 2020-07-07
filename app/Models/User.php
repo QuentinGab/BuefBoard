@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, HasRoles, SoftDeletes, LogsActivity;

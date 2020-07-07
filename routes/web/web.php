@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes(['verify'=>true]);
-
 Route::get('/logout', 'Auth\LoginController@logout');
+//Socialite
+Route::get('login/{provider}', 'Auth\SocialController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\SocialController@handleProviderCallback');
+
 
 Route::get('/admin', 'BackendController@index')->name('admin');
