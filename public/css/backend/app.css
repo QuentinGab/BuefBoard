@@ -20,6 +20,20 @@
   border-color: #0077b5;
 }
 
+.button.button-apple {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.button.button-apple:hover,
+.button.button-apple:focus,
+.button.button-apple:active {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
 /* Buefy has Bulma included. So we import just that */
 
 .is-noscroll {
@@ -18827,6 +18841,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .card {
   border-radius: 6px;
+  overflow: hidden;
 }
 
 .card .card-header {

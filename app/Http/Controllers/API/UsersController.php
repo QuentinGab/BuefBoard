@@ -236,7 +236,7 @@ class UsersController extends Controller
      */
     public function export(Request $request)
     {
-        $this->authorize('viewAny', $user);
+        $this->authorize('viewAny', $request->user());
 
         $users = QueryBuilder::for(User::class)
                 ->allowedFilters([

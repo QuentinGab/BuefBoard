@@ -89,6 +89,14 @@
                                 Login with LinkedIn
                             </span>
                         </a>
+                        <a href="{{ route('login.social','apple') }}" class="button button-apple">
+                            <span class="icon is-large">
+                                <i class="mdi mdi-24px mdi-apple"></i>
+                            </span>
+                            <span>
+                                Login with Apple
+                            </span>
+                        </a>
                         <a href="{{ route('login.social','google') }}" class="button button-google">
                             <span class="icon">
                                 <img src="{{ asset('/images/social/google_g.svg') }}" alt="">
@@ -96,7 +104,6 @@
                             <span>
                                 Login with Google
                             </span>
-
                         </a>
                     </div>
 

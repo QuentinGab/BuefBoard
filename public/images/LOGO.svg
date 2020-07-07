@@ -1,0 +1,15 @@
+<svg id="LOGO" xmlns="http://www.w3.org/2000/svg" width="2404.434" height="548" viewBox="0 0 2404.434 548">
+  <text id="BuefBoard" transform="translate(485.434 406)" fill="#2e2e2e" font-size="402" font-family="Nunito-Regular, Nunito"><tspan x="0" y="0">BuefBoard</tspan></text>
+  <g id="Groupe_14" data-name="Groupe 14" transform="translate(-0.001 -25)">
+    <g id="ICON" transform="translate(444.314 449.674) rotate(180)">
+      <rect id="base" width="403.009" height="112.843" rx="56.421" transform="translate(20.652 20.653)" fill="rgba(9,132,227,0.45)" opacity="0.8"/>
+      <rect id="left" width="403.009" height="112.843" rx="56.421" transform="translate(97.725 0.002) rotate(60)" fill="rgba(9,132,227,0.45)" opacity="0.8"/>
+      <rect id="right" width="403.009" height="112.843" rx="56.421" transform="translate(145.084 349.018) rotate(-60)" fill="rgba(9,132,227,0.45)" opacity="0.8"/>
+    </g>
+    <g id="ICON-2" data-name="ICON" transform="translate(0.002 125.233)">
+      <rect id="base-2" data-name="base" width="403.009" height="112.843" rx="56.421" transform="translate(20.652 20.653)" fill="rgba(9,132,227,0.45)" opacity="0.8"/>
+      <rect id="left-2" data-name="left" width="403.009" height="112.843" rx="56.421" transform="translate(97.725 0.002) rotate(60)" fill="rgba(9,132,227,0.45)" opacity="0.8"/>
+      <rect id="right-2" data-name="right" width="403.009" height="112.843" rx="56.421" transform="translate(145.084 349.018) rotate(-60)" fill="rgba(9,132,227,0.45)" opacity="0.8"/>
+    </g>
+  </g>
+</svg>

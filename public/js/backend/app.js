@@ -78759,7 +78759,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     charts: {
       colors: ["#0984E3", "#B86BFF", "#043053"]
     },
-    logo: "/images/LOGO.png",
+    logo: "/images/LOGO.svg",
     loading: {
       user: false
     }

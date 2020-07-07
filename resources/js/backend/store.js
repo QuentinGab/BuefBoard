@@ -26,7 +26,7 @@ export default new Vuex.Store({
         charts: {
             colors: ["#0984E3", "#B86BFF", "#043053"]
         },
-        logo: "/images/LOGO.png",
+        logo: "/images/LOGO.svg",
         loading: {
             user: false
         }
