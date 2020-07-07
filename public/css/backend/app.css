@@ -1,6 +1,26 @@
 @import url(https://fonts.googleapis.com/css2?family=Nunito:wght@300;
 
 400;600;700;800;900&display=swap);@charset "UTF-8";
+.button.button-google {
+  background-color: #ffffff;
+  color: #757575;
+}
+
+.button.button-linkedin {
+  background-color: #0077b5;
+  color: #ffffff;
+  border-color: #0077b5;
+}
+
+.button.button-linkedin:hover,
+.button.button-linkedin:focus,
+.button.button-linkedin:active {
+  background-color: #0077b5;
+  color: #ffffff;
+  border-color: #0077b5;
+}
+
+/* Buefy has Bulma included. So we import just that */
 
 .is-noscroll {
   position: fixed;

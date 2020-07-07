@@ -1,0 +1,23 @@
+$linkedin:#0077b5;
+$linkedin-text:#ffffff;
+$google:#ffffff;
+$google-text:#757575;
+
+.button.button-google {
+    background-color: $google;
+    color: $google-text;
+}
+
+.button.button-linkedin {
+    background-color: $linkedin;
+    color: $linkedin-text;
+    border-color: $linkedin;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: $linkedin;
+        color: $linkedin-text;
+        border-color: $linkedin;
+    }
+}
