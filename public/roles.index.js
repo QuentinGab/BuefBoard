@@ -344,6 +344,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _b_models_Permission__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/models/Permission */ "./resources/js/backend/models/Permission.js");
 /* harmony import */ var lodash_differenceBy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/differenceBy */ "./node_modules/lodash/differenceBy.js");
 /* harmony import */ var lodash_differenceBy__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_differenceBy__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
+/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_5__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -414,18 +416,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -448,6 +439,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {},
   methods: {
+    onChange: lodash_debounce__WEBPACK_IMPORTED_MODULE_5___default()(function (role) {
+      this.saveRole(role);
+    }, 300),
     differencePermissions: function differencePermissions(p1, p2) {
       return lodash_differenceBy__WEBPACK_IMPORTED_MODULE_4___default()(p1, p2, "id");
     },
@@ -1252,50 +1246,21 @@ var render = function() {
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header" }, [
                 _c("div", { staticClass: "card-header-title level" }, [
-                  _c("div", { staticClass: "level-left" }, [
-                    _c(
-                      "h6",
-                      { staticClass: "title" },
-                      [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(role.name) +
-                            "\n                                "
-                        ),
-                        _c("b-tag", { attrs: { rounded: "" } }, [
-                          _vm._v(_vm._s(role.users_count))
-                        ])
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "level-right" }, [
-                    _c(
-                      "div",
-                      [
-                        role.name !== "god"
-                          ? _c(
-                              "b-button",
-                              {
-                                attrs: {
-                                  "icon-left": "content-save-outline",
-                                  type: "is-primary",
-                                  size: "is-small"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.saveRole(role)
-                                  }
-                                }
-                              },
-                              [_vm._v("save")]
-                            )
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  ])
+                  _c(
+                    "h6",
+                    { staticClass: "title" },
+                    [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(role.name) +
+                          "\n                                "
+                      ),
+                      _c("b-tag", { attrs: { rounded: "" } }, [
+                        _vm._v(_vm._s(role.users_count))
+                      ])
+                    ],
+                    1
+                  )
                 ])
               ]),
               _vm._v(" "),
@@ -1332,6 +1297,11 @@ var render = function() {
                                   "native-value": permission,
                                   type: "is-light"
                                 },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.onChange(role)
+                                  }
+                                },
                                 model: {
                                   value: role.permissions,
                                   callback: function($$v) {
@@ -1357,6 +1327,11 @@ var render = function() {
                                   attrs: {
                                     "native-value": permission,
                                     type: "is-primary"
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      return _vm.onChange(role)
+                                    }
                                   },
                                   model: {
                                     value: role.permissions,

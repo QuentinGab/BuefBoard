@@ -10,26 +10,12 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-header-title level">
-                            <div class="level-left">
                                 <h6 class="title">
                                     {{ role.name }}
                                     <b-tag rounded>{{
                                         role.users_count
                                     }}</b-tag>
-                                </h6>
-                            </div>
-                            <div class="level-right">
-                                <div>
-                                    <b-button
-                                        v-if="role.name !== 'god'"
-                                        @click="saveRole(role)"
-                                        icon-left="content-save-outline"
-                                        type="is-primary"
-                                        size="is-small"
-                                        >save</b-button
-                                    >
-                                </div>
-                            </div>
+                                </h6>                            
                         </div>
                     </div>
                     <div class="card-content">
@@ -50,6 +36,7 @@
                                 v-model="role.permissions"
                                 :native-value="permission"
                                 type="is-light"
+                                @input="onChange(role)"
                             >
                                 <span>{{ permission.name }}</span>
                             </b-checkbox-button>
@@ -63,6 +50,7 @@
                                 v-model="role.permissions"
                                 :native-value="permission"
                                 type="is-primary"
+                                @input="onChange(role)"
                             >
                                 <span>{{ permission.name }}</span>
                             </b-checkbox-button>
@@ -81,6 +69,7 @@ import Role from "@b/models/Role";
 import Permission from "@b/models/Permission";
 
 import differenceBy from "lodash/differenceBy";
+import debounce from "lodash/debounce";
 
 export default {
     name: "RoleIndex",
@@ -98,6 +87,9 @@ export default {
     },
     computed: {},
     methods: {
+        onChange: debounce(function(role) {
+            this.saveRole(role);
+        }, 300),
         differencePermissions(p1, p2) {
             return differenceBy(p1, p2, "id");
         },

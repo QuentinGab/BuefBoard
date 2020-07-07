@@ -18,9 +18,12 @@
                     Register
                 </a>
                 <span class="navbar-item">
-                    <b-button tag="a" icon-left="github" href="https://github.com/QuentinGab/BuefBoard" target="_blank">
-                        github
-                    </b-button>
+                    <a type="button" href="https://github.com/QuentinGab/BuefBoard" target="_blank" class="button"><span
+                            class="icon is-small"><i class="mdi mdi-github"></i>
+                        </span>
+                        <span>
+                            github
+                        </span> </a>
                 </span>
             </div>
         </div>
@@ -35,6 +38,18 @@
             <p class="subtitle">
                 The best Laravel/VueJS/Bulma Dashboard
             </p>
+            <div class="buttons is-centered">
+                <a href="/admin" class="button is-primary">
+                    Demo
+                </a>
+                <a href="https://github.com/QuentinGab/BuefBoard" class="button">
+                    <span class="icon is-small">
+                        <i class="mdi mdi-github"></i>
+                    </span>
+                    <span>
+                        github
+                    </span> </a>
+            </div>
         </div>
     </div>
 
@@ -42,8 +57,7 @@
         <div class="column is-12-tablet is-9-fullhd is-10-desktop">
             <div class="card">
                 <figure class="image">
-                    <img src="{{ asset("images/buefboard.gif") }}" alt=""
-                        srcset="">
+                    <img src="{{ asset("images/buefboard.gif") }}" alt="" srcset="">
                 </figure>
             </div>
         </div>
