@@ -56,9 +56,7 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   computed: {},
-  mounted: function mounted() {
-    console.log("Component mounted.");
-  },
+  mounted: function mounted() {},
   created: function created() {}
 });
 

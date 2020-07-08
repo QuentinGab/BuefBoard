@@ -122,9 +122,7 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   computed: {},
-  mounted: function mounted() {
-    console.log("Component mounted.");
-  },
+  mounted: function mounted() {},
   created: function created() {}
 });
 
@@ -226,15 +224,22 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
-/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
-/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _b_models_User__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/models/User */ "./resources/js/backend/models/User.js");
+/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
+/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_3__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -549,6 +554,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -597,22 +638,69 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: "-created_at"
       },
       filter: {
-        field: null,
+        object: {
+          type: "text",
+          field: false,
+          label: "Filters"
+        },
         value: null
       },
       isPaginationSimple: false,
       paginationPosition: "bottom"
     };
   },
-  computed: {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["user", "roles", "permissions"])), {}, {
     total: function total() {
       return this.pagination.total;
     },
-    fields: function fields() {
-      return ["id", "email", "first_name", "last_name", "created_before", "created_after", "roles", "permissions"];
+    filterType: function filterType() {
+      return this.filter.object.type;
+    },
+    filters: function filters() {
+      return [{
+        field: "id",
+        label: "ID",
+        type: "number"
+      }, {
+        field: "first_name",
+        type: "search",
+        label: "First Name"
+      }, {
+        field: "last_name",
+        type: "search",
+        label: "Last Name"
+      }, {
+        field: "email",
+        label: "Email",
+        type: "email"
+      }, {
+        field: "role",
+        label: "Role",
+        type: "select",
+        options: this.roles.map(function (role) {
+          return role.name;
+        })
+      }, {
+        field: "permission",
+        label: "Permission",
+        type: "select",
+        options: this.permissions.map(function (permission) {
+          return permission.name;
+        })
+      }, {
+        field: "created_after",
+        label: "Created After ",
+        type: "date",
+        maxDate: new Date()
+      }, {
+        field: "created_before",
+        label: "Created Before",
+        type: "date",
+        maxDate: new Date()
+      }];
     },
     isFiltered: function isFiltered() {
-      return !!(this.filter.field && this.filter.value);
+      return !!this.filter.object.field;
     },
     checkedLength: function checkedLength() {
       return this.checkedRows.length;
@@ -620,7 +708,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     isSelected: function isSelected() {
       return this.checkedRows.length > 0;
     }
-  },
+  }),
   methods: {
     onPageChange: function onPageChange(page) {
       this.pagination.current_page = page;
@@ -632,8 +720,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.sort.value = "".concat(this.sort.order).concat(this.sort.field);
       this.getUsers();
     },
-    onFilter: lodash_debounce__WEBPACK_IMPORTED_MODULE_2___default()(function () {
-      if (!this.filter.field) {
+    onFilter: lodash_debounce__WEBPACK_IMPORTED_MODULE_3___default()(function () {
+      if (!this.isFiltered) {
         return;
       }
 
@@ -651,10 +739,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _this.isLoading = true;
-                user = _b_models_User__WEBPACK_IMPORTED_MODULE_1__["default"].orderBy(_this.sort.value).page(_this.pagination.current_page).include("roles");
+                user = _b_models_User__WEBPACK_IMPORTED_MODULE_2__["default"].orderBy(_this.sort.value).page(_this.pagination.current_page).include("roles");
 
                 if (_this.isFiltered) {
-                  user.where(_this.filter.field, _this.filter.value);
+                  if (_this.filter.value instanceof Date) {
+                    user.where(_this.filter.object.field, moment(_this.filter.value).format("YYYY-MM-DD"));
+                  } else {
+                    user.where(_this.filter.object.field, _this.filter.value);
+                  }
                 }
 
                 if (_this.showTrashed) {
@@ -810,7 +902,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return true;
     },
     bulkExport: function bulkExport() {
-      var users = new _b_models_User__WEBPACK_IMPORTED_MODULE_1__["default"]().custom("users/export");
+      var users = new _b_models_User__WEBPACK_IMPORTED_MODULE_2__["default"]().custom("users/export");
 
       if (this.checkedLength > 0) {
         var usersId = this.checkedRows.map(function (item) {
@@ -1418,12 +1510,17 @@ var render = function() {
                             "b-dropdown",
                             {
                               attrs: { "aria-role": "list" },
+                              on: {
+                                change: function($event) {
+                                  _vm.filter.value = null
+                                }
+                              },
                               model: {
-                                value: _vm.filter.field,
+                                value: _vm.filter.object,
                                 callback: function($$v) {
-                                  _vm.$set(_vm.filter, "field", $$v)
+                                  _vm.$set(_vm.filter, "object", $$v)
                                 },
-                                expression: "filter.field"
+                                expression: "filter.object"
                               }
                             },
                             [
@@ -1436,13 +1533,7 @@ var render = function() {
                                 },
                                 [
                                   _c("span", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.filter.field
-                                          ? _vm.filter.field
-                                          : "Filters"
-                                      )
-                                    )
+                                    _vm._v(_vm._s(_vm.filter.object.label))
                                   ]),
                                   _vm._v(" "),
                                   _c("b-icon", {
@@ -1455,11 +1546,14 @@ var render = function() {
                                 1
                               ),
                               _vm._v(" "),
-                              _vm._l(_vm.fields, function(field) {
+                              _vm._l(_vm.filters, function(filter) {
                                 return _c(
                                   "b-dropdown-item",
-                                  { key: field, attrs: { value: field } },
-                                  [_vm._v(_vm._s(field))]
+                                  {
+                                    key: filter.field,
+                                    attrs: { value: filter }
+                                  },
+                                  [_vm._v(_vm._s(filter.label))]
                                 )
                               })
                             ],
@@ -1469,26 +1563,79 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _c("b-input", {
-                        attrs: {
-                          icon: "magnify",
-                          type: "search",
-                          placeholder: _vm.filter.field
-                            ? "Search..."
-                            : "Select a column",
-                          size: "is-small"
-                        },
-                        on: { input: _vm.onFilter },
-                        model: {
-                          value: _vm.filter.value,
-                          callback: function($$v) {
-                            _vm.$set(_vm.filter, "value", $$v)
-                          },
-                          expression: "filter.value"
-                        }
-                      })
+                      [
+                        _vm.filterType == "select"
+                          ? _c(
+                              "b-select",
+                              {
+                                attrs: {
+                                  placeholder: "Select",
+                                  size: "is-small"
+                                },
+                                on: { input: _vm.onFilter },
+                                model: {
+                                  value: _vm.filter.value,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.filter, "value", $$v)
+                                  },
+                                  expression: "filter.value"
+                                }
+                              },
+                              _vm._l(_vm.filter.object.options, function(
+                                option
+                              ) {
+                                return _c(
+                                  "option",
+                                  { key: option, domProps: { value: option } },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(option) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              }),
+                              0
+                            )
+                          : _vm.filterType == "date"
+                          ? _c("b-datepicker", {
+                              attrs: {
+                                placeholder: "Select a Date",
+                                icon: "calendar",
+                                "trap-focus": "",
+                                size: "is-small",
+                                "max-date": _vm.filter.object.maxDate || null,
+                                "min-date": _vm.filter.object.minDate || null
+                              },
+                              on: { input: _vm.onFilter },
+                              model: {
+                                value: _vm.filter.value,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.filter, "value", $$v)
+                                },
+                                expression: "filter.value"
+                              }
+                            })
+                          : _c("b-input", {
+                              attrs: {
+                                icon: "magnify",
+                                type: "search",
+                                placeholder: "Search...",
+                                size: "is-small"
+                              },
+                              on: { input: _vm.onFilter },
+                              model: {
+                                value: _vm.filter.value,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.filter, "value", $$v)
+                                },
+                                expression: "filter.value"
+                              }
+                            })
+                      ]
                     ],
-                    1
+                    2
                   )
                 ],
                 1
@@ -2069,15 +2216,9 @@ var render = function() {
                 "div",
                 { staticClass: "content has-text-grey has-text-centered" },
                 [
-                  _c(
-                    "p",
-                    [
-                      _c("b-icon", {
-                        attrs: { icon: "emoticon-sad", size: "is-large" }
-                      })
-                    ],
-                    1
-                  ),
+                  _c("p", { staticClass: "title is-3" }, [
+                    _vm._v("\n                        🙌\n                    ")
+                  ]),
                   _vm._v(" "),
                   _c("p", [_vm._v("Nothing here.")])
                 ]

@@ -338,11 +338,10 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import TitleBar from "@b/components/TitleBar";
 import differenceBy from "lodash/differenceBy";
-
-import Role from "@b/models/Role";
-import Permission from "@b/models/Permission";
 import User from "@b/models/User";
 
 export default {
@@ -365,8 +364,6 @@ export default {
                 roles: [],
                 permissions: []
             }),
-            roles: [],
-            permissions: [],
             loading: {
                 user: false,
                 roles: false,
@@ -379,6 +376,7 @@ export default {
         };
     },
     computed: {
+        ...mapState(["roles", "permissions"]),
         exists() {
             return !!this.id;
         },
@@ -390,19 +388,6 @@ export default {
         differenceById(item1, item2) {
             return differenceBy(item1, item2, "id");
         },
-        async getRoles() {
-            this.loading.roles = true;
-
-            this.roles = await Role.$get();
-            this.loading.roles = false;
-        },
-        async getPermissions() {
-            this.loading.permissions = true;
-
-            this.permissions = await Permission.$get();
-            this.loading.permissions = false;
-        },
-
         async getUser() {
             this.loading.refresh = true;
 
@@ -545,8 +530,6 @@ export default {
         if (this.exists) {
             this.getUser();
         }
-        this.getRoles();
-        this.getPermissions();
     },
     mounted() {}
 };

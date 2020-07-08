@@ -10,12 +10,10 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-header-title level">
-                                <h6 class="title">
-                                    {{ role.name }}
-                                    <b-tag rounded>{{
-                                        role.users_count
-                                    }}</b-tag>
-                                </h6>                            
+                            <h6 class="title">
+                                {{ role.name }}
+                                <b-tag rounded>{{ role.users_count }}</b-tag>
+                            </h6>
                         </div>
                     </div>
                     <div class="card-content">
@@ -63,6 +61,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import TitleBar from "@b/components/TitleBar";
 
 import Role from "@b/models/Role";
@@ -76,8 +75,6 @@ export default {
     components: { TitleBar },
     data() {
         return {
-            roles: [],
-            permissions: [],
             loading: {
                 roles: false,
                 permissions: false
@@ -85,7 +82,9 @@ export default {
             checkboxGroup: []
         };
     },
-    computed: {},
+    computed: {
+        ...mapState(["user", "roles", "permissions"])
+    },
     methods: {
         onChange: debounce(function(role) {
             this.saveRole(role);
@@ -103,28 +102,9 @@ export default {
                     queue: false
                 });
             });
-        },
-        async getRoles() {
-            this.loading.roles = true;
-
-            this.roles = await Role.include("permissions").$get();
-
-            this.loading.roles = false;
-        },
-        async getPermissions() {
-            this.loading.permissions = true;
-
-            let response = await Permission.get().then(response => {
-                this.permissions = response.data;
-            });
-
-            this.loading.permissions = false;
         }
     },
-    created() {
-        this.getRoles();
-        this.getPermissions();
-    },
+    created() {},
     mounted() {}
 };
 </script>
