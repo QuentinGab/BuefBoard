@@ -11,6 +11,11 @@ Buefborad is a Laravel + VueJS + Bulma SPA Dashboard, it is a great starter poin
 - Policy: Users and Roles.
 - API: keep it clean with [spatie query builder package](https://github.com/spatie/laravel-query-builder) and [vue-api-query](https://github.com/robsontenorio/vue-api-query)
 
+## Installation
+```bash
+git clone https://github.com/QuentinGab/BuefBoard.git
+```
+
 ## Packages:
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
 - [spatie/laravel-query-builder](https://github.com/spatie/laravel-query-builder)
