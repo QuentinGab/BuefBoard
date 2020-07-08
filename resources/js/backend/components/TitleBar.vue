@@ -42,9 +42,7 @@ export default {
         return {};
     },
     computed: {},
-    mounted() {
-        console.log("Component mounted.");
-    },
+    mounted() {},
     created() {}
 };
 </script>

@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"404":"404","dashboard":"dashboard","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","roles.index~users.form":"roles.index~users.form","roles.index":"roles.index","users.form":"users.form","vendors~users.index":"vendors~users.index","users.index":"users.index"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"404":"404","dashboard":"dashboard","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","roles.index":"roles.index","users.form":"users.form","vendors~users.index":"vendors~users.index","users.index":"users.index"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -2398,6 +2398,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _b_components_NotificationCenter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/components/NotificationCenter */ "./resources/js/backend/components/NotificationCenter.vue");
 /* harmony import */ var _b_components_NavBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @b/components/NavBar */ "./resources/js/backend/components/NavBar.vue");
 /* harmony import */ var _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @b/models/CurrentUser */ "./resources/js/backend/models/CurrentUser.js");
+/* harmony import */ var _b_models_Role__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @b/models/Role */ "./resources/js/backend/models/Role.js");
+/* harmony import */ var _b_models_Permission__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @b/models/Permission */ "./resources/js/backend/models/Permission.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2426,6 +2428,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 // @b/ is an alias to /src/backend
+
+
 
 
 
@@ -2500,16 +2504,68 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }, _callee);
       }))();
+    },
+    getRoles: function getRoles() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var roles;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _b_models_Role__WEBPACK_IMPORTED_MODULE_6__["default"].include("permissions").$get();
+
+              case 2:
+                roles = _context2.sent;
+
+                _this2.$store.commit("updateRoles", roles);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    getPermissions: function getPermissions() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var permissions;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _b_models_Permission__WEBPACK_IMPORTED_MODULE_7__["default"].$get();
+
+              case 2:
+                permissions = _context3.sent;
+
+                _this3.$store.commit("updatePermissions", permissions);
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   },
   created: function created() {
     this.getCurrentUser();
+    this.getRoles();
+    this.getPermissions();
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this4 = this;
 
     window.addEventListener("offline", function () {
-      _this2.$buefy.snackbar.open({
+      _this4.$buefy.snackbar.open({
         duration: 10000,
         message: "You are not online anymore, please check your internet connection",
         type: "is-danger",
@@ -78462,6 +78518,126 @@ var Model = /*#__PURE__*/function (_BaseModel) {
 
 /***/ }),
 
+/***/ "./resources/js/backend/models/Permission.js":
+/*!***************************************************!*\
+  !*** ./resources/js/backend/models/Permission.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Permission; });
+/* harmony import */ var _Model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Model */ "./resources/js/backend/models/Model.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var Permission = /*#__PURE__*/function (_Model) {
+  _inherits(Permission, _Model);
+
+  var _super = _createSuper(Permission);
+
+  function Permission() {
+    _classCallCheck(this, Permission);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Permission, [{
+    key: "resource",
+    value: function resource() {
+      return "permissions";
+    }
+  }]);
+
+  return Permission;
+}(_Model__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/backend/models/Role.js":
+/*!*********************************************!*\
+  !*** ./resources/js/backend/models/Role.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Role; });
+/* harmony import */ var _Model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Model */ "./resources/js/backend/models/Model.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var Role = /*#__PURE__*/function (_Model) {
+  _inherits(Role, _Model);
+
+  var _super = _createSuper(Role);
+
+  function Role() {
+    _classCallCheck(this, Role);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Role, [{
+    key: "resource",
+    value: function resource() {
+      return "roles";
+    }
+  }]);
+
+  return Role;
+}(_Model__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
 /***/ "./resources/js/backend/models/User.js":
 /*!*********************************************!*\
   !*** ./resources/js/backend/models/User.js ***!
@@ -78668,13 +78844,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/users/new",
     name: "users.new",
     component: function component() {
-      return Promise.all(/*! import() | users.form */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.form"), __webpack_require__.e("users.form")]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
+      return Promise.all(/*! import() | users.form */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("users.form")]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
     }
   }, {
     path: "/users/:id",
     name: "users.edit",
     component: function component() {
-      return Promise.all(/*! import() | users.form */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.form"), __webpack_require__.e("users.form")]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
+      return Promise.all(/*! import() | users.form */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("users.form")]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
     },
     props: true
   }, {
@@ -78688,14 +78864,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/roles/index",
     name: "roles.index",
     component: function component() {
-      return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.form"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
+      return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
     }
   }, // Activities Management
   {
     path: "/activities/index",
     name: "activities.index",
     component: function component() {
-      return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.form"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/activities/ActivitiesIndex.vue */ "./resources/js/backend/views/activities/ActivitiesIndex.vue"));
+      return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/activities/ActivitiesIndex.vue */ "./resources/js/backend/views/activities/ActivitiesIndex.vue"));
     }
   }, // NotFound
   {
@@ -78744,6 +78920,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     user: {},
+    roles: [],
+    permissions: [],
     notificationCenter: {
       open: false,
       notifications: [{
@@ -78776,6 +78954,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     updateLoadingUser: function updateLoadingUser(state, isLoading) {
       state.loading.user = isLoading;
+    },
+    updateRoles: function updateRoles(state, roles) {
+      state.roles = roles;
+    },
+    updatePermissions: function updatePermissions(state, permissions) {
+      state.permissions = permissions;
     },
 
     /* Notification center */

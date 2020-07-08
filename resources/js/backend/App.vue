@@ -22,6 +22,8 @@ import NotificationCenter from "@b/components/NotificationCenter";
 import NavBar from "@b/components/NavBar";
 
 import CurrentUser from "@b/models/CurrentUser";
+import Role from "@b/models/Role";
+import Permission from "@b/models/Permission";
 
 export default {
     name: "App",
@@ -79,10 +81,20 @@ export default {
             );
             this.$store.commit("updateUser", user);
             this.$store.commit("updateLoadingUser", false);
+        },
+        async getRoles() {
+            let roles = await Role.include("permissions").$get();
+            this.$store.commit("updateRoles", roles);
+        },
+        async getPermissions() {
+            let permissions = await Permission.$get();
+            this.$store.commit("updatePermissions", permissions);
         }
     },
     created() {
         this.getCurrentUser();
+        this.getRoles();
+        this.getPermissions();
     },
     mounted() {
         window.addEventListener("offline", () => {

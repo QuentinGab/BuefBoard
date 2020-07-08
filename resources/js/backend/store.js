@@ -6,17 +6,19 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         user: {},
+        roles: [],
+        permissions: [],
         notificationCenter: {
             open: false,
             notifications: [
                 {
-                    id:1,
+                    id: 1,
                     message:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit",
                     type: "is-primary"
                 },
                 {
-                    id:2,
+                    id: 2,
                     message:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit",
                     type: "is-default"
@@ -42,6 +44,12 @@ export default new Vuex.Store({
         },
         updateLoadingUser(state, isLoading) {
             state.loading.user = isLoading;
+        },
+        updateRoles(state, roles) {
+            state.roles = roles;
+        },
+        updatePermissions(state, permissions) {
+            state.permissions = permissions;
         },
         /* Notification center */
         updateNotificationCenter(state, isOpen) {

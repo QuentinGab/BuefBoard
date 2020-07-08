@@ -13,11 +13,13 @@
                 <div v-if="canFilter">
                     <b-field>
                         <p class="control">
-                            <b-dropdown v-model="filter.field" aria-role="list">
+                            <b-dropdown
+                                v-model="filter.object"
+                                aria-role="list"
+                                v-on:change="filter.value=null"
+                            >
                                 <button class="button is-small" slot="trigger">
-                                    <span>{{
-                                        filter.field ? filter.field : "Filters"
-                                    }}</span>
+                                    <span>{{ filter.object.label }}</span>
                                     <b-icon
                                         icon="chevron-down"
                                         size="is-small"
@@ -25,23 +27,51 @@
                                 </button>
 
                                 <b-dropdown-item
-                                    :value="field"
-                                    v-for="field in fields"
-                                    :key="field"
-                                    >{{ field }}</b-dropdown-item
+                                    v-for="filter in filters"
+                                    :value="filter"
+                                    :key="filter.field"
+                                    >{{ filter.label }}</b-dropdown-item
                                 >
                             </b-dropdown>
                         </p>
-                        <b-input
-                            icon="magnify"
-                            type="search"
-                            :placeholder="
-                                filter.field ? 'Search...' : 'Select a column'
-                            "
-                            size="is-small"
-                            v-model="filter.value"
-                            v-on:input="onFilter"
-                        ></b-input>
+                        <template>
+                            <b-select
+                                v-if="filterType == 'select'"
+                                placeholder="Select"
+                                v-model="filter.value"
+                                size="is-small"
+                                v-on:input="onFilter"
+                            >
+                                <option
+                                    v-for="option in filter.object.options"
+                                    :value="option"
+                                    :key="option"
+                                >
+                                    {{ option }}
+                                </option>
+                            </b-select>
+                            <b-datepicker
+                                v-else-if="filterType == 'date'"
+                                placeholder="Select a Date"
+                                icon="calendar"
+                                trap-focus
+                                size="is-small"
+                                v-model="filter.value"
+                                v-on:input="onFilter"
+                                :max-date="filter.object.maxDate || null"
+                                :min-date="filter.object.minDate || null"
+                            >
+                            </b-datepicker>
+                            <b-input
+                                v-else
+                                icon="magnify"
+                                type="search"
+                                placeholder="Search..."
+                                size="is-small"
+                                v-model="filter.value"
+                                v-on:input="onFilter"
+                            ></b-input>
+                        </template>
                     </b-field>
                 </div>
                 <div v-if="canSeeTrashed">
@@ -193,7 +223,13 @@
             scrollable
         >
             <template slot-scope="props">
-                <b-table-column field="id" label="ID" numeric sortable width="40">
+                <b-table-column
+                    field="id"
+                    label="ID"
+                    numeric
+                    sortable
+                    width="40"
+                >
                     {{ props.row.id }}
                 </b-table-column>
                 <b-table-column field="first_name" label="First Name" sortable>
@@ -293,9 +329,8 @@
             <template slot="empty">
                 <section class="section">
                     <div class="content has-text-grey has-text-centered">
-                        <p>
-                            <b-icon icon="emoticon-sad" size="is-large">
-                            </b-icon>
+                        <p class="title is-3">
+                            🙌
                         </p>
                         <p>Nothing here.</p>
                     </div>
@@ -313,8 +348,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import User from "@b/models/User";
-
 import debounce from "lodash/debounce";
 
 export default {
@@ -363,7 +398,11 @@ export default {
                 value: "-created_at"
             },
             filter: {
-                field: null,
+                object: {
+                    type: "text",
+                    field: false,
+                    label: "Filters"
+                },
                 value: null
             },
 
@@ -372,23 +411,63 @@ export default {
         };
     },
     computed: {
+        ...mapState(["user", "roles", "permissions"]),
         total() {
             return this.pagination.total;
         },
-        fields() {
+        filterType() {
+            return this.filter.object.type;
+        },
+        filters() {
             return [
-                "id",
-                "email",
-                "first_name",
-                "last_name",
-                "created_before",
-                "created_after",
-                "roles",
-                "permissions"
+                {
+                    field: "id",
+                    label: "ID",
+                    type: "number"
+                },
+                {
+                    field: "first_name",
+                    type: "search",
+                    label: "First Name"
+                },
+                {
+                    field: "last_name",
+                    type: "search",
+                    label: "Last Name"
+                },
+                {
+                    field: "email",
+                    label: "Email",
+                    type: "email"
+                },
+                {
+                    field: "role",
+                    label: "Role",
+                    type: "select",
+                    options: this.roles.map(role => role.name)
+                },
+                {
+                    field: "permission",
+                    label: "Permission",
+                    type: "select",
+                    options: this.permissions.map(permission => permission.name)
+                },
+                {
+                    field: "created_after",
+                    label: "Created After ",
+                    type: "date",
+                    maxDate: new Date()
+                },
+                {
+                    field: "created_before",
+                    label: "Created Before",
+                    type: "date",
+                    maxDate: new Date()
+                }
             ];
         },
         isFiltered() {
-            return !!(this.filter.field && this.filter.value);
+            return !!this.filter.object.field;
         },
         checkedLength() {
             return this.checkedRows.length;
@@ -409,7 +488,7 @@ export default {
             this.getUsers();
         },
         onFilter: debounce(function() {
-            if (!this.filter.field) {
+            if (!this.isFiltered) {
                 return;
             }
             this.checkedRows = [];
@@ -423,7 +502,14 @@ export default {
                 .page(this.pagination.current_page)
                 .include("roles");
             if (this.isFiltered) {
-                user.where(this.filter.field, this.filter.value);
+                if (this.filter.value instanceof Date) {
+                    user.where(
+                        this.filter.object.field,
+                        moment(this.filter.value).format("YYYY-MM-DD")
+                    );
+                } else {
+                    user.where(this.filter.object.field, this.filter.value);
+                }
             }
             if (this.showTrashed) {
                 user.where("trashed", "only");
