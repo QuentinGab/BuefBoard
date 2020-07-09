@@ -23,7 +23,7 @@
                             <div class="">
                                 <b-field horizontal>
                                     <template slot="label">
-                                        <figure class="image avatar is-128x128">
+                                        <figure class="image avatar is-128x128 is-pulled-right">
                                             <img
                                                 v-if="
                                                     currentUser &&

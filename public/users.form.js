@@ -429,6 +429,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -961,10 +969,34 @@ var render = function() {
                         "b-field",
                         { attrs: { horizontal: "" } },
                         [
+                          _c("template", { slot: "label" }, [
+                            _c(
+                              "figure",
+                              {
+                                staticClass:
+                                  "image avatar is-128x128 is-pulled-right"
+                              },
+                              [
+                                _vm.user && _vm.user.avatar
+                                  ? _c("img", {
+                                      attrs: { src: _vm.user.avatar }
+                                    })
+                                  : _vm._e()
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
                           _c(
-                            "template",
-                            { slot: "label" },
+                            "div",
                             [
+                              _c("h1", { staticClass: "title" }, [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(_vm.user.fullname) +
+                                    "\n                                    "
+                                )
+                              ]),
+                              _vm._v(" "),
                               _c("b-tag", { attrs: { size: "is-large" } }, [
                                 _vm._v(
                                   "\n                                        #" +
@@ -974,15 +1006,7 @@ var render = function() {
                               ])
                             ],
                             1
-                          ),
-                          _vm._v(" "),
-                          _c("h1", { staticClass: "title" }, [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm.user.fullname) +
-                                "\n                                "
-                            )
-                          ])
+                          )
                         ],
                         2
                       ),

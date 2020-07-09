@@ -229,7 +229,7 @@
             scrollable
         >
             <template slot-scope="props">
-                <b-table-column field="avatar" width="40">
+                <b-table-column field="avatar" width="48">
                     <figure class="image avatar is-24x24">
                         <img class="is-rounded" :src="props.row.avatar" />
                     </figure>

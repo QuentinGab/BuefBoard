@@ -74,13 +74,21 @@
                             <div class="">
                                 <b-field horizontal>
                                     <template slot="label">
+                                        <figure class="image avatar is-128x128 is-pulled-right">
+                                            <img
+                                                v-if="user && user.avatar"
+                                                :src="user.avatar"
+                                            />
+                                        </figure>
+                                    </template>
+                                    <div>
+                                        <h1 class="title">
+                                            {{ user.fullname }}
+                                        </h1>
                                         <b-tag size="is-large">
                                             #{{ user.id }}
                                         </b-tag>
-                                    </template>
-                                    <h1 class="title">
-                                        {{ user.fullname }}
-                                    </h1>
+                                    </div>
                                 </b-field>
                                 <hr />
                                 <b-field horizontal label="Information">

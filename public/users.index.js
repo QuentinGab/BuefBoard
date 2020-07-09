@@ -1992,7 +1992,7 @@ var render = function() {
                 return [
                   _c(
                     "b-table-column",
-                    { attrs: { field: "avatar", width: "40" } },
+                    { attrs: { field: "avatar", width: "48" } },
                     [
                       _c("figure", { staticClass: "image avatar is-24x24" }, [
                         _c("img", {

@@ -21,8 +21,8 @@ trait UserMedia
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('square')
-                    ->width(200)
-                    ->height(200);
+                    ->width(256)
+                    ->height(256);
             });
     }
 

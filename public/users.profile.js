@@ -695,7 +695,10 @@ var render = function() {
                         _c("template", { slot: "label" }, [
                           _c(
                             "figure",
-                            { staticClass: "image avatar is-128x128" },
+                            {
+                              staticClass:
+                                "image avatar is-128x128 is-pulled-right"
+                            },
                             [
                               _vm.currentUser && _vm.currentUser.avatar
                                 ? _c("img", {
