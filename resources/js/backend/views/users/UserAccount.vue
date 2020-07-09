@@ -23,13 +23,55 @@
                             <div class="">
                                 <b-field horizontal>
                                     <template slot="label">
-                                        <b-tag size="is-large">
-                                            #{{ user.id }}
-                                        </b-tag>
+                                        <figure class="image avatar is-128x128">
+                                            <img
+                                                v-if="
+                                                    currentUser &&
+                                                        currentUser.avatar
+                                                "
+                                                :src="currentUser.avatar"
+                                            />
+                                        </figure>
                                     </template>
-                                    <h1 class="title">
-                                        {{ user.fullname }}
-                                    </h1>
+                                    <div>
+                                        <h1 class="title">
+                                            {{ currentUser.fullname }}
+                                        </h1>
+                                        <b-tag size="is-large">
+                                            #{{ currentUser.id }}
+                                        </b-tag>
+                                    </div>
+                                </b-field>
+                                <hr />
+                                <b-field horizontal label="Avatar">
+                                    <b-field class="file">
+                                        <b-upload
+                                            v-model="avatar"
+                                            accept="image/*"
+                                            v-on:input="changeAvatar"
+                                        >
+                                            <b-loading
+                                                :is-full-page="false"
+                                                :active.sync="
+                                                    loading.currentUser.avatar
+                                                "
+                                            />
+                                            <a class="button is-primary">
+                                                <b-icon
+                                                    icon="cloud-upload-outline"
+                                                ></b-icon>
+                                                <span>Upload</span>
+                                            </a>
+                                        </b-upload>
+                                        <p class="control">
+                                            <b-button
+                                                @click="deleteAvatar"
+                                                type="is-light"
+                                            >
+                                                Delete
+                                            </b-button>
+                                        </p>
+                                    </b-field>
                                 </b-field>
                                 <hr />
                                 <b-field horizontal label="Information">
@@ -40,7 +82,7 @@
                                     >
                                         <b-input
                                             id="first_name"
-                                            v-model="user.first_name"
+                                            v-model="currentUser.first_name"
                                         ></b-input>
                                     </b-field>
                                     <b-field
@@ -50,7 +92,7 @@
                                     >
                                         <b-input
                                             id="last_name"
-                                            v-model="user.last_name"
+                                            v-model="currentUser.last_name"
                                         ></b-input>
                                     </b-field>
                                 </b-field>
@@ -60,12 +102,13 @@
                                         label="Email"
                                         label-for="email"
                                         :type="
-                                            exists && !user.email_verified
+                                            exists &&
+                                            !currentUser.email_verified
                                                 ? 'is-warning'
                                                 : null
                                         "
                                         :message="
-                                            user.email_verified
+                                            currentUser.email_verified
                                                 ? 'Your email is verified'
                                                 : 'Your email is not verified'
                                         "
@@ -73,7 +116,7 @@
                                         <b-input
                                             id="email"
                                             type="email"
-                                            v-model="user.email"
+                                            v-model="currentUser.email"
                                         ></b-input>
                                     </b-field>
                                 </b-field>
@@ -86,7 +129,7 @@
                                     ></b-skeleton>
                                     <div class="buttons">
                                         <b-button
-                                            v-for="role in user.roles"
+                                            v-for="role in currentUser.roles"
                                             :key="role.id"
                                             type="is-primary"
                                         >
@@ -97,14 +140,14 @@
                                 <hr />
                                 <template
                                     v-if="
-                                        user.permissions &&
-                                            user.permissions.length > 0
+                                        currentUser.permissions &&
+                                            currentUser.permissions.length > 0
                                     "
                                 >
                                     <b-field horizontal label="Permissions">
                                         <div class="buttons">
                                             <b-button
-                                                v-for="permission in user.permissions"
+                                                v-for="permission in currentUser.permissions"
                                                 :key="permission.id"
                                                 type="is-primary"
                                             >
@@ -121,15 +164,19 @@
                                             <b-button
                                                 @click="saveUser"
                                                 type="is-primary"
-                                                :loading="this.loading.save"
+                                                :loading="
+                                                    loading.currentUser.save
+                                                "
                                             >
                                                 Save
                                             </b-button>
                                             <b-button
                                                 v-if="exists"
-                                                @click="getUser"
+                                                @click="getCurrentUser"
                                                 type="is-default"
-                                                :loading="this.loading.refresh"
+                                                :loading="
+                                                    loading.currentUser.get
+                                                "
                                                 icon-left="refresh"
                                             ></b-button>
                                         </p>
@@ -191,8 +238,10 @@
                                         <b-button
                                             @click="changePassword"
                                             type="is-primary"
-                                            :loading="this.loading.password"
-                                            :disabled="!this.passwordValidated"
+                                            :loading="
+                                                loading.currentUser.password
+                                            "
+                                            :disabled="!passwordValidated"
                                         >
                                             Change password
                                         </b-button>
@@ -207,7 +256,6 @@
                                             @click="confirmDestroy"
                                             type="is-danger"
                                             outlined
-                                            :loading="this.loading.user"
                                         >
                                             Delete my account
                                         </b-button>
@@ -226,32 +274,22 @@
 import TitleBar from "@b/components/TitleBar";
 import CurrentUser from "@b/models/CurrentUser";
 
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
-    name: "UserForm",
+    name: "UserAccount",
     components: { TitleBar },
     data() {
         return {
-            roles: [],
-            permissions: [],
+            avatar: null,
             password: null,
-            password_confirmation: null,
-            loading: {
-                user: false,
-                roles: false,
-                permissions: false,
-                save: false,
-                refresh: false,
-                password: false,
-                email_verification: false
-            }
+            password_confirmation: null
         };
     },
     computed: {
-        ...mapState(["user"]),
+        ...mapState(["currentUser", "loading"]),
         id() {
-            return this.user.id;
+            return this.currentUser.id;
         },
         exists() {
             return !!this.id;
@@ -259,7 +297,7 @@ export default {
         passwordConfirmed() {
             return this.password === this.password_confirmation;
         },
-        passwordValidated(){
+        passwordValidated() {
             if (this.password == null || this.password == "") {
                 return false;
             }
@@ -267,21 +305,10 @@ export default {
         }
     },
     methods: {
-        async getUser() {
-            this.loading.refresh = true;
-            this.$store.commit("updateLoadingUser", true);
-            let user = await CurrentUser.include("roles", "permissions").$find(
-                "current"
-            );
-
-            this.$store.commit("updateUser", user);
-            this.$store.commit("updateLoadingUser", false);
-
-            this.loading.refresh = false;
-        },
+        ...mapActions(["getCurrentUser"]),
         async saveUser() {
-            this.loading.save = true;
-            await this.user.save().then(response => {
+            this.loading.currentUser.save = true;
+            await this.currentUser.save().then(response => {
                 this.$buefy.snackbar.open({
                     duration: 2000,
                     message: `Your account has been updated`,
@@ -290,14 +317,51 @@ export default {
                     queue: false
                 });
             });
+            this.loading.currentUser.save = false;
+        },
+        async changeAvatar() {
+            this.loading.currentUser.avatar = true;
+            var formData = new FormData();
+            formData.append("avatar", this.avatar);
+            await axios
+                .post(`${this.currentUser.endpoint()}/avatar`, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                .then(r => {
+                    this.getCurrentUser();
+                    this.$buefy.snackbar.open({
+                        duration: 2000,
+                        message: `Your Avatar has been changed`,
+                        type: "is-info",
+                        position: "is-bottom-right",
+                        queue: false
+                    });
+                });
+            this.loading.currentUser.avatar = false;
+        },
+        async deleteAvatar() {
+            this.loading.currentUser.avatar = true;
 
-            this.loading.save = false;
+            await axios
+                .delete(`${this.currentUser.endpoint()}/avatar`)
+                .then(r => {
+                    this.getCurrentUser();
+                    this.$buefy.snackbar.open({
+                        duration: 2000,
+                        message: `Your Avatar has been deleted`,
+                        type: "is-info",
+                        position: "is-bottom-right",
+                        queue: false
+                    });
+                });
+            this.loading.currentUser.avatar = false;
         },
         async changePassword() {
-            this.loading.password = true;
-
+            this.loading.currentUser.password = true;
             axios
-                .put(`${this.user.endpoint()}/password`, {
+                .put(`${this.currentUser.endpoint()}/password`, {
                     password: this.password,
                     password_confirmation: this.password_confirmation
                 })
@@ -310,23 +374,18 @@ export default {
                         queue: false
                     });
                 });
-
-            this.loading.password = false;
+            this.loading.currentUser.password = false;
         },
         async deleteUser() {
-            this.loading.user = true;
-            await this.user.delete().then(response => {
+            await this.currentUser.delete().then(response => {
                 this.$buefy.snackbar.open({
                     duration: 2000,
-                    message: `${this.user.fullname} has been trashed`,
+                    message: `${this.currentUser.fullname} has been deleted`,
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
                 });
             });
-
-            this.loading.user = false;
-            this.getUser();
         },
 
         confirmDestroy() {

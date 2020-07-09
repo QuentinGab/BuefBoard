@@ -3,19 +3,18 @@
 namespace App\Models;
 
 use App\Models\Traits\Scopes\UserScope;
+use App\Models\Traits\UserMedia;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Carbon;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
-    use Notifiable, HasRoles, SoftDeletes, LogsActivity, UserScope;
+    use Notifiable, HasRoles, SoftDeletes, LogsActivity, UserScope, UserMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -53,9 +52,18 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Log activuty
      */
+    protected static $logName = 'users';
     protected static $recordEvents = ['deleted', 'created'];
 
-    protected static $logName = 'users';
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 
     public function isBlocked()
     {

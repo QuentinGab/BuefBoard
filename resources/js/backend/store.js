@@ -1,11 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import CurrentUser from "@b/models/CurrentUser";
+import Role from "@b/models/Role";
+import Permission from "@b/models/Permission";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        user: {},
+        currentUser: {},
         roles: [],
         permissions: [],
         notificationCenter: {
@@ -30,7 +33,14 @@ export default new Vuex.Store({
         },
         logo: "/images/LOGO.svg",
         loading: {
-            user: false
+            currentUser: {
+                save: false,
+                get: false,
+                password:false,
+                avatar:false
+            },
+            roles: false,
+            permissions: false
         }
     },
     mutations: {
@@ -38,12 +48,15 @@ export default new Vuex.Store({
         basic(state, payload) {
             state[payload.key] = payload.value;
         },
-        /* User */
-        updateUser(state, user) {
-            state.user = user;
+        updateLoading(state, payload) {
+            state.loading[payload.key] = payload.value;
         },
-        updateLoadingUser(state, isLoading) {
-            state.loading.user = isLoading;
+        /* currentUser */
+        updateUser(state, currentUser) {
+            state.currentUser = currentUser;
+        },
+        updateLoadingUser(state, payload) {
+            state.loading.currentUser[payload.key] = payload.value;
         },
         updateRoles(state, roles) {
             state.roles = roles;
@@ -59,5 +72,26 @@ export default new Vuex.Store({
             state.notificationCenter.open = !state.notificationCenter.open;
         }
     },
-    actions: {}
+    actions: {
+        async getCurrentUser({ commit }) {
+            commit("updateLoadingUser", { key: "get", value: true });
+            let currentUser = await CurrentUser.include(
+                "roles",
+                "permissions"
+            ).$find("current");
+            commit("updateUser", currentUser);
+            commit("updateLoadingUser", { key: "get", value: false });
+            return currentUser;
+        },
+        async getRoles({ commit }) {
+            let roles = await Role.include("permissions").$get();
+            commit("updateRoles", roles);
+            return roles;
+        },
+        async getPermissions({ commit }) {
+            let permissions = await Permission.$get();
+            commit("updatePermissions", permissions);
+            return permissions;
+        }
+    }
 });

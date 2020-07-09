@@ -18841,7 +18841,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .card {
   border-radius: 6px;
-  overflow: hidden;
 }
 
 .card .card-header {
@@ -18918,6 +18917,20 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   background-color: rgba(122, 122, 122, 0.2);
   border-radius: 50%;
   padding: 10px;
+}
+
+.avatar {
+  overflow: hidden;
+}
+
+.avatar img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
 }
 
 html {

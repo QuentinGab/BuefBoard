@@ -16,7 +16,7 @@
                             <b-dropdown
                                 v-model="filter.object"
                                 aria-role="list"
-                                v-on:change="filter.value=null"
+                                v-on:change="filter.value = null"
                             >
                                 <button class="button is-small" slot="trigger">
                                     <span>{{ filter.object.label }}</span>
@@ -72,6 +72,12 @@
                                 v-on:input="onFilter"
                             ></b-input>
                         </template>
+                        <b-button
+                            size="is-small"
+                            icon-left="close"
+                            @click="clearFilter"
+                            :disabled="!isFiltered"
+                        ></b-button>
                     </b-field>
                 </div>
                 <div v-if="canSeeTrashed">
@@ -223,6 +229,11 @@
             scrollable
         >
             <template slot-scope="props">
+                <b-table-column field="avatar" width="40">
+                    <figure class="image avatar is-24x24">
+                        <img class="is-rounded" :src="props.row.avatar" />
+                    </figure>
+                </b-table-column>
                 <b-table-column
                     field="id"
                     label="ID"
@@ -527,6 +538,9 @@ export default {
         refreshAndClear() {
             this.checkedRows = [];
             this.refresh();
+        },
+        clearFilter() {
+            (this.filter.value = null), this.refresh();
         },
         //confirm actions
         confirmDelete() {

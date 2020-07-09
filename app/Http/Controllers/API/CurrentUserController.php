@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class CurrentUserController extends Controller
@@ -21,7 +22,7 @@ class CurrentUserController extends Controller
      */
     public function show(Request $request)
     {
-        $user = QueryBuilder::for(User::class) 
+        $user = QueryBuilder::for(User::class)
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
                 ->find($request->user()->id);
 
@@ -71,7 +72,51 @@ class CurrentUserController extends Controller
     }
 
     /**
+     * Update current user's avatar
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAvatar(Request $request)
+    {
+        $user = $request->user();
+        $this->authorize('update', $user);
+
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $file = $request->file('avatar');
+            $extension = $file->extension();
+            $filename = Str::slug($user->fullname);
+
+            $user->addMediaFromRequest('avatar')
+                ->usingName($user->fullname)
+                ->usingFileName("$filename.$extension")
+                ->toMediaCollection('avatar');
+        }
+
+        return new UserResource($user);
+    }
+
+    /**
+     * Delete current user's avatar
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyAvatar(Request $request)
+    {
+        $user = $request->user();
+        $this->authorize('update', $user);
+
+        $user->clearMediaCollection('avatar');
+
+        return new UserResource($user);
+    }
+
+
+
+    /**
      * Remove the user from storage.
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)

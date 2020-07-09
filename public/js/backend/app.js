@@ -2391,21 +2391,10 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _b_components_AsideMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/components/AsideMenu */ "./resources/js/backend/components/AsideMenu.vue");
-/* harmony import */ var _b_components_NotificationCenter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/components/NotificationCenter */ "./resources/js/backend/components/NotificationCenter.vue");
-/* harmony import */ var _b_components_NavBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @b/components/NavBar */ "./resources/js/backend/components/NavBar.vue");
-/* harmony import */ var _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @b/models/CurrentUser */ "./resources/js/backend/models/CurrentUser.js");
-/* harmony import */ var _b_models_Role__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @b/models/Role */ "./resources/js/backend/models/Role.js");
-/* harmony import */ var _b_models_Permission__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @b/models/Permission */ "./resources/js/backend/models/Permission.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _b_components_AsideMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/components/AsideMenu */ "./resources/js/backend/components/AsideMenu.vue");
+/* harmony import */ var _b_components_NotificationCenter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/components/NotificationCenter */ "./resources/js/backend/components/NotificationCenter.vue");
+/* harmony import */ var _b_components_NavBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/components/NavBar */ "./resources/js/backend/components/NavBar.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2432,15 +2421,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   components: {
-    AsideMenu: _b_components_AsideMenu__WEBPACK_IMPORTED_MODULE_2__["default"],
-    NavBar: _b_components_NavBar__WEBPACK_IMPORTED_MODULE_4__["default"],
-    NotificationCenter: _b_components_NotificationCenter__WEBPACK_IMPORTED_MODULE_3__["default"]
+    AsideMenu: _b_components_AsideMenu__WEBPACK_IMPORTED_MODULE_1__["default"],
+    NavBar: _b_components_NavBar__WEBPACK_IMPORTED_MODULE_3__["default"],
+    NotificationCenter: _b_components_NotificationCenter__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -2474,98 +2460,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }]
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["user", "loading"])),
-  methods: {
-    getCurrentUser: function getCurrentUser() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var user;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _this.$store.commit("updateLoadingUser", true);
-
-                _context.next = 3;
-                return _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_5__["default"].include("roles", "permissions").$find("current");
-
-              case 3:
-                user = _context.sent;
-
-                _this.$store.commit("updateUser", user);
-
-                _this.$store.commit("updateLoadingUser", false);
-
-              case 6:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    getRoles: function getRoles() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var roles;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return _b_models_Role__WEBPACK_IMPORTED_MODULE_6__["default"].include("permissions").$get();
-
-              case 2:
-                roles = _context2.sent;
-
-                _this2.$store.commit("updateRoles", roles);
-
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    getPermissions: function getPermissions() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var permissions;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return _b_models_Permission__WEBPACK_IMPORTED_MODULE_7__["default"].$get();
-
-              case 2:
-                permissions = _context3.sent;
-
-                _this3.$store.commit("updatePermissions", permissions);
-
-              case 4:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    }
-  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["currentUser", "loading"])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["getCurrentUser", "getRoles", "getPermissions"])),
   created: function created() {
     this.getCurrentUser();
     this.getRoles();
     this.getPermissions();
   },
   mounted: function mounted() {
-    var _this4 = this;
+    var _this = this;
 
     window.addEventListener("offline", function () {
-      _this4.$buefy.snackbar.open({
+      _this.$buefy.snackbar.open({
         duration: 10000,
         message: "You are not online anymore, please check your internet connection",
         type: "is-danger",
@@ -2777,7 +2683,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       menu: []
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["user", "loading", "logo"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["currentUser", "loading", "logo"])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["toggleNotificationCenter"])),
   created: function created() {}
 });
@@ -61280,7 +61186,7 @@ var render = function() {
                     _c("span", { staticClass: "h6" }, [
                       _vm._v(
                         "\n                        " +
-                          _vm._s(_vm.user.fullname) +
+                          _vm._s(_vm.currentUser.fullname) +
                           "\n                    "
                       )
                     ])
@@ -61297,7 +61203,7 @@ var render = function() {
                 [
                   _c(
                     "b-taglist",
-                    _vm._l(_vm.user.roles, function(role) {
+                    _vm._l(_vm.currentUser.roles, function(role) {
                       return _c(
                         "b-tag",
                         { key: role.id, attrs: { type: "is-primary" } },
@@ -78911,15 +78817,29 @@ router.afterEach(function (to, from) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/models/CurrentUser */ "./resources/js/backend/models/CurrentUser.js");
+/* harmony import */ var _b_models_Role__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @b/models/Role */ "./resources/js/backend/models/Role.js");
+/* harmony import */ var _b_models_Permission__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @b/models/Permission */ "./resources/js/backend/models/Permission.js");
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
   state: {
-    user: {},
+    currentUser: {},
     roles: [],
     permissions: [],
     notificationCenter: {
@@ -78939,7 +78859,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     logo: "/images/LOGO.svg",
     loading: {
-      user: false
+      currentUser: {
+        save: false,
+        get: false,
+        password: false,
+        avatar: false
+      },
+      roles: false,
+      permissions: false
     }
   },
   mutations: {
@@ -78947,13 +78874,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     basic: function basic(state, payload) {
       state[payload.key] = payload.value;
     },
-
-    /* User */
-    updateUser: function updateUser(state, user) {
-      state.user = user;
+    updateLoading: function updateLoading(state, payload) {
+      state.loading[payload.key] = payload.value;
     },
-    updateLoadingUser: function updateLoadingUser(state, isLoading) {
-      state.loading.user = isLoading;
+
+    /* currentUser */
+    updateUser: function updateUser(state, currentUser) {
+      state.currentUser = currentUser;
+    },
+    updateLoadingUser: function updateLoadingUser(state, payload) {
+      state.loading.currentUser[payload.key] = payload.value;
     },
     updateRoles: function updateRoles(state, roles) {
       state.roles = roles;
@@ -78970,7 +78900,88 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.notificationCenter.open = !state.notificationCenter.open;
     }
   },
-  actions: {}
+  actions: {
+    getCurrentUser: function getCurrentUser(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit, currentUser;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                commit("updateLoadingUser", {
+                  key: "get",
+                  value: true
+                });
+                _context.next = 4;
+                return _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_3__["default"].include("roles", "permissions").$find("current");
+
+              case 4:
+                currentUser = _context.sent;
+                commit("updateUser", currentUser);
+                commit("updateLoadingUser", {
+                  key: "get",
+                  value: false
+                });
+                return _context.abrupt("return", currentUser);
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getRoles: function getRoles(_ref2) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit, roles;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return _b_models_Role__WEBPACK_IMPORTED_MODULE_4__["default"].include("permissions").$get();
+
+              case 3:
+                roles = _context2.sent;
+                commit("updateRoles", roles);
+                return _context2.abrupt("return", roles);
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    getPermissions: function getPermissions(_ref3) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit, permissions;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                _context3.next = 3;
+                return _b_models_Permission__WEBPACK_IMPORTED_MODULE_5__["default"].$get();
+
+              case 3:
+                permissions = _context3.sent;
+                commit("updatePermissions", permissions);
+                return _context3.abrupt("return", permissions);
+
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    }
+  }
 }));
 
 /***/ }),

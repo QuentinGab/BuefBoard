@@ -600,7 +600,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   methods: {},
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["user", "loading"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["currentUser", "loading"])),
   mounted: function mounted() {},
   created: function created() {}
 });
@@ -1138,7 +1138,7 @@ var render = function() {
             _c("br"),
             _vm._v(
               "\n                " +
-                _vm._s(_vm.user.first_name) +
+                _vm._s(_vm.currentUser.first_name) +
                 " 👋\n            "
             )
           ]),
@@ -1146,7 +1146,7 @@ var render = function() {
           _c(
             "b-taglist",
             { staticClass: "subtitle" },
-            _vm._l(_vm.user.roles, function(role) {
+            _vm._l(_vm.currentUser.roles, function(role) {
               return _c(
                 "b-tag",
                 { key: role.id, attrs: { type: "is-primary" } },

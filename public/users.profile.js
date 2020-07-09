@@ -312,34 +312,72 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "UserForm",
+  name: "UserAccount",
   components: {
     TitleBar: _b_components_TitleBar__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      roles: [],
-      permissions: [],
+      avatar: null,
       password: null,
-      password_confirmation: null,
-      loading: {
-        user: false,
-        roles: false,
-        permissions: false,
-        save: false,
-        refresh: false,
-        password: false,
-        email_verification: false
-      }
+      password_confirmation: null
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(["user"])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(["currentUser", "loading"])), {}, {
     id: function id() {
-      return this.user.id;
+      return this.currentUser.id;
     },
     exists: function exists() {
       return !!this.id;
@@ -355,52 +393,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.passwordConfirmed;
     }
   }),
-  methods: {
-    getUser: function getUser() {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(["getCurrentUser"])), {}, {
+    saveUser: function saveUser() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var user;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.loading.refresh = true;
-
-                _this.$store.commit("updateLoadingUser", true);
-
-                _context.next = 4;
-                return _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_2__["default"].include("roles", "permissions").$find("current");
-
-              case 4:
-                user = _context.sent;
-
-                _this.$store.commit("updateUser", user);
-
-                _this.$store.commit("updateLoadingUser", false);
-
-                _this.loading.refresh = false;
-
-              case 8:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    saveUser: function saveUser() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _this2.loading.save = true;
-                _context2.next = 3;
-                return _this2.user.save().then(function (response) {
-                  _this2.$buefy.snackbar.open({
+                _this.loading.currentUser.save = true;
+                _context.next = 3;
+                return _this.currentUser.save().then(function (response) {
+                  _this.$buefy.snackbar.open({
                     duration: 2000,
                     message: "Your account has been updated",
                     type: "is-info",
@@ -410,9 +415,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
-                _this2.loading.save = false;
+                _this.loading.currentUser.save = false;
 
               case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    changeAvatar: function changeAvatar() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var formData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.loading.currentUser.avatar = true;
+                formData = new FormData();
+                formData.append("avatar", _this2.avatar);
+                _context2.next = 5;
+                return axios.post("".concat(_this2.currentUser.endpoint(), "/avatar"), formData, {
+                  headers: {
+                    "Content-Type": "multipart/form-data"
+                  }
+                }).then(function (r) {
+                  _this2.getCurrentUser();
+
+                  _this2.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "Your Avatar has been changed",
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
+                  });
+                });
+
+              case 5:
+                _this2.loading.currentUser.avatar = false;
+
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -420,7 +465,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee2);
       }))();
     },
-    changePassword: function changePassword() {
+    deleteAvatar: function deleteAvatar() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
@@ -428,22 +473,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this3.loading.password = true;
-                axios.put("".concat(_this3.user.endpoint(), "/password"), {
-                  password: _this3.password,
-                  password_confirmation: _this3.password_confirmation
-                }).then(function (r) {
+                _this3.loading.currentUser.avatar = true;
+                _context3.next = 3;
+                return axios["delete"]("".concat(_this3.currentUser.endpoint(), "/avatar")).then(function (r) {
+                  _this3.getCurrentUser();
+
                   _this3.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "Your password has been changed",
+                    message: "Your Avatar has been deleted",
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
                   });
                 });
-                _this3.loading.password = false;
 
               case 3:
+                _this3.loading.currentUser.avatar = false;
+
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -451,7 +498,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee3);
       }))();
     },
-    deleteUser: function deleteUser() {
+    changePassword: function changePassword() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
@@ -459,24 +506,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _this4.loading.user = true;
-                _context4.next = 3;
-                return _this4.user["delete"]().then(function (response) {
+                _this4.loading.currentUser.password = true;
+                axios.put("".concat(_this4.currentUser.endpoint(), "/password"), {
+                  password: _this4.password,
+                  password_confirmation: _this4.password_confirmation
+                }).then(function (r) {
                   _this4.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this4.user.fullname, " has been trashed"),
+                    message: "Your password has been changed",
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
                   });
                 });
+                _this4.loading.currentUser.password = false;
 
               case 3:
-                _this4.loading.user = false;
-
-                _this4.getUser();
-
-              case 5:
               case "end":
                 return _context4.stop();
             }
@@ -484,8 +529,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee4);
       }))();
     },
-    confirmDestroy: function confirmDestroy() {
+    deleteUser: function deleteUser() {
       var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return _this5.currentUser["delete"]().then(function (response) {
+                  _this5.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "".concat(_this5.currentUser.fullname, " has been deleted"),
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
+                  });
+                });
+
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    confirmDestroy: function confirmDestroy() {
+      var _this6 = this;
 
       this.$buefy.dialog.confirm({
         title: "Destroying your account",
@@ -494,11 +566,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "is-danger",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this5.deleteUser();
+          return _this6.deleteUser();
         }
       });
     }
-  },
+  }),
   created: function created() {},
   mounted: function mounted() {}
 });
@@ -620,30 +692,125 @@ var render = function() {
                       "b-field",
                       { attrs: { horizontal: "" } },
                       [
+                        _c("template", { slot: "label" }, [
+                          _c(
+                            "figure",
+                            { staticClass: "image avatar is-128x128" },
+                            [
+                              _vm.currentUser && _vm.currentUser.avatar
+                                ? _c("img", {
+                                    attrs: { src: _vm.currentUser.avatar }
+                                  })
+                                : _vm._e()
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
                         _c(
-                          "template",
-                          { slot: "label" },
+                          "div",
                           [
+                            _c("h1", { staticClass: "title" }, [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(_vm.currentUser.fullname) +
+                                  "\n                                    "
+                              )
+                            ]),
+                            _vm._v(" "),
                             _c("b-tag", { attrs: { size: "is-large" } }, [
                               _vm._v(
                                 "\n                                        #" +
-                                  _vm._s(_vm.user.id) +
+                                  _vm._s(_vm.currentUser.id) +
                                   "\n                                    "
                               )
                             ])
                           ],
                           1
-                        ),
-                        _vm._v(" "),
-                        _c("h1", { staticClass: "title" }, [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.user.fullname) +
-                              "\n                                "
-                          )
-                        ])
+                        )
                       ],
                       2
+                    ),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c(
+                      "b-field",
+                      { attrs: { horizontal: "", label: "Avatar" } },
+                      [
+                        _c(
+                          "b-field",
+                          { staticClass: "file" },
+                          [
+                            _c(
+                              "b-upload",
+                              {
+                                attrs: { accept: "image/*" },
+                                on: { input: _vm.changeAvatar },
+                                model: {
+                                  value: _vm.avatar,
+                                  callback: function($$v) {
+                                    _vm.avatar = $$v
+                                  },
+                                  expression: "avatar"
+                                }
+                              },
+                              [
+                                _c("b-loading", {
+                                  attrs: {
+                                    "is-full-page": false,
+                                    active: _vm.loading.currentUser.avatar
+                                  },
+                                  on: {
+                                    "update:active": function($event) {
+                                      return _vm.$set(
+                                        _vm.loading.currentUser,
+                                        "avatar",
+                                        $event
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  { staticClass: "button is-primary" },
+                                  [
+                                    _c("b-icon", {
+                                      attrs: { icon: "cloud-upload-outline" }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", [_vm._v("Upload")])
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              { staticClass: "control" },
+                              [
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: { type: "is-light" },
+                                    on: { click: _vm.deleteAvatar }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Delete\n                                        "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
                     ),
                     _vm._v(" "),
                     _c("hr"),
@@ -665,11 +832,11 @@ var render = function() {
                             _c("b-input", {
                               attrs: { id: "first_name" },
                               model: {
-                                value: _vm.user.first_name,
+                                value: _vm.currentUser.first_name,
                                 callback: function($$v) {
-                                  _vm.$set(_vm.user, "first_name", $$v)
+                                  _vm.$set(_vm.currentUser, "first_name", $$v)
                                 },
-                                expression: "user.first_name"
+                                expression: "currentUser.first_name"
                               }
                             })
                           ],
@@ -689,11 +856,11 @@ var render = function() {
                             _c("b-input", {
                               attrs: { id: "last_name" },
                               model: {
-                                value: _vm.user.last_name,
+                                value: _vm.currentUser.last_name,
                                 callback: function($$v) {
-                                  _vm.$set(_vm.user, "last_name", $$v)
+                                  _vm.$set(_vm.currentUser, "last_name", $$v)
                                 },
-                                expression: "user.last_name"
+                                expression: "currentUser.last_name"
                               }
                             })
                           ],
@@ -714,10 +881,10 @@ var render = function() {
                               label: "Email",
                               "label-for": "email",
                               type:
-                                _vm.exists && !_vm.user.email_verified
+                                _vm.exists && !_vm.currentUser.email_verified
                                   ? "is-warning"
                                   : null,
-                              message: _vm.user.email_verified
+                              message: _vm.currentUser.email_verified
                                 ? "Your email is verified"
                                 : "Your email is not verified"
                             }
@@ -726,11 +893,11 @@ var render = function() {
                             _c("b-input", {
                               attrs: { id: "email", type: "email" },
                               model: {
-                                value: _vm.user.email,
+                                value: _vm.currentUser.email,
                                 callback: function($$v) {
-                                  _vm.$set(_vm.user, "email", $$v)
+                                  _vm.$set(_vm.currentUser, "email", $$v)
                                 },
-                                expression: "user.email"
+                                expression: "currentUser.email"
                               }
                             })
                           ],
@@ -753,7 +920,7 @@ var render = function() {
                         _c(
                           "div",
                           { staticClass: "buttons" },
-                          _vm._l(_vm.user.roles, function(role) {
+                          _vm._l(_vm.currentUser.roles, function(role) {
                             return _c(
                               "b-button",
                               { key: role.id, attrs: { type: "is-primary" } },
@@ -774,7 +941,8 @@ var render = function() {
                     _vm._v(" "),
                     _c("hr"),
                     _vm._v(" "),
-                    _vm.user.permissions && _vm.user.permissions.length > 0
+                    _vm.currentUser.permissions &&
+                    _vm.currentUser.permissions.length > 0
                       ? [
                           _c(
                             "b-field",
@@ -783,7 +951,7 @@ var render = function() {
                               _c(
                                 "div",
                                 { staticClass: "buttons" },
-                                _vm._l(_vm.user.permissions, function(
+                                _vm._l(_vm.currentUser.permissions, function(
                                   permission
                                 ) {
                                   return _c(
@@ -824,7 +992,7 @@ var render = function() {
                                 {
                                   attrs: {
                                     type: "is-primary",
-                                    loading: this.loading.save
+                                    loading: _vm.loading.currentUser.save
                                   },
                                   on: { click: _vm.saveUser }
                                 },
@@ -839,10 +1007,10 @@ var render = function() {
                                 ? _c("b-button", {
                                     attrs: {
                                       type: "is-default",
-                                      loading: this.loading.refresh,
+                                      loading: _vm.loading.currentUser.get,
                                       "icon-left": "refresh"
                                     },
-                                    on: { click: _vm.getUser }
+                                    on: { click: _vm.getCurrentUser }
                                   })
                                 : _vm._e()
                             ],
@@ -958,8 +1126,8 @@ var render = function() {
                               {
                                 attrs: {
                                   type: "is-primary",
-                                  loading: this.loading.password,
-                                  disabled: !this.passwordValidated
+                                  loading: _vm.loading.currentUser.password,
+                                  disabled: !_vm.passwordValidated
                                 },
                                 on: { click: _vm.changePassword }
                               },
@@ -991,11 +1159,7 @@ var render = function() {
                             _c(
                               "b-button",
                               {
-                                attrs: {
-                                  type: "is-danger",
-                                  outlined: "",
-                                  loading: this.loading.user
-                                },
+                                attrs: { type: "is-danger", outlined: "" },
                                 on: { click: _vm.confirmDestroy }
                               },
                               [

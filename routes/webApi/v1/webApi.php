@@ -23,6 +23,8 @@ Route::prefix('/users/current')->group(function () {
     Route::get('', 'CurrentUserController@show');
     Route::put('', 'CurrentUserController@update');
     Route::put('/password', 'CurrentUserController@updatePassword');
+    Route::post('/avatar', 'CurrentUserController@updateAvatar');
+    Route::delete('/avatar', 'CurrentUserController@destroyAvatar');
     Route::delete('', 'CurrentUserController@destroy');
 });
 

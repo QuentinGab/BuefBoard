@@ -16,6 +16,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'id' => $this->id,
             'first_name' => $this->first_name,
@@ -27,6 +28,7 @@ class UserResource extends JsonResource
             'email_verified_at' => $this->email_verified_at,
             'blocked_at' => $this->blocked_at,
             'deleted_at' => $this->when($this->trashed(), $this->deleted_at),
+            'avatar' => str_replace(':seed',$this->id,$this->getFirstMediaUrl('avatar')),
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
         ];

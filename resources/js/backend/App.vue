@@ -15,15 +15,11 @@
 
 <script>
 // @b/ is an alias to /src/backend
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 import AsideMenu from "@b/components/AsideMenu";
 import NotificationCenter from "@b/components/NotificationCenter";
 import NavBar from "@b/components/NavBar";
-
-import CurrentUser from "@b/models/CurrentUser";
-import Role from "@b/models/Role";
-import Permission from "@b/models/Permission";
 
 export default {
     name: "App",
@@ -71,25 +67,10 @@ export default {
         };
     },
     computed: {
-        ...mapState(["user", "loading"])
+        ...mapState(["currentUser", "loading"])
     },
     methods: {
-        async getCurrentUser() {
-            this.$store.commit("updateLoadingUser", true);
-            let user = await CurrentUser.include("roles", "permissions").$find(
-                "current"
-            );
-            this.$store.commit("updateUser", user);
-            this.$store.commit("updateLoadingUser", false);
-        },
-        async getRoles() {
-            let roles = await Role.include("permissions").$get();
-            this.$store.commit("updateRoles", roles);
-        },
-        async getPermissions() {
-            let permissions = await Permission.$get();
-            this.$store.commit("updatePermissions", permissions);
-        }
+        ...mapActions(["getCurrentUser", "getRoles", "getPermissions"])
     },
     created() {
         this.getCurrentUser();

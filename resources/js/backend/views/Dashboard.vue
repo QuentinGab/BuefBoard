@@ -4,11 +4,11 @@
             <div class="column">
                 <h1 class="title is-1">
                     <b>Hello</b> <br />
-                    {{ user.first_name }} 👋
+                    {{ currentUser.first_name }} 👋
                 </h1>
                 <b-taglist class="subtitle">
                     <b-tag
-                        v-for="role in user.roles"
+                        v-for="role in currentUser.roles"
                         :key="role.id"
                         type="is-primary"
                     >
@@ -46,7 +46,7 @@ export default {
     },
     methods: {},
     computed: {
-        ...mapState(["user", "loading"])
+        ...mapState(["currentUser", "loading"])
     },
     mounted() {},
     created() {}

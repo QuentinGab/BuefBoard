@@ -589,6 +589,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -777,6 +788,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     refreshAndClear: function refreshAndClear() {
       this.checkedRows = [];
       this.refresh();
+    },
+    clearFilter: function clearFilter() {
+      this.filter.value = null, this.refresh();
     },
     //confirm actions
     confirmDelete: function confirmDelete() {
@@ -1633,7 +1647,16 @@ var render = function() {
                                 expression: "filter.value"
                               }
                             })
-                      ]
+                      ],
+                      _vm._v(" "),
+                      _c("b-button", {
+                        attrs: {
+                          size: "is-small",
+                          "icon-left": "close",
+                          disabled: !_vm.isFiltered
+                        },
+                        on: { click: _vm.clearFilter }
+                      })
                     ],
                     2
                   )
@@ -1967,6 +1990,19 @@ var render = function() {
               key: "default",
               fn: function(props) {
                 return [
+                  _c(
+                    "b-table-column",
+                    { attrs: { field: "avatar", width: "40" } },
+                    [
+                      _c("figure", { staticClass: "image avatar is-24x24" }, [
+                        _c("img", {
+                          staticClass: "is-rounded",
+                          attrs: { src: props.row.avatar }
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
                   _c(
                     "b-table-column",
                     {

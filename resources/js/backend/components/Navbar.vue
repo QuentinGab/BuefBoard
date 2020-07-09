@@ -26,7 +26,7 @@
                     <b-icon icon="account-circle"></b-icon>
                     <div>
                         <span class="h6">
-                            {{ user.fullname }}
+                            {{ currentUser.fullname }}
                         </span>
                     </div>
                     <b-icon icon="chevron-down"></b-icon>
@@ -34,7 +34,7 @@
                 <b-dropdown-item custom aria-role="menuitem">
                     <b-taglist>
                         <b-tag
-                            v-for="role in user.roles"
+                            v-for="role in currentUser.roles"
                             :key="role.id"
                             type="is-primary"
                         >
@@ -88,7 +88,7 @@ export default {
         };
     },
     computed: {
-        ...mapState(["user", "loading", "logo"])
+        ...mapState(["currentUser", "loading", "logo"])
     },
     methods: {
         ...mapMutations(["toggleNotificationCenter"])
