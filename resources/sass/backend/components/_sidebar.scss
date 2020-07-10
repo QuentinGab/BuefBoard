@@ -1,9 +1,9 @@
-//size
 .bb-sidebar {
     height: 100%;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
 
     .sidebar-content {
+        background-color: $background-primary;
         height: 100%;
         overflow: auto;
         overflow-x: hidden;

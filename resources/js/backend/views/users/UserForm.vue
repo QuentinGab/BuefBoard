@@ -304,19 +304,23 @@
                                 <b-field horizontal label="Block">
                                     <b-field>
                                         <b-button
-                                            @click="
-                                                user.blocked
-                                                    ? unblockUser()
-                                                    : blockUser()
-                                            "
+                                            v-if="user.blocked"
+                                            @click="unblockUser()"
                                             type="is-warning"
                                             :loading="this.loading.user"
-                                            >{{
-                                                user.blocked
-                                                    ? "Unblock"
-                                                    : "Block"
-                                            }}</b-button
+                                            icon-left="restore"
                                         >
+                                            Unblock
+                                        </b-button>
+                                        <b-button
+                                            v-else
+                                            icon-left="cancel"
+                                            @click="blockUser()"
+                                            type="is-warning"
+                                            :loading="this.loading.user"
+                                        >
+                                            Block
+                                        </b-button>
                                     </b-field>
                                 </b-field>
                                 <hr />

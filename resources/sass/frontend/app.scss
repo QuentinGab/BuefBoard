@@ -1,11 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap");
 
+// Import custom variables
 @import "./variables";
 
-@import "../global/global";
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
 
-@import "./functions";
+// Import root setup
 @import "./root";
 
 /* Theme components */
 @import "./components/all";
+
+
+.p-0 {
+    padding: 0;
+}
+.p-1 {
+    padding: 1rem;
+}
+.m-0 {
+    margin: 0;
+}

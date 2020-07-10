@@ -60979,14 +60979,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "b-sidebar",
-    {
-      attrs: {
-        position: "static",
-        reduce: _vm.reduce,
-        type: "is-white",
-        open: ""
-      }
-    },
+    { attrs: { position: "static", reduce: _vm.reduce, open: "" } },
     [
       _c(
         "div",

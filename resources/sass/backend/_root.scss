@@ -40,15 +40,10 @@ $colors: (
     "black": $black,
     "black-bis": $black-bis,
     "black-ter": $black-ter,
-    "dark": $dark,
-    "dark-bis": $dark-bis,
-    "dark-ter": $dark-ter,
     "grey": $grey,
     "grey-light": $grey-light,
     "grey-dark": $grey-dark,
     "blue": $blue,
-    "blue-light": $blue-light,
-    "blue-dark": $blue-dark,
     "purple": $purple,
     "red": $red,
     "orange": $orange,
@@ -60,7 +55,9 @@ $colors: (
     "primary-light": $primary-light,
     "info": $info,
     "light": $light,
-    "background": $background
+    "background": $background,
+    "background-primary": $background-primary,
+    "background-secondary": $background-secondary,
 );
 
 :root {

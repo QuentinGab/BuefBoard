@@ -446,6 +446,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -1777,29 +1781,47 @@ var render = function() {
                             _c(
                               "b-field",
                               [
-                                _c(
-                                  "b-button",
-                                  {
-                                    attrs: {
-                                      type: "is-warning",
-                                      loading: this.loading.user
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.user.blocked
-                                          ? _vm.unblockUser()
-                                          : _vm.blockUser()
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.user.blocked ? "Unblock" : "Block"
-                                      )
+                                _vm.user.blocked
+                                  ? _c(
+                                      "b-button",
+                                      {
+                                        attrs: {
+                                          type: "is-warning",
+                                          loading: this.loading.user,
+                                          "icon-left": "restore"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.unblockUser()
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                        Unblock\n                                    "
+                                        )
+                                      ]
                                     )
-                                  ]
-                                )
+                                  : _c(
+                                      "b-button",
+                                      {
+                                        attrs: {
+                                          "icon-left": "cancel",
+                                          type: "is-warning",
+                                          loading: this.loading.user
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.blockUser()
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                        Block\n                                    "
+                                        )
+                                      ]
+                                    )
                               ],
                               1
                             )

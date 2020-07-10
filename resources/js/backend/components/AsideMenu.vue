@@ -1,5 +1,5 @@
 <template>
-    <b-sidebar position="static" :reduce="reduce" type="is-white" open>
+    <b-sidebar position="static" :reduce="reduce" open>
         <div class="">
             <b-menu class="is-custom-mobile">
                 <b-menu-list

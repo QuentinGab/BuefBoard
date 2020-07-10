@@ -1,10 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap");
 
+// Import custom variables
 @import "./variables";
 
-@import "../global/global";
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
 
-@import "./functions";
+// Import root setup
 @import "./root";
 
 /* Theme components */
@@ -14,7 +17,7 @@ html {
     overflow: hidden;
 }
 body {
-    background-color: var(--bb-background, $background);
+    background-color: var(--bb-background-secondary, $background-secondary);
 }
 
 .bb-content {
@@ -39,4 +42,15 @@ body {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
+}
+
+
+.p-0 {
+    padding: 0;
+}
+.p-1 {
+    padding: 1rem;
+}
+.m-0 {
+    margin: 0;
 }
