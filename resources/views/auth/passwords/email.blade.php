@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="hero is-link is-fullheight">
+<div class="hero is-primary is-fullheight">
     <div class="hero-body is-columns">
         <div class="columns">
             <div class="column is-6">
@@ -28,7 +28,7 @@
                         <div class="field">
                             <label for="email" class="label">{{ __('E-Mail Address') }}</label>
                             <div class="control has-icons-left">
-                                <b-icon icon="email"></b-icon>
+                                <b-icon icon="at"></b-icon>
 
                                 <input id="email" class="input @error('email') is-danger @enderror" type="email"
                                     name="email" placeholder="platon@gmail.com"

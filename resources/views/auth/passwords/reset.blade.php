@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="hero is-link is-fullheight">
+<div class="hero is-primary is-fullheight">
     <div class="hero-body">
         <div class="container">
             <div class="columns">
@@ -24,13 +24,12 @@
                             <div class="field">
                                 <label for="email" class="label">{{ __('E-Mail Address') }}</label>
                                 <div class="control has-icons-left">
+                                    <b-icon icon="at"></b-icon>
+
                                     <input id="email" class="input @error('email') is-danger @enderror" type="email"
                                         name="email" placeholder="platon@gmail.com"
                                         value="{{ $email ?? old('email') }}" required
                                         autocomplete="email">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-envelope"></i>
-                                    </span>
                                 </div>
                                 @error('email')
                                     <p class="help is-danger"><strong>{{ $message }}</strong></p>
@@ -40,11 +39,11 @@
                             <div class="field">
                                 <label class="label" for="password">{{ __('Password') }}</label>
                                 <div class="control has-icons-left">
+                                    <b-icon icon="form-textbox-password"></b-icon>
+
                                     <input id="password" class="input @error('password') is-danger @enderror"
                                         type="password" name="password" required autocomplete="new-password">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-pass"></i>
-                                    </span>
+
                                 </div>
                                 @error('password')
                                     <p class="help is-danger"><strong>{{ $message }}</strong></p>
@@ -55,17 +54,16 @@
                                 <label class="label"
                                     for="password-confirm">{{ __('Confirm Password') }}</label>
                                 <div class="control has-icons-left">
+                                    <b-icon icon="form-textbox-password"></b-icon>
+
                                     <input id="password-confirm" class="input @error('password') is-danger @enderror"
                                         type="password" name="password_confirmation"
                                         value="{{ old('email') }}" required required
                                         autocomplete="new-password">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-pass"></i>
-                                    </span>
+                                    @error('password')
+                                        <p class="help is-danger"><strong>{{ $message }}</strong></p>
+                                    @enderror
                                 </div>
-                                @error('password')
-                                    <p class="help is-danger"><strong>{{ $message }}</strong></p>
-                                @enderror
                             </div>
 
                             <div class="field is-grouped">
