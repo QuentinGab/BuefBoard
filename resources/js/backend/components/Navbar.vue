@@ -16,22 +16,16 @@
         </template>
 
         <template slot="end">
-            <b-dropdown
-                position="is-bottom-left"
-                append-to-body
-                aria-role="menu"
-                class="bb-navbar-account"
-            >
-                <a class="navbar-item has-divider" slot="trigger" role="button">
-                    <b-icon icon="account-circle"></b-icon>
-                    <div>
-                        <span class="h6">
-                            {{ currentUser.fullname }}
-                        </span>
-                    </div>
-                    <b-icon icon="chevron-down"></b-icon>
-                </a>
-                <b-dropdown-item custom aria-role="menuitem">
+            <b-navbar-dropdown position="is-bottom-left" hoverable boxed>
+                <template slot="label">
+                    <figure class="image avatar is-24x24">
+                        <img class="is-rounded" :src="currentUser.avatar" />
+                    </figure>
+                    <span class="h6">
+                        {{ currentUser.fullname }}
+                    </span>
+                </template>
+                <b-navbar-item tag="div" aria-role="menuitem">
                     <b-taglist>
                         <b-tag
                             v-for="role in currentUser.roles"
@@ -41,35 +35,30 @@
                             {{ role.name }}
                         </b-tag>
                     </b-taglist>
-                </b-dropdown-item>
+                </b-navbar-item>
                 <hr class="dropdown-divider" />
-                <b-dropdown-item has-link aria-role="menuitem">
-                    <router-link :to="{ name: 'dashboard' }">
-                        <b-icon icon="desktop-mac" size="is-small"></b-icon>
-                        DashBoard
-                    </router-link>
-                </b-dropdown-item>
-                <b-dropdown-item has-link aria-role="menuitem">
-                    <router-link :to="{ name: 'users.account' }">
-                        <b-icon
-                            icon="account-circle-outline"
-                            size="is-small"
-                        ></b-icon>
-                        My Account
-                    </router-link>
-                </b-dropdown-item>
-                <b-dropdown-item has-link aria-role="menuitem">
-                    <a href="/logout">
-                        <b-icon icon="logout" size="is-small"></b-icon>
-                        Logout
-                    </a>
-                </b-dropdown-item>
-            </b-dropdown>
+                <b-navbar-item
+                    v-for="(item, index) in dropdownMenu"
+                    :key="index"
+                    :tag="item.to ? 'router-link' : 'a'"
+                    :to="item.to"
+                    :href="item.href"
+                >
+                    <b-icon :icon="item.icon" size="is-small"></b-icon>
+                    <span>
+                        {{ item.label }}
+                    </span>
+                </b-navbar-item>
+            </b-navbar-dropdown>
+
             <b-navbar-item
                 @click="toggleNotificationCenter()"
-                class="has-divider is-icon"
+                class="has-divider has-divider-left is-icon"
             >
                 <b-icon icon="bell-outline" size="is-small"></b-icon>
+            </b-navbar-item>
+            <b-navbar-item href="/logout" class="is-icon">
+                <b-icon icon="logout" size="is-small"></b-icon>
             </b-navbar-item>
         </template>
     </b-navbar>
@@ -88,7 +77,29 @@ export default {
         };
     },
     computed: {
-        ...mapState(["currentUser", "loading", "logo"])
+        ...mapState(["currentUser", "loading", "logo"]),
+        dropdownMenu() {
+            return [
+                {
+                    label: "Dashboard",
+                    icon: "view-dashboard-outline",
+                    href: null,
+                    to: { name: "dashboard" }
+                },
+                {
+                    label: "My Account",
+                    icon: "account-circle-outline",
+                    href: null,
+                    to: { name: "users.account" }
+                },
+                {
+                    label: "Logout",
+                    icon: "logout",
+                    href: "/logout",
+                    to: null
+                }
+            ];
+        }
     },
     methods: {
         ...mapMutations(["toggleNotificationCenter"])

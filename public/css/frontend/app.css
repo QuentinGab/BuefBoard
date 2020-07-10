@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap);@charset "UTF-8";
-/*! bulma.io v0.7.5 | MIT License | github.com/jgthms/bulma */
 @-webkit-keyframes spinAround {
   from {
     transform: rotate(0deg);
@@ -8,6 +7,211 @@
     transform: rotate(359deg);
   }
 }
+@keyframes spinAround {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+.switch, .b-radio.radio, .b-checkbox.checkbox, .carousel-list, .carousel, .tabs, .pagination-previous,
+.pagination-next,
+.pagination-link,
+.pagination-ellipsis, .breadcrumb, .file, .button, .is-unselectable, .modal-close, .delete {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.navbar-link:not(.is-arrowless)::after, .select:not(.is-multiple):not(.is-loading)::after {
+  border: 3px solid transparent;
+  border-radius: 2px;
+  border-right: 0;
+  border-top: 0;
+  content: " ";
+  display: block;
+  height: 0.625em;
+  margin-top: -0.4375em;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: rotate(-45deg);
+  transform-origin: center;
+  width: 0.625em;
+}
+
+.tabs:not(:last-child), .message:not(:last-child), .list:not(:last-child), .level:not(:last-child), .breadcrumb:not(:last-child), .highlight:not(:last-child), .block:not(:last-child), .title:not(:last-child),
+.subtitle:not(:last-child), .table-container:not(:last-child), .table:not(:last-child), .progress:not(:last-child), .notification:not(:last-child), .content:not(:last-child), .box:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.modal-close, .delete {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: rgba(10, 10, 10, 0.2);
+  border: none;
+  border-radius: 290486px;
+  cursor: pointer;
+  pointer-events: auto;
+  display: inline-block;
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-size: 0;
+  height: 20px;
+  max-height: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  outline: none;
+  position: relative;
+  vertical-align: top;
+  width: 20px;
+}
+.modal-close::before, .delete::before, .modal-close::after, .delete::after {
+  background-color: white;
+  content: "";
+  display: block;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  transform-origin: center center;
+}
+.modal-close::before, .delete::before {
+  height: 2px;
+  width: 50%;
+}
+.modal-close::after, .delete::after {
+  height: 50%;
+  width: 2px;
+}
+.modal-close:hover, .delete:hover, .modal-close:focus, .delete:focus {
+  background-color: rgba(10, 10, 10, 0.3);
+}
+.modal-close:active, .delete:active {
+  background-color: rgba(10, 10, 10, 0.4);
+}
+.is-small.modal-close, .is-small.delete {
+  height: 16px;
+  max-height: 16px;
+  max-width: 16px;
+  min-height: 16px;
+  min-width: 16px;
+  width: 16px;
+}
+.is-medium.modal-close, .is-medium.delete {
+  height: 24px;
+  max-height: 24px;
+  max-width: 24px;
+  min-height: 24px;
+  min-width: 24px;
+  width: 24px;
+}
+.is-large.modal-close, .is-large.delete {
+  height: 32px;
+  max-height: 32px;
+  max-width: 32px;
+  min-height: 32px;
+  min-width: 32px;
+  width: 32px;
+}
+
+.control.is-loading::after, .select.is-loading::after, .loader, .button.is-loading::after {
+  -webkit-animation: spinAround 500ms infinite linear;
+          animation: spinAround 500ms infinite linear;
+  border: 2px solid #dbdbdb;
+  border-radius: 290486px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  display: block;
+  height: 1em;
+  position: relative;
+  width: 1em;
+}
+
+.hero-video, .modal-background, .modal, .image.is-square img,
+.image.is-square .has-ratio, .image.is-1by1 img,
+.image.is-1by1 .has-ratio, .image.is-5by4 img,
+.image.is-5by4 .has-ratio, .image.is-4by3 img,
+.image.is-4by3 .has-ratio, .image.is-3by2 img,
+.image.is-3by2 .has-ratio, .image.is-5by3 img,
+.image.is-5by3 .has-ratio, .image.is-16by9 img,
+.image.is-16by9 .has-ratio, .image.is-2by1 img,
+.image.is-2by1 .has-ratio, .image.is-3by1 img,
+.image.is-3by1 .has-ratio, .image.is-4by5 img,
+.image.is-4by5 .has-ratio, .image.is-3by4 img,
+.image.is-3by4 .has-ratio, .image.is-2by3 img,
+.image.is-2by3 .has-ratio, .image.is-3by5 img,
+.image.is-3by5 .has-ratio, .image.is-9by16 img,
+.image.is-9by16 .has-ratio, .image.is-1by2 img,
+.image.is-1by2 .has-ratio, .image.is-1by3 img,
+.image.is-1by3 .has-ratio, .is-overlay {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.pagination-previous,
+.pagination-next,
+.pagination-link,
+.pagination-ellipsis, .file-cta,
+.file-name, .select select, .textarea, .input, .taginput .taginput-container.is-focusable, .button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding-bottom: calc(0.375em - 1px);
+  padding-left: calc(0.625em - 1px);
+  padding-right: calc(0.625em - 1px);
+  padding-top: calc(0.375em - 1px);
+  position: relative;
+  vertical-align: top;
+}
+.pagination-previous:focus,
+.pagination-next:focus,
+.pagination-link:focus,
+.pagination-ellipsis:focus, .file-cta:focus,
+.file-name:focus, .select select:focus, .textarea:focus, .input:focus, .taginput .taginput-container.is-focusable:focus, .button:focus, .is-focused.pagination-previous,
+.is-focused.pagination-next,
+.is-focused.pagination-link,
+.is-focused.pagination-ellipsis, .is-focused.file-cta,
+.is-focused.file-name, .select select.is-focused, .is-focused.textarea, .is-focused.input, .taginput .is-focused.taginput-container.is-focusable, .is-focused.button, .pagination-previous:active,
+.pagination-next:active,
+.pagination-link:active,
+.pagination-ellipsis:active, .file-cta:active,
+.file-name:active, .select select:active, .textarea:active, .input:active, .taginput .taginput-container.is-focusable:active, .button:active, .is-active.pagination-previous,
+.is-active.pagination-next,
+.is-active.pagination-link,
+.is-active.pagination-ellipsis, .is-active.file-cta,
+.is-active.file-name, .select select.is-active, .is-active.textarea, .is-active.input, .taginput .is-active.taginput-container.is-focusable, .is-active.button {
+  outline: none;
+}
+[disabled].pagination-previous,
+[disabled].pagination-next,
+[disabled].pagination-link,
+[disabled].pagination-ellipsis, [disabled].file-cta,
+[disabled].file-name, .select select[disabled], [disabled].textarea, [disabled].input, .taginput [disabled].taginput-container.is-focusable, [disabled].button, fieldset[disabled] .pagination-previous,
+fieldset[disabled] .pagination-next,
+fieldset[disabled] .pagination-link,
+fieldset[disabled] .pagination-ellipsis, fieldset[disabled] .file-cta,
+fieldset[disabled] .file-name, fieldset[disabled] .select select, .select fieldset[disabled] select, fieldset[disabled] .textarea, fieldset[disabled] .input, fieldset[disabled] .taginput .taginput-container.is-focusable, .taginput fieldset[disabled] .taginput-container.is-focusable, fieldset[disabled] .button {
+  cursor: not-allowed;
+}
+
+/*! bulma.io v0.7.5 | MIT License | github.com/jgthms/bulma */
 @keyframes spinAround {
   from {
     transform: rotate(0deg);
@@ -982,6 +1186,42 @@ a.has-text-danger:hover, a.has-text-danger:focus {
 
 .has-background-danger {
   background-color: #ff3860 !important;
+}
+
+.has-text-linkedin {
+  color: #0077b5 !important;
+}
+
+a.has-text-linkedin:hover, a.has-text-linkedin:focus {
+  color: #005582 !important;
+}
+
+.has-background-linkedin {
+  background-color: #0077b5 !important;
+}
+
+.has-text-apple {
+  color: #000000 !important;
+}
+
+a.has-text-apple:hover, a.has-text-apple:focus {
+  color: black !important;
+}
+
+.has-background-apple {
+  background-color: #000000 !important;
+}
+
+.has-text-google {
+  color: #ffffff !important;
+}
+
+a.has-text-google:hover, a.has-text-google:focus {
+  color: #e6e6e6 !important;
+}
+
+.has-background-google {
+  background-color: #ffffff !important;
 }
 
 .has-text-black-bis {
@@ -2383,6 +2623,255 @@ a.box:active {
   box-shadow: none;
   color: #fff;
 }
+.button.is-linkedin {
+  background-color: #0077b5;
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-linkedin:hover, .button.is-linkedin.is-hovered {
+  background-color: #006fa8;
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-linkedin:focus, .button.is-linkedin.is-focused {
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-linkedin:focus:not(:active), .button.is-linkedin.is-focused:not(:active) {
+  box-shadow: 0 0 0 0.125em rgba(0, 119, 181, 0.25);
+}
+.button.is-linkedin:active, .button.is-linkedin.is-active {
+  background-color: #00669c;
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-linkedin[disabled], fieldset[disabled] .button.is-linkedin {
+  background-color: #0077b5;
+  border-color: transparent;
+  box-shadow: none;
+}
+.button.is-linkedin.is-inverted {
+  background-color: #fff;
+  color: #0077b5;
+}
+.button.is-linkedin.is-inverted:hover, .button.is-linkedin.is-inverted.is-hovered {
+  background-color: #f2f2f2;
+}
+.button.is-linkedin.is-inverted[disabled], fieldset[disabled] .button.is-linkedin.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #0077b5;
+}
+.button.is-linkedin.is-loading::after {
+  border-color: transparent transparent #fff #fff !important;
+}
+.button.is-linkedin.is-outlined {
+  background-color: transparent;
+  border-color: #0077b5;
+  color: #0077b5;
+}
+.button.is-linkedin.is-outlined:hover, .button.is-linkedin.is-outlined.is-hovered, .button.is-linkedin.is-outlined:focus, .button.is-linkedin.is-outlined.is-focused {
+  background-color: #0077b5;
+  border-color: #0077b5;
+  color: #fff;
+}
+.button.is-linkedin.is-outlined.is-loading::after {
+  border-color: transparent transparent #0077b5 #0077b5 !important;
+}
+.button.is-linkedin.is-outlined.is-loading:hover::after, .button.is-linkedin.is-outlined.is-loading.is-hovered::after, .button.is-linkedin.is-outlined.is-loading:focus::after, .button.is-linkedin.is-outlined.is-loading.is-focused::after {
+  border-color: transparent transparent #fff #fff !important;
+}
+.button.is-linkedin.is-outlined[disabled], fieldset[disabled] .button.is-linkedin.is-outlined {
+  background-color: transparent;
+  border-color: #0077b5;
+  box-shadow: none;
+  color: #0077b5;
+}
+.button.is-linkedin.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+}
+.button.is-linkedin.is-inverted.is-outlined:hover, .button.is-linkedin.is-inverted.is-outlined.is-hovered, .button.is-linkedin.is-inverted.is-outlined:focus, .button.is-linkedin.is-inverted.is-outlined.is-focused {
+  background-color: #fff;
+  color: #0077b5;
+}
+.button.is-linkedin.is-inverted.is-outlined.is-loading:hover::after, .button.is-linkedin.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-linkedin.is-inverted.is-outlined.is-loading:focus::after, .button.is-linkedin.is-inverted.is-outlined.is-loading.is-focused::after {
+  border-color: transparent transparent #0077b5 #0077b5 !important;
+}
+.button.is-linkedin.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-linkedin.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff;
+}
+.button.is-apple {
+  background-color: #000000;
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-apple:hover, .button.is-apple.is-hovered {
+  background-color: black;
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-apple:focus, .button.is-apple.is-focused {
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-apple:focus:not(:active), .button.is-apple.is-focused:not(:active) {
+  box-shadow: 0 0 0 0.125em rgba(0, 0, 0, 0.25);
+}
+.button.is-apple:active, .button.is-apple.is-active {
+  background-color: black;
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-apple[disabled], fieldset[disabled] .button.is-apple {
+  background-color: #000000;
+  border-color: transparent;
+  box-shadow: none;
+}
+.button.is-apple.is-inverted {
+  background-color: #fff;
+  color: #000000;
+}
+.button.is-apple.is-inverted:hover, .button.is-apple.is-inverted.is-hovered {
+  background-color: #f2f2f2;
+}
+.button.is-apple.is-inverted[disabled], fieldset[disabled] .button.is-apple.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #000000;
+}
+.button.is-apple.is-loading::after {
+  border-color: transparent transparent #fff #fff !important;
+}
+.button.is-apple.is-outlined {
+  background-color: transparent;
+  border-color: #000000;
+  color: #000000;
+}
+.button.is-apple.is-outlined:hover, .button.is-apple.is-outlined.is-hovered, .button.is-apple.is-outlined:focus, .button.is-apple.is-outlined.is-focused {
+  background-color: #000000;
+  border-color: #000000;
+  color: #fff;
+}
+.button.is-apple.is-outlined.is-loading::after {
+  border-color: transparent transparent #000000 #000000 !important;
+}
+.button.is-apple.is-outlined.is-loading:hover::after, .button.is-apple.is-outlined.is-loading.is-hovered::after, .button.is-apple.is-outlined.is-loading:focus::after, .button.is-apple.is-outlined.is-loading.is-focused::after {
+  border-color: transparent transparent #fff #fff !important;
+}
+.button.is-apple.is-outlined[disabled], fieldset[disabled] .button.is-apple.is-outlined {
+  background-color: transparent;
+  border-color: #000000;
+  box-shadow: none;
+  color: #000000;
+}
+.button.is-apple.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+}
+.button.is-apple.is-inverted.is-outlined:hover, .button.is-apple.is-inverted.is-outlined.is-hovered, .button.is-apple.is-inverted.is-outlined:focus, .button.is-apple.is-inverted.is-outlined.is-focused {
+  background-color: #fff;
+  color: #000000;
+}
+.button.is-apple.is-inverted.is-outlined.is-loading:hover::after, .button.is-apple.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-apple.is-inverted.is-outlined.is-loading:focus::after, .button.is-apple.is-inverted.is-outlined.is-loading.is-focused::after {
+  border-color: transparent transparent #000000 #000000 !important;
+}
+.button.is-apple.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-apple.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff;
+}
+.button.is-google {
+  background-color: #ffffff;
+  border-color: transparent;
+  color: rgba(0, 0, 0, 0.7);
+}
+.button.is-google:hover, .button.is-google.is-hovered {
+  background-color: #f9f9f9;
+  border-color: transparent;
+  color: rgba(0, 0, 0, 0.7);
+}
+.button.is-google:focus, .button.is-google.is-focused {
+  border-color: transparent;
+  color: rgba(0, 0, 0, 0.7);
+}
+.button.is-google:focus:not(:active), .button.is-google.is-focused:not(:active) {
+  box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.25);
+}
+.button.is-google:active, .button.is-google.is-active {
+  background-color: #f2f2f2;
+  border-color: transparent;
+  color: rgba(0, 0, 0, 0.7);
+}
+.button.is-google[disabled], fieldset[disabled] .button.is-google {
+  background-color: #ffffff;
+  border-color: transparent;
+  box-shadow: none;
+}
+.button.is-google.is-inverted {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+}
+.button.is-google.is-inverted:hover, .button.is-google.is-inverted.is-hovered {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.button.is-google.is-inverted[disabled], fieldset[disabled] .button.is-google.is-inverted {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-color: transparent;
+  box-shadow: none;
+  color: #ffffff;
+}
+.button.is-google.is-loading::after {
+  border-color: transparent transparent rgba(0, 0, 0, 0.7) rgba(0, 0, 0, 0.7) !important;
+}
+.button.is-google.is-outlined {
+  background-color: transparent;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+.button.is-google.is-outlined:hover, .button.is-google.is-outlined.is-hovered, .button.is-google.is-outlined:focus, .button.is-google.is-outlined.is-focused {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
+}
+.button.is-google.is-outlined.is-loading::after {
+  border-color: transparent transparent #ffffff #ffffff !important;
+}
+.button.is-google.is-outlined.is-loading:hover::after, .button.is-google.is-outlined.is-loading.is-hovered::after, .button.is-google.is-outlined.is-loading:focus::after, .button.is-google.is-outlined.is-loading.is-focused::after {
+  border-color: transparent transparent rgba(0, 0, 0, 0.7) rgba(0, 0, 0, 0.7) !important;
+}
+.button.is-google.is-outlined[disabled], fieldset[disabled] .button.is-google.is-outlined {
+  background-color: transparent;
+  border-color: #ffffff;
+  box-shadow: none;
+  color: #ffffff;
+}
+.button.is-google.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, 0, 0.7);
+}
+.button.is-google.is-inverted.is-outlined:hover, .button.is-google.is-inverted.is-outlined.is-hovered, .button.is-google.is-inverted.is-outlined:focus, .button.is-google.is-inverted.is-outlined.is-focused {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+}
+.button.is-google.is-inverted.is-outlined.is-loading:hover::after, .button.is-google.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-google.is-inverted.is-outlined.is-loading:focus::after, .button.is-google.is-inverted.is-outlined.is-loading.is-focused::after {
+  border-color: transparent transparent #ffffff #ffffff !important;
+}
+.button.is-google.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-google.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: rgba(0, 0, 0, 0.7);
+  box-shadow: none;
+  color: rgba(0, 0, 0, 0.7);
+}
 .button.is-small {
   border-radius: 2px;
   font-size: 0.75rem;
@@ -2896,6 +3385,18 @@ a.box:active {
   background-color: #ff3860;
   color: #fff;
 }
+.notification.is-linkedin {
+  background-color: #0077b5;
+  color: #fff;
+}
+.notification.is-apple {
+  background-color: #000000;
+  color: #fff;
+}
+.notification.is-google {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
+}
 
 .progress {
   -moz-appearance: none;
@@ -3041,6 +3542,42 @@ a.box:active {
 .progress.is-danger:indeterminate {
   background-image: linear-gradient(to right, #ff3860 30%, #dbdbdb 30%);
 }
+.progress.is-linkedin::-webkit-progress-value {
+  background-color: #0077b5;
+}
+.progress.is-linkedin::-moz-progress-bar {
+  background-color: #0077b5;
+}
+.progress.is-linkedin::-ms-fill {
+  background-color: #0077b5;
+}
+.progress.is-linkedin:indeterminate {
+  background-image: linear-gradient(to right, #0077b5 30%, #dbdbdb 30%);
+}
+.progress.is-apple::-webkit-progress-value {
+  background-color: #000000;
+}
+.progress.is-apple::-moz-progress-bar {
+  background-color: #000000;
+}
+.progress.is-apple::-ms-fill {
+  background-color: #000000;
+}
+.progress.is-apple:indeterminate {
+  background-image: linear-gradient(to right, #000000 30%, #dbdbdb 30%);
+}
+.progress.is-google::-webkit-progress-value {
+  background-color: #ffffff;
+}
+.progress.is-google::-moz-progress-bar {
+  background-color: #ffffff;
+}
+.progress.is-google::-ms-fill {
+  background-color: #ffffff;
+}
+.progress.is-google:indeterminate {
+  background-image: linear-gradient(to right, #ffffff 30%, #dbdbdb 30%);
+}
 .progress:indeterminate {
   -webkit-animation-duration: 1.5s;
           animation-duration: 1.5s;
@@ -3159,6 +3696,24 @@ a.box:active {
   background-color: #ff3860;
   border-color: #ff3860;
   color: #fff;
+}
+.table td.is-linkedin,
+.table th.is-linkedin {
+  background-color: #0077b5;
+  border-color: #0077b5;
+  color: #fff;
+}
+.table td.is-apple,
+.table th.is-apple {
+  background-color: #000000;
+  border-color: #000000;
+  color: #fff;
+}
+.table td.is-google,
+.table th.is-google {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
 }
 .table td.is-narrow,
 .table th.is-narrow {
@@ -3363,6 +3918,18 @@ a.box:active {
 .tag:not(body).is-danger {
   background-color: #ff3860;
   color: #fff;
+}
+.tag:not(body).is-linkedin {
+  background-color: #0077b5;
+  color: #fff;
+}
+.tag:not(body).is-apple {
+  background-color: #000000;
+  color: #fff;
+}
+.tag:not(body).is-google {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
 }
 .tag:not(body).is-normal {
   font-size: 0.75rem;
@@ -3665,6 +4232,24 @@ a.tag:hover {
 .is-danger.textarea:focus, .is-danger.input:focus, .taginput .is-danger.taginput-container.is-focusable:focus, .is-danger.is-focused.textarea, .is-danger.is-focused.input, .taginput .is-danger.is-focused.taginput-container.is-focusable, .is-danger.textarea:active, .is-danger.input:active, .taginput .is-danger.taginput-container.is-focusable:active, .is-danger.is-active.textarea, .is-danger.is-active.input, .taginput .is-danger.is-active.taginput-container.is-focusable {
   box-shadow: 0 0 0 0.125em rgba(255, 56, 96, 0.25);
 }
+.is-linkedin.textarea, .is-linkedin.input, .taginput .is-linkedin.taginput-container.is-focusable {
+  border-color: #0077b5;
+}
+.is-linkedin.textarea:focus, .is-linkedin.input:focus, .taginput .is-linkedin.taginput-container.is-focusable:focus, .is-linkedin.is-focused.textarea, .is-linkedin.is-focused.input, .taginput .is-linkedin.is-focused.taginput-container.is-focusable, .is-linkedin.textarea:active, .is-linkedin.input:active, .taginput .is-linkedin.taginput-container.is-focusable:active, .is-linkedin.is-active.textarea, .is-linkedin.is-active.input, .taginput .is-linkedin.is-active.taginput-container.is-focusable {
+  box-shadow: 0 0 0 0.125em rgba(0, 119, 181, 0.25);
+}
+.is-apple.textarea, .is-apple.input, .taginput .is-apple.taginput-container.is-focusable {
+  border-color: #000000;
+}
+.is-apple.textarea:focus, .is-apple.input:focus, .taginput .is-apple.taginput-container.is-focusable:focus, .is-apple.is-focused.textarea, .is-apple.is-focused.input, .taginput .is-apple.is-focused.taginput-container.is-focusable, .is-apple.textarea:active, .is-apple.input:active, .taginput .is-apple.taginput-container.is-focusable:active, .is-apple.is-active.textarea, .is-apple.is-active.input, .taginput .is-apple.is-active.taginput-container.is-focusable {
+  box-shadow: 0 0 0 0.125em rgba(0, 0, 0, 0.25);
+}
+.is-google.textarea, .is-google.input, .taginput .is-google.taginput-container.is-focusable {
+  border-color: #ffffff;
+}
+.is-google.textarea:focus, .is-google.input:focus, .taginput .is-google.taginput-container.is-focusable:focus, .is-google.is-focused.textarea, .is-google.is-focused.input, .taginput .is-google.is-focused.taginput-container.is-focusable, .is-google.textarea:active, .is-google.input:active, .taginput .is-google.taginput-container.is-focusable:active, .is-google.is-active.textarea, .is-google.is-active.input, .taginput .is-google.is-active.taginput-container.is-focusable {
+  box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.25);
+}
 .is-small.textarea, .is-small.input, .taginput .is-small.taginput-container.is-focusable {
   border-radius: 2px;
   font-size: 0.75rem;
@@ -3899,6 +4484,42 @@ a.tag:hover {
 }
 .select.is-danger select:focus, .select.is-danger select.is-focused, .select.is-danger select:active, .select.is-danger select.is-active {
   box-shadow: 0 0 0 0.125em rgba(255, 56, 96, 0.25);
+}
+.select.is-linkedin:not(:hover)::after {
+  border-color: #0077b5;
+}
+.select.is-linkedin select {
+  border-color: #0077b5;
+}
+.select.is-linkedin select:hover, .select.is-linkedin select.is-hovered {
+  border-color: #00669c;
+}
+.select.is-linkedin select:focus, .select.is-linkedin select.is-focused, .select.is-linkedin select:active, .select.is-linkedin select.is-active {
+  box-shadow: 0 0 0 0.125em rgba(0, 119, 181, 0.25);
+}
+.select.is-apple:not(:hover)::after {
+  border-color: #000000;
+}
+.select.is-apple select {
+  border-color: #000000;
+}
+.select.is-apple select:hover, .select.is-apple select.is-hovered {
+  border-color: black;
+}
+.select.is-apple select:focus, .select.is-apple select.is-focused, .select.is-apple select:active, .select.is-apple select.is-active {
+  box-shadow: 0 0 0 0.125em rgba(0, 0, 0, 0.25);
+}
+.select.is-google:not(:hover)::after {
+  border-color: #ffffff;
+}
+.select.is-google select {
+  border-color: #ffffff;
+}
+.select.is-google select:hover, .select.is-google select.is-hovered {
+  border-color: #f2f2f2;
+}
+.select.is-google select:focus, .select.is-google select.is-focused, .select.is-google select:active, .select.is-google select.is-active {
+  box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.25);
 }
 .select.is-small {
   border-radius: 2px;
@@ -4142,6 +4763,66 @@ a.tag:hover {
   border-color: transparent;
   color: #fff;
 }
+.file.is-linkedin .file-cta {
+  background-color: #0077b5;
+  border-color: transparent;
+  color: #fff;
+}
+.file.is-linkedin:hover .file-cta, .file.is-linkedin.is-hovered .file-cta {
+  background-color: #006fa8;
+  border-color: transparent;
+  color: #fff;
+}
+.file.is-linkedin:focus .file-cta, .file.is-linkedin.is-focused .file-cta {
+  border-color: transparent;
+  box-shadow: 0 0 0.5em rgba(0, 119, 181, 0.25);
+  color: #fff;
+}
+.file.is-linkedin:active .file-cta, .file.is-linkedin.is-active .file-cta {
+  background-color: #00669c;
+  border-color: transparent;
+  color: #fff;
+}
+.file.is-apple .file-cta {
+  background-color: #000000;
+  border-color: transparent;
+  color: #fff;
+}
+.file.is-apple:hover .file-cta, .file.is-apple.is-hovered .file-cta {
+  background-color: black;
+  border-color: transparent;
+  color: #fff;
+}
+.file.is-apple:focus .file-cta, .file.is-apple.is-focused .file-cta {
+  border-color: transparent;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.25);
+  color: #fff;
+}
+.file.is-apple:active .file-cta, .file.is-apple.is-active .file-cta {
+  background-color: black;
+  border-color: transparent;
+  color: #fff;
+}
+.file.is-google .file-cta {
+  background-color: #ffffff;
+  border-color: transparent;
+  color: rgba(0, 0, 0, 0.7);
+}
+.file.is-google:hover .file-cta, .file.is-google.is-hovered .file-cta {
+  background-color: #f9f9f9;
+  border-color: transparent;
+  color: rgba(0, 0, 0, 0.7);
+}
+.file.is-google:focus .file-cta, .file.is-google.is-focused .file-cta {
+  border-color: transparent;
+  box-shadow: 0 0 0.5em rgba(255, 255, 255, 0.25);
+  color: rgba(0, 0, 0, 0.7);
+}
+.file.is-google:active .file-cta, .file.is-google.is-active .file-cta {
+  background-color: #f2f2f2;
+  border-color: transparent;
+  color: rgba(0, 0, 0, 0.7);
+}
 .file.is-small {
   font-size: 0.75rem;
 }
@@ -4351,6 +5032,15 @@ a.tag:hover {
 }
 .help.is-danger {
   color: #ff3860;
+}
+.help.is-linkedin {
+  color: #0077b5;
+}
+.help.is-apple {
+  color: #000000;
+}
+.help.is-google {
+  color: #ffffff;
 }
 
 .field:not(:last-child) {
@@ -5196,6 +5886,39 @@ a.list-item {
   border-color: #ff3860;
   color: #cd0930;
 }
+.message.is-linkedin {
+  background-color: #f5fcff;
+}
+.message.is-linkedin .message-header {
+  background-color: #0077b5;
+  color: #fff;
+}
+.message.is-linkedin .message-body {
+  border-color: #0077b5;
+  color: #034466;
+}
+.message.is-apple {
+  background-color: #fafafa;
+}
+.message.is-apple .message-header {
+  background-color: #000000;
+  color: #fff;
+}
+.message.is-apple .message-body {
+  border-color: #000000;
+  color: black;
+}
+.message.is-google {
+  background-color: white;
+}
+.message.is-google .message-header {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
+}
+.message.is-google .message-body {
+  border-color: #ffffff;
+  color: #4d4d4d;
+}
 
 .message-header {
   align-items: center;
@@ -5894,6 +6617,174 @@ a.list-item {
   .navbar.is-danger .navbar-dropdown a.navbar-item.is-active {
     background-color: #ff3860;
     color: #fff;
+  }
+}
+.navbar.is-linkedin {
+  background-color: #0077b5;
+  color: #fff;
+}
+.navbar.is-linkedin .navbar-brand > .navbar-item,
+.navbar.is-linkedin .navbar-brand .navbar-link {
+  color: #fff;
+}
+.navbar.is-linkedin .navbar-brand > a.navbar-item:focus, .navbar.is-linkedin .navbar-brand > a.navbar-item:hover, .navbar.is-linkedin .navbar-brand > a.navbar-item.is-active,
+.navbar.is-linkedin .navbar-brand .navbar-link:focus,
+.navbar.is-linkedin .navbar-brand .navbar-link:hover,
+.navbar.is-linkedin .navbar-brand .navbar-link.is-active {
+  background-color: #00669c;
+  color: #fff;
+}
+.navbar.is-linkedin .navbar-brand .navbar-link::after {
+  border-color: #fff;
+}
+.navbar.is-linkedin .navbar-burger {
+  color: #fff;
+}
+@media screen and (min-width: 1024px) {
+  .navbar.is-linkedin .navbar-start > .navbar-item,
+.navbar.is-linkedin .navbar-start .navbar-link,
+.navbar.is-linkedin .navbar-end > .navbar-item,
+.navbar.is-linkedin .navbar-end .navbar-link {
+    color: #fff;
+  }
+  .navbar.is-linkedin .navbar-start > a.navbar-item:focus, .navbar.is-linkedin .navbar-start > a.navbar-item:hover, .navbar.is-linkedin .navbar-start > a.navbar-item.is-active,
+.navbar.is-linkedin .navbar-start .navbar-link:focus,
+.navbar.is-linkedin .navbar-start .navbar-link:hover,
+.navbar.is-linkedin .navbar-start .navbar-link.is-active,
+.navbar.is-linkedin .navbar-end > a.navbar-item:focus,
+.navbar.is-linkedin .navbar-end > a.navbar-item:hover,
+.navbar.is-linkedin .navbar-end > a.navbar-item.is-active,
+.navbar.is-linkedin .navbar-end .navbar-link:focus,
+.navbar.is-linkedin .navbar-end .navbar-link:hover,
+.navbar.is-linkedin .navbar-end .navbar-link.is-active {
+    background-color: #00669c;
+    color: #fff;
+  }
+  .navbar.is-linkedin .navbar-start .navbar-link::after,
+.navbar.is-linkedin .navbar-end .navbar-link::after {
+    border-color: #fff;
+  }
+  .navbar.is-linkedin .navbar-item.has-dropdown:focus .navbar-link,
+.navbar.is-linkedin .navbar-item.has-dropdown:hover .navbar-link,
+.navbar.is-linkedin .navbar-item.has-dropdown.is-active .navbar-link {
+    background-color: #00669c;
+    color: #fff;
+  }
+  .navbar.is-linkedin .navbar-dropdown a.navbar-item.is-active {
+    background-color: #0077b5;
+    color: #fff;
+  }
+}
+.navbar.is-apple {
+  background-color: #000000;
+  color: #fff;
+}
+.navbar.is-apple .navbar-brand > .navbar-item,
+.navbar.is-apple .navbar-brand .navbar-link {
+  color: #fff;
+}
+.navbar.is-apple .navbar-brand > a.navbar-item:focus, .navbar.is-apple .navbar-brand > a.navbar-item:hover, .navbar.is-apple .navbar-brand > a.navbar-item.is-active,
+.navbar.is-apple .navbar-brand .navbar-link:focus,
+.navbar.is-apple .navbar-brand .navbar-link:hover,
+.navbar.is-apple .navbar-brand .navbar-link.is-active {
+  background-color: black;
+  color: #fff;
+}
+.navbar.is-apple .navbar-brand .navbar-link::after {
+  border-color: #fff;
+}
+.navbar.is-apple .navbar-burger {
+  color: #fff;
+}
+@media screen and (min-width: 1024px) {
+  .navbar.is-apple .navbar-start > .navbar-item,
+.navbar.is-apple .navbar-start .navbar-link,
+.navbar.is-apple .navbar-end > .navbar-item,
+.navbar.is-apple .navbar-end .navbar-link {
+    color: #fff;
+  }
+  .navbar.is-apple .navbar-start > a.navbar-item:focus, .navbar.is-apple .navbar-start > a.navbar-item:hover, .navbar.is-apple .navbar-start > a.navbar-item.is-active,
+.navbar.is-apple .navbar-start .navbar-link:focus,
+.navbar.is-apple .navbar-start .navbar-link:hover,
+.navbar.is-apple .navbar-start .navbar-link.is-active,
+.navbar.is-apple .navbar-end > a.navbar-item:focus,
+.navbar.is-apple .navbar-end > a.navbar-item:hover,
+.navbar.is-apple .navbar-end > a.navbar-item.is-active,
+.navbar.is-apple .navbar-end .navbar-link:focus,
+.navbar.is-apple .navbar-end .navbar-link:hover,
+.navbar.is-apple .navbar-end .navbar-link.is-active {
+    background-color: black;
+    color: #fff;
+  }
+  .navbar.is-apple .navbar-start .navbar-link::after,
+.navbar.is-apple .navbar-end .navbar-link::after {
+    border-color: #fff;
+  }
+  .navbar.is-apple .navbar-item.has-dropdown:focus .navbar-link,
+.navbar.is-apple .navbar-item.has-dropdown:hover .navbar-link,
+.navbar.is-apple .navbar-item.has-dropdown.is-active .navbar-link {
+    background-color: black;
+    color: #fff;
+  }
+  .navbar.is-apple .navbar-dropdown a.navbar-item.is-active {
+    background-color: #000000;
+    color: #fff;
+  }
+}
+.navbar.is-google {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
+}
+.navbar.is-google .navbar-brand > .navbar-item,
+.navbar.is-google .navbar-brand .navbar-link {
+  color: rgba(0, 0, 0, 0.7);
+}
+.navbar.is-google .navbar-brand > a.navbar-item:focus, .navbar.is-google .navbar-brand > a.navbar-item:hover, .navbar.is-google .navbar-brand > a.navbar-item.is-active,
+.navbar.is-google .navbar-brand .navbar-link:focus,
+.navbar.is-google .navbar-brand .navbar-link:hover,
+.navbar.is-google .navbar-brand .navbar-link.is-active {
+  background-color: #f2f2f2;
+  color: rgba(0, 0, 0, 0.7);
+}
+.navbar.is-google .navbar-brand .navbar-link::after {
+  border-color: rgba(0, 0, 0, 0.7);
+}
+.navbar.is-google .navbar-burger {
+  color: rgba(0, 0, 0, 0.7);
+}
+@media screen and (min-width: 1024px) {
+  .navbar.is-google .navbar-start > .navbar-item,
+.navbar.is-google .navbar-start .navbar-link,
+.navbar.is-google .navbar-end > .navbar-item,
+.navbar.is-google .navbar-end .navbar-link {
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .navbar.is-google .navbar-start > a.navbar-item:focus, .navbar.is-google .navbar-start > a.navbar-item:hover, .navbar.is-google .navbar-start > a.navbar-item.is-active,
+.navbar.is-google .navbar-start .navbar-link:focus,
+.navbar.is-google .navbar-start .navbar-link:hover,
+.navbar.is-google .navbar-start .navbar-link.is-active,
+.navbar.is-google .navbar-end > a.navbar-item:focus,
+.navbar.is-google .navbar-end > a.navbar-item:hover,
+.navbar.is-google .navbar-end > a.navbar-item.is-active,
+.navbar.is-google .navbar-end .navbar-link:focus,
+.navbar.is-google .navbar-end .navbar-link:hover,
+.navbar.is-google .navbar-end .navbar-link.is-active {
+    background-color: #f2f2f2;
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .navbar.is-google .navbar-start .navbar-link::after,
+.navbar.is-google .navbar-end .navbar-link::after {
+    border-color: rgba(0, 0, 0, 0.7);
+  }
+  .navbar.is-google .navbar-item.has-dropdown:focus .navbar-link,
+.navbar.is-google .navbar-item.has-dropdown:hover .navbar-link,
+.navbar.is-google .navbar-item.has-dropdown.is-active .navbar-link {
+    background-color: #f2f2f2;
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .navbar.is-google .navbar-dropdown a.navbar-item.is-active {
+    background-color: #ffffff;
+    color: rgba(0, 0, 0, 0.7);
   }
 }
 .navbar > .container {
@@ -9093,6 +9984,192 @@ label.panel-block:hover {
     background-image: linear-gradient(141deg, #ff0561 0%, #ff3860 71%, #ff5257 100%);
   }
 }
+.hero.is-linkedin {
+  background-color: #0077b5;
+  color: #fff;
+}
+.hero.is-linkedin a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
+.hero.is-linkedin strong {
+  color: inherit;
+}
+.hero.is-linkedin .title {
+  color: #fff;
+}
+.hero.is-linkedin .subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+.hero.is-linkedin .subtitle a:not(.button),
+.hero.is-linkedin .subtitle strong {
+  color: #fff;
+}
+@media screen and (max-width: 1023px) {
+  .hero.is-linkedin .navbar-menu {
+    background-color: #0077b5;
+  }
+}
+.hero.is-linkedin .navbar-item,
+.hero.is-linkedin .navbar-link {
+  color: rgba(255, 255, 255, 0.7);
+}
+.hero.is-linkedin a.navbar-item:hover, .hero.is-linkedin a.navbar-item.is-active,
+.hero.is-linkedin .navbar-link:hover,
+.hero.is-linkedin .navbar-link.is-active {
+  background-color: #00669c;
+  color: #fff;
+}
+.hero.is-linkedin .tabs a {
+  color: #fff;
+  opacity: 0.9;
+}
+.hero.is-linkedin .tabs a:hover {
+  opacity: 1;
+}
+.hero.is-linkedin .tabs li.is-active a {
+  opacity: 1;
+}
+.hero.is-linkedin .tabs.is-boxed a, .hero.is-linkedin .tabs.is-toggle a {
+  color: #fff;
+}
+.hero.is-linkedin .tabs.is-boxed a:hover, .hero.is-linkedin .tabs.is-toggle a:hover {
+  background-color: rgba(10, 10, 10, 0.1);
+}
+.hero.is-linkedin .tabs.is-boxed li.is-active a, .hero.is-linkedin .tabs.is-boxed li.is-active a:hover, .hero.is-linkedin .tabs.is-toggle li.is-active a, .hero.is-linkedin .tabs.is-toggle li.is-active a:hover {
+  background-color: #fff;
+  border-color: #fff;
+  color: #0077b5;
+}
+.hero.is-linkedin.is-bold {
+  background-image: linear-gradient(141deg, #006b82 0%, #0077b5 71%, #0065cf 100%);
+}
+@media screen and (max-width: 768px) {
+  .hero.is-linkedin.is-bold .navbar-menu {
+    background-image: linear-gradient(141deg, #006b82 0%, #0077b5 71%, #0065cf 100%);
+  }
+}
+.hero.is-apple {
+  background-color: #000000;
+  color: #fff;
+}
+.hero.is-apple a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
+.hero.is-apple strong {
+  color: inherit;
+}
+.hero.is-apple .title {
+  color: #fff;
+}
+.hero.is-apple .subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+.hero.is-apple .subtitle a:not(.button),
+.hero.is-apple .subtitle strong {
+  color: #fff;
+}
+@media screen and (max-width: 1023px) {
+  .hero.is-apple .navbar-menu {
+    background-color: #000000;
+  }
+}
+.hero.is-apple .navbar-item,
+.hero.is-apple .navbar-link {
+  color: rgba(255, 255, 255, 0.7);
+}
+.hero.is-apple a.navbar-item:hover, .hero.is-apple a.navbar-item.is-active,
+.hero.is-apple .navbar-link:hover,
+.hero.is-apple .navbar-link.is-active {
+  background-color: black;
+  color: #fff;
+}
+.hero.is-apple .tabs a {
+  color: #fff;
+  opacity: 0.9;
+}
+.hero.is-apple .tabs a:hover {
+  opacity: 1;
+}
+.hero.is-apple .tabs li.is-active a {
+  opacity: 1;
+}
+.hero.is-apple .tabs.is-boxed a, .hero.is-apple .tabs.is-toggle a {
+  color: #fff;
+}
+.hero.is-apple .tabs.is-boxed a:hover, .hero.is-apple .tabs.is-toggle a:hover {
+  background-color: rgba(10, 10, 10, 0.1);
+}
+.hero.is-apple .tabs.is-boxed li.is-active a, .hero.is-apple .tabs.is-boxed li.is-active a:hover, .hero.is-apple .tabs.is-toggle li.is-active a, .hero.is-apple .tabs.is-toggle li.is-active a:hover {
+  background-color: #fff;
+  border-color: #fff;
+  color: #000000;
+}
+.hero.is-apple.is-bold {
+  background-image: linear-gradient(141deg, black 0%, #000000 71%, #0d0c0c 100%);
+}
+@media screen and (max-width: 768px) {
+  .hero.is-apple.is-bold .navbar-menu {
+    background-image: linear-gradient(141deg, black 0%, #000000 71%, #0d0c0c 100%);
+  }
+}
+.hero.is-google {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
+}
+.hero.is-google a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
+.hero.is-google strong {
+  color: inherit;
+}
+.hero.is-google .title {
+  color: rgba(0, 0, 0, 0.7);
+}
+.hero.is-google .subtitle {
+  color: rgba(0, 0, 0, 0.9);
+}
+.hero.is-google .subtitle a:not(.button),
+.hero.is-google .subtitle strong {
+  color: rgba(0, 0, 0, 0.7);
+}
+@media screen and (max-width: 1023px) {
+  .hero.is-google .navbar-menu {
+    background-color: #ffffff;
+  }
+}
+.hero.is-google .navbar-item,
+.hero.is-google .navbar-link {
+  color: rgba(0, 0, 0, 0.7);
+}
+.hero.is-google a.navbar-item:hover, .hero.is-google a.navbar-item.is-active,
+.hero.is-google .navbar-link:hover,
+.hero.is-google .navbar-link.is-active {
+  background-color: #f2f2f2;
+  color: rgba(0, 0, 0, 0.7);
+}
+.hero.is-google .tabs a {
+  color: rgba(0, 0, 0, 0.7);
+  opacity: 0.9;
+}
+.hero.is-google .tabs a:hover {
+  opacity: 1;
+}
+.hero.is-google .tabs li.is-active a {
+  opacity: 1;
+}
+.hero.is-google .tabs.is-boxed a, .hero.is-google .tabs.is-toggle a {
+  color: rgba(0, 0, 0, 0.7);
+}
+.hero.is-google .tabs.is-boxed a:hover, .hero.is-google .tabs.is-toggle a:hover {
+  background-color: rgba(10, 10, 10, 0.1);
+}
+.hero.is-google .tabs.is-boxed li.is-active a, .hero.is-google .tabs.is-boxed li.is-active a:hover, .hero.is-google .tabs.is-toggle li.is-active a, .hero.is-google .tabs.is-toggle li.is-active a:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+}
+.hero.is-google.is-bold {
+  background-image: linear-gradient(141deg, #e8e3e4 0%, #ffffff 71%, white 100%);
+}
+@media screen and (max-width: 768px) {
+  .hero.is-google.is-bold .navbar-menu {
+    background-image: linear-gradient(141deg, #e8e3e4 0%, #ffffff 71%, white 100%);
+  }
+}
 .hero.is-small .hero-body {
   padding-bottom: 1.5rem;
   padding-top: 1.5rem;
@@ -9749,6 +10826,18 @@ label.panel-block:hover {
   background: #ff3860 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cpath style='fill:%23fff' d='M 0.04038059,0.6267767 0.14644661,0.52071068 0.42928932,0.80355339 0.3232233,0.90961941 z M 0.21715729,0.80355339 0.85355339,0.16715729 0.95961941,0.2732233 0.3232233,0.90961941 z'%3E%3C/path%3E%3C/svg%3E") no-repeat center center;
   border-color: #ff3860;
 }
+.b-checkbox.checkbox input[type=checkbox]:checked + .check.is-linkedin {
+  background: #0077b5 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cpath style='fill:%23fff' d='M 0.04038059,0.6267767 0.14644661,0.52071068 0.42928932,0.80355339 0.3232233,0.90961941 z M 0.21715729,0.80355339 0.85355339,0.16715729 0.95961941,0.2732233 0.3232233,0.90961941 z'%3E%3C/path%3E%3C/svg%3E") no-repeat center center;
+  border-color: #0077b5;
+}
+.b-checkbox.checkbox input[type=checkbox]:checked + .check.is-apple {
+  background: #000000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cpath style='fill:%23fff' d='M 0.04038059,0.6267767 0.14644661,0.52071068 0.42928932,0.80355339 0.3232233,0.90961941 z M 0.21715729,0.80355339 0.85355339,0.16715729 0.95961941,0.2732233 0.3232233,0.90961941 z'%3E%3C/path%3E%3C/svg%3E") no-repeat center center;
+  border-color: #000000;
+}
+.b-checkbox.checkbox input[type=checkbox]:checked + .check.is-google {
+  background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cpath style='fill:rgba(0, 0, 0, 0.7)' d='M 0.04038059,0.6267767 0.14644661,0.52071068 0.42928932,0.80355339 0.3232233,0.90961941 z M 0.21715729,0.80355339 0.85355339,0.16715729 0.95961941,0.2732233 0.3232233,0.90961941 z'%3E%3C/path%3E%3C/svg%3E") no-repeat center center;
+  border-color: #ffffff;
+}
 .b-checkbox.checkbox input[type=checkbox]:indeterminate + .check {
   background: #0984e3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect style='fill:%23fff' width='0.7' height='0.2' x='.15' y='.4'%3E%3C/rect%3E%3C/svg%3E") no-repeat center center;
   border-color: #0984e3;
@@ -9793,6 +10882,18 @@ label.panel-block:hover {
   background: #ff3860 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect style='fill:%23fff' width='0.7' height='0.2' x='.15' y='.4'%3E%3C/rect%3E%3C/svg%3E") no-repeat center center;
   border-color: #ff3860;
 }
+.b-checkbox.checkbox input[type=checkbox]:indeterminate + .check.is-linkedin {
+  background: #0077b5 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect style='fill:%23fff' width='0.7' height='0.2' x='.15' y='.4'%3E%3C/rect%3E%3C/svg%3E") no-repeat center center;
+  border-color: #0077b5;
+}
+.b-checkbox.checkbox input[type=checkbox]:indeterminate + .check.is-apple {
+  background: #000000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect style='fill:%23fff' width='0.7' height='0.2' x='.15' y='.4'%3E%3C/rect%3E%3C/svg%3E") no-repeat center center;
+  border-color: #000000;
+}
+.b-checkbox.checkbox input[type=checkbox]:indeterminate + .check.is-google {
+  background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect style='fill:rgba(0, 0, 0, 0.7)' width='0.7' height='0.2' x='.15' y='.4'%3E%3C/rect%3E%3C/svg%3E") no-repeat center center;
+  border-color: #ffffff;
+}
 .b-checkbox.checkbox input[type=checkbox]:focus + .check {
   box-shadow: 0 0 0.5em rgba(122, 122, 122, 0.8);
 }
@@ -9828,6 +10929,15 @@ label.panel-block:hover {
 }
 .b-checkbox.checkbox input[type=checkbox]:focus:checked + .check.is-danger {
   box-shadow: 0 0 0.5em rgba(255, 56, 96, 0.8);
+}
+.b-checkbox.checkbox input[type=checkbox]:focus:checked + .check.is-linkedin {
+  box-shadow: 0 0 0.5em rgba(0, 119, 181, 0.8);
+}
+.b-checkbox.checkbox input[type=checkbox]:focus:checked + .check.is-apple {
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
+}
+.b-checkbox.checkbox input[type=checkbox]:focus:checked + .check.is-google {
+  box-shadow: 0 0 0.5em rgba(255, 255, 255, 0.8);
 }
 .b-checkbox.checkbox .control-label {
   padding-left: 0.5em;
@@ -9870,6 +10980,15 @@ label.panel-block:hover {
 }
 .b-checkbox.checkbox:hover input[type=checkbox]:not(:disabled) + .check.is-danger {
   border-color: #ff3860;
+}
+.b-checkbox.checkbox:hover input[type=checkbox]:not(:disabled) + .check.is-linkedin {
+  border-color: #0077b5;
+}
+.b-checkbox.checkbox:hover input[type=checkbox]:not(:disabled) + .check.is-apple {
+  border-color: #000000;
+}
+.b-checkbox.checkbox:hover input[type=checkbox]:not(:disabled) + .check.is-google {
+  border-color: #ffffff;
 }
 .b-checkbox.checkbox.is-small {
   border-radius: 2px;
@@ -10046,6 +11165,51 @@ label.panel-block:hover {
 .b-clockpicker.is-danger .b-clockpicker-face-number.active {
   background-color: #ff3860;
   color: #fff;
+}
+.b-clockpicker.is-linkedin .card-header {
+  background-color: #0077b5;
+  color: #fff;
+}
+.b-clockpicker.is-linkedin .b-clockpicker-face:after {
+  background-color: #0077b5;
+}
+.b-clockpicker.is-linkedin .b-clockpicker-face-hand {
+  background-color: #0077b5;
+  border-color: #0077b5;
+}
+.b-clockpicker.is-linkedin .b-clockpicker-face-number.active {
+  background-color: #0077b5;
+  color: #fff;
+}
+.b-clockpicker.is-apple .card-header {
+  background-color: #000000;
+  color: #fff;
+}
+.b-clockpicker.is-apple .b-clockpicker-face:after {
+  background-color: #000000;
+}
+.b-clockpicker.is-apple .b-clockpicker-face-hand {
+  background-color: #000000;
+  border-color: #000000;
+}
+.b-clockpicker.is-apple .b-clockpicker-face-number.active {
+  background-color: #000000;
+  color: #fff;
+}
+.b-clockpicker.is-google .card-header {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
+}
+.b-clockpicker.is-google .b-clockpicker-face:after {
+  background-color: #ffffff;
+}
+.b-clockpicker.is-google .b-clockpicker-face-hand {
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+.b-clockpicker.is-google .b-clockpicker-face-number.active {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
 }
 .b-clockpicker .dropdown-menu {
   min-width: 0;
@@ -10457,6 +11621,15 @@ label.panel-block:hover {
 }
 .datepicker .datepicker-table .datepicker-body.has-events .datepicker-cell.has-event .events .event.is-danger {
   background-color: #ff3860;
+}
+.datepicker .datepicker-table .datepicker-body.has-events .datepicker-cell.has-event .events .event.is-linkedin {
+  background-color: #0077b5;
+}
+.datepicker .datepicker-table .datepicker-body.has-events .datepicker-cell.has-event .events .event.is-apple {
+  background-color: #000000;
+}
+.datepicker .datepicker-table .datepicker-body.has-events .datepicker-cell.has-event .events .event.is-google {
+  background-color: #ffffff;
 }
 .datepicker .datepicker-table .datepicker-body.has-events .datepicker-cell.has-event.dots .event {
   border-radius: 50%;
@@ -11034,6 +12207,18 @@ label.panel-block:hover {
   color: #fff;
   background: #ff3860;
 }
+.notices .toast.is-linkedin {
+  color: #fff;
+  background: #0077b5;
+}
+.notices .toast.is-apple {
+  color: #fff;
+  background: #000000;
+}
+.notices .toast.is-google {
+  color: rgba(0, 0, 0, 0.7);
+  background: #ffffff;
+}
 .notices .snackbar {
   display: inline-flex;
   align-items: center;
@@ -11097,6 +12282,15 @@ label.panel-block:hover {
 }
 .notices .snackbar .action.is-danger .button {
   color: #ff3860;
+}
+.notices .snackbar .action.is-linkedin .button {
+  color: #0077b5;
+}
+.notices .snackbar .action.is-apple .button {
+  color: #000000;
+}
+.notices .snackbar .action.is-google .button {
+  color: #ffffff;
 }
 @media screen and (max-width: 768px) {
   .notices .snackbar {
@@ -11332,6 +12526,15 @@ label.panel-block:hover {
 .b-radio.radio input[type=radio] + .check.is-danger:before {
   background: #ff3860;
 }
+.b-radio.radio input[type=radio] + .check.is-linkedin:before {
+  background: #0077b5;
+}
+.b-radio.radio input[type=radio] + .check.is-apple:before {
+  background: #000000;
+}
+.b-radio.radio input[type=radio] + .check.is-google:before {
+  background: #ffffff;
+}
 .b-radio.radio input[type=radio]:checked + .check {
   border-color: #0984e3;
 }
@@ -11364,6 +12567,15 @@ label.panel-block:hover {
 }
 .b-radio.radio input[type=radio]:checked + .check.is-danger {
   border-color: #ff3860;
+}
+.b-radio.radio input[type=radio]:checked + .check.is-linkedin {
+  border-color: #0077b5;
+}
+.b-radio.radio input[type=radio]:checked + .check.is-apple {
+  border-color: #000000;
+}
+.b-radio.radio input[type=radio]:checked + .check.is-google {
+  border-color: #ffffff;
 }
 .b-radio.radio input[type=radio]:checked + .check:before {
   transform: scale(0.5);
@@ -11403,6 +12615,15 @@ label.panel-block:hover {
 }
 .b-radio.radio input[type=radio]:focus:checked + .check.is-danger {
   box-shadow: 0 0 0.5em rgba(255, 56, 96, 0.8);
+}
+.b-radio.radio input[type=radio]:focus:checked + .check.is-linkedin {
+  box-shadow: 0 0 0.5em rgba(0, 119, 181, 0.8);
+}
+.b-radio.radio input[type=radio]:focus:checked + .check.is-apple {
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
+}
+.b-radio.radio input[type=radio]:focus:checked + .check.is-google {
+  box-shadow: 0 0 0.5em rgba(255, 255, 255, 0.8);
 }
 .b-radio.radio .control-label {
   padding-left: 0.5em;
@@ -11445,6 +12666,15 @@ label.panel-block:hover {
 }
 .b-radio.radio:hover input[type=radio]:not(:disabled) + .check.is-danger {
   border-color: #ff3860;
+}
+.b-radio.radio:hover input[type=radio]:not(:disabled) + .check.is-linkedin {
+  border-color: #0077b5;
+}
+.b-radio.radio:hover input[type=radio]:not(:disabled) + .check.is-apple {
+  border-color: #000000;
+}
+.b-radio.radio:hover input[type=radio]:not(:disabled) + .check.is-google {
+  border-color: #ffffff;
 }
 .b-radio.radio.is-small {
   border-radius: 2px;
@@ -11633,6 +12863,15 @@ label.panel-block:hover {
 }
 .b-sidebar .sidebar-content.is-danger {
   background-color: #ff3860;
+}
+.b-sidebar .sidebar-content.is-linkedin {
+  background-color: #0077b5;
+}
+.b-sidebar .sidebar-content.is-apple {
+  background-color: #000000;
+}
+.b-sidebar .sidebar-content.is-google {
+  background-color: #ffffff;
 }
 .b-sidebar .sidebar-content.is-fixed {
   position: fixed;
@@ -11880,6 +13119,15 @@ label.panel-block:hover {
 }
 .b-slider.is-danger .b-slider-fill {
   background: #ff3860 !important;
+}
+.b-slider.is-linkedin .b-slider-fill {
+  background: #0077b5 !important;
+}
+.b-slider.is-apple .b-slider-fill {
+  background: #000000 !important;
+}
+.b-slider.is-google .b-slider-fill {
+  background: #ffffff !important;
 }
 .b-slider .b-slider-tick {
   position: absolute;
@@ -12129,6 +13377,66 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   background-color: #ff3860;
 }
 .b-steps .steps .step-items .step-item.is-danger.is-previous::before, .b-steps .steps .step-items .step-item.is-danger.is-previous::after {
+  background-position: left bottom;
+}
+.b-steps .steps .step-items .step-item.is-linkedin::before, .b-steps .steps .step-items .step-item.is-linkedin::after {
+  background: linear-gradient(to left, #dbdbdb 50%, #0077b5 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+}
+.b-steps .steps .step-items .step-item.is-linkedin.is-active .step-marker {
+  background-color: white;
+  border-color: #0077b5;
+  color: #0077b5;
+}
+.b-steps .steps .step-items .step-item.is-linkedin.is-active::before, .b-steps .steps .step-items .step-item.is-linkedin.is-active::after {
+  background-position: left bottom;
+}
+.b-steps .steps .step-items .step-item.is-linkedin.is-previous .step-marker {
+  color: #fff;
+  background-color: #0077b5;
+}
+.b-steps .steps .step-items .step-item.is-linkedin.is-previous::before, .b-steps .steps .step-items .step-item.is-linkedin.is-previous::after {
+  background-position: left bottom;
+}
+.b-steps .steps .step-items .step-item.is-apple::before, .b-steps .steps .step-items .step-item.is-apple::after {
+  background: linear-gradient(to left, #dbdbdb 50%, #000000 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+}
+.b-steps .steps .step-items .step-item.is-apple.is-active .step-marker {
+  background-color: white;
+  border-color: #000000;
+  color: #000000;
+}
+.b-steps .steps .step-items .step-item.is-apple.is-active::before, .b-steps .steps .step-items .step-item.is-apple.is-active::after {
+  background-position: left bottom;
+}
+.b-steps .steps .step-items .step-item.is-apple.is-previous .step-marker {
+  color: #fff;
+  background-color: #000000;
+}
+.b-steps .steps .step-items .step-item.is-apple.is-previous::before, .b-steps .steps .step-items .step-item.is-apple.is-previous::after {
+  background-position: left bottom;
+}
+.b-steps .steps .step-items .step-item.is-google::before, .b-steps .steps .step-items .step-item.is-google::after {
+  background: linear-gradient(to left, #dbdbdb 50%, #ffffff 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+}
+.b-steps .steps .step-items .step-item.is-google.is-active .step-marker {
+  background-color: white;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+.b-steps .steps .step-items .step-item.is-google.is-active::before, .b-steps .steps .step-items .step-item.is-google.is-active::after {
+  background-position: left bottom;
+}
+.b-steps .steps .step-items .step-item.is-google.is-previous .step-marker {
+  color: rgba(0, 0, 0, 0.7);
+  background-color: #ffffff;
+}
+.b-steps .steps .step-items .step-item.is-google.is-previous::before, .b-steps .steps .step-items .step-item.is-google.is-previous::after {
   background-position: left bottom;
 }
 .b-steps .steps .step-items .step-item .step-marker {
@@ -12457,6 +13765,21 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   background-size: 100% 200%;
   background-position: left bottom;
 }
+.b-steps.is-vertical > .steps .step-items .step-item.is-linkedin::before, .b-steps.is-vertical > .steps .step-items .step-item.is-linkedin::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #0077b5 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+.b-steps.is-vertical > .steps .step-items .step-item.is-apple::before, .b-steps.is-vertical > .steps .step-items .step-item.is-apple::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #000000 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+.b-steps.is-vertical > .steps .step-items .step-item.is-google::before, .b-steps.is-vertical > .steps .step-items .step-item.is-google::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #ffffff 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
 .b-steps.is-vertical > .steps .step-items .step-item:not(:first-child)::before, .b-steps.is-vertical > .steps .step-items .step-item:only-child::before {
   height: 100%;
   width: 0.2em;
@@ -12605,6 +13928,24 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check, .switch .taginput input[type=checkbox] + .check[type=checkbox].taginput-container.is-focusable + .switch input[type=checkbox] + .check.check, .taginput .switch input[type=checkbox] + .check[type=checkbox].taginput-container.is-focusable + .switch input[type=checkbox] + .check.check {
   background: "pink";
 }
+.switch input[type=checkbox] + .check.is-linkedin-passive, .switch input[type=checkbox] + .check:hover {
+  background: #0077b5;
+}
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check, .switch .taginput input[type=checkbox] + .check[type=checkbox].taginput-container.is-focusable + .switch input[type=checkbox] + .check.check, .taginput .switch input[type=checkbox] + .check[type=checkbox].taginput-container.is-focusable + .switch input[type=checkbox] + .check.check {
+  background: "pink";
+}
+.switch input[type=checkbox] + .check.is-apple-passive, .switch input[type=checkbox] + .check:hover {
+  background: #000000;
+}
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check, .switch .taginput input[type=checkbox] + .check[type=checkbox].taginput-container.is-focusable + .switch input[type=checkbox] + .check.check, .taginput .switch input[type=checkbox] + .check[type=checkbox].taginput-container.is-focusable + .switch input[type=checkbox] + .check.check {
+  background: "pink";
+}
+.switch input[type=checkbox] + .check.is-google-passive, .switch input[type=checkbox] + .check:hover {
+  background: #ffffff;
+}
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check, .switch .taginput input[type=checkbox] + .check[type=checkbox].taginput-container.is-focusable + .switch input[type=checkbox] + .check.check, .taginput .switch input[type=checkbox] + .check[type=checkbox].taginput-container.is-focusable + .switch input[type=checkbox] + .check.check {
+  background: "pink";
+}
 .switch input[type=checkbox] + .check:before {
   content: "";
   display: block;
@@ -12654,6 +13995,15 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .switch input[type=checkbox]:checked + .check.is-danger {
   background: #ff3860;
 }
+.switch input[type=checkbox]:checked + .check.is-linkedin {
+  background: #0077b5;
+}
+.switch input[type=checkbox]:checked + .check.is-apple {
+  background: #000000;
+}
+.switch input[type=checkbox]:checked + .check.is-google {
+  background: #ffffff;
+}
 .switch input[type=checkbox]:checked + .check:before {
   transform: translate3d(100%, 0, 0);
 }
@@ -12696,6 +14046,15 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .switch input[type=checkbox]:focus + .check.is-danger-passive, .switch input[type=checkbox]:active + .check.is-danger-passive {
   box-shadow: 0 0 0.5em rgba(255, 56, 96, 0.8);
 }
+.switch input[type=checkbox]:focus + .check.is-linkedin-passive, .switch input[type=checkbox]:active + .check.is-linkedin-passive {
+  box-shadow: 0 0 0.5em rgba(0, 119, 181, 0.8);
+}
+.switch input[type=checkbox]:focus + .check.is-apple-passive, .switch input[type=checkbox]:active + .check.is-apple-passive {
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
+}
+.switch input[type=checkbox]:focus + .check.is-google-passive, .switch input[type=checkbox]:active + .check.is-google-passive {
+  box-shadow: 0 0 0.5em rgba(255, 255, 255, 0.8);
+}
 .switch input[type=checkbox]:focus:checked + .check, .switch input[type=checkbox]:active:checked + .check {
   box-shadow: 0 0 0.5em rgba(9, 132, 227, 0.8);
 }
@@ -12728,6 +14087,15 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 .switch input[type=checkbox]:focus:checked + .check.is-danger, .switch input[type=checkbox]:active:checked + .check.is-danger {
   box-shadow: 0 0 0.5em rgba(255, 56, 96, 0.8);
+}
+.switch input[type=checkbox]:focus:checked + .check.is-linkedin, .switch input[type=checkbox]:active:checked + .check.is-linkedin {
+  box-shadow: 0 0 0.5em rgba(0, 119, 181, 0.8);
+}
+.switch input[type=checkbox]:focus:checked + .check.is-apple, .switch input[type=checkbox]:active:checked + .check.is-apple {
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.8);
+}
+.switch input[type=checkbox]:focus:checked + .check.is-google, .switch input[type=checkbox]:active:checked + .check.is-google {
+  box-shadow: 0 0 0.5em rgba(255, 255, 255, 0.8);
 }
 .switch .control-label {
   padding-left: 0.5em;
@@ -12765,6 +14133,15 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .switch:hover input[type=checkbox] + .check.is-danger-passive {
   background: rgba(255, 56, 96, 0.9);
 }
+.switch:hover input[type=checkbox] + .check.is-linkedin-passive {
+  background: rgba(0, 119, 181, 0.9);
+}
+.switch:hover input[type=checkbox] + .check.is-apple-passive {
+  background: rgba(0, 0, 0, 0.9);
+}
+.switch:hover input[type=checkbox] + .check.is-google-passive {
+  background: rgba(255, 255, 255, 0.9);
+}
 .switch:hover input[type=checkbox]:checked + .check {
   background: rgba(9, 132, 227, 0.9);
 }
@@ -12797,6 +14174,15 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 .switch:hover input[type=checkbox]:checked + .check.is-danger {
   background: rgba(255, 56, 96, 0.9);
+}
+.switch:hover input[type=checkbox]:checked + .check.is-linkedin {
+  background: rgba(0, 119, 181, 0.9);
+}
+.switch:hover input[type=checkbox]:checked + .check.is-apple {
+  background: rgba(0, 0, 0, 0.9);
+}
+.switch:hover input[type=checkbox]:checked + .check.is-google {
+  background: rgba(255, 255, 255, 0.9);
 }
 .switch.is-rounded input[type=checkbox] + .check {
   border-radius: 290486px;
@@ -12902,6 +14288,33 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .switch.is-outlined input[type=checkbox] + .check.is-danger-passive:hover {
   border-color: rgba(255, 56, 96, 0.9);
 }
+.switch.is-outlined input[type=checkbox] + .check.is-linkedin-passive {
+  border: 0.1rem solid rgba(0, 119, 181, 0.9);
+}
+.switch.is-outlined input[type=checkbox] + .check.is-linkedin-passive:before {
+  background: #0077b5;
+}
+.switch.is-outlined input[type=checkbox] + .check.is-linkedin-passive:hover {
+  border-color: rgba(0, 119, 181, 0.9);
+}
+.switch.is-outlined input[type=checkbox] + .check.is-apple-passive {
+  border: 0.1rem solid rgba(0, 0, 0, 0.9);
+}
+.switch.is-outlined input[type=checkbox] + .check.is-apple-passive:before {
+  background: #000000;
+}
+.switch.is-outlined input[type=checkbox] + .check.is-apple-passive:hover {
+  border-color: rgba(0, 0, 0, 0.9);
+}
+.switch.is-outlined input[type=checkbox] + .check.is-google-passive {
+  border: 0.1rem solid rgba(255, 255, 255, 0.9);
+}
+.switch.is-outlined input[type=checkbox] + .check.is-google-passive:before {
+  background: #ffffff;
+}
+.switch.is-outlined input[type=checkbox] + .check.is-google-passive:hover {
+  border-color: rgba(255, 255, 255, 0.9);
+}
 .switch.is-outlined input[type=checkbox] + .check:before {
   background: #b5b5b5;
 }
@@ -12978,6 +14391,27 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .switch.is-outlined input[type=checkbox]:checked + .check.is-danger:before {
   background: #ff3860;
 }
+.switch.is-outlined input[type=checkbox]:checked + .check.is-linkedin {
+  background: transparent;
+  border-color: #0077b5;
+}
+.switch.is-outlined input[type=checkbox]:checked + .check.is-linkedin:before {
+  background: #0077b5;
+}
+.switch.is-outlined input[type=checkbox]:checked + .check.is-apple {
+  background: transparent;
+  border-color: #000000;
+}
+.switch.is-outlined input[type=checkbox]:checked + .check.is-apple:before {
+  background: #000000;
+}
+.switch.is-outlined input[type=checkbox]:checked + .check.is-google {
+  background: transparent;
+  border-color: #ffffff;
+}
+.switch.is-outlined input[type=checkbox]:checked + .check.is-google:before {
+  background: #ffffff;
+}
 .switch.is-outlined input[type=checkbox]:checked + .check:before {
   background: #0984e3;
 }
@@ -13018,6 +14452,15 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 .switch.is-outlined:hover input[type=checkbox]:checked + .check.is-danger {
   border-color: rgba(255, 56, 96, 0.9);
+}
+.switch.is-outlined:hover input[type=checkbox]:checked + .check.is-linkedin {
+  border-color: rgba(0, 119, 181, 0.9);
+}
+.switch.is-outlined:hover input[type=checkbox]:checked + .check.is-apple {
+  border-color: rgba(0, 0, 0, 0.9);
+}
+.switch.is-outlined:hover input[type=checkbox]:checked + .check.is-google {
+  border-color: rgba(255, 255, 255, 0.9);
 }
 .switch.is-small {
   border-radius: 2px;
@@ -13454,6 +14897,24 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .tag .delete.is-danger:hover, .tag.is-delete.is-danger:hover {
   background-color: #ff0537;
 }
+.tag .delete.is-linkedin, .tag.is-delete.is-linkedin {
+  background: #0077b5;
+}
+.tag .delete.is-linkedin:hover, .tag.is-delete.is-linkedin:hover {
+  background-color: #005582;
+}
+.tag .delete.is-apple, .tag.is-delete.is-apple {
+  background: #000000;
+}
+.tag .delete.is-apple:hover, .tag.is-delete.is-apple:hover {
+  background-color: black;
+}
+.tag .delete.is-google, .tag.is-delete.is-google {
+  background: #ffffff;
+}
+.tag .delete.is-google:hover, .tag.is-delete.is-google:hover {
+  background-color: #e6e6e6;
+}
 
 .taginput .taginput-container {
   display: flex;
@@ -13663,6 +15124,24 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
+.b-tooltip.is-top.is-linkedin:before {
+  border-top: 5px solid #0077b5;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  bottom: calc(100% + 2px);
+}
+.b-tooltip.is-top.is-apple:before {
+  border-top: 5px solid #000000;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  bottom: calc(100% + 2px);
+}
+.b-tooltip.is-top.is-google:before {
+  border-top: 5px solid #ffffff;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  bottom: calc(100% + 2px);
+}
 .b-tooltip.is-top.is-multiline.is-small:after {
   width: 180px;
 }
@@ -13736,6 +15215,24 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .b-tooltip.is-right.is-danger:before {
   border-top: 5px solid transparent;
   border-right: 5px solid #ff3860;
+  border-bottom: 5px solid transparent;
+  left: calc(100% + 2px);
+}
+.b-tooltip.is-right.is-linkedin:before {
+  border-top: 5px solid transparent;
+  border-right: 5px solid #0077b5;
+  border-bottom: 5px solid transparent;
+  left: calc(100% + 2px);
+}
+.b-tooltip.is-right.is-apple:before {
+  border-top: 5px solid transparent;
+  border-right: 5px solid #000000;
+  border-bottom: 5px solid transparent;
+  left: calc(100% + 2px);
+}
+.b-tooltip.is-right.is-google:before {
+  border-top: 5px solid transparent;
+  border-right: 5px solid #ffffff;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
@@ -13815,6 +15312,24 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
+.b-tooltip.is-bottom.is-linkedin:before {
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #0077b5;
+  border-left: 5px solid transparent;
+  top: calc(100% + 2px);
+}
+.b-tooltip.is-bottom.is-apple:before {
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #000000;
+  border-left: 5px solid transparent;
+  top: calc(100% + 2px);
+}
+.b-tooltip.is-bottom.is-google:before {
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #ffffff;
+  border-left: 5px solid transparent;
+  top: calc(100% + 2px);
+}
 .b-tooltip.is-bottom.is-multiline.is-small:after {
   width: 180px;
 }
@@ -13891,6 +15406,24 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   border-left: 5px solid #ff3860;
   right: calc(100% + 2px);
 }
+.b-tooltip.is-left.is-linkedin:before {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #0077b5;
+  right: calc(100% + 2px);
+}
+.b-tooltip.is-left.is-apple:before {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #000000;
+  right: calc(100% + 2px);
+}
+.b-tooltip.is-left.is-google:before {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #ffffff;
+  right: calc(100% + 2px);
+}
 .b-tooltip.is-left.is-multiline.is-small:after {
   width: 180px;
 }
@@ -13965,6 +15498,18 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .b-tooltip.is-danger:after {
   background: #ff3860;
   color: #fff;
+}
+.b-tooltip.is-linkedin:after {
+  background: #0077b5;
+  color: #fff;
+}
+.b-tooltip.is-apple:after {
+  background: #000000;
+  color: #fff;
+}
+.b-tooltip.is-google:after {
+  background: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
 }
 .b-tooltip:not([data-label=""]).is-always:before, .b-tooltip:not([data-label=""]).is-always:after {
   opacity: 1;
@@ -14073,6 +15618,18 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .upload .upload-draggable:hover.is-danger, .upload .upload-draggable.is-hovered.is-danger {
   border-color: #ff3860;
   background: rgba(255, 56, 96, 0.05);
+}
+.upload .upload-draggable:hover.is-linkedin, .upload .upload-draggable.is-hovered.is-linkedin {
+  border-color: #0077b5;
+  background: rgba(0, 119, 181, 0.05);
+}
+.upload .upload-draggable:hover.is-apple, .upload .upload-draggable.is-hovered.is-apple {
+  border-color: #000000;
+  background: rgba(0, 0, 0, 0.05);
+}
+.upload .upload-draggable:hover.is-google, .upload .upload-draggable.is-hovered.is-google {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
 }
 .upload .upload-draggable.is-expanded {
   width: 100%;

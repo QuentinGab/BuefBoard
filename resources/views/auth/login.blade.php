@@ -64,7 +64,7 @@
                         <div class="field is-grouped">
                             <div class="control">
                                 <button type="submit"
-                                    class="button is-link">{{ __('Login') }}</button>
+                                    class="button is-primary">{{ __('Login') }}</button>
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
                     <hr />
 
                     <div class="buttons">
-                      <a href="{{ route('login.social','linkedin') }}" class="button button-linkedin">
+                      <a href="{{ route('login.social','linkedin') }}" class="button is-linkedin">
                             <span class="icon is-large">
                                 <i class="mdi mdi-24px mdi-linkedin"></i>
                             </span>
@@ -89,7 +89,7 @@
                                 Login with LinkedIn
                             </span>
                         </a>
-                        <a href="{{ route('login.social','apple') }}" class="button button-apple">
+                        <a href="{{ route('login.social','apple') }}" class="button is-apple">
                             <span class="icon is-large">
                                 <i class="mdi mdi-24px mdi-apple"></i>
                             </span>
@@ -97,7 +97,7 @@
                                 Login with Apple
                             </span>
                         </a>
-                        <a href="{{ route('login.social','google') }}" class="button button-google">
+                        <a href="{{ route('login.social','google') }}" class="button is-google">
                             <span class="icon">
                                 <img src="{{ asset('/images/social/google_g.svg') }}" alt="">
                             </span>

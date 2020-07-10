@@ -204,7 +204,7 @@ export default {
             ];
         },
         isFiltered() {
-            return !!(this.filter.object.field && this.filter.value);
+            return !!(this.filter.object.field);
         },
         isSorted() {
             return this.sort.value;
@@ -251,9 +251,6 @@ export default {
             this.getActivities();
         },
         onFilter: debounce(function() {
-            if (!this.isFiltered) {
-                return;
-            }
             this.getActivities();
         }, 500)
     },

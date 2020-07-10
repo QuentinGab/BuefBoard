@@ -85,7 +85,7 @@
                         <div class="field is-grouped">
                             <div class="control">
                                 <button type="submit"
-                                    class="button is-link">{{ __('Register') }}</button>
+                                    class="button is-primary">{{ __('Register') }}</button>
                             </div>
                         </div>
 
@@ -96,7 +96,7 @@
 
                     <div class="buttons">
                         <a href="{{ route('login.social','linkedin') }}"
-                            class="button button-linkedin">
+                            class="button is-linkedin">
                             <span class="icon is-large">
                                 <i class="mdi mdi-24px mdi-linkedin"></i>
                             </span>
@@ -105,7 +105,7 @@
                             </span>
                         </a>
                         <a href="{{ route('login.social','apple') }}"
-                            class="button button-apple">
+                            class="button is-apple">
                             <span class="icon is-large">
                                 <i class="mdi mdi-24px mdi-apple"></i>
                             </span>
@@ -114,9 +114,9 @@
                             </span>
                         </a>
                         <a href="{{ route('login.social','google') }}"
-                            class="button button-google">
-                            <span class="icon">
-                                <img src="{{ asset('/images/social/google_g.svg') }}" alt="">
+                            class="button is-google">
+                            <span class="icon is-large">
+                                <i class="mdi mdi-24px mdi-google"></i>
                             </span>
                             <span>
                                 Register with Google

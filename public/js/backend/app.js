@@ -2664,17 +2664,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 // @b/ is an alias to /src/backend
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2685,7 +2674,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       menu: []
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["currentUser", "loading", "logo"])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["currentUser", "loading", "logo"])), {}, {
+    dropdownMenu: function dropdownMenu() {
+      return [{
+        label: "Dashboard",
+        icon: "view-dashboard-outline",
+        href: null,
+        to: {
+          name: "dashboard"
+        }
+      }, {
+        label: "My Account",
+        icon: "account-circle-outline",
+        href: null,
+        to: {
+          name: "users.account"
+        }
+      }, {
+        label: "Logout",
+        icon: "logout",
+        href: "/logout",
+        to: null
+      }];
+    }
+  }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["toggleNotificationCenter"])),
   created: function created() {}
 });
@@ -61159,44 +61171,29 @@ var render = function() {
         { slot: "end" },
         [
           _c(
-            "b-dropdown",
-            {
-              staticClass: "bb-navbar-account",
-              attrs: {
-                position: "is-bottom-left",
-                "append-to-body": "",
-                "aria-role": "menu"
-              }
-            },
+            "b-navbar-dropdown",
+            { attrs: { position: "is-bottom-left", hoverable: "", boxed: "" } },
             [
-              _c(
-                "a",
-                {
-                  staticClass: "navbar-item has-divider",
-                  attrs: { slot: "trigger", role: "button" },
-                  slot: "trigger"
-                },
-                [
-                  _c("b-icon", { attrs: { icon: "account-circle" } }),
-                  _vm._v(" "),
-                  _c("div", [
-                    _c("span", { staticClass: "h6" }, [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.currentUser.fullname) +
-                          "\n                    "
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("b-icon", { attrs: { icon: "chevron-down" } })
-                ],
-                1
-              ),
+              _c("template", { slot: "label" }, [
+                _c("figure", { staticClass: "image avatar is-24x24" }, [
+                  _c("img", {
+                    staticClass: "is-rounded",
+                    attrs: { src: _vm.currentUser.avatar }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "h6" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.currentUser.fullname) +
+                      "\n                "
+                  )
+                ])
+              ]),
               _vm._v(" "),
               _c(
-                "b-dropdown-item",
-                { attrs: { custom: "", "aria-role": "menuitem" } },
+                "b-navbar-item",
+                { attrs: { tag: "div", "aria-role": "menuitem" } },
                 [
                   _c(
                     "b-taglist",
@@ -61221,76 +61218,41 @@ var render = function() {
               _vm._v(" "),
               _c("hr", { staticClass: "dropdown-divider" }),
               _vm._v(" "),
-              _c(
-                "b-dropdown-item",
-                { attrs: { "has-link": "", "aria-role": "menuitem" } },
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "dashboard" } } },
-                    [
-                      _c("b-icon", {
-                        attrs: { icon: "desktop-mac", size: "is-small" }
-                      }),
+              _vm._l(_vm.dropdownMenu, function(item, index) {
+                return _c(
+                  "b-navbar-item",
+                  {
+                    key: index,
+                    attrs: {
+                      tag: item.to ? "router-link" : "a",
+                      to: item.to,
+                      href: item.href
+                    }
+                  },
+                  [
+                    _c("b-icon", {
+                      attrs: { icon: item.icon, size: "is-small" }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [
                       _vm._v(
-                        "\n                    DashBoard\n                "
+                        "\n                    " +
+                          _vm._s(item.label) +
+                          "\n                "
                       )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-dropdown-item",
-                { attrs: { "has-link": "", "aria-role": "menuitem" } },
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "users.account" } } },
-                    [
-                      _c("b-icon", {
-                        attrs: {
-                          icon: "account-circle-outline",
-                          size: "is-small"
-                        }
-                      }),
-                      _vm._v(
-                        "\n                    My Account\n                "
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-dropdown-item",
-                { attrs: { "has-link": "", "aria-role": "menuitem" } },
-                [
-                  _c(
-                    "a",
-                    { attrs: { href: "/logout" } },
-                    [
-                      _c("b-icon", {
-                        attrs: { icon: "logout", size: "is-small" }
-                      }),
-                      _vm._v("\n                    Logout\n                ")
-                    ],
-                    1
-                  )
-                ]
-              )
+                    ])
+                  ],
+                  1
+                )
+              })
             ],
-            1
+            2
           ),
           _vm._v(" "),
           _c(
             "b-navbar-item",
             {
-              staticClass: "has-divider is-icon",
+              staticClass: "has-divider has-divider-left is-icon",
               on: {
                 click: function($event) {
                   return _vm.toggleNotificationCenter()
@@ -61302,6 +61264,13 @@ var render = function() {
                 attrs: { icon: "bell-outline", size: "is-small" }
               })
             ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-navbar-item",
+            { staticClass: "is-icon", attrs: { href: "/logout" } },
+            [_c("b-icon", { attrs: { icon: "logout", size: "is-small" } })],
             1
           )
         ],

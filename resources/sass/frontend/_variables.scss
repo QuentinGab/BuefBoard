@@ -25,3 +25,29 @@ $card-shadow: 0 0.5em 1em -0.125em rgba(0, 0, 0, 0.1),
     0 0px 0 1px rgba(0, 0, 0, 0.02);
 $card-header-shadow: none;
 $card-radius: 6px;
+
+// Import Bulma's core to use Bulma function
+@import "~bulma/sass/utilities/_all";
+//Social
+$linkedin: #0077b5;
+$linkedin-invert: findColorInvert($linkedin);
+$google: #ffffff;
+$google-invert: findColorInvert($google);
+$apple: #000000;
+$apple-invert: findColorInvert($apple);
+
+$custom-colors: (
+    "linkedin": (
+        $linkedin,
+        $linkedin-invert
+    ),
+    "apple": (
+        $apple,
+        $apple-invert
+    ),
+    "google": (
+        $google,
+        $google-invert
+    )
+);
+$colors: join($colors, $custom-colors);

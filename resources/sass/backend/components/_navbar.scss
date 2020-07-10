@@ -4,19 +4,18 @@
     .navbar-brand {
         min-width: $sidebar-width;
         border-right: 1px solid;
-        // border-bottom: 1px solid;
         border-color: var(--bb-light, $light);
     }
     .navbar-item {
-        padding-right: 1.125rem;
-        padding-left: 1.125rem;
-        justify-content: center;
         &.is-icon {
             padding-right: 1.5rem;
             padding-left: 1.5rem;
         }
-        &.has-divider:not(:last-child) {
+        &.has-divider {
             border-right: 1px solid var(--bb-light, $light);
+        }
+        &.has-divider-left {
+            border-left: 1px solid var(--bb-light, $light);
         }
     }
     .control {
@@ -40,16 +39,8 @@
     }
 }
 
-.bb-navbar-account {
-    width: 100%;
-    .dropdown-trigger {
-        .icon {
-            padding-right: 1.5rem;
-            padding-left: 1.5rem;
-        }
-        .navbar-item {
-            display: flex;
-            align-items: center;
-        }
+.navbar-link {
+    .avatar {
+        margin-right: 0.5rem;
     }
 }

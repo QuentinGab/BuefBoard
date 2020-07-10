@@ -14211,17 +14211,15 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   border-right: 1px solid;
   border-color: var(--bb-light, whitesmoke);
 }
-.bb-navbar .navbar-item {
-  padding-right: 1.125rem;
-  padding-left: 1.125rem;
-  justify-content: center;
-}
 .bb-navbar .navbar-item.is-icon {
   padding-right: 1.5rem;
   padding-left: 1.5rem;
 }
-.bb-navbar .navbar-item.has-divider:not(:last-child) {
+.bb-navbar .navbar-item.has-divider {
   border-right: 1px solid var(--bb-light, whitesmoke);
+}
+.bb-navbar .navbar-item.has-divider-left {
+  border-left: 1px solid var(--bb-light, whitesmoke);
 }
 .bb-navbar .control {
   height: 100%;
@@ -14242,16 +14240,8 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   height: 100% !important;
 }
 
-.bb-navbar-account {
-  width: 100%;
-}
-.bb-navbar-account .dropdown-trigger .icon {
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
-}
-.bb-navbar-account .dropdown-trigger .navbar-item {
-  display: flex;
-  align-items: center;
+.navbar-link .avatar {
+  margin-right: 0.5rem;
 }
 
 .bb-table {

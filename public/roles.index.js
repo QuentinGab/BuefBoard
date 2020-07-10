@@ -225,7 +225,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }];
     },
     isFiltered: function isFiltered() {
-      return !!(this.filter.object.field && this.filter.value);
+      return !!this.filter.object.field;
     },
     isSorted: function isSorted() {
       return this.sort.value;
@@ -295,10 +295,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.getActivities();
     },
     onFilter: lodash_debounce__WEBPACK_IMPORTED_MODULE_3___default()(function () {
-      if (!this.isFiltered) {
-        return;
-      }
-
       this.getActivities();
     }, 500)
   },
