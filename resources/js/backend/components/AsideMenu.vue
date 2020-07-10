@@ -8,12 +8,13 @@
                     :key="index"
                 >
                     <b-menu-item
-                        :icon="menuItem.icon"
                         v-for="(menuItem, index) in menuList.menu"
+                        :icon="menuItem.icon"
                         :key="index"
                         :to="menuItem.to"
                         :href="menuItem.href"
                         :tag="menuItem.to ? 'router-link' : 'a'"
+                        :title="menuItem.label"
                     >
                         <template slot="label" slot-scope="props">
                             <span>
@@ -35,6 +36,7 @@
                             :to="menuSubItem.to"
                             :href="menuSubItem.href"
                             :tag="menuSubItem.to ? 'router-link' : 'a'"
+                            :title="menuItem.label"
                         ></b-menu-item>
                     </b-menu-item>
                 </b-menu-list>

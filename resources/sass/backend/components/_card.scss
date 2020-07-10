@@ -31,9 +31,11 @@
 
 .bb-card-metrics {
     display: flex;
+    overflow: auto;
     .metrics-item {
         padding: 2rem;
         font-weight: bold;
+        min-width: 170px;
         &:not(:last-child) {
             border-right: solid 1px var(--bb-white-ter, $white-ter);
         }

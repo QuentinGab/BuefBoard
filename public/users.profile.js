@@ -357,9 +357,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -697,7 +694,7 @@ var render = function() {
                             "figure",
                             {
                               staticClass:
-                                "image avatar is-128x128 is-pulled-right"
+                                "image avatar is-128x128 is-inline-block"
                             },
                             [
                               _vm.currentUser && _vm.currentUser.avatar
@@ -709,27 +706,15 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c(
-                          "div",
-                          [
-                            _c("h1", { staticClass: "title" }, [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(_vm.currentUser.fullname) +
-                                  "\n                                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("b-tag", { attrs: { size: "is-large" } }, [
-                              _vm._v(
-                                "\n                                        #" +
-                                  _vm._s(_vm.currentUser.id) +
-                                  "\n                                    "
-                              )
-                            ])
-                          ],
-                          1
-                        )
+                        _c("div", [
+                          _c("h1", { staticClass: "title is-marginless" }, [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.currentUser.fullname) +
+                                "\n                                    "
+                            )
+                          ])
+                        ])
                       ],
                       2
                     ),

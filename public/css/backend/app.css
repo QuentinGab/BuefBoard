@@ -18737,6 +18737,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .bb-table .bb-table-header .level-left,
 .bb-table .bb-table-header .level-right {
+  margin: 0;
   align-items: flex-end;
 }
 
@@ -18874,11 +18875,13 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .bb-card-metrics {
   display: flex;
+  overflow: auto;
 }
 
 .bb-card-metrics .metrics-item {
   padding: 2rem;
   font-weight: bold;
+  min-width: 170px;
 }
 
 .bb-card-metrics .metrics-item:not(:last-child) {

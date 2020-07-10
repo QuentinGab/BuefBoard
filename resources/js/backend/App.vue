@@ -33,17 +33,17 @@ export default {
                     menu: [
                         {
                             label: "Dashboard",
-                            icon: "desktop-mac",
+                            icon: "view-dashboard-outline",
                             to: "/"
                         },
                         {
                             label: "Users",
-                            icon: "account-multiple-outline",
+                            icon: "contacts-outline",
                             to: "/users/index"
                         },
                         {
                             label: "Roles",
-                            icon: "account-details-outline",
+                            icon: "account-key-outline",
                             to: "/roles/index"
                         },
                         {

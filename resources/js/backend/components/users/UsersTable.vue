@@ -11,74 +11,11 @@
                     {{ total }}
                 </div>
                 <div v-if="canFilter">
-                    <b-field>
-                        <p class="control">
-                            <b-dropdown
-                                v-model="filter.object"
-                                aria-role="list"
-                                v-on:change="filter.value = null"
-                            >
-                                <button class="button is-small" slot="trigger">
-                                    <span>{{ filter.object.label }}</span>
-                                    <b-icon
-                                        icon="chevron-down"
-                                        size="is-small"
-                                    ></b-icon>
-                                </button>
-
-                                <b-dropdown-item
-                                    v-for="filter in filters"
-                                    :value="filter"
-                                    :key="filter.field"
-                                    >{{ filter.label }}</b-dropdown-item
-                                >
-                            </b-dropdown>
-                        </p>
-                        <template>
-                            <b-select
-                                v-if="filterType == 'select'"
-                                placeholder="Select"
-                                v-model="filter.value"
-                                size="is-small"
-                                v-on:input="onFilter"
-                            >
-                                <option
-                                    v-for="option in filter.object.options"
-                                    :value="option"
-                                    :key="option"
-                                >
-                                    {{ option }}
-                                </option>
-                            </b-select>
-                            <b-datepicker
-                                v-else-if="filterType == 'date'"
-                                placeholder="Select a Date"
-                                icon="calendar"
-                                trap-focus
-                                size="is-small"
-                                v-model="filter.value"
-                                v-on:input="onFilter"
-                                :max-date="filter.object.maxDate || null"
-                                :min-date="filter.object.minDate || null"
-                            >
-                            </b-datepicker>
-                            <b-input
-                                v-else
-                                icon="magnify"
-                                type="search"
-                                placeholder="Search..."
-                                size="is-small"
-                                v-model="filter.value"
-                                v-on:input="onFilter"
-                            ></b-input>
-                        </template>
-                        <b-button
-                            size="is-small"
-                            icon-left="close"
-                            @click="clearFilter"
-                            :disabled="!isFiltered"
-                        ></b-button>
-                    </b-field>
+                    <filter-bar
+                        v-model="filter"
+                        :filters="filters"
+                        v-on:input="onFilter"
+                    />
                 </div>
                 <div v-if="canSeeTrashed">
                     <b-field>
@@ -230,9 +167,16 @@
         >
             <template slot-scope="props">
                 <b-table-column field="avatar" width="48">
-                    <figure class="image avatar is-24x24">
-                        <img class="is-rounded" :src="props.row.avatar" />
-                    </figure>
+                    <router-link
+                        :to="{
+                            name: 'users.edit',
+                            params: { id: props.row.id }
+                        }"
+                    >
+                        <figure class="image avatar is-24x24">
+                            <img class="is-rounded" :src="props.row.avatar" />
+                        </figure>
+                    </router-link>
                 </b-table-column>
                 <b-table-column
                     field="id"
@@ -241,7 +185,16 @@
                     sortable
                     width="40"
                 >
-                    {{ props.row.id }}
+                    <router-link
+                        :to="{
+                            name: 'users.edit',
+                            params: { id: props.row.id }
+                        }"
+                    >
+                        <b-tag>
+                            {{ props.row.id }}
+                        </b-tag>
+                    </router-link>
                 </b-table-column>
                 <b-table-column field="first_name" label="First Name" sortable>
                     {{ props.row.first_name }}
@@ -317,24 +270,6 @@
                 <b-table-column field="created_at" label="Created At" sortable>
                     {{ new Date(props.row.created_at).toLocaleDateString() }}
                 </b-table-column>
-
-                <b-table-column
-                    custom-key="actions"
-                    label="Actions"
-                    class="is-actions-cell"
-                    width="40"
-                    numeric
-                >
-                    <router-link
-                        :to="{
-                            name: 'users.edit',
-                            params: { id: props.row.id }
-                        }"
-                        class="button is-small"
-                    >
-                        <b-icon icon="account-edit" size="is-small" />
-                    </router-link>
-                </b-table-column>
             </template>
 
             <template slot="empty">
@@ -363,9 +298,11 @@ import { mapState } from "vuex";
 import User from "@b/models/User";
 import debounce from "lodash/debounce";
 
+import FilterBar from "@b/components/FilterBar";
+
 export default {
     name: "UsersTable",
-    components: {},
+    components: { FilterBar },
     props: {
         canFilter: {
             type: Boolean
@@ -425,9 +362,6 @@ export default {
         ...mapState(["user", "roles", "permissions"]),
         total() {
             return this.pagination.total;
-        },
-        filterType() {
-            return this.filter.object.type;
         },
         filters() {
             return [

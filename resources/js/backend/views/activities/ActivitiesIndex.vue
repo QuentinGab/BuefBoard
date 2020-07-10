@@ -24,48 +24,11 @@
                                 {{ total }}
                             </div>
                             <div>
-                                <b-field>
-                                    <p class="control">
-                                        <b-dropdown
-                                            v-model="filter.field"
-                                            aria-role="list"
-                                        >
-                                            <button
-                                                class="button is-small"
-                                                slot="trigger"
-                                            >
-                                                <span>{{
-                                                    filter.field
-                                                        ? filter.field
-                                                        : "Filters"
-                                                }}</span>
-                                                <b-icon
-                                                    icon="chevron-down"
-                                                    size="is-small"
-                                                ></b-icon>
-                                            </button>
-
-                                            <b-dropdown-item
-                                                :value="field"
-                                                v-for="field in fields"
-                                                :key="field"
-                                                >{{ field }}</b-dropdown-item
-                                            >
-                                        </b-dropdown>
-                                    </p>
-                                    <b-input
-                                        icon="magnify"
-                                        type="search"
-                                        :placeholder="
-                                            filter.field
-                                                ? 'Search...'
-                                                : 'Select a column'
-                                        "
-                                        size="is-small"
-                                        v-model="filter.value"
-                                        v-on:input="onFilter"
-                                    ></b-input>
-                                </b-field>
+                                <filter-bar
+                                    v-model="filter"
+                                    :filters="filters"
+                                    v-on:input="onFilter"
+                                />
                             </div>
                         </div>
                         <div class="level-right">
@@ -178,12 +141,12 @@ import TitleBar from "@b/components/TitleBar";
 
 import Activity from "@b/models/Activity";
 import debounce from "lodash/debounce";
-
+import FilterBar from "@b/components/FilterBar";
 import { mapState } from "vuex";
 
 export default {
     name: "ActivitiesIndex",
-    components: { TitleBar },
+    components: { TitleBar, FilterBar },
     props: {},
     data() {
         return {
@@ -205,7 +168,11 @@ export default {
                 value: null
             },
             filter: {
-                field: null,
+                object: {
+                    type: "text",
+                    field: false,
+                    label: "Filters"
+                },
                 value: null
             },
 
@@ -217,11 +184,27 @@ export default {
         total() {
             return this.pagination.total;
         },
-        fields() {
-            return ["log_name", "id", "description"];
+        filters() {
+            return [
+                {
+                    field: "id",
+                    label: "ID",
+                    type: "number"
+                },
+                {
+                    field: "log_name",
+                    type: "search",
+                    label: "Log Name"
+                },
+                {
+                    field: "description",
+                    type: "search",
+                    label: "Description"
+                }
+            ];
         },
         isFiltered() {
-            return !!(this.filter.field && this.filter.value);
+            return !!(this.filter.object.field && this.filter.value);
         },
         isSorted() {
             return this.sort.value;
@@ -245,7 +228,7 @@ export default {
                 activities.orderBy(this.sort.value);
             }
             if (this.isFiltered) {
-                activities.where(this.filter.field, this.filter.value);
+                activities.where(this.filter.object.field, this.filter.value);
             }
             let response = await activities.get().then(response => {
                 this.activities = response.data;
@@ -268,7 +251,7 @@ export default {
             this.getActivities();
         },
         onFilter: debounce(function() {
-            if (!this.filter.field) {
+            if (!this.isFiltered) {
                 return;
             }
             this.getActivities();

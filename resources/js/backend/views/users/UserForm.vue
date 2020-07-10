@@ -74,7 +74,7 @@
                             <div class="">
                                 <b-field horizontal>
                                     <template slot="label">
-                                        <figure class="image avatar is-128x128 is-pulled-right">
+                                        <figure class="image avatar is-128x128 is-inline-block">
                                             <img
                                                 v-if="user && user.avatar"
                                                 :src="user.avatar"
@@ -82,7 +82,7 @@
                                         </figure>
                                     </template>
                                     <div>
-                                        <h1 class="title">
+                                        <h1 class="title is-marginless">
                                             {{ user.fullname }}
                                         </h1>
                                         <b-tag size="is-large">

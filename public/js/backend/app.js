@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"404":"404","dashboard":"dashboard","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","roles.index":"roles.index","users.form":"users.form","vendors~users.index":"vendors~users.index","users.index":"users.index"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"404":"404","dashboard":"dashboard","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","users.form":"users.form","vendors~roles.index~users.index":"vendors~roles.index~users.index","roles.index~users.index":"roles.index~users.index","users.index":"users.index","roles.index":"roles.index"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -2435,15 +2435,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         icon: "cog",
         menu: [{
           label: "Dashboard",
-          icon: "desktop-mac",
+          icon: "view-dashboard-outline",
           to: "/"
         }, {
           label: "Users",
-          icon: "account-multiple-outline",
+          icon: "contacts-outline",
           to: "/users/index"
         }, {
           label: "Roles",
-          icon: "account-details-outline",
+          icon: "account-key-outline",
           to: "/roles/index"
         }, {
           label: "Activity",
@@ -2496,6 +2496,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
+//
 //
 //
 //
@@ -61006,7 +61008,8 @@ var render = function() {
                         icon: menuItem.icon,
                         to: menuItem.to,
                         href: menuItem.href,
-                        tag: menuItem.to ? "router-link" : "a"
+                        tag: menuItem.to ? "router-link" : "a",
+                        title: menuItem.label
                       },
                       scopedSlots: _vm._u(
                         [
@@ -61050,7 +61053,8 @@ var render = function() {
                             label: menuSubItem.label,
                             to: menuSubItem.to,
                             href: menuSubItem.href,
-                            tag: menuSubItem.to ? "router-link" : "a"
+                            tag: menuSubItem.to ? "router-link" : "a",
+                            title: menuItem.label
                           }
                         })
                       })
@@ -78744,7 +78748,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/users/index",
     name: "users.index",
     component: function component() {
-      return Promise.all(/*! import() | users.index */[__webpack_require__.e("vendors~users.index"), __webpack_require__.e("users.index")]).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
+      return Promise.all(/*! import() | users.index */[__webpack_require__.e("vendors~roles.index~users.index"), __webpack_require__.e("roles.index~users.index"), __webpack_require__.e("users.index")]).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
     }
   }, {
     path: "/users/new",
@@ -78770,14 +78774,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/roles/index",
     name: "roles.index",
     component: function component() {
-      return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
+      return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.index"), __webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.index"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
     }
   }, // Activities Management
   {
     path: "/activities/index",
     name: "activities.index",
     component: function component() {
-      return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/activities/ActivitiesIndex.vue */ "./resources/js/backend/views/activities/ActivitiesIndex.vue"));
+      return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.index"), __webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.index"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/activities/ActivitiesIndex.vue */ "./resources/js/backend/views/activities/ActivitiesIndex.vue"));
     }
   }, // NotFound
   {
