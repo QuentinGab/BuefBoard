@@ -30,7 +30,7 @@
                                     name="email" placeholder="platon@gmail.com"
                                     value="{{ old('email') }}" required autocomplete="email"
                                     autofocus>
-                                <b-icon icon="email" size="is-small is-left"></b-icon>
+                                <b-icon icon="at" size="is-small is-left"></b-icon>
                             </div>
                             @error('email')
                                 <p class="help is-danger"><strong>{{ $message }}</strong></p>
@@ -43,7 +43,7 @@
                                 <input id="password" class="input @error('password') is-danger @enderror"
                                     type="password" name="password" value="{{ old('password') }}"
                                     required autocomplete="current-password">
-                                <b-icon icon="key" size="is-small is-left"></b-icon>
+                                <b-icon icon="form-textbox-password" size="is-small is-left"></b-icon>
                             </div>
                             @error('password')
                                 <p class="help is-danger"><strong>{{ $message }}</strong></p>
