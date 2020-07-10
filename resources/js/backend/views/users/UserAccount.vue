@@ -23,7 +23,9 @@
                             <div class="">
                                 <b-field horizontal>
                                     <template slot="label">
-                                        <figure class="image avatar is-128x128 is-inline-block">
+                                        <figure
+                                            class="image avatar is-128x128 is-inline-block"
+                                        >
                                             <img
                                                 v-if="
                                                     currentUser &&
@@ -320,45 +322,37 @@ export default {
             this.loading.currentUser.avatar = true;
             var formData = new FormData();
             formData.append("avatar", this.avatar);
-            await axios
-                .post(`${this.currentUser.endpoint()}/avatar`, formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                })
-                .then(r => {
-                    this.getCurrentUser();
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `Your Avatar has been changed`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
+            await this.currentUser.updateAvatar(formData).then(r => {
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `Your Avatar has been changed`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
                 });
+            });
+
             this.loading.currentUser.avatar = false;
         },
         async deleteAvatar() {
             this.loading.currentUser.avatar = true;
 
-            await axios
-                .delete(`${this.currentUser.endpoint()}/avatar`)
-                .then(r => {
-                    this.getCurrentUser();
-                    this.$buefy.snackbar.open({
-                        duration: 2000,
-                        message: `Your Avatar has been deleted`,
-                        type: "is-info",
-                        position: "is-bottom-right",
-                        queue: false
-                    });
+            await this.currentUser.deleteAvatar().then(r => {
+                this.getCurrentUser();
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `Your Avatar has been deleted`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
                 });
+            });
             this.loading.currentUser.avatar = false;
         },
         async changePassword() {
             this.loading.currentUser.password = true;
-            axios
-                .put(`${this.currentUser.endpoint()}/password`, {
+            await this.currentUser
+                .updatePassword({
                     password: this.password,
                     password_confirmation: this.password_confirmation
                 })
@@ -370,18 +364,14 @@ export default {
                         position: "is-bottom-right",
                         queue: false
                     });
+                    this.password = null;
+                    this.password_confirmation = null;
                 });
             this.loading.currentUser.password = false;
         },
         async deleteUser() {
             await this.currentUser.delete().then(response => {
-                this.$buefy.snackbar.open({
-                    duration: 2000,
-                    message: `${this.currentUser.fullname} has been deleted`,
-                    type: "is-info",
-                    position: "is-bottom-right",
-                    queue: false
-                });
+                window.location.href = "/logout";
             });
         },
 

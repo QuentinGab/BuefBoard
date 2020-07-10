@@ -35,7 +35,7 @@ class UsersController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        $users = QueryBuilder::for(User::class) 
+        $users = QueryBuilder::for(User::class)
                 ->allowedFilters([
                     'first_name',
                     'last_name',
@@ -59,7 +59,6 @@ class UsersController extends Controller
                 )
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
                 ->paginate(15);
-        
 
         return UserResource::collection($users);
     }
@@ -99,11 +98,10 @@ class UsersController extends Controller
      */
     public function show($userId)
     {
-        $user = QueryBuilder::for(User::class) 
+        $user = QueryBuilder::for(User::class)
                 ->withTrashed()
                 ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
                 ->findOrFail($userId);
-        
 
         $this->authorize('view', $user);
 
@@ -214,6 +212,7 @@ class UsersController extends Controller
         $this->authorize('update', $user);
 
         $user->sendEmailVerificationNotification();
+
         return new UserResource($user);
     }
 

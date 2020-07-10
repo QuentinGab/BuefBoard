@@ -78638,7 +78638,8 @@ var User = /*#__PURE__*/function (_Model) {
         url: url,
         data: this
       }).then(function (response) {
-        return _this;
+        var self = Object.assign(_this, response.data.data);
+        return self;
       });
     }
     /**
@@ -78655,17 +78656,51 @@ var User = /*#__PURE__*/function (_Model) {
       });
     }
   }, {
-    key: "sendEmailVerification",
-    value: function sendEmailVerification() {
+    key: "updateAvatar",
+    value: function updateAvatar(formData) {
       var _this2 = this;
 
-      var url = "".concat(this.endpoint(), "/send-email-verification");
       return this.request({
         method: "POST",
-        url: url,
+        url: "".concat(this.endpoint(), "/avatar"),
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }).then(function (response) {
+        var self = Object.assign(_this2, response.data.data);
+        return self;
+      });
+    }
+  }, {
+    key: "deleteAvatar",
+    value: function deleteAvatar() {
+      return this.request({
+        method: "DELETE",
+        url: "".concat(this.endpoint(), "/avatar")
+      });
+    }
+  }, {
+    key: "updatePassword",
+    value: function updatePassword(data) {
+      return this.request({
+        method: "PUT",
+        url: "".concat(this.endpoint(), "/password"),
+        data: data
+      });
+    }
+  }, {
+    key: "sendEmailVerification",
+    value: function sendEmailVerification() {
+      var _this3 = this;
+
+      return this.request({
+        method: "POST",
+        url: "".concat(this.endpoint(), "/send-email-verification"),
         data: this
       }).then(function (response) {
-        return _this2;
+        var self = Object.assign(_this3, response.data);
+        return self;
       });
     }
   }, {

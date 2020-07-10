@@ -437,6 +437,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -634,9 +643,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 2:
-                _this5.getUser();
-
-              case 3:
               case "end":
                 return _context5.stop();
             }
@@ -708,8 +714,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee7);
       }))();
     },
-    confirmRestore: function confirmRestore() {
+    sendEmailVerification: function sendEmailVerification() {
       var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _this8.loading.email_verification = true;
+                _context8.next = 3;
+                return _this8.user.sendEmailVerification();
+
+              case 3:
+                _this8.loading.email_verification = false;
+
+              case 4:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }))();
+    },
+    confirmRestore: function confirmRestore() {
+      var _this9 = this;
 
       this.$buefy.dialog.confirm({
         title: "Restoring user",
@@ -718,12 +747,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "is-primary",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this8.restoreUser();
+          return _this9.restoreUser();
         }
       });
     },
     confirmDelete: function confirmDelete() {
-      var _this9 = this;
+      var _this10 = this;
 
       if (this.user.trashed) {
         return this.confirmDestroy();
@@ -736,12 +765,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "is-danger",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this9.deleteUser();
+          return _this10.deleteUser();
         }
       });
     },
     confirmDestroy: function confirmDestroy() {
-      var _this10 = this;
+      var _this11 = this;
 
       this.$buefy.dialog.confirm({
         title: "Destroying user",
@@ -750,7 +779,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "is-danger",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this10.destroyUser();
+          return _this11.destroyUser();
         }
       });
     }
@@ -1416,8 +1445,10 @@ var render = function() {
                                     {
                                       attrs: {
                                         type: "is-primary",
+                                        loading: _vm.loading.email_verification,
                                         outlined: ""
-                                      }
+                                      },
+                                      on: { click: _vm.sendEmailVerification }
                                     },
                                     [
                                       _vm._v(

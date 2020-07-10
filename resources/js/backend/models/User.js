@@ -68,7 +68,8 @@ export default class User extends Model {
             url: url,
             data: this
         }).then(response => {
-            return this;
+            let self = Object.assign(this, response.data.data);
+            return self;
         });
     }
 
@@ -83,14 +84,43 @@ export default class User extends Model {
         });
     }
 
-    sendEmailVerification() {
-        let url = `${this.endpoint()}/send-email-verification`;
+    updateAvatar(formData) {
         return this.request({
             method: "POST",
-            url: url,
+            url: `${this.endpoint()}/avatar`,
+            data: formData,
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(response => {
+            let self = Object.assign(this, response.data.data);
+            return self;
+        });
+    }
+
+    deleteAvatar() {
+        return this.request({
+            method: "DELETE",
+            url: `${this.endpoint()}/avatar`
+        });
+    }
+
+    updatePassword(data) {
+        return this.request({
+            method: "PUT",
+            url: `${this.endpoint()}/password`,
+            data: data
+        });
+    }
+
+    sendEmailVerification() {
+        return this.request({
+            method: "POST",
+            url: `${this.endpoint()}/send-email-verification`,
             data: this
         }).then(response => {
-            return this;
+            let self = Object.assign(this, response.data);
+            return self;
         });
     }
 }

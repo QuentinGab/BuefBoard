@@ -357,6 +357,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -435,13 +437,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 formData = new FormData();
                 formData.append("avatar", _this2.avatar);
                 _context2.next = 5;
-                return axios.post("".concat(_this2.currentUser.endpoint(), "/avatar"), formData, {
-                  headers: {
-                    "Content-Type": "multipart/form-data"
-                  }
-                }).then(function (r) {
-                  _this2.getCurrentUser();
-
+                return _this2.currentUser.updateAvatar(formData).then(function (r) {
                   _this2.$buefy.snackbar.open({
                     duration: 2000,
                     message: "Your Avatar has been changed",
@@ -472,7 +468,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _this3.loading.currentUser.avatar = true;
                 _context3.next = 3;
-                return axios["delete"]("".concat(_this3.currentUser.endpoint(), "/avatar")).then(function (r) {
+                return _this3.currentUser.deleteAvatar().then(function (r) {
                   _this3.getCurrentUser();
 
                   _this3.$buefy.snackbar.open({
@@ -504,7 +500,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context4.prev = _context4.next) {
               case 0:
                 _this4.loading.currentUser.password = true;
-                axios.put("".concat(_this4.currentUser.endpoint(), "/password"), {
+                _context4.next = 3;
+                return _this4.currentUser.updatePassword({
                   password: _this4.password,
                   password_confirmation: _this4.password_confirmation
                 }).then(function (r) {
@@ -515,10 +512,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     position: "is-bottom-right",
                     queue: false
                   });
+
+                  _this4.password = null;
+                  _this4.password_confirmation = null;
                 });
-                _this4.loading.currentUser.password = false;
 
               case 3:
+                _this4.loading.currentUser.password = false;
+
+              case 4:
               case "end":
                 return _context4.stop();
             }
@@ -536,13 +538,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context5.next = 2;
                 return _this5.currentUser["delete"]().then(function (response) {
-                  _this5.$buefy.snackbar.open({
-                    duration: 2000,
-                    message: "".concat(_this5.currentUser.fullname, " has been deleted"),
-                    type: "is-info",
-                    position: "is-bottom-right",
-                    queue: false
-                  });
+                  window.location.href = "/logout";
                 });
 
               case 2:

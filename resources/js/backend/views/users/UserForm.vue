@@ -74,7 +74,9 @@
                             <div class="">
                                 <b-field horizontal>
                                     <template slot="label">
-                                        <figure class="image avatar is-128x128 is-inline-block">
+                                        <figure
+                                            class="image avatar is-128x128 is-inline-block"
+                                        >
                                             <img
                                                 v-if="user && user.avatar"
                                                 :src="user.avatar"
@@ -140,7 +142,14 @@
                                         label="Email verification"
                                         v-if="exists && !user.email_verified"
                                     >
-                                        <b-button type="is-primary" outlined>
+                                        <b-button
+                                            type="is-primary"
+                                            :loading="
+                                                loading.email_verification
+                                            "
+                                            @click="sendEmailVerification"
+                                            outlined
+                                        >
                                             Resend the verification email
                                         </b-button>
                                     </b-field>
@@ -470,8 +479,6 @@ export default {
                     queue: false
                 });
             });
-
-            this.getUser();
         },
         async deleteUser() {
             this.loading.user = true;
@@ -499,6 +506,13 @@ export default {
                 });
                 this.$router.push({ name: "users.index" });
             });
+        },
+        async sendEmailVerification() {
+            this.loading.email_verification = true;
+
+            await this.user.sendEmailVerification();
+
+            this.loading.email_verification = false;
         },
         confirmRestore() {
             this.$buefy.dialog.confirm({
