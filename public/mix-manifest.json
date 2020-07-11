@@ -1,17 +1,17 @@
 {
     "/404.js": "/404.js?id=c2271e636c0d0a0b4e3e",
-    "/js/backend/app.js": "/js/backend/app.js?id=364ad9243c7b7c22c322",
-    "/css/backend/app.css": "/css/backend/app.css?id=2f133187173fb684d378",
+    "/js/backend/app.js": "/js/backend/app.js?id=0d87036fd9920b63ada9",
+    "/css/backend/app.css": "/css/backend/app.css?id=aa77f59056b4fd8a61ec",
     "/css/frontend/app.css": "/css/frontend/app.css?id=3323586264d7dc47ef94",
     "/js/frontend/app.js": "/js/frontend/app.js?id=9e36101bd7dc1c6fa498",
     "/dashboard.js": "/dashboard.js?id=aad49cc093271317a078",
     "/roles.index.js": "/roles.index.js?id=39bd4e4ebe61e6d324cb",
     "/roles.index~users.index.js": "/roles.index~users.index.js?id=3ffe7e66964959a14130",
-    "/users.form.js": "/users.form.js?id=3d9f40981cb84648a2c1",
-    "/users.index.js": "/users.index.js?id=467f6ab64fb74f5aa4aa",
+    "/users.form.js": "/users.form.js?id=a353ccacb22366a40b3a",
+    "/users.index.js": "/users.index.js?id=00226d7616a87f8e872a",
     "/users.profile.js": "/users.profile.js?id=cd23dc44423a0094ebe2",
     "/vendors~roles.index~users.form.js": "/vendors~roles.index~users.form.js?id=ea271f298dda6fd0d86f",
     "/vendors~roles.index~users.index.js": "/vendors~roles.index~users.index.js?id=4bc47458f24391984b6a",
     "/css/vendor.css": "/css/vendor.css?id=62228c45364ef3ecd930",
-    "/dashboard~users.index.js": "/dashboard~users.index.js?id=4c4979a945c759ff12eb"
+    "/dashboard~users.index.js": "/dashboard~users.index.js?id=ff0ae90bdda86fdffa32"
 }

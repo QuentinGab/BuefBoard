@@ -7,17 +7,15 @@
     >
         <div class="columns is-marginless" v-if="mode == 'light'">
             <div class="column">
-                <div>
-                    <div class="is-flex">
-                        <p class="is-1 title is-marginless">
-                            {{ active }}
-                        </p>
-                        <b-tooltip :label="`${variation}%`">
-                            <b-icon :icon="variationIcon"></b-icon>
-                        </b-tooltip>
-                    </div>
-                    <p class="heading">{{ title }}</p>
+                <div class="is-flex">
+                    <p class="is-1 title is-marginless no-wrap">
+                        {{ active }}
+                    </p>
+                    <b-tooltip :label="`${variation}%`">
+                        <b-icon :icon="variationIcon"></b-icon>
+                    </b-tooltip>
                 </div>
+                <p class="heading">{{ title }}</p>
             </div>
 
             <div class="column is-narrow">

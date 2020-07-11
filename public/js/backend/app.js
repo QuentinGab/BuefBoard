@@ -60991,7 +60991,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "b-sidebar",
-    { attrs: { position: "static", reduce: _vm.reduce, open: "" } },
+    {
+      staticClass: "bb-scrollbar",
+      attrs: { position: "static", reduce: _vm.reduce, open: "" }
+    },
     [
       _c(
         "div",
@@ -78362,10 +78365,6 @@ var Model = /*#__PURE__*/function (_BaseModel) {
   }, {
     key: "date_diff",
     value: function date_diff(d1, d2, type) {
-      if (type == "days") {
-        return this._date_diff_days(d1, d2);
-      }
-
       return this._date_diff_days(d1, d2);
     }
   }, {

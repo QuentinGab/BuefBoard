@@ -40,8 +40,8 @@
                                     >Trashed
                                     {{
                                         user.date_diff(
-                                            new Date(),
-                                            new Date(user.deleted_at)
+                                            new Date(user.deleted_at),
+                                            new Date()
                                         )
                                     }}
                                     days ago
@@ -52,8 +52,8 @@
                                     >Blocked
                                     {{
                                         user.date_diff(
-                                            new Date(),
-                                            new Date(user.blocked_at)
+                                            new Date(user.blocked_at),
+                                            new Date()
                                         )
                                     }}
                                     days ago

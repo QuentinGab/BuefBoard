@@ -1,5 +1,5 @@
 <template>
-    <b-sidebar position="static" :reduce="reduce" open>
+    <b-sidebar position="static" :reduce="reduce" open class="bb-scrollbar">
         <div class="">
             <b-menu class="is-custom-mobile">
                 <b-menu-list

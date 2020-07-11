@@ -1225,8 +1225,8 @@ var render = function() {
                               "Trashed\n                                " +
                                 _vm._s(
                                   _vm.user.date_diff(
-                                    new Date(),
-                                    new Date(_vm.user.deleted_at)
+                                    new Date(_vm.user.deleted_at),
+                                    new Date()
                                   )
                                 ) +
                                 "\n                                days ago\n                            "
@@ -1238,8 +1238,8 @@ var render = function() {
                               "Blocked\n                                " +
                                 _vm._s(
                                   _vm.user.date_diff(
-                                    new Date(),
-                                    new Date(_vm.user.blocked_at)
+                                    new Date(_vm.user.blocked_at),
+                                    new Date()
                                   )
                                 ) +
                                 "\n                                days ago\n                            "

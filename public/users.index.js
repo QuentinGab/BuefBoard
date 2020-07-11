@@ -466,6 +466,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -1626,6 +1627,7 @@ var render = function() {
       _c(
         "b-table",
         {
+          staticClass: "bb-scrollbar",
           attrs: {
             data: _vm.users,
             loading: _vm.isLoading,
@@ -1969,51 +1971,63 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "columns is-marginless is-scrollable" }, [
-        _c(
-          "div",
-          { staticClass: "column is-narrow" },
-          [
-            _c(
-              "card-metrics",
-              [
-                _c("card-metrics-item", {
-                  class: [
-                    _vm.activeVariation >= 0 ? "is-success" : "is-danger"
-                  ],
-                  attrs: {
-                    title: "Active Users",
-                    value: _vm.overview.active,
-                    subvalue: _vm.activeVariation + "%",
-                    icon: _vm.computeIcon(_vm.activeVariation)
-                  }
-                }),
-                _vm._v(" "),
-                _c("card-metrics-item", {
-                  staticClass: "is-danger",
-                  attrs: { title: "Blocked Users", value: _vm.overview.blocked }
-                }),
-                _vm._v(" "),
-                _c("card-metrics-item", {
-                  staticClass: "is-danger",
-                  attrs: { title: "Trashed Users", value: _vm.overview.trashed }
-                })
-              ],
-              1
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "column" },
-          [
-            _c("card-users-chart", { attrs: { mode: "light", height: "100%" } })
-          ],
-          1
-        )
-      ]),
+      _c(
+        "div",
+        { staticClass: "columns is-marginless is-scrollable bb-scrollbar" },
+        [
+          _c(
+            "div",
+            { staticClass: "column is-narrow" },
+            [
+              _c(
+                "card-metrics",
+                [
+                  _c("card-metrics-item", {
+                    class: [
+                      _vm.activeVariation >= 0 ? "is-success" : "is-danger"
+                    ],
+                    attrs: {
+                      title: "Active Users",
+                      value: _vm.overview.active,
+                      subvalue: _vm.activeVariation + "%",
+                      icon: _vm.computeIcon(_vm.activeVariation)
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("card-metrics-item", {
+                    staticClass: "is-danger",
+                    attrs: {
+                      title: "Blocked Users",
+                      value: _vm.overview.blocked
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("card-metrics-item", {
+                    staticClass: "is-danger",
+                    attrs: {
+                      title: "Trashed Users",
+                      value: _vm.overview.trashed
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "column" },
+            [
+              _c("card-users-chart", {
+                attrs: { mode: "light", height: "100%" }
+              })
+            ],
+            1
+          )
+        ]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "columns is-marginless" }, [
         _c(

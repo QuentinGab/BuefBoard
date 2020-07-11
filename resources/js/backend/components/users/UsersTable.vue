@@ -164,6 +164,7 @@
             default-sort-direction="desc"
             default-sort="id"
             scrollable
+            class="bb-scrollbar"
         >
             <template slot-scope="props">
                 <b-table-column field="avatar" width="48">

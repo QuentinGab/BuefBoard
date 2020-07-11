@@ -5,7 +5,7 @@
             title="Manage Users"
             :menu="[{ name: 'users', to: '/users/index' }]"
         ></title-bar>
-        <div class="columns is-marginless is-scrollable">
+        <div class="columns is-marginless is-scrollable bb-scrollbar">
             <div class="column is-narrow">
                 <card-metrics>
                     <card-metrics-item
