@@ -18,57 +18,47 @@
         <div class="">
             <div class="columns is-marginless is-multiline">
                 <div class="column is-12 is-6-fullhd">
-                    <b-notification
-                        v-if="user.trashed && !loading.user"
-                        type="is-danger"
-                        role="alert"
-                        has-icon
-                        icon="delete"
-                        :closable="false"
+                    <div
+                        class="card"
+                        :class="{
+                            'is-warning': user.isBlocked,
+                            'is-danger': user.isTrashed
+                        }"
                     >
-                        <p>
-                            This user is trashed. <br />
-
-                            <b-tag>
-                                {{
-                                    user.date_diff(
-                                        new Date(),
-                                        user.deleted_date
-                                    )
-                                }}
-                                days ago</b-tag
-                            >
-                        </p>
-                    </b-notification>
-                    <b-notification
-                        v-else-if="user.blocked && !loading.user"
-                        type="is-warning"
-                        has-icon
-                        role="alert"
-                        :closable="false"
-                    >
-                        <p>
-                            This user is blocked. <br />
-                            <b-tag>
-                                {{
-                                    user.date_diff(
-                                        new Date(),
-                                        user.blocked_date
-                                    )
-                                }}
-                                days ago
-                            </b-tag>
-                        </p>
-                    </b-notification>
-                    <div class="card">
                         <div class="card-header">
-                            <p class="card-header-title">
-                                <b-icon
-                                    icon="account-circle"
-                                    size="is-small"
-                                ></b-icon>
-                                <span>Information</span>
-                            </p>
+                            <div class="card-header-title level">
+                                <p class="">
+                                    <b-icon
+                                        icon="account-circle"
+                                        size="is-small"
+                                    ></b-icon>
+                                    <span>Information</span>
+                                </p>
+                                <b-tag
+                                    v-if="user && user.isTrashed"
+                                    type="is-danger"
+                                    >Trashed
+                                    {{
+                                        user.date_diff(
+                                            new Date(),
+                                            new Date(user.deleted_at)
+                                        )
+                                    }}
+                                    days ago
+                                </b-tag>
+                                <b-tag
+                                    v-else-if="user && user.isBlocked"
+                                    type="is-warning"
+                                    >Blocked
+                                    {{
+                                        user.date_diff(
+                                            new Date(),
+                                            new Date(user.blocked_at)
+                                        )
+                                    }}
+                                    days ago
+                                </b-tag>
+                            </div>
                         </div>
                         <div class="card-content">
                             <div class="">
@@ -150,7 +140,7 @@
                                             @click="sendEmailVerification"
                                             outlined
                                         >
-                                            Resend the verification email
+                                            Resend the email verification
                                         </b-button>
                                     </b-field>
                                 </b-field>
@@ -264,9 +254,9 @@
                                             <b-button
                                                 @click="saveUser"
                                                 type="is-primary"
-                                                :loading="this.loading.save"
+                                                :loading="loading.save"
                                                 :disabled="
-                                                    user.trashed ||
+                                                    user.isTrashed ||
                                                         !passwordConfirmed
                                                 "
                                             >
@@ -276,7 +266,7 @@
                                                 v-if="exists"
                                                 @click="getUser"
                                                 type="is-default"
-                                                :loading="this.loading.refresh"
+                                                :loading="loading.refresh"
                                                 icon-left="refresh"
                                             ></b-button>
                                         </p>
@@ -304,10 +294,10 @@
                                 <b-field horizontal label="Block">
                                     <b-field>
                                         <b-button
-                                            v-if="user.blocked"
-                                            @click="unblockUser()"
+                                            v-if="user.isBlocked"
+                                            @click="unblockUser"
                                             type="is-warning"
-                                            :loading="this.loading.user"
+                                            :loading="loading.user"
                                             icon-left="restore"
                                         >
                                             Unblock
@@ -315,9 +305,9 @@
                                         <b-button
                                             v-else
                                             icon-left="cancel"
-                                            @click="blockUser()"
+                                            @click="blockUser"
                                             type="is-warning"
-                                            :loading="this.loading.user"
+                                            :loading="loading.user"
                                         >
                                             Block
                                         </b-button>
@@ -328,20 +318,20 @@
                                     <b-field>
                                         <div class="buttons">
                                             <b-button
-                                                v-if="user.trashed"
+                                                v-if="user.isTrashed"
                                                 @click="confirmRestore"
                                                 type="is-info"
-                                                outlined
-                                                :loading="this.loading.user"
+                                                icon-left="restore"
+                                                :loading="loading.user"
                                                 >Restore</b-button
                                             >
                                             <b-button
                                                 @click="confirmDelete"
                                                 type="is-danger"
-                                                outlined
-                                                :loading="this.loading.user"
+                                                :loading="loading.user"
+                                                icon-left="delete-outline"
                                                 >{{
-                                                    user.trashed
+                                                    user.isTrashed
                                                         ? "Destroy"
                                                         : "Delete"
                                                 }}</b-button
@@ -529,7 +519,7 @@ export default {
             });
         },
         confirmDelete() {
-            if (this.user.trashed) {
+            if (this.user.isTrashed) {
                 return this.confirmDestroy();
             }
             this.$buefy.dialog.confirm({

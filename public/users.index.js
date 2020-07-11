@@ -466,14 +466,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2059,12 +2051,40 @@ var render = function() {
                     "b-table-column",
                     { attrs: { field: "email", label: "Email", sortable: "" } },
                     [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(props.row.email) +
-                          "\n            "
+                      _c(
+                        "b-taglist",
+                        { attrs: { attached: "" } },
+                        [
+                          _c("b-tag", { attrs: { type: "is-light" } }, [
+                            _vm._v(_vm._s(props.row.email))
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "b-tag",
+                            {
+                              attrs: {
+                                type: props.row.email_verified
+                                  ? "is-light"
+                                  : "is-warning"
+                              }
+                            },
+                            [
+                              _c("b-icon", {
+                                attrs: {
+                                  size: "is-small",
+                                  icon: props.row.email_verified
+                                    ? "shield-check-outline"
+                                    : "alert-circle-outline"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
                       )
-                    ]
+                    ],
+                    1
                   ),
                   _vm._v(" "),
                   _c(
@@ -2121,56 +2141,6 @@ var render = function() {
                               _vm._v(
                                 "\n                        " +
                                   _vm._s(props.row.blocked_at ? "yes" : "no") +
-                                  "\n                    "
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-table-column",
-                    {
-                      attrs: {
-                        field: "email_verified_at",
-                        label: "Verified",
-                        sortable: "",
-                        centered: ""
-                      }
-                    },
-                    [
-                      _c(
-                        "b-tooltip",
-                        {
-                          attrs: {
-                            type: "is-light",
-                            label: props.row.email_verified_at
-                              ? new Date(
-                                  props.row.email_verified_at
-                                ).toLocaleDateString()
-                              : ""
-                          }
-                        },
-                        [
-                          _c(
-                            "b-tag",
-                            {
-                              attrs: {
-                                type: props.row.email_verified_at
-                                  ? ""
-                                  : "is-danger"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(
-                                    props.row.email_verified_at ? "yes" : "no"
-                                  ) +
                                   "\n                    "
                               )
                             ]

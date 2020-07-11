@@ -78671,12 +78671,12 @@ var User = /*#__PURE__*/function (_Model) {
       return "".concat(this.first_name, " ").concat(this.last_name);
     }
   }, {
-    key: "trashed",
+    key: "isTrashed",
     get: function get() {
       return this.hasOwnProperty("deleted_at") && this.deleted_at !== null;
     }
   }, {
-    key: "blocked",
+    key: "isBlocked",
     get: function get() {
       return this.hasOwnProperty("blocked_at") && this.blocked_at !== null;
     }

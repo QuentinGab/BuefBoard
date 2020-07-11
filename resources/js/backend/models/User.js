@@ -11,11 +11,11 @@ export default class User extends Model {
         return `${this.first_name} ${this.last_name}`;
     }
 
-    get trashed() {
+    get isTrashed() {
         return this.hasOwnProperty("deleted_at") && this.deleted_at !== null;
     }
 
-    get blocked() {
+    get isBlocked() {
         return this.hasOwnProperty("blocked_at") && this.blocked_at !== null;
     }
 

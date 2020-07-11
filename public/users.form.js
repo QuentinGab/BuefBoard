@@ -440,16 +440,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -758,7 +748,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     confirmDelete: function confirmDelete() {
       var _this10 = this;
 
-      if (this.user.trashed) {
+      if (this.user.isTrashed) {
         return this.confirmDestroy();
       }
 
@@ -1200,98 +1190,62 @@ var render = function() {
       _vm._v(" "),
       _c("div", {}, [
         _c("div", { staticClass: "columns is-marginless is-multiline" }, [
-          _c(
-            "div",
-            { staticClass: "column is-12 is-6-fullhd" },
-            [
-              _vm.user.trashed && !_vm.loading.user
-                ? _c(
-                    "b-notification",
-                    {
-                      attrs: {
-                        type: "is-danger",
-                        role: "alert",
-                        "has-icon": "",
-                        icon: "delete",
-                        closable: false
-                      }
-                    },
-                    [
-                      _c(
-                        "p",
-                        [
-                          _vm._v(
-                            "\n                        This user is trashed. "
-                          ),
-                          _c("br"),
-                          _vm._v(" "),
-                          _c("b-tag", [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(
-                                  _vm.user.date_diff(
-                                    new Date(),
-                                    _vm.user.deleted_date
-                                  )
-                                ) +
-                                "\n                            days ago"
-                            )
-                          ])
-                        ],
-                        1
-                      )
-                    ]
-                  )
-                : _vm.user.blocked && !_vm.loading.user
-                ? _c(
-                    "b-notification",
-                    {
-                      attrs: {
-                        type: "is-warning",
-                        "has-icon": "",
-                        role: "alert",
-                        closable: false
-                      }
-                    },
-                    [
-                      _c(
-                        "p",
-                        [
-                          _vm._v(
-                            "\n                        This user is blocked. "
-                          ),
-                          _c("br"),
-                          _vm._v(" "),
-                          _c("b-tag", [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(
-                                  _vm.user.date_diff(
-                                    new Date(),
-                                    _vm.user.blocked_date
-                                  )
-                                ) +
-                                "\n                            days ago\n                        "
-                            )
-                          ])
-                        ],
-                        1
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "column is-12 is-6-fullhd" }, [
+            _c(
+              "div",
+              {
+                staticClass: "card",
+                class: {
+                  "is-warning": _vm.user.isBlocked,
+                  "is-danger": _vm.user.isTrashed
+                }
+              },
+              [
                 _c("div", { staticClass: "card-header" }, [
                   _c(
-                    "p",
-                    { staticClass: "card-header-title" },
+                    "div",
+                    { staticClass: "card-header-title level" },
                     [
-                      _c("b-icon", {
-                        attrs: { icon: "account-circle", size: "is-small" }
-                      }),
+                      _c(
+                        "p",
+                        {},
+                        [
+                          _c("b-icon", {
+                            attrs: { icon: "account-circle", size: "is-small" }
+                          }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Information")])
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
-                      _c("span", [_vm._v("Information")])
+                      _vm.user && _vm.user.isTrashed
+                        ? _c("b-tag", { attrs: { type: "is-danger" } }, [
+                            _vm._v(
+                              "Trashed\n                                " +
+                                _vm._s(
+                                  _vm.user.date_diff(
+                                    new Date(),
+                                    new Date(_vm.user.deleted_at)
+                                  )
+                                ) +
+                                "\n                                days ago\n                            "
+                            )
+                          ])
+                        : _vm.user && _vm.user.isBlocked
+                        ? _c("b-tag", { attrs: { type: "is-warning" } }, [
+                            _vm._v(
+                              "Blocked\n                                " +
+                                _vm._s(
+                                  _vm.user.date_diff(
+                                    new Date(),
+                                    new Date(_vm.user.blocked_at)
+                                  )
+                                ) +
+                                "\n                                days ago\n                            "
+                            )
+                          ])
+                        : _vm._e()
                     ],
                     1
                   )
@@ -1456,7 +1410,7 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        Resend the verification email\n                                    "
+                                        "\n                                        Resend the email verification\n                                    "
                                       )
                                     ]
                                   )
@@ -1708,9 +1662,9 @@ var render = function() {
                                   {
                                     attrs: {
                                       type: "is-primary",
-                                      loading: this.loading.save,
+                                      loading: _vm.loading.save,
                                       disabled:
-                                        _vm.user.trashed ||
+                                        _vm.user.isTrashed ||
                                         !_vm.passwordConfirmed
                                     },
                                     on: { click: _vm.saveUser }
@@ -1728,7 +1682,7 @@ var render = function() {
                                   ? _c("b-button", {
                                       attrs: {
                                         type: "is-default",
-                                        loading: this.loading.refresh,
+                                        loading: _vm.loading.refresh,
                                         "icon-left": "refresh"
                                       },
                                       on: { click: _vm.getUser }
@@ -1745,10 +1699,9 @@ var render = function() {
                     1
                   )
                 ])
-              ])
-            ],
-            1
-          ),
+              ]
+            )
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "column" }, [
             _c("div", { staticClass: "card" }, [
@@ -1781,20 +1734,16 @@ var render = function() {
                             _c(
                               "b-field",
                               [
-                                _vm.user.blocked
+                                _vm.user.isBlocked
                                   ? _c(
                                       "b-button",
                                       {
                                         attrs: {
                                           type: "is-warning",
-                                          loading: this.loading.user,
+                                          loading: _vm.loading.user,
                                           "icon-left": "restore"
                                         },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.unblockUser()
-                                          }
-                                        }
+                                        on: { click: _vm.unblockUser }
                                       },
                                       [
                                         _vm._v(
@@ -1808,13 +1757,9 @@ var render = function() {
                                         attrs: {
                                           "icon-left": "cancel",
                                           type: "is-warning",
-                                          loading: this.loading.user
+                                          loading: _vm.loading.user
                                         },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.blockUser()
-                                          }
-                                        }
+                                        on: { click: _vm.blockUser }
                                       },
                                       [
                                         _vm._v(
@@ -1840,14 +1785,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "buttons" },
                                 [
-                                  _vm.user.trashed
+                                  _vm.user.isTrashed
                                     ? _c(
                                         "b-button",
                                         {
                                           attrs: {
                                             type: "is-info",
-                                            outlined: "",
-                                            loading: this.loading.user
+                                            "icon-left": "restore",
+                                            loading: _vm.loading.user
                                           },
                                           on: { click: _vm.confirmRestore }
                                         },
@@ -1860,15 +1805,15 @@ var render = function() {
                                     {
                                       attrs: {
                                         type: "is-danger",
-                                        outlined: "",
-                                        loading: this.loading.user
+                                        loading: _vm.loading.user,
+                                        "icon-left": "delete-outline"
                                       },
                                       on: { click: _vm.confirmDelete }
                                     },
                                     [
                                       _vm._v(
                                         _vm._s(
-                                          _vm.user.trashed
+                                          _vm.user.isTrashed
                                             ? "Destroy"
                                             : "Delete"
                                         )

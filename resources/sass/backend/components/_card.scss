@@ -9,6 +9,13 @@
             margin-right: -$card-content-padding;
         }
     }
+
+    &.is-warning{
+        border: 2px solid $warning;
+    }
+    &.is-danger{
+        border: 2px solid $danger;
+    }
 }
 
 .bb-card-chart {

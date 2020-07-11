@@ -14361,6 +14361,12 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   margin-left: -1.5rem;
   margin-right: -1.5rem;
 }
+.card.is-warning {
+  border: 2px solid #ffdd57;
+}
+.card.is-danger {
+  border: 2px solid #ff3860;
+}
 
 .bb-card-chart {
   width: 100%;
@@ -14430,6 +14436,10 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   height: 100%;
   width: 100%;
   border-radius: 4px;
+}
+
+.tags.has-addons {
+  flex-wrap: nowrap;
 }
 
 /* Make clicks pass-through */

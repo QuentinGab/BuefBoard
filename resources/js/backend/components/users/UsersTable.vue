@@ -205,7 +205,25 @@
                 </b-table-column>
 
                 <b-table-column field="email" label="Email" sortable>
-                    {{ props.row.email }}
+                    <b-taglist attached>
+                        <b-tag type="is-light">{{ props.row.email }}</b-tag>
+                        <b-tag
+                            :type="
+                                props.row.email_verified
+                                    ? 'is-light'
+                                    : 'is-warning'
+                            "
+                        >
+                            <b-icon
+                                size="is-small"
+                                :icon="
+                                    props.row.email_verified
+                                        ? 'shield-check-outline'
+                                        : 'alert-circle-outline'
+                                "
+                            ></b-icon>
+                        </b-tag>
+                    </b-taglist>
                 </b-table-column>
 
                 <b-table-column field="roles" label="Roles">
@@ -237,32 +255,6 @@
                     >
                         <b-tag :type="props.row.blocked_at ? 'is-danger' : ''">
                             {{ props.row.blocked_at ? "yes" : "no" }}
-                        </b-tag>
-                    </b-tooltip>
-                </b-table-column>
-
-                <b-table-column
-                    field="email_verified_at"
-                    label="Verified"
-                    sortable
-                    centered
-                >
-                    <b-tooltip
-                        type="is-light"
-                        :label="
-                            props.row.email_verified_at
-                                ? new Date(
-                                      props.row.email_verified_at
-                                  ).toLocaleDateString()
-                                : ''
-                        "
-                    >
-                        <b-tag
-                            :type="
-                                props.row.email_verified_at ? '' : 'is-danger'
-                            "
-                        >
-                            {{ props.row.email_verified_at ? "yes" : "no" }}
                         </b-tag>
                     </b-tooltip>
                 </b-table-column>
