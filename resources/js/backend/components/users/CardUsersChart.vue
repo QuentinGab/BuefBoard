@@ -1,59 +1,10 @@
 <template>
-    <div class="card bb-card-chart">
-        <div class="card-header" v-if="mode == 'full'">
-            <div class="card-header-title level">
-                <p>{{ title }}</p>
-                <div class="level-right">
-                    <div class="field is-grouped">
-                        <b-radio-button
-                            v-model="startDate"
-                            :native-value="
-                                moment()
-                                    .subtract(1, 'months')
-                                    .format('YYYY-MM-DD')
-                            "
-                            type="is-light"
-                            size="is-small"
-                        >
-                            <span>1 month</span>
-                        </b-radio-button>
-                        <b-radio-button
-                            v-model="startDate"
-                            :native-value="
-                                moment()
-                                    .subtract(14, 'days')
-                                    .format('YYYY-MM-DD')
-                            "
-                            type="is-light"
-                            size="is-small"
-                            class="is-rounded"
-                        >
-                            <span>14 days</span>
-                        </b-radio-button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div
-            class="chart-container"
-            :class="[mode == 'light' ? 'is-background' : '']"
-        >
-            <template v-if="chartData">
-                <line-chart
-                    v-if="type == 'line'"
-                    :mode="mode"
-                    :chart-data="chartData"
-                    :style="chartStyle"
-                />
-                <bar-chart
-                    v-else-if="type == 'bar'"
-                    :mode="mode"
-                    :chart-data="chartData"
-                    :style="chartStyle"
-                />
-            </template>
-        </div>
+    <card-chart-light
+        v-if="mode == 'light'"
+        :height="height"
+        :chart-data="chartData"
+        :chart-style="chartStyle"
+    >
         <div class="columns is-marginless" v-if="mode == 'light'">
             <div class="column">
                 <div>
@@ -111,18 +62,52 @@
                 </div>
             </div>
         </div>
-    </div>
+    </card-chart-light>
+    <card-chart-full v-else :chart-data="chartData" :chart-style="chartStyle">
+        <p slot="header-left">{{ title }}</p>
+        <div slot="header-right">
+            <div class="field is-grouped">
+                <b-radio-button
+                    v-model="startDate"
+                    :native-value="
+                        moment()
+                            .subtract(1, 'months')
+                            .format('YYYY-MM-DD')
+                    "
+                    type="is-light"
+                    size="is-small"
+                >
+                    <span>1 month</span>
+                </b-radio-button>
+                <b-radio-button
+                    v-model="startDate"
+                    :native-value="
+                        moment()
+                            .subtract(14, 'days')
+                            .format('YYYY-MM-DD')
+                    "
+                    type="is-light"
+                    size="is-small"
+                    class="is-rounded"
+                >
+                    <span>14 days</span>
+                </b-radio-button>
+            </div>
+        </div>
+    </card-chart-full>
 </template>
 
 <script>
-import LineChart from "@b/components/charts/LineChart";
-import BarChart from "@b/components/charts/BarChart";
-import User from "@b/models/User";
 import { mapState } from "vuex";
+
+import CardChartLight from "@b/components/cards/CardChartLight";
+import CardChartFull from "@b/components/cards/CardChartFull";
+
+import User from "@b/models/User";
 
 export default {
     name: "UsersChart",
-    components: { LineChart, BarChart },
+    components: { CardChartLight, CardChartFull },
     props: {
         mode: {
             type: String,
@@ -135,6 +120,10 @@ export default {
         cumulative: {
             type: Boolean,
             default: false
+        },
+        height: {
+            type: String,
+            default: "200px"
         }
     },
     data() {

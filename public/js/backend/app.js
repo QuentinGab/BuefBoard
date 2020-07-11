@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"404":"404","dashboard":"dashboard","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","users.form":"users.form","vendors~roles.index~users.index":"vendors~roles.index~users.index","roles.index~users.index":"roles.index~users.index","users.index":"users.index","roles.index":"roles.index"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"404":"404","dashboard~users.index":"dashboard~users.index","dashboard":"dashboard","users.profile":"users.profile","vendors~roles.index~users.form":"vendors~roles.index~users.form","users.form":"users.form","vendors~roles.index~users.index":"vendors~roles.index~users.index","roles.index~users.index":"roles.index~users.index","users.index":"users.index","roles.index":"roles.index"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -78738,14 +78738,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/",
     name: "dashboard",
     component: function component() {
-      return __webpack_require__.e(/*! import() | dashboard */ "dashboard").then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
+      return Promise.all(/*! import() | dashboard */[__webpack_require__.e("dashboard~users.index"), __webpack_require__.e("dashboard")]).then(__webpack_require__.bind(null, /*! ./views/Dashboard.vue */ "./resources/js/backend/views/Dashboard.vue"));
     }
   }, //User Management
   {
     path: "/users/index",
     name: "users.index",
     component: function component() {
-      return Promise.all(/*! import() | users.index */[__webpack_require__.e("vendors~roles.index~users.index"), __webpack_require__.e("roles.index~users.index"), __webpack_require__.e("users.index")]).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
+      return Promise.all(/*! import() | users.index */[__webpack_require__.e("vendors~roles.index~users.index"), __webpack_require__.e("dashboard~users.index"), __webpack_require__.e("roles.index~users.index"), __webpack_require__.e("users.index")]).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
     }
   }, {
     path: "/users/new",

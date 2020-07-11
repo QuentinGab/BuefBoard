@@ -14370,7 +14370,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .bb-card-chart {
   width: 100%;
-  min-height: 200px;
   position: relative;
 }
 .bb-card-chart .chart-container.is-background {
@@ -14440,6 +14439,11 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .tags.has-addons {
   flex-wrap: nowrap;
+}
+
+.is-scrollable {
+  width: 100%;
+  overflow: auto;
 }
 
 /* Make clicks pass-through */

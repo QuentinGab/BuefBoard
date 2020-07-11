@@ -5,7 +5,7 @@
             title="Manage Users"
             :menu="[{ name: 'users', to: '/users/index' }]"
         ></title-bar>
-        <div class="columns is-marginless">
+        <div class="columns is-marginless is-scrollable">
             <div class="column is-narrow">
                 <card-metrics>
                     <card-metrics-item
@@ -52,6 +52,9 @@
                     </card-metrics-item> -->
                 </card-metrics>
             </div>
+            <div class="column">
+                <card-users-chart mode="light" height="100%" />
+            </div>
         </div>
         <div class="columns is-marginless">
             <div class="column is-12">
@@ -73,6 +76,7 @@ import TitleBar from "@b/components/TitleBar";
 import CardMetrics from "@b/components/CardMetrics";
 import CardMetricsItem from "@b/components/CardMetricsItem";
 import UsersTable from "@b/components/users/UsersTable";
+import CardUsersChart from "@b/components/users/CardUsersChart";
 import DoughnutChart from "@b/components/charts/DoughnutChart";
 
 import User from "@b/models/User";
@@ -86,7 +90,8 @@ export default {
         UsersTable,
         CardMetrics,
         CardMetricsItem,
-        DoughnutChart
+        DoughnutChart,
+        CardUsersChart
     },
     data() {
         return {
