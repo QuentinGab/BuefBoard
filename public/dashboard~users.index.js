@@ -431,8 +431,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 
@@ -1097,34 +1095,34 @@ var render = function() {
           _vm.mode == "light"
             ? _c("div", { staticClass: "columns is-marginless" }, [
                 _c("div", { staticClass: "column" }, [
-                  _c("div", [
-                    _c(
-                      "div",
-                      { staticClass: "is-flex" },
-                      [
-                        _c("p", { staticClass: "is-1 title is-marginless" }, [
+                  _c(
+                    "div",
+                    { staticClass: "is-flex" },
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "is-1 title is-marginless no-wrap" },
+                        [
                           _vm._v(
-                            "\n                        " +
+                            "\n                    " +
                               _vm._s(_vm.active) +
-                              "\n                    "
+                              "\n                "
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "b-tooltip",
-                          { attrs: { label: _vm.variation + "%" } },
-                          [
-                            _c("b-icon", { attrs: { icon: _vm.variationIcon } })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "heading" }, [
-                      _vm._v(_vm._s(_vm.title))
-                    ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-tooltip",
+                        { attrs: { label: _vm.variation + "%" } },
+                        [_c("b-icon", { attrs: { icon: _vm.variationIcon } })],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "heading" }, [
+                    _vm._v(_vm._s(_vm.title))
                   ])
                 ]),
                 _vm._v(" "),
