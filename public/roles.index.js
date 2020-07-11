@@ -161,6 +161,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -663,20 +681,67 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "b-table-column",
-                            { attrs: { field: "causer", label: "Causer" } },
+                            {
+                              attrs: {
+                                field: "subject_type",
+                                label: "Subject",
+                                sortable: ""
+                              }
+                            },
                             [
-                              props.row.causer
-                                ? _c("b-tag", [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(
-                                          props.row.causer.first_name +
-                                            " " +
-                                            props.row.causer.last_name
-                                        ) +
-                                        "\n                            "
-                                    )
+                              _c(
+                                "b-taglist",
+                                { attrs: { attached: "" } },
+                                [
+                                  _c("b-tag", [
+                                    _vm._v(_vm._s(props.row.subject_id))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-tag", [
+                                    _vm._v(_vm._s(props.row.subject_type))
                                   ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            { attrs: { field: "causer_id", label: "Causer" } },
+                            [
+                              props.row.user
+                                ? _c(
+                                    "b-tag",
+                                    { attrs: { type: "is-primary" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(
+                                            props.row.user.first_name +
+                                              " " +
+                                              props.row.user.last_name
+                                          ) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  )
+                                : props.row.causer_id
+                                ? _c(
+                                    "b-taglist",
+                                    { attrs: { attached: "" } },
+                                    [
+                                      _c("b-tag", [
+                                        _vm._v(_vm._s(props.row.causer_id))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-tag", [
+                                        _vm._v(_vm._s(props.row.causer_type))
+                                      ])
+                                    ],
+                                    1
+                                  )
                                 : _vm._e()
                             ],
                             1

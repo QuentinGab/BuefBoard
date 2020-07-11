@@ -92,12 +92,30 @@
                                 </b-tag>
                             </b-table-column>
 
-                            <b-table-column field="causer" label="Causer">
-                                <b-tag v-if="props.row.causer">
+                            <b-table-column
+                                field="subject_type"
+                                label="Subject"
+                                sortable
+                            >
+                                <b-taglist attached>
+                                    <b-tag>{{ props.row.subject_id }}</b-tag>
+                                    <b-tag>{{ props.row.subject_type }}</b-tag>
+                                </b-taglist>
+                            </b-table-column>
+
+                            <b-table-column field="causer_id" label="Causer">
+                                <b-tag v-if="props.row.user" type="is-primary">
                                     {{
-                                        `${props.row.causer.first_name} ${props.row.causer.last_name}`
+                                        `${props.row.user.first_name} ${props.row.user.last_name}`
                                     }}
                                 </b-tag>
+                                <b-taglist
+                                    attached
+                                    v-else-if="props.row.causer_id"
+                                >
+                                    <b-tag>{{ props.row.causer_id }}</b-tag>
+                                    <b-tag>{{ props.row.causer_type }}</b-tag>
+                                </b-taglist>
                             </b-table-column>
 
                             <b-table-column
@@ -204,7 +222,7 @@ export default {
             ];
         },
         isFiltered() {
-            return !!(this.filter.object.field);
+            return !!this.filter.object.field;
         },
         isSorted() {
             return this.sort.value;
