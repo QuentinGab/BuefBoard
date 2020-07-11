@@ -31,7 +31,8 @@ export default new Vuex.Store({
         charts: {
             colors: ["#0984E3", "#B86BFF", "#043053"]
         },
-        logo: "/images/LOGO.svg",
+        logo: "/images/logo_buefboard.svg",
+        icon: "/images/icon_buefboard.svg",
         loading: {
             currentUser: {
                 save: false,

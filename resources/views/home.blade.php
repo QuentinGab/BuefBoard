@@ -6,7 +6,7 @@
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item">
-                <img src="{{ asset('images/LOGO.svg') }}" alt="Logo">
+                <img src="{{ asset('images/logo_buefboard.svg') }}" alt="Logo">
             </a>
         </div>
         <div id="navbarMenuHeroB" class="navbar-menu">

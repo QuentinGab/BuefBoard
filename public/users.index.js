@@ -513,10 +513,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         total: 0
       },
       sort: {
-        field: "created_at",
+        field: "id",
         order: "-",
         // '-' or ''
-        value: "-created_at"
+        value: "-id"
       },
       filter: {
         object: {

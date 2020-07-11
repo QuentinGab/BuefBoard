@@ -10,10 +10,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class CurrentUserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display the current user.
@@ -22,9 +26,9 @@ class CurrentUserController extends Controller
      */
     public function show(Request $request)
     {
-        $user = QueryBuilder::for(User::class)
-                ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
-                ->find($request->user()->id);
+
+        $user = $request->user();
+        $user->load('permissions');
 
         $this->authorize('view', $user);
 
@@ -40,6 +44,7 @@ class CurrentUserController extends Controller
     public function update(UpdateUserRequest $request)
     {
         $user = $request->user();
+        $user->load('permissions');
         $this->authorize('update', $user);
 
         $validated = $request->validated();
@@ -61,6 +66,7 @@ class CurrentUserController extends Controller
     public function updatePassword(UpdateUserPasswordRequest $request)
     {
         $user = $request->user();
+        $user->load('permissions');
         $this->authorize('update', $user);
 
         $validated = $request->validated();
@@ -80,6 +86,7 @@ class CurrentUserController extends Controller
     public function updateAvatar(Request $request)
     {
         $user = $request->user();
+        $user->load('permissions');
         $this->authorize('update', $user);
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
@@ -105,14 +112,13 @@ class CurrentUserController extends Controller
     public function destroyAvatar(Request $request)
     {
         $user = $request->user();
+        $user->load('permissions');
         $this->authorize('update', $user);
 
         $user->clearMediaCollection('avatar');
 
         return new UserResource($user);
     }
-
-
 
     /**
      * Remove the user from storage.
@@ -122,6 +128,7 @@ class CurrentUserController extends Controller
     public function destroy(Request $request)
     {
         $user = $request->user();
+        $user->load('permissions');
         $this->authorize('forceDelete', $user);
 
         $user->forceDelete();

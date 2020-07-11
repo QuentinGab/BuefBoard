@@ -334,9 +334,9 @@ export default {
                 total: 0
             },
             sort: {
-                field: "created_at",
+                field: "id",
                 order: "-", // '-' or ''
-                value: "-created_at"
+                value: "-id"
             },
             filter: {
                 object: {

@@ -1,5 +1,5 @@
 <template>
-    <b-navbar :mobile-burger="false">
+    <b-navbar >
         <template slot="brand">
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
@@ -16,7 +16,7 @@
         </template>
 
         <template slot="end">
-            <b-navbar-dropdown position="is-bottom-left" hoverable boxed>
+            <b-navbar-dropdown position="is-bottom-left" hoverable boxed class="">
                 <template slot="label">
                     <figure class="image avatar is-24x24">
                         <img class="is-rounded" :src="currentUser.avatar" />

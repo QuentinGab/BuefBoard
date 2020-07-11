@@ -174,11 +174,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -682,11 +677,7 @@ var render = function() {
                           _c(
                             "b-table-column",
                             {
-                              attrs: {
-                                field: "subject_type",
-                                label: "Subject",
-                                sortable: ""
-                              }
+                              attrs: { field: "subject_id", label: "Subject" }
                             },
                             [
                               _c(
@@ -783,18 +774,11 @@ var render = function() {
                           staticClass: "content has-text-grey has-text-centered"
                         },
                         [
-                          _c(
-                            "p",
-                            [
-                              _c("b-icon", {
-                                attrs: {
-                                  icon: "emoticon-sad",
-                                  size: "is-large"
-                                }
-                              })
-                            ],
-                            1
-                          ),
+                          _c("p", { staticClass: "title is-3" }, [
+                            _vm._v(
+                              "\n                                    🙌\n                                "
+                            )
+                          ]),
                           _vm._v(" "),
                           _c("p", [_vm._v("Nothing here.")])
                         ]

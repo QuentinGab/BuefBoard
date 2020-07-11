@@ -61125,7 +61125,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "b-navbar",
-    { attrs: { "mobile-burger": false } },
     [
       _c(
         "template",
@@ -78857,7 +78856,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
     charts: {
       colors: ["#0984E3", "#B86BFF", "#043053"]
     },
-    logo: "/images/LOGO.svg",
+    logo: "/images/logo_buefboard.svg",
+    icon: "/images/icon_buefboard.svg",
     loading: {
       currentUser: {
         save: false,

@@ -93,9 +93,8 @@
                             </b-table-column>
 
                             <b-table-column
-                                field="subject_type"
+                                field="subject_id"
                                 label="Subject"
-                                sortable
                             >
                                 <b-taglist attached>
                                     <b-tag>{{ props.row.subject_id }}</b-tag>
@@ -136,12 +135,8 @@
                                 <div
                                     class="content has-text-grey has-text-centered"
                                 >
-                                    <p>
-                                        <b-icon
-                                            icon="emoticon-sad"
-                                            size="is-large"
-                                        >
-                                        </b-icon>
+                                    <p class="title is-3">
+                                        🙌
                                     </p>
                                     <p>Nothing here.</p>
                                 </div>
