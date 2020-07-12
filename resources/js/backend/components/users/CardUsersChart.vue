@@ -306,7 +306,7 @@ export default {
             this.loading = true;
             await User.where("created_after", this.startDate)
                 .params({ cumulative: this.cumulative })
-                ._metrics()
+                .metrics()
                 .then(response => {
                     this.usersData = this.prepareData(response.data.data);
                     this.labels = this.prepareLabels(

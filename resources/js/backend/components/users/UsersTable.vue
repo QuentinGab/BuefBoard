@@ -210,7 +210,7 @@
                         <b-tag type="is-light">{{ props.row.email }}</b-tag>
                         <b-tag
                             :type="
-                                props.row.email_verified
+                                props.row.isEmailVerified
                                     ? 'is-light'
                                     : 'is-warning'
                             "
@@ -218,7 +218,7 @@
                             <b-icon
                                 size="is-small"
                                 :icon="
-                                    props.row.email_verified
+                                    props.row.isEmailVerified
                                         ? 'shield-check-outline'
                                         : 'alert-circle-outline'
                                 "

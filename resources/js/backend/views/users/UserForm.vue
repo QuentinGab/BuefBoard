@@ -111,12 +111,12 @@
                                         label="Email"
                                         label-for="email"
                                         :type="
-                                            exists && !user.email_verified
+                                            exists && !user.isEmailVerified
                                                 ? 'is-warning'
                                                 : null
                                         "
                                         :message="
-                                            user.email_verified
+                                            user.isEmailVerified
                                                 ? 'This email is verified'
                                                 : 'This email is not verified'
                                         "
@@ -130,7 +130,7 @@
 
                                     <b-field
                                         label="Email verification"
-                                        v-if="exists && !user.email_verified"
+                                        v-if="exists && !user.isEmailVerified"
                                     >
                                         <b-button
                                             type="is-primary"
@@ -486,7 +486,6 @@ export default {
             });
 
             this.loading.user = false;
-            this.getUser();
         },
         async destroyUser() {
             await this.user.destroy().then(response => {

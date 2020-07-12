@@ -18,7 +18,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CardMetrics",
   components: {},
-  props: {},
+  props: {
+    start: {
+      type: Number
+    },
+    end: {
+      type: Number
+    }
+  },
   data: function data() {
     return {};
   },
@@ -51,15 +58,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CardMetricsItem",
   components: {},
-  props: ["title", "value", "subvalue", "icon"],
+  props: ["title", "value", "subvalue", "icon", "startValue", "endValue"],
   data: function data() {
     return {};
   },
-  computed: {},
-  methods: {},
+  computed: {
+    variation: function variation() {
+      if (!(this.startValue && this.endValue)) {
+        return 0;
+      }
+
+      return Math.round(this.computeVariation(this.startValue, this.endValue) * 100);
+    },
+    variationIcon: function variationIcon() {
+      return this.computeIcon(this.variation);
+    }
+  },
+  methods: {
+    computeIcon: function computeIcon(value) {
+      if (value > 0) {
+        return "trending-up";
+      } else if (value < 0) {
+        return "trending-down";
+      }
+
+      return "minus";
+    },
+    computeVariation: function computeVariation(start, end) {
+      if (!start || !end) {
+        return 0;
+      }
+
+      return (end - start) / start;
+    }
+  },
   mounted: function mounted() {},
   created: function created() {}
 });
@@ -1072,27 +1113,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1118,11 +1138,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         blocked: 0,
         trashed: 0
       },
-      activity: null,
-      chartStyle: {
-        height: "100%",
-        width: "100%",
-        position: "relative"
+      activity: {
+        created: 0,
+        deleted: 0
       }
     };
   },
@@ -1252,7 +1270,7 @@ var render = function() {
       _vm._v(" "),
       _vm.value != null
         ? _c("div", { staticClass: "metrics-value title is-3" }, [
-            _vm._v(_vm._s(_vm.value))
+            _vm._v("\n        " + _vm._s(_vm.value) + "\n    ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -1261,8 +1279,22 @@ var render = function() {
             "div",
             { staticClass: "metrics-subvalue" },
             [
-              _c("b-icon", { attrs: { icon: _vm.icon, size: "is-small" } }),
+              _vm.icon
+                ? _c("b-icon", { attrs: { icon: _vm.icon, size: "is-small" } })
+                : _vm._e(),
               _vm._v("\n        " + _vm._s(_vm.subvalue) + "\n    ")
+            ],
+            1
+          )
+        : _vm.startValue && _vm.endValue
+        ? _c(
+            "div",
+            { staticClass: "metrics-subvalue" },
+            [
+              _c("b-icon", {
+                attrs: { icon: _vm.icon || _vm.variationIcon, size: "is-small" }
+              }),
+              _vm._v("\n        " + _vm._s(_vm.variation) + "%\n    ")
             ],
             1
           )
@@ -1791,7 +1823,7 @@ var render = function() {
                             "b-tag",
                             {
                               attrs: {
-                                type: props.row.email_verified
+                                type: props.row.isEmailVerified
                                   ? "is-light"
                                   : "is-warning"
                               }
@@ -1800,7 +1832,7 @@ var render = function() {
                               _c("b-icon", {
                                 attrs: {
                                   size: "is-small",
-                                  icon: props.row.email_verified
+                                  icon: props.row.isEmailVerified
                                     ? "shield-check-outline"
                                     : "alert-circle-outline"
                                 }
@@ -1992,9 +2024,10 @@ var render = function() {
                     ],
                     attrs: {
                       title: "Active Users",
-                      value: _vm.overview.active,
-                      subvalue: _vm.activeVariation + "%",
-                      icon: _vm.computeIcon(_vm.activeVariation)
+                      "start-value":
+                        _vm.activity.created + _vm.activity.deleted,
+                      "end-value": _vm.overview.total,
+                      value: _vm.overview.active
                     }
                   }),
                   _vm._v(" "),

@@ -863,10 +863,10 @@ var render = function() {
                               label: "Email",
                               "label-for": "email",
                               type:
-                                _vm.exists && !_vm.currentUser.email_verified
+                                _vm.exists && !_vm.currentUser.isEmailVerified
                                   ? "is-warning"
                                   : null,
-                              message: _vm.currentUser.email_verified
+                              message: _vm.currentUser.isEmailVerified
                                 ? "Your email is verified"
                                 : "Your email is not verified"
                             }

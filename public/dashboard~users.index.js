@@ -645,7 +645,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _context.next = 3;
                 return _b_models_User__WEBPACK_IMPORTED_MODULE_4__["default"].where("created_after", _this2.startDate).params({
                   cumulative: _this2.cumulative
-                })._metrics().then(function (response) {
+                }).metrics().then(function (response) {
                   _this2.usersData = _this2.prepareData(response.data.data);
                   _this2.labels = _this2.prepareLabels(_this2.startDate, _this2.endDate, ["D", "MMM"]);
                   _this2.overview = response.data.overview;

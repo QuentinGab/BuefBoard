@@ -19,7 +19,7 @@ export default class User extends Model {
         return this.hasOwnProperty("blocked_at") && this.blocked_at !== null;
     }
 
-    get email_verified() {
+    get isEmailVerified() {
         return (
             this.hasOwnProperty("email_verified_at") &&
             this.email_verified_at !== null
@@ -27,14 +27,14 @@ export default class User extends Model {
     }
 
     get blocked_date() {
-        if (!this.blocked) {
+        if (!this.isBlocked) {
             return null;
         }
         return new Date(this.blocked_at);
     }
 
     get deleted_date() {
-        if (!this.trashed) {
+        if (!this.isTrashed) {
             return null;
         }
         return new Date(this.deleted_at);
@@ -105,7 +105,7 @@ export default class User extends Model {
             url: url,
             data: this
         }).then(response => {
-            let self = Object.assign(this, response.data.data);
+            let self = Object.assign(this, response.data.data || response.data);
             return self;
         });
     }

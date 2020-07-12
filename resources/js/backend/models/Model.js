@@ -1,6 +1,6 @@
-import { Model as BaseModel } from "vue-api-query";
+import StaticModel from "./StaticModel";
 
-export default class Model extends BaseModel {
+export default class Model extends StaticModel {
     // define a base url for a REST API
     baseURL() {
         return "/api/v1";
@@ -30,7 +30,7 @@ export default class Model extends BaseModel {
             url: this.endpoint(),
             data: this
         }).then(response => {
-            let self = Object.assign(this, response.data.data);
+            let self = Object.assign(this, response.data.data || response.data);
             return self;
         });
     }
@@ -43,7 +43,7 @@ export default class Model extends BaseModel {
             url: this.endpoint(),
             data: this
         }).then(response => {
-            let self = Object.assign(this, response.data.data);
+            let self = Object.assign(this, response.data.data || response.data);
             return self;
         });
     }
@@ -58,17 +58,18 @@ export default class Model extends BaseModel {
         return this._date_diff_days(d1, d2);
     }
 
-    _metrics() {
+    metrics() {
         let base = this._fromResource || `${this.baseURL()}/${this.resource()}`;
         base = this._customResource
             ? `${this.baseURL()}/${this._customResource}`
             : base;
         let url = `${base}/metrics${this._builder.query()}`;
 
-        return axios.get(url);
-    }
-
-    static metrics() {
-        return this.instance()._metrics();
+        return this.request({
+            url,
+            method: "GET"
+        }).then(response => {
+            return response;
+        });
     }
 }

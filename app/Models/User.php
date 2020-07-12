@@ -53,7 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      * Log activuty
      */
     protected static $logName = 'users';
-    protected static $recordEvents = ['deleted', 'created'];
+    protected static $recordEvents = ['deleted', 'created', 'restored'];
 
     /**
      * Get the user's full name.

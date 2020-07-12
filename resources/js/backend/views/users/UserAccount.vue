@@ -100,12 +100,12 @@
                                         label-for="email"
                                         :type="
                                             exists &&
-                                            !currentUser.email_verified
+                                            !currentUser.isEmailVerified
                                                 ? 'is-warning'
                                                 : null
                                         "
                                         :message="
-                                            currentUser.email_verified
+                                            currentUser.isEmailVerified
                                                 ? 'Your email is verified'
                                                 : 'Your email is not verified'
                                         "

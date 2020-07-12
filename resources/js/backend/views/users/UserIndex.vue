@@ -13,9 +13,11 @@
                             activeVariation >= 0 ? 'is-success' : 'is-danger'
                         ]"
                         title="Active Users"
+                        :start-value="
+                            activity.created + activity.deleted
+                        "
+                        :end-value="overview.total"
                         :value="overview.active"
-                        :subvalue="`${activeVariation}%`"
-                        :icon="computeIcon(activeVariation)"
                     ></card-metrics-item>
                     <card-metrics-item
                         class="is-danger"
@@ -27,29 +29,6 @@
                         title="Trashed Users"
                         :value="overview.trashed"
                     ></card-metrics-item>
-                    <!-- <card-metrics-item>
-                        <doughnut-chart
-                            :style="chartStyle"
-                            :height="84"
-                            :width="84"
-                            :chart-data="{
-                                datasets: [
-                                    {
-                                        data: [
-                                            overview.active,
-                                            overview.blocked,
-                                            overview.trashed
-                                        ],
-                                        borderColor: charts.colors,
-                                        backgroundColor: charts.colors,
-                                        label: 'Users'
-                                    }
-                                ],
-                                labels: ['active', 'blocked', 'trashed']
-                            }"
-                            mode="light"
-                        />
-                    </card-metrics-item> -->
                 </card-metrics>
             </div>
             <div class="column">
@@ -100,11 +79,9 @@ export default {
                 blocked: 0,
                 trashed: 0
             },
-            activity: null,
-            chartStyle: {
-                height: "100%",
-                width: "100%",
-                position: "relative"
+            activity: {
+                created: 0,
+                deleted: 0
             }
         };
     },

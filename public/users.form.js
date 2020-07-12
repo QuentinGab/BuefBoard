@@ -669,9 +669,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 3:
                 _this6.loading.user = false;
 
-                _this6.getUser();
-
-              case 5:
+              case 4:
               case "end":
                 return _context6.stop();
             }
@@ -1372,10 +1370,10 @@ var render = function() {
                                 label: "Email",
                                 "label-for": "email",
                                 type:
-                                  _vm.exists && !_vm.user.email_verified
+                                  _vm.exists && !_vm.user.isEmailVerified
                                     ? "is-warning"
                                     : null,
-                                message: _vm.user.email_verified
+                                message: _vm.user.isEmailVerified
                                   ? "This email is verified"
                                   : "This email is not verified"
                               }
@@ -1395,7 +1393,7 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _vm.exists && !_vm.user.email_verified
+                          _vm.exists && !_vm.user.isEmailVerified
                             ? _c(
                                 "b-field",
                                 { attrs: { label: "Email verification" } },

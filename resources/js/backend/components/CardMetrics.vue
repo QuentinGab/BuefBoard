@@ -8,11 +8,17 @@
 export default {
     name: "CardMetrics",
     components: {},
-    props: {},
+    props: {
+        start: {
+            type: Number
+        },
+        end: {
+            type: Number
+        }
+    },
     data() {
         return {};
     },
-
     computed: {},
     methods: {},
     mounted() {},

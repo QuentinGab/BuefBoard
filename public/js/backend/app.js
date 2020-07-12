@@ -78283,8 +78283,7 @@ var CurrentUser = /*#__PURE__*/function (_User) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Model; });
-/* harmony import */ var vue_api_query__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-api-query */ "./node_modules/vue-api-query/build/index.js");
-/* harmony import */ var vue_api_query__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_api_query__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _StaticModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StaticModel */ "./resources/js/backend/models/StaticModel.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -78309,8 +78308,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var Model = /*#__PURE__*/function (_BaseModel) {
-  _inherits(Model, _BaseModel);
+var Model = /*#__PURE__*/function (_StaticModel) {
+  _inherits(Model, _StaticModel);
 
   var _super = _createSuper(Model);
 
@@ -78354,7 +78353,7 @@ var Model = /*#__PURE__*/function (_BaseModel) {
         url: this.endpoint(),
         data: this
       }).then(function (response) {
-        var self = Object.assign(_this, response.data.data);
+        var self = Object.assign(_this, response.data.data || response.data);
         return self;
       });
     }
@@ -78372,7 +78371,7 @@ var Model = /*#__PURE__*/function (_BaseModel) {
         url: this.endpoint(),
         data: this
       }).then(function (response) {
-        var self = Object.assign(_this2, response.data.data);
+        var self = Object.assign(_this2, response.data.data || response.data);
         return self;
       });
     }
@@ -78389,22 +78388,22 @@ var Model = /*#__PURE__*/function (_BaseModel) {
       return this._date_diff_days(d1, d2);
     }
   }, {
-    key: "_metrics",
-    value: function _metrics() {
+    key: "metrics",
+    value: function metrics() {
       var base = this._fromResource || "".concat(this.baseURL(), "/").concat(this.resource());
       base = this._customResource ? "".concat(this.baseURL(), "/").concat(this._customResource) : base;
       var url = "".concat(base, "/metrics").concat(this._builder.query());
-      return axios.get(url);
-    }
-  }], [{
-    key: "metrics",
-    value: function metrics() {
-      return this.instance()._metrics();
+      return this.request({
+        url: url,
+        method: "GET"
+      }).then(function (response) {
+        return response;
+      });
     }
   }]);
 
   return Model;
-}(vue_api_query__WEBPACK_IMPORTED_MODULE_0__["Model"]);
+}(_StaticModel__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 
@@ -78525,6 +78524,75 @@ var Role = /*#__PURE__*/function (_Model) {
 
   return Role;
 }(_Model__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/backend/models/StaticModel.js":
+/*!****************************************************!*\
+  !*** ./resources/js/backend/models/StaticModel.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return StaticModel; });
+/* harmony import */ var vue_api_query__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-api-query */ "./node_modules/vue-api-query/build/index.js");
+/* harmony import */ var vue_api_query__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_api_query__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+/**
+ *  Provide static calls for all methods.
+ *
+ *  Instead this: let users = new User().with('country').get()
+ *  We can do this: let users = User.with('conutry').get()
+ *
+ */
+
+var StaticModel = /*#__PURE__*/function (_BaseModel) {
+  _inherits(StaticModel, _BaseModel);
+
+  var _super = _createSuper(StaticModel);
+
+  function StaticModel() {
+    _classCallCheck(this, StaticModel);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(StaticModel, null, [{
+    key: "metrics",
+    value: function metrics() {
+      var self = this.instance();
+      return self.metrics();
+    }
+  }]);
+
+  return StaticModel;
+}(vue_api_query__WEBPACK_IMPORTED_MODULE_0__["Model"]);
 
 
 
@@ -78686,7 +78754,7 @@ var User = /*#__PURE__*/function (_Model) {
         url: url,
         data: this
       }).then(function (response) {
-        var self = Object.assign(_this3, response.data.data);
+        var self = Object.assign(_this3, response.data.data || response.data);
         return self;
       });
     }
@@ -78767,14 +78835,14 @@ var User = /*#__PURE__*/function (_Model) {
       return this.hasOwnProperty("blocked_at") && this.blocked_at !== null;
     }
   }, {
-    key: "email_verified",
+    key: "isEmailVerified",
     get: function get() {
       return this.hasOwnProperty("email_verified_at") && this.email_verified_at !== null;
     }
   }, {
     key: "blocked_date",
     get: function get() {
-      if (!this.blocked) {
+      if (!this.isBlocked) {
         return null;
       }
 
@@ -78783,7 +78851,7 @@ var User = /*#__PURE__*/function (_Model) {
   }, {
     key: "deleted_date",
     get: function get() {
-      if (!this.trashed) {
+      if (!this.isTrashed) {
         return null;
       }
 
