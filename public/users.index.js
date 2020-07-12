@@ -530,7 +530,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       paginationPosition: "bottom"
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["user", "roles", "permissions"])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("auth", {
+    currentUser: function currentUser(state) {
+      return state.user;
+    }
+  })), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("rolesAndPermissions", ["roles", "permissions"])), {}, {
     total: function total() {
       return this.pagination.total;
     },
@@ -611,28 +615,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var user, response;
+        var users, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _this.isLoading = true;
-                user = _b_models_User__WEBPACK_IMPORTED_MODULE_2__["default"].orderBy(_this.sort.value).page(_this.pagination.current_page).include("roles");
+                users = _b_models_User__WEBPACK_IMPORTED_MODULE_2__["default"].orderBy(_this.sort.value).page(_this.pagination.current_page).include("roles");
 
                 if (_this.isFiltered) {
                   if (_this.filter.value instanceof Date) {
-                    user.where(_this.filter.object.field, moment(_this.filter.value).format("YYYY-MM-DD"));
+                    users.where(_this.filter.object.field, moment(_this.filter.value).format("YYYY-MM-DD"));
                   } else {
-                    user.where(_this.filter.object.field, _this.filter.value);
+                    users.where(_this.filter.object.field, _this.filter.value);
                   }
                 }
 
                 if (_this.showTrashed) {
-                  user.where("trashed", "only");
+                  users.where("trashed", "only");
                 }
 
                 _context.next = 6;
-                return user.get().then(function (response) {
+                return users.get().then(function (response) {
                   _this.users = response.data;
                   _this.pagination = response.meta;
                 });

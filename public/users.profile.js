@@ -347,18 +347,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -374,7 +362,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       password_confirmation: null
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(["currentUser", "loading"])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])("auth", {
+    currentUser: function currentUser(state) {
+      return state.user;
+    },
+    loading: function loading(state) {
+      return state.loading;
+    }
+  })), {}, {
     id: function id() {
       return this.currentUser.id;
     },
@@ -392,7 +387,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.passwordConfirmed;
     }
   }),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(["getCurrentUser"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])("auth", ["getUser" // -> this.foo()
+  ])), {}, {
     saveUser: function saveUser() {
       var _this = this;
 
@@ -401,7 +397,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.loading.currentUser.save = true;
+                _this.loading.save = true;
                 _context.next = 3;
                 return _this.currentUser.save().then(function (response) {
                   _this.$buefy.snackbar.open({
@@ -414,7 +410,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
-                _this.loading.currentUser.save = false;
+                _this.loading.save = false;
 
               case 4:
               case "end":
@@ -433,7 +429,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.loading.currentUser.avatar = true;
+                _this2.loading.avatar = true;
                 formData = new FormData();
                 formData.append("avatar", _this2.avatar);
                 _context2.next = 5;
@@ -448,9 +444,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 5:
-                _this2.loading.currentUser.avatar = false;
+                _this2.loading.avatar = false;
+                _this2.avatar = null;
 
-              case 6:
+              case 7:
               case "end":
                 return _context2.stop();
             }
@@ -466,10 +463,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this3.loading.currentUser.avatar = true;
-                _context3.next = 3;
+                _this3.avatar = null;
+                _this3.loading.avatar = true;
+                _context3.next = 4;
                 return _this3.currentUser.deleteAvatar().then(function (r) {
-                  _this3.getCurrentUser();
+                  _this3.getUser();
 
                   _this3.$buefy.snackbar.open({
                     duration: 2000,
@@ -480,10 +478,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
                 });
 
-              case 3:
-                _this3.loading.currentUser.avatar = false;
-
               case 4:
+                _this3.loading.avatar = false;
+
+              case 5:
               case "end":
                 return _context3.stop();
             }
@@ -499,7 +497,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _this4.loading.currentUser.password = true;
+                _this4.loading.password = true;
                 _context4.next = 3;
                 return _this4.currentUser.updatePassword({
                   password: _this4.password,
@@ -518,7 +516,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
-                _this4.loading.currentUser.password = false;
+                _this4.loading.password = false;
 
               case 4:
               case "end":
@@ -742,12 +740,12 @@ var render = function() {
                                 _c("b-loading", {
                                   attrs: {
                                     "is-full-page": false,
-                                    active: _vm.loading.currentUser.avatar
+                                    active: _vm.loading.avatar
                                   },
                                   on: {
                                     "update:active": function($event) {
                                       return _vm.$set(
-                                        _vm.loading.currentUser,
+                                        _vm.loading,
                                         "avatar",
                                         $event
                                       )
@@ -897,10 +895,6 @@ var render = function() {
                       "b-field",
                       { attrs: { horizontal: "", label: "Roles" } },
                       [
-                        _c("b-skeleton", {
-                          attrs: { height: "36px", active: _vm.loading.roles }
-                        }),
-                        _vm._v(" "),
                         _c(
                           "div",
                           { staticClass: "buttons" },
@@ -919,8 +913,7 @@ var render = function() {
                           }),
                           1
                         )
-                      ],
-                      1
+                      ]
                     ),
                     _vm._v(" "),
                     _c("hr"),
@@ -976,7 +969,7 @@ var render = function() {
                                 {
                                   attrs: {
                                     type: "is-primary",
-                                    loading: _vm.loading.currentUser.save
+                                    loading: _vm.loading.save
                                   },
                                   on: { click: _vm.saveUser }
                                 },
@@ -991,10 +984,10 @@ var render = function() {
                                 ? _c("b-button", {
                                     attrs: {
                                       type: "is-default",
-                                      loading: _vm.loading.currentUser.get,
+                                      loading: _vm.loading.get,
                                       "icon-left": "refresh"
                                     },
-                                    on: { click: _vm.getCurrentUser }
+                                    on: { click: _vm.getUser }
                                   })
                                 : _vm._e()
                             ],
@@ -1110,7 +1103,7 @@ var render = function() {
                               {
                                 attrs: {
                                   type: "is-primary",
-                                  loading: _vm.loading.currentUser.password,
+                                  loading: _vm.loading.password,
                                   disabled: !_vm.passwordValidated
                                 },
                                 on: { click: _vm.changePassword }

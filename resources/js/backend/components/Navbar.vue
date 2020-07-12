@@ -1,5 +1,5 @@
 <template>
-    <b-navbar >
+    <b-navbar>
         <template slot="brand">
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
@@ -16,7 +16,12 @@
         </template>
 
         <template slot="end">
-            <b-navbar-dropdown position="is-bottom-left" hoverable boxed class="">
+            <b-navbar-dropdown
+                position="is-bottom-left"
+                hoverable
+                boxed
+                class=""
+            >
                 <template slot="label">
                     <figure class="image avatar is-24x24">
                         <img class="is-rounded" :src="currentUser.avatar" />
@@ -77,7 +82,11 @@ export default {
         };
     },
     computed: {
-        ...mapState(["currentUser", "loading", "logo"]),
+        ...mapState("auth", {
+            currentUser: state => state.user
+        }),
+        ...mapState("notificationCenter", ["notifications"]),
+        ...mapState(["logo"]),
         dropdownMenu() {
             return [
                 {
@@ -102,7 +111,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(["toggleNotificationCenter"])
+        ...mapMutations("notificationCenter", ["toggleNotificationCenter"])
     },
     created() {}
 };

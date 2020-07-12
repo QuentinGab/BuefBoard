@@ -352,7 +352,10 @@ export default {
         };
     },
     computed: {
-        ...mapState(["user", "roles", "permissions"]),
+        ...mapState("auth", {
+            currentUser: state => state.user
+        }),
+        ...mapState("rolesAndPermissions", ["roles", "permissions"]),
         total() {
             return this.pagination.total;
         },
@@ -436,23 +439,23 @@ export default {
         async getUsers() {
             this.isLoading = true;
 
-            let user = User.orderBy(this.sort.value)
+            let users = User.orderBy(this.sort.value)
                 .page(this.pagination.current_page)
                 .include("roles");
             if (this.isFiltered) {
                 if (this.filter.value instanceof Date) {
-                    user.where(
+                    users.where(
                         this.filter.object.field,
                         moment(this.filter.value).format("YYYY-MM-DD")
                     );
                 } else {
-                    user.where(this.filter.object.field, this.filter.value);
+                    users.where(this.filter.object.field, this.filter.value);
                 }
             }
             if (this.showTrashed) {
-                user.where("trashed", "only");
+                users.where("trashed", "only");
             }
-            let response = await user.get().then(response => {
+            let response = await users.get().then(response => {
                 this.users = response.data;
                 this.pagination = response.meta;
             });

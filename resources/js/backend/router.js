@@ -99,8 +99,13 @@ const router = new Router({
     ]
 });
 
-router.beforeEach((to, from, next) => {
-    let user = store.state.currentUser;
+router.beforeEach(async (to, from, next) => {
+    //we need to load the user before accessing any route
+    let user = store.state.auth.user;
+    if (!user) {
+        await store.dispatch("auth/getUser");
+        user = store.state.auth.user;
+    }
     //first check for permissions
     //a god can pass every guards
     if (to.meta.permissions) {

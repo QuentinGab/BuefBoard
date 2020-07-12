@@ -182,11 +182,6 @@
 
                                 <hr />
                                 <b-field horizontal label="Roles">
-                                    <b-skeleton
-                                        height="36px"
-                                        :active="loading.roles"
-                                    ></b-skeleton>
-
                                     <div
                                         class="field is-grouped is-grouped-multiline"
                                     >
@@ -297,7 +292,7 @@
                                             v-if="user.isBlocked"
                                             @click="unblockUser"
                                             type="is-warning"
-                                            :loading="loading.user"
+                                            :loading="loading.block"
                                             icon-left="restore"
                                         >
                                             Unblock
@@ -307,7 +302,7 @@
                                             icon-left="cancel"
                                             @click="blockUser"
                                             type="is-warning"
-                                            :loading="loading.user"
+                                            :loading="loading.block"
                                         >
                                             Block
                                         </b-button>
@@ -322,13 +317,13 @@
                                                 @click="confirmRestore"
                                                 type="is-info"
                                                 icon-left="restore"
-                                                :loading="loading.user"
+                                                :loading="loading.restore"
                                                 >Restore</b-button
                                             >
                                             <b-button
                                                 @click="confirmDelete"
                                                 type="is-danger"
-                                                :loading="loading.user"
+                                                :loading="loading.delete"
                                                 icon-left="delete-outline"
                                                 >{{
                                                     user.isTrashed
@@ -377,17 +372,18 @@ export default {
             }),
             loading: {
                 user: false,
-                roles: false,
-                permissions: false,
                 save: false,
                 refresh: false,
                 password: false,
-                email_verification: false
+                email_verification: false,
+                restore: false,
+                delete: false,
+                block: false
             }
         };
     },
     computed: {
-        ...mapState(["roles", "permissions"]),
+        ...mapState("rolesAndPermissions", ["roles", "permissions"]),
         exists() {
             return !!this.id;
         },
@@ -464,7 +460,9 @@ export default {
             this.loading.user = false;
         },
         async restoreUser() {
+            this.loading.restore = true;
             await this.user.restore().then(response => {
+                console.log(response);
                 this.$buefy.snackbar.open({
                     duration: 2000,
                     message: `${this.user.fullname} has been restored`,
@@ -473,6 +471,7 @@ export default {
                     queue: false
                 });
             });
+            this.loading.restore = false;
         },
         async deleteUser() {
             this.loading.user = true;

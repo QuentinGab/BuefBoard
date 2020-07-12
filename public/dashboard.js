@@ -63,7 +63,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   methods: {},
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["currentUser", "loading"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("auth", {
+    currentUser: function currentUser(state) {
+      return state.user;
+    }
+  })),
   mounted: function mounted() {},
   created: function created() {}
 });

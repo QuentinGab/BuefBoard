@@ -92,10 +92,7 @@
                                 </b-tag>
                             </b-table-column>
 
-                            <b-table-column
-                                field="subject_id"
-                                label="Subject"
-                            >
+                            <b-table-column field="subject_id" label="Subject">
                                 <b-taglist attached>
                                     <b-tag>{{ props.row.subject_id }}</b-tag>
                                     <b-tag>{{ props.row.subject_type }}</b-tag>
@@ -176,9 +173,9 @@ export default {
                 total: 0
             },
             sort: {
-                field: "created_at",
+                field: "id",
                 order: "-", // '-' or ''
-                value: null
+                value: "-id"
             },
             filter: {
                 object: {

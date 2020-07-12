@@ -70,13 +70,18 @@ export default {
         };
     },
     computed: {
-        ...mapState(["currentUser", "loading"])
+        ...mapState("auth", {
+            currentUser: state => state.user
+        })
     },
     methods: {
-        ...mapActions(["getCurrentUser", "getRoles", "getPermissions"])
+        ...mapActions("auth", ["getUser", "loading"]),
+        ...mapActions("rolesAndPermissions", ["getRoles", "getPermissions"])
     },
     created() {
-        this.getCurrentUser();
+        if (!this.currentUser) {
+            this.getUser();
+        }
         this.getRoles();
         this.getPermissions();
     },

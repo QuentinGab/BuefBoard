@@ -51,9 +51,7 @@
                                         >
                                             <b-loading
                                                 :is-full-page="false"
-                                                :active.sync="
-                                                    loading.currentUser.avatar
-                                                "
+                                                :active.sync="loading.avatar"
                                             />
                                             <a class="button is-primary">
                                                 <b-icon
@@ -122,10 +120,6 @@
 
                                 <hr />
                                 <b-field horizontal label="Roles">
-                                    <b-skeleton
-                                        height="36px"
-                                        :active="loading.roles"
-                                    ></b-skeleton>
                                     <div class="buttons">
                                         <b-button
                                             v-for="role in currentUser.roles"
@@ -163,19 +157,15 @@
                                             <b-button
                                                 @click="saveUser"
                                                 type="is-primary"
-                                                :loading="
-                                                    loading.currentUser.save
-                                                "
+                                                :loading="loading.save"
                                             >
                                                 Save
                                             </b-button>
                                             <b-button
                                                 v-if="exists"
-                                                @click="getCurrentUser"
+                                                @click="getUser"
                                                 type="is-default"
-                                                :loading="
-                                                    loading.currentUser.get
-                                                "
+                                                :loading="loading.get"
                                                 icon-left="refresh"
                                             ></b-button>
                                         </p>
@@ -237,9 +227,7 @@
                                         <b-button
                                             @click="changePassword"
                                             type="is-primary"
-                                            :loading="
-                                                loading.currentUser.password
-                                            "
+                                            :loading="loading.password"
                                             :disabled="!passwordValidated"
                                         >
                                             Change password
@@ -286,7 +274,10 @@ export default {
         };
     },
     computed: {
-        ...mapState(["currentUser", "loading"]),
+        ...mapState("auth", {
+            currentUser: state => state.user,
+            loading: state => state.loading
+        }),
         id() {
             return this.currentUser.id;
         },
@@ -304,9 +295,11 @@ export default {
         }
     },
     methods: {
-        ...mapActions(["getCurrentUser"]),
+        ...mapActions("auth", [
+            "getUser" // -> this.foo()
+        ]),
         async saveUser() {
-            this.loading.currentUser.save = true;
+            this.loading.save = true;
             await this.currentUser.save().then(response => {
                 this.$buefy.snackbar.open({
                     duration: 2000,
@@ -316,10 +309,10 @@ export default {
                     queue: false
                 });
             });
-            this.loading.currentUser.save = false;
+            this.loading.save = false;
         },
         async changeAvatar() {
-            this.loading.currentUser.avatar = true;
+            this.loading.avatar = true;
             var formData = new FormData();
             formData.append("avatar", this.avatar);
             await this.currentUser.updateAvatar(formData).then(r => {
@@ -331,14 +324,15 @@ export default {
                     queue: false
                 });
             });
-
-            this.loading.currentUser.avatar = false;
+            this.loading.avatar = false;
+            this.avatar = null;
         },
         async deleteAvatar() {
-            this.loading.currentUser.avatar = true;
+            this.avatar = null;
+            this.loading.avatar = true;
 
             await this.currentUser.deleteAvatar().then(r => {
-                this.getCurrentUser();
+                this.getUser();
                 this.$buefy.snackbar.open({
                     duration: 2000,
                     message: `Your Avatar has been deleted`,
@@ -347,10 +341,10 @@ export default {
                     queue: false
                 });
             });
-            this.loading.currentUser.avatar = false;
+            this.loading.avatar = false;
         },
         async changePassword() {
-            this.loading.currentUser.password = true;
+            this.loading.password = true;
             await this.currentUser
                 .updatePassword({
                     password: this.password,
@@ -367,7 +361,7 @@ export default {
                     this.password = null;
                     this.password_confirmation = null;
                 });
-            this.loading.currentUser.password = false;
+            this.loading.password = false;
         },
         async deleteUser() {
             await this.currentUser.delete().then(response => {

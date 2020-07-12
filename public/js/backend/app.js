@@ -2463,10 +2463,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }]
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["currentUser", "loading"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["getCurrentUser", "getRoles", "getPermissions"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("auth", {
+    currentUser: function currentUser(state) {
+      return state.user;
+    }
+  })),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("auth", ["getUser", "loading"])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("rolesAndPermissions", ["getRoles", "getPermissions"])),
   created: function created() {
-    this.getCurrentUser();
+    if (!this.currentUser) {
+      this.getUser();
+    }
+
     this.getRoles();
     this.getPermissions();
   },
@@ -2572,7 +2579,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    // ...mapState([])
     isMobile: function isMobile() {
       return window.innerWidth < 960;
     }
@@ -2667,6 +2673,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 // @b/ is an alias to /src/backend
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2677,7 +2688,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       menu: []
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["currentUser", "loading", "logo"])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("auth", {
+    currentUser: function currentUser(state) {
+      return state.user;
+    }
+  })), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("notificationCenter", ["notifications"])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["logo"])), {}, {
     dropdownMenu: function dropdownMenu() {
       return [{
         label: "Dashboard",
@@ -2701,7 +2716,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }];
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["toggleNotificationCenter"])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("notificationCenter", ["toggleNotificationCenter"])),
   created: function created() {}
 });
 
@@ -78792,20 +78807,28 @@ var User = /*#__PURE__*/function (_Model) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./resources/js/backend/store.js");
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_3__);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store */ "./resources/js/backend/store.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_4__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
 /* NProgress */
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   base: process.env.BASE_URL,
   routes: [{
     path: "/",
@@ -78880,52 +78903,102 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     }
   }]
 });
-router.beforeEach(function (to, from, next) {
-  var user = _store__WEBPACK_IMPORTED_MODULE_2__["default"].state.currentUser; //first check for permissions
-  //a god can pass every guards
+router.beforeEach( /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(to, from, next) {
+    var user;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            //we need to load the user before accessing any route
+            user = _store__WEBPACK_IMPORTED_MODULE_3__["default"].state.auth.user;
 
-  if (to.meta.permissions) {
-    if (user.hasRole("god")) {
-      return next();
-    }
+            if (user) {
+              _context.next = 5;
+              break;
+            }
 
-    if (!user.hasAnyPermission(to.meta.permissions)) {
-      return next({
-        name: "dashboard"
-      });
-    }
-  } // then check for roles
-  //a god can pass every guards
+            _context.next = 4;
+            return _store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch("auth/getUser");
 
+          case 4:
+            user = _store__WEBPACK_IMPORTED_MODULE_3__["default"].state.auth.user;
 
-  if (to.meta.roles) {
-    if (user.hasRole("god")) {
-      return next();
-    }
+          case 5:
+            if (!to.meta.permissions) {
+              _context.next = 10;
+              break;
+            }
 
-    if (!user.hasAnyRole(to.meta.roles)) {
-      return next({
-        name: "dashboard"
-      });
-    }
-  }
+            if (!user.hasRole("god")) {
+              _context.next = 8;
+              break;
+            }
 
-  return next();
-});
+            return _context.abrupt("return", next());
+
+          case 8:
+            if (user.hasAnyPermission(to.meta.permissions)) {
+              _context.next = 10;
+              break;
+            }
+
+            return _context.abrupt("return", next({
+              name: "dashboard"
+            }));
+
+          case 10:
+            if (!to.meta.roles) {
+              _context.next = 15;
+              break;
+            }
+
+            if (!user.hasRole("god")) {
+              _context.next = 13;
+              break;
+            }
+
+            return _context.abrupt("return", next());
+
+          case 13:
+            if (user.hasAnyRole(to.meta.roles)) {
+              _context.next = 15;
+              break;
+            }
+
+            return _context.abrupt("return", next({
+              name: "dashboard"
+            }));
+
+          case 15:
+            return _context.abrupt("return", next());
+
+          case 16:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}());
 /* Router loading indicator */
 
 router.beforeResolve(function (to, from, next) {
   // If this isn't an initial page load.
   if (to.name) {
     // Start the route progress bar.
-    nprogress__WEBPACK_IMPORTED_MODULE_3___default.a.start();
+    nprogress__WEBPACK_IMPORTED_MODULE_4___default.a.start();
   }
 
   next();
 });
 router.afterEach(function (to, from) {
   // Complete the animation of the route progress bar.
-  nprogress__WEBPACK_IMPORTED_MODULE_3___default.a.done();
+  nprogress__WEBPACK_IMPORTED_MODULE_4___default.a.done();
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
@@ -78941,15 +79014,57 @@ router.afterEach(function (to, from) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _b_store_Auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/store/Auth */ "./resources/js/backend/store/Auth.js");
+/* harmony import */ var _b_store_rolesAndPermissions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/store/rolesAndPermissions */ "./resources/js/backend/store/rolesAndPermissions.js");
+/* harmony import */ var _b_store_NotificationCenter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @b/store/NotificationCenter */ "./resources/js/backend/store/NotificationCenter.js");
+
+
+/* modules */
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  modules: {
+    auth: _b_store_Auth__WEBPACK_IMPORTED_MODULE_2__["default"],
+    notificationCenter: _b_store_NotificationCenter__WEBPACK_IMPORTED_MODULE_4__["default"],
+    rolesAndPermissions: _b_store_rolesAndPermissions__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  state: {
+    charts: {
+      colors: ["#0984E3", "#B86BFF", "#043053"]
+    },
+    logo: "/images/logo_buefboard.svg",
+    icon: "/images/icon_buefboard.svg"
+  },
+  mutations: {
+    /* A fit-them-all commit */
+    basic: function basic(state, payload) {
+      state[payload.key] = payload.value;
+    }
+  },
+  actions: {}
+}));
+
+/***/ }),
+
+/***/ "./resources/js/backend/store/Auth.js":
+/*!********************************************!*\
+  !*** ./resources/js/backend/store/Auth.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/models/CurrentUser */ "./resources/js/backend/models/CurrentUser.js");
-/* harmony import */ var _b_models_Role__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @b/models/Role */ "./resources/js/backend/models/Role.js");
-/* harmony import */ var _b_models_Permission__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @b/models/Permission */ "./resources/js/backend/models/Permission.js");
-/* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/index.js");
+/* harmony import */ var _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/models/CurrentUser */ "./resources/js/backend/models/CurrentUser.js");
+/* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -78958,91 +79073,53 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-
-
-
-
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
-/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
-  state: {
-    currentUser: null,
-    roles: [],
-    permissions: [],
-    notificationCenter: {
-      open: false,
-      notifications: [{
-        id: 1,
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit",
-        type: "is-primary"
-      }, {
-        id: 2,
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit",
-        type: "is-default"
-      }]
-    },
-    charts: {
-      colors: ["#0984E3", "#B86BFF", "#043053"]
-    },
-    logo: "/images/logo_buefboard.svg",
-    icon: "/images/icon_buefboard.svg",
-    loading: {
-      currentUser: {
-        save: false,
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "auth",
+  namespaced: true,
+  state: function state() {
+    return {
+      user: null,
+      loading: {
         get: false,
+        save: false,
         password: false,
         avatar: false
-      },
-      roles: false,
-      permissions: false
-    }
+      }
+    };
   },
   mutations: {
-    /* A fit-them-all commit */
-    basic: function basic(state, payload) {
-      state[payload.key] = payload.value;
+    setUser: function setUser(state, currentUser) {
+      state.user = currentUser;
     },
-    updateLoading: function updateLoading(state, payload) {
+    setLoading: function setLoading(state, payload) {
       state.loading[payload.key] = payload.value;
-    },
-
-    /* currentUser */
-    updateUser: function updateUser(state, currentUser) {
-      state.currentUser = currentUser;
-    },
-    updateLoadingUser: function updateLoadingUser(state, payload) {
-      state.loading.currentUser[payload.key] = payload.value;
-    },
-    updateRoles: function updateRoles(state, roles) {
-      state.roles = roles;
-    },
-    updatePermissions: function updatePermissions(state, permissions) {
-      state.permissions = permissions;
-    },
-
-    /* Notification center */
-    updateNotificationCenter: function updateNotificationCenter(state, isOpen) {
-      state.notificationCenter.open = isOpen;
-    },
-    toggleNotificationCenter: function toggleNotificationCenter(state) {
-      state.notificationCenter.open = !state.notificationCenter.open;
     }
   },
   actions: {
-    getCurrentUser: function getCurrentUser(_ref) {
+    getUser: function getUser(_ref) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var commit, currentUser;
+        var commit, state, currentUser;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commit = _ref.commit;
-                commit("updateLoadingUser", {
+                commit = _ref.commit, state = _ref.state;
+
+                if (!state.loading.get) {
+                  _context.next = 3;
+                  break;
+                }
+
+                return _context.abrupt("return", false);
+
+              case 3:
+                commit("setLoading", {
                   key: "get",
                   value: true
                 });
-                _context.next = 4;
-                return _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_3__["default"].include("roles", "permissions").$find("current")["catch"](function (error) {
-                  buefy__WEBPACK_IMPORTED_MODULE_6__["NotificationProgrammatic"].open({
+                _context.next = 6;
+                return _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_1__["default"].include("roles", "permissions").$find("current")["catch"](function (error) {
+                  buefy__WEBPACK_IMPORTED_MODULE_2__["NotificationProgrammatic"].open({
                     duration: 10000,
                     message: "We can't load the user, please refresh the page",
                     position: "is-bottom",
@@ -79052,16 +79129,133 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
                   });
                 });
 
-              case 4:
+              case 6:
                 currentUser = _context.sent;
-                commit("updateUser", currentUser);
-                commit("updateLoadingUser", {
+                commit("setUser", currentUser);
+                commit("setLoading", {
                   key: "get",
                   value: false
                 });
                 return _context.abrupt("return", currentUser);
 
-              case 8:
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  getters: {}
+});
+
+/***/ }),
+
+/***/ "./resources/js/backend/store/NotificationCenter.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/backend/store/NotificationCenter.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "notificationCenter",
+  namespaced: true,
+  state: function state() {
+    return {
+      open: false,
+      notifications: [{
+        id: 1,
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit",
+        type: "is-primary"
+      }, {
+        id: 2,
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit",
+        type: "is-default"
+      }],
+      loading: {}
+    };
+  },
+  mutations: {
+    /* A fit-them-all commit */
+    basic: function basic(state, payload) {
+      state[payload.key] = payload.value;
+    },
+
+    /* Notification center */
+    toggleNotificationCenter: function toggleNotificationCenter(state) {
+      state.open = !state.open;
+    }
+  },
+  actions: {},
+  getters: {}
+});
+
+/***/ }),
+
+/***/ "./resources/js/backend/store/rolesAndPermissions.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/backend/store/rolesAndPermissions.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _b_models_Role__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @b/models/Role */ "./resources/js/backend/models/Role.js");
+/* harmony import */ var _b_models_Permission__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @b/models/Permission */ "./resources/js/backend/models/Permission.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "rolesAndPermissions",
+  namespaced: true,
+  state: function state() {
+    return {
+      roles: [],
+      permissions: [],
+      loading: {
+        roles: false,
+        permissions: false
+      }
+    };
+  },
+  mutations: {
+    setRoles: function setRoles(state, roles) {
+      state.roles = roles;
+    },
+    setPermissions: function setPermissions(state, permissions) {
+      state.permissions = permissions;
+    }
+  },
+  actions: {
+    getRoles: function getRoles(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit, roles;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return _b_models_Role__WEBPACK_IMPORTED_MODULE_1__["default"].include("permissions").$get();
+
+              case 3:
+                roles = _context.sent;
+                commit("setRoles", roles);
+                return _context.abrupt("return", roles);
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -79069,21 +79263,21 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
         }, _callee);
       }))();
     },
-    getRoles: function getRoles(_ref2) {
+    getPermissions: function getPermissions(_ref2) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var commit, roles;
+        var commit, permissions;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 commit = _ref2.commit;
                 _context2.next = 3;
-                return _b_models_Role__WEBPACK_IMPORTED_MODULE_4__["default"].include("permissions").$get();
+                return _b_models_Permission__WEBPACK_IMPORTED_MODULE_2__["default"].$get();
 
               case 3:
-                roles = _context2.sent;
-                commit("updateRoles", roles);
-                return _context2.abrupt("return", roles);
+                permissions = _context2.sent;
+                commit("setPermissions", permissions);
+                return _context2.abrupt("return", permissions);
 
               case 6:
               case "end":
@@ -79092,33 +79286,10 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
           }
         }, _callee2);
       }))();
-    },
-    getPermissions: function getPermissions(_ref3) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var commit, permissions;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                commit = _ref3.commit;
-                _context3.next = 3;
-                return _b_models_Permission__WEBPACK_IMPORTED_MODULE_5__["default"].$get();
-
-              case 3:
-                permissions = _context3.sent;
-                commit("updatePermissions", permissions);
-                return _context3.abrupt("return", permissions);
-
-              case 6:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
     }
-  }
-}));
+  },
+  getters: {}
+});
 
 /***/ }),
 

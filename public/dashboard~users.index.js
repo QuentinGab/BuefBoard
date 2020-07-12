@@ -431,6 +431,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1088,127 +1094,124 @@ var render = function() {
           attrs: {
             height: _vm.height,
             "chart-data": _vm.chartData,
-            "chart-style": _vm.chartStyle
+            "chart-style": _vm.chartStyle,
+            type: _vm.type
           }
         },
         [
-          _vm.mode == "light"
-            ? _c("div", { staticClass: "columns is-marginless" }, [
-                _c("div", { staticClass: "column" }, [
-                  _c(
-                    "div",
-                    { staticClass: "is-flex" },
-                    [
-                      _c(
-                        "p",
-                        { staticClass: "is-1 title is-marginless no-wrap" },
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(_vm.active) +
-                              "\n                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-tooltip",
-                        { attrs: { label: _vm.variation + "%" } },
-                        [_c("b-icon", { attrs: { icon: _vm.variationIcon } })],
-                        1
-                      )
-                    ],
-                    1
-                  ),
+          _c("div", { staticClass: "columns is-marginless" }, [
+            _c("div", { staticClass: "column" }, [
+              _c(
+                "div",
+                { staticClass: "is-flex" },
+                [
+                  _c("p", { staticClass: "is-1 title is-marginless no-wrap" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.active) +
+                        "\n                "
+                    )
+                  ]),
                   _vm._v(" "),
-                  _c("p", { staticClass: "heading" }, [
-                    _vm._v(_vm._s(_vm.title))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "column is-narrow" }, [
                   _c(
-                    "div",
-                    { staticClass: "field is-grouped" },
-                    [
-                      _c(
-                        "b-radio-button",
-                        {
-                          attrs: {
-                            "native-value": _vm
-                              .moment()
-                              .subtract(1, "months")
-                              .format("YYYY-MM-DD"),
-                            type: "is-light",
-                            size: "is-small"
-                          },
-                          model: {
-                            value: _vm.startDate,
-                            callback: function($$v) {
-                              _vm.startDate = $$v
-                            },
-                            expression: "startDate"
-                          }
-                        },
-                        [_c("span", [_vm._v("1 month")])]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-radio-button",
-                        {
-                          staticClass: "is-rounded",
-                          attrs: {
-                            "native-value": _vm
-                              .moment()
-                              .subtract(14, "days")
-                              .format("YYYY-MM-DD"),
-                            type: "is-light",
-                            size: "is-small"
-                          },
-                          model: {
-                            value: _vm.startDate,
-                            callback: function($$v) {
-                              _vm.startDate = $$v
-                            },
-                            expression: "startDate"
-                          }
-                        },
-                        [_c("span", [_vm._v("14 days")])]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-radio-button",
-                        {
-                          attrs: {
-                            "native-value": _vm
-                              .moment()
-                              .subtract(7, "days")
-                              .format("YYYY-MM-DD"),
-                            type: "is-light",
-                            size: "is-small"
-                          },
-                          model: {
-                            value: _vm.startDate,
-                            callback: function($$v) {
-                              _vm.startDate = $$v
-                            },
-                            expression: "startDate"
-                          }
-                        },
-                        [_c("span", [_vm._v("7 days")])]
-                      )
-                    ],
+                    "b-tooltip",
+                    { attrs: { label: _vm.variation + "%" } },
+                    [_c("b-icon", { attrs: { icon: _vm.variationIcon } })],
                     1
                   )
-                ])
-              ])
-            : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("p", { staticClass: "heading" }, [_vm._v(_vm._s(_vm.title))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column is-narrow" }, [
+              _c(
+                "div",
+                { staticClass: "field is-grouped" },
+                [
+                  _c(
+                    "b-radio-button",
+                    {
+                      attrs: {
+                        "native-value": _vm
+                          .moment()
+                          .subtract(1, "months")
+                          .format("YYYY-MM-DD"),
+                        type: "is-light",
+                        size: "is-small"
+                      },
+                      model: {
+                        value: _vm.startDate,
+                        callback: function($$v) {
+                          _vm.startDate = $$v
+                        },
+                        expression: "startDate"
+                      }
+                    },
+                    [_c("span", [_vm._v("1 month")])]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-radio-button",
+                    {
+                      staticClass: "is-rounded",
+                      attrs: {
+                        "native-value": _vm
+                          .moment()
+                          .subtract(14, "days")
+                          .format("YYYY-MM-DD"),
+                        type: "is-light",
+                        size: "is-small"
+                      },
+                      model: {
+                        value: _vm.startDate,
+                        callback: function($$v) {
+                          _vm.startDate = $$v
+                        },
+                        expression: "startDate"
+                      }
+                    },
+                    [_c("span", [_vm._v("14 days")])]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-radio-button",
+                    {
+                      attrs: {
+                        "native-value": _vm
+                          .moment()
+                          .subtract(7, "days")
+                          .format("YYYY-MM-DD"),
+                        type: "is-light",
+                        size: "is-small"
+                      },
+                      model: {
+                        value: _vm.startDate,
+                        callback: function($$v) {
+                          _vm.startDate = $$v
+                        },
+                        expression: "startDate"
+                      }
+                    },
+                    [_c("span", [_vm._v("7 days")])]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
         ]
       )
     : _c(
         "card-chart-full",
         {
-          attrs: { "chart-data": _vm.chartData, "chart-style": _vm.chartStyle }
+          attrs: {
+            "chart-data": _vm.chartData,
+            "chart-style": _vm.chartStyle,
+            type: _vm.type
+          }
         },
         [
           _c("p", { attrs: { slot: "header-left" }, slot: "header-left" }, [

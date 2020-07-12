@@ -74,16 +74,10 @@ export default {
     name: "RoleIndex",
     components: { TitleBar },
     data() {
-        return {
-            loading: {
-                roles: false,
-                permissions: false
-            },
-            checkboxGroup: []
-        };
+        return {};
     },
     computed: {
-        ...mapState(["user", "roles", "permissions"])
+        ...mapState("rolesAndPermissions", ["roles", "permissions","loading"])
     },
     methods: {
         onChange: debounce(function(role) {

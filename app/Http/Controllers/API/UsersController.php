@@ -184,6 +184,7 @@ class UsersController extends Controller
         $this->authorize('delete', $user);
 
         $user->restore();
+
         return new UserResource($user);
     }
 

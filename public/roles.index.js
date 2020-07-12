@@ -171,9 +171,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 
@@ -201,10 +198,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         total: 0
       },
       sort: {
-        field: "created_at",
+        field: "id",
         order: "-",
         // '-' or ''
-        value: null
+        value: "-id"
       },
       filter: {
         object: {
@@ -424,15 +421,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     TitleBar: _b_components_TitleBar__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
-    return {
-      loading: {
-        roles: false,
-        permissions: false
-      },
-      checkboxGroup: []
-    };
+    return {};
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["user", "roles", "permissions"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("rolesAndPermissions", ["roles", "permissions", "loading"])),
   methods: {
     onChange: lodash_debounce__WEBPACK_IMPORTED_MODULE_6___default()(function (role) {
       this.saveRole(role);

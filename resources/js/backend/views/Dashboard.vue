@@ -46,7 +46,9 @@ export default {
     },
     methods: {},
     computed: {
-        ...mapState(["currentUser", "loading"])
+        ...mapState("auth", {
+            currentUser: state => state.user
+        })
     },
     mounted() {},
     created() {}

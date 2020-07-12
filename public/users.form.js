@@ -435,11 +435,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -468,16 +463,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }),
       loading: {
         user: false,
-        roles: false,
-        permissions: false,
         save: false,
         refresh: false,
         password: false,
-        email_verification: false
+        email_verification: false,
+        restore: false,
+        "delete": false,
+        block: false
       }
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["roles", "permissions"])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("rolesAndPermissions", ["roles", "permissions"])), {}, {
     exists: function exists() {
       return !!this.id;
     },
@@ -625,8 +621,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.next = 2;
+                _this5.loading.restore = true;
+                _context5.next = 3;
                 return _this5.user.restore().then(function (response) {
+                  console.log(response);
+
                   _this5.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(_this5.user.fullname, " has been restored"),
@@ -636,7 +635,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
                 });
 
-              case 2:
+              case 3:
+                _this5.loading.restore = false;
+
+              case 4:
               case "end":
                 return _context5.stop();
             }
@@ -1498,10 +1500,6 @@ var render = function() {
                         "b-field",
                         { attrs: { horizontal: "", label: "Roles" } },
                         [
-                          _c("b-skeleton", {
-                            attrs: { height: "36px", active: _vm.loading.roles }
-                          }),
-                          _vm._v(" "),
                           _c(
                             "div",
                             {
@@ -1556,8 +1554,7 @@ var render = function() {
                             ],
                             2
                           )
-                        ],
-                        1
+                        ]
                       ),
                       _vm._v(" "),
                       _c("hr"),
@@ -1740,7 +1737,7 @@ var render = function() {
                                       {
                                         attrs: {
                                           type: "is-warning",
-                                          loading: _vm.loading.user,
+                                          loading: _vm.loading.block,
                                           "icon-left": "restore"
                                         },
                                         on: { click: _vm.unblockUser }
@@ -1757,7 +1754,7 @@ var render = function() {
                                         attrs: {
                                           "icon-left": "cancel",
                                           type: "is-warning",
-                                          loading: _vm.loading.user
+                                          loading: _vm.loading.block
                                         },
                                         on: { click: _vm.blockUser }
                                       },
@@ -1792,7 +1789,7 @@ var render = function() {
                                           attrs: {
                                             type: "is-info",
                                             "icon-left": "restore",
-                                            loading: _vm.loading.user
+                                            loading: _vm.loading.restore
                                           },
                                           on: { click: _vm.confirmRestore }
                                         },
@@ -1805,7 +1802,7 @@ var render = function() {
                                     {
                                       attrs: {
                                         type: "is-danger",
-                                        loading: _vm.loading.user,
+                                        loading: _vm.loading.delete,
                                         "icon-left": "delete-outline"
                                       },
                                       on: { click: _vm.confirmDelete }

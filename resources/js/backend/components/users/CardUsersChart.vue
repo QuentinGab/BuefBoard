@@ -4,8 +4,9 @@
         :height="height"
         :chart-data="chartData"
         :chart-style="chartStyle"
+        :type="type"
     >
-        <div class="columns is-marginless" v-if="mode == 'light'">
+        <div class="columns is-marginless">
             <div class="column">
                 <div class="is-flex">
                     <p class="is-1 title is-marginless no-wrap">
@@ -61,7 +62,12 @@
             </div>
         </div>
     </card-chart-light>
-    <card-chart-full v-else :chart-data="chartData" :chart-style="chartStyle">
+    <card-chart-full
+        v-else
+        :chart-data="chartData"
+        :chart-style="chartStyle"
+        :type="type"
+    >
         <p slot="header-left">{{ title }}</p>
         <div slot="header-right">
             <div class="field is-grouped">
