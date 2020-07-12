@@ -3,12 +3,13 @@ import Vuex from "vuex";
 import CurrentUser from "@b/models/CurrentUser";
 import Role from "@b/models/Role";
 import Permission from "@b/models/Permission";
+import { NotificationProgrammatic as Notification } from "buefy";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        currentUser: {},
+        currentUser: null,
         roles: [],
         permissions: [],
         notificationCenter: {
@@ -37,8 +38,8 @@ export default new Vuex.Store({
             currentUser: {
                 save: false,
                 get: false,
-                password:false,
-                avatar:false
+                password: false,
+                avatar: false
             },
             roles: false,
             permissions: false
@@ -76,10 +77,18 @@ export default new Vuex.Store({
     actions: {
         async getCurrentUser({ commit }) {
             commit("updateLoadingUser", { key: "get", value: true });
-            let currentUser = await CurrentUser.include(
-                "roles",
-                "permissions"
-            ).$find("current");
+            let currentUser = await CurrentUser.include("roles", "permissions")
+                .$find("current")
+                .catch(error => {
+                    Notification.open({
+                        duration: 10000,
+                        message: `We can't load the user, please refresh the page`,
+                        position: "is-bottom",
+                        type: "is-danger",
+                        queue: false,
+                        closable: false
+                    });
+                });
             commit("updateUser", currentUser);
             commit("updateLoadingUser", { key: "get", value: false });
             return currentUser;

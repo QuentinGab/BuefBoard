@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "./store";
 /* NProgress */
 import NProgress from "nprogress";
 
@@ -23,7 +24,11 @@ const router = new Router({
             component: () =>
                 import(
                     /* webpackChunkName: "users.index" */ "./views/users/UserIndex.vue"
-                )
+                ),
+            meta: {
+                roles: ["admin"],
+                permissions: ["manage users"]
+            }
         },
         {
             path: "/users/new",
@@ -31,7 +36,11 @@ const router = new Router({
             component: () =>
                 import(
                     /* webpackChunkName: "users.form" */ "./views/users/UserForm.vue"
-                )
+                ),
+            meta: {
+                roles: ["admin"],
+                permissions: ["manage users"]
+            }
         },
         {
             path: "/users/:id",
@@ -40,7 +49,11 @@ const router = new Router({
                 import(
                     /* webpackChunkName: "users.form" */ "./views/users/UserForm.vue"
                 ),
-            props: true
+            props: true,
+            meta: {
+                roles: ["admin"],
+                permissions: ["manage users"]
+            }
         },
         {
             path: "/account",
@@ -58,7 +71,10 @@ const router = new Router({
             component: () =>
                 import(
                     /* webpackChunkName: "roles.index" */ "./views/roles/RoleIndex.vue"
-                )
+                ),
+            meta: {
+                roles: ["admin"]
+            }
         },
 
         // Activities Management
@@ -68,7 +84,10 @@ const router = new Router({
             component: () =>
                 import(
                     /* webpackChunkName: "roles.index" */ "./views/activities/ActivitiesIndex.vue"
-                )
+                ),
+            meta: {
+                roles: ["admin"]
+            }
         },
         // NotFound
         {
@@ -78,6 +97,31 @@ const router = new Router({
                 import(/* webpackChunkName: "404" */ "./views/NotFound.vue")
         }
     ]
+});
+
+router.beforeEach((to, from, next) => {
+    let user = store.state.currentUser;
+    //first check for permissions
+    //a god can pass every guards
+    if (to.meta.permissions) {
+        if (user.hasRole("god")) {
+            return next();
+        }
+        if (!user.hasAnyPermission(to.meta.permissions)) {
+            return next({ name: "dashboard" });
+        }
+    }
+    // then check for roles
+    //a god can pass every guards
+    if (to.meta.roles) {
+        if (user.hasRole("god")) {
+            return next();
+        }
+        if (!user.hasAnyRole(to.meta.roles)) {
+            return next({ name: "dashboard" });
+        }
+    }
+    return next();
 });
 
 /* Router loading indicator */

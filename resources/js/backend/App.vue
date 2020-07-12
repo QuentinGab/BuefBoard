@@ -1,15 +1,18 @@
 <template>
     <div id="app">
-        <nav-bar class="bb-navbar" />
-        <div class="is-flex bb-content">
-            <aside-menu :menu="menu" class="bb-sidebar" />
-            <div class="bb-view">
-                <transition name="slideIn">
-                    <router-view />
-                </transition>
+        <template v-if="currentUser">
+            <nav-bar class="bb-navbar" />
+            <div class="is-flex bb-content">
+                <aside-menu :menu="menu" class="bb-sidebar" />
+                <div class="bb-view">
+                    <transition name="slideIn">
+                        <router-view />
+                    </transition>
+                </div>
             </div>
-        </div>
-        <notification-center class="bb-notification-center" />
+            <notification-center class="bb-notification-center" />
+        </template>
+        <b-loading active v-else></b-loading>
     </div>
 </template>
 

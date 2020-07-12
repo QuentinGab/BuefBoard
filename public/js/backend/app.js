@@ -2416,6 +2416,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 // @b/ is an alias to /src/backend
 
 
@@ -60934,37 +60937,41 @@ var render = function() {
     "div",
     { attrs: { id: "app" } },
     [
-      _c("nav-bar", { staticClass: "bb-navbar" }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "is-flex bb-content" },
-        [
-          _c("aside-menu", {
-            staticClass: "bb-sidebar",
-            attrs: { menu: _vm.menu }
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "bb-view" },
-            [
-              _c(
-                "transition",
-                { attrs: { name: "slideIn" } },
-                [_c("router-view")],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("notification-center", { staticClass: "bb-notification-center" })
+      _vm.currentUser
+        ? [
+            _c("nav-bar", { staticClass: "bb-navbar" }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "is-flex bb-content" },
+              [
+                _c("aside-menu", {
+                  staticClass: "bb-sidebar",
+                  attrs: { menu: _vm.menu }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "bb-view" },
+                  [
+                    _c(
+                      "transition",
+                      { attrs: { name: "slideIn" } },
+                      [_c("router-view")],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("notification-center", { staticClass: "bb-notification-center" })
+          ]
+        : _c("b-loading", { attrs: { active: "" } })
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -78562,12 +78569,78 @@ var User = /*#__PURE__*/function (_Model) {
     // make sure to use "get" prefix
 
   }, {
-    key: "block",
+    key: "getRoleNames",
+    value: function getRoleNames() {
+      if (!this.hasOwnProperty("roles")) {
+        return [];
+      }
 
+      return this.roles.map(function (role) {
+        return role.name;
+      });
+    }
+  }, {
+    key: "getPermissionNames",
+    value: function getPermissionNames() {
+      if (!this.hasOwnProperty("permissions")) {
+        return [];
+      }
+
+      return this.permissions.map(function (permission) {
+        return permission.name;
+      });
+    }
+  }, {
+    key: "hasRole",
+    value: function hasRole(roles) {
+      var _this = this;
+
+      if (Array.isArray(roles)) {
+        return roles.some(function (role) {
+          return _this.getRoleNames().includes(role);
+        });
+      }
+
+      return this.getRoleNames().includes(roles);
+    }
+  }, {
+    key: "hasPermission",
+    value: function hasPermission(permissions) {
+      var _this2 = this;
+
+      if (Array.isArray(permissions)) {
+        return permissions.some(function (permission) {
+          return _this2.getPermissionNames().includes(permission);
+        });
+      }
+
+      return this.getPermissionNames().includes(permissions);
+    }
+  }, {
+    key: "hasAnyRole",
+    value: function hasAnyRole() {
+      for (var _len = arguments.length, roles = new Array(_len), _key = 0; _key < _len; _key++) {
+        roles[_key] = arguments[_key];
+      }
+
+      return this.hasRole(roles);
+    }
+  }, {
+    key: "hasAnyPermission",
+    value: function hasAnyPermission() {
+      for (var _len2 = arguments.length, permissions = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        permissions[_key2] = arguments[_key2];
+      }
+
+      return this.hasPermission(permissions);
+    }
     /**
      * block the user
      * a call to save is necessary
      */
+
+  }, {
+    key: "block",
     value: function block() {
       this.blocked_at = new Date().toISOString();
       return this;
@@ -78590,7 +78663,7 @@ var User = /*#__PURE__*/function (_Model) {
   }, {
     key: "restore",
     value: function restore() {
-      var _this = this;
+      var _this3 = this;
 
       var url = "".concat(this.endpoint(), "/restore");
       return this.request({
@@ -78598,7 +78671,7 @@ var User = /*#__PURE__*/function (_Model) {
         url: url,
         data: this
       }).then(function (response) {
-        var self = Object.assign(_this, response.data.data);
+        var self = Object.assign(_this3, response.data.data);
         return self;
       });
     }
@@ -78618,7 +78691,7 @@ var User = /*#__PURE__*/function (_Model) {
   }, {
     key: "updateAvatar",
     value: function updateAvatar(formData) {
-      var _this2 = this;
+      var _this4 = this;
 
       return this.request({
         method: "POST",
@@ -78628,7 +78701,7 @@ var User = /*#__PURE__*/function (_Model) {
           "Content-Type": "multipart/form-data"
         }
       }).then(function (response) {
-        var self = Object.assign(_this2, response.data.data);
+        var self = Object.assign(_this4, response.data.data);
         return self;
       });
     }
@@ -78652,14 +78725,14 @@ var User = /*#__PURE__*/function (_Model) {
   }, {
     key: "sendEmailVerification",
     value: function sendEmailVerification() {
-      var _this3 = this;
+      var _this5 = this;
 
       return this.request({
         method: "POST",
         url: "".concat(this.endpoint(), "/send-email-verification"),
         data: this
       }).then(function (response) {
-        var self = Object.assign(_this3, response.data);
+        var self = Object.assign(_this5, response.data);
         return self;
       });
     }
@@ -78722,8 +78795,10 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./resources/js/backend/store.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 /* NProgress */
@@ -78744,12 +78819,20 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: "users.index",
     component: function component() {
       return Promise.all(/*! import() | users.index */[__webpack_require__.e("vendors~roles.index~users.index"), __webpack_require__.e("dashboard~users.index"), __webpack_require__.e("roles.index~users.index"), __webpack_require__.e("users.index")]).then(__webpack_require__.bind(null, /*! ./views/users/UserIndex.vue */ "./resources/js/backend/views/users/UserIndex.vue"));
+    },
+    meta: {
+      roles: ["admin"],
+      permissions: ["manage users"]
     }
   }, {
     path: "/users/new",
     name: "users.new",
     component: function component() {
       return Promise.all(/*! import() | users.form */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("users.form")]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
+    },
+    meta: {
+      roles: ["admin"],
+      permissions: ["manage users"]
     }
   }, {
     path: "/users/:id",
@@ -78757,7 +78840,11 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     component: function component() {
       return Promise.all(/*! import() | users.form */[__webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("users.form")]).then(__webpack_require__.bind(null, /*! ./views/users/UserForm.vue */ "./resources/js/backend/views/users/UserForm.vue"));
     },
-    props: true
+    props: true,
+    meta: {
+      roles: ["admin"],
+      permissions: ["manage users"]
+    }
   }, {
     path: "/account",
     name: "users.account",
@@ -78770,6 +78857,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: "roles.index",
     component: function component() {
       return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.index"), __webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.index"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/roles/RoleIndex.vue */ "./resources/js/backend/views/roles/RoleIndex.vue"));
+    },
+    meta: {
+      roles: ["admin"]
     }
   }, // Activities Management
   {
@@ -78777,6 +78867,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: "activities.index",
     component: function component() {
       return Promise.all(/*! import() | roles.index */[__webpack_require__.e("vendors~roles.index~users.index"), __webpack_require__.e("vendors~roles.index~users.form"), __webpack_require__.e("roles.index~users.index"), __webpack_require__.e("roles.index")]).then(__webpack_require__.bind(null, /*! ./views/activities/ActivitiesIndex.vue */ "./resources/js/backend/views/activities/ActivitiesIndex.vue"));
+    },
+    meta: {
+      roles: ["admin"]
     }
   }, // NotFound
   {
@@ -78787,20 +78880,52 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     }
   }]
 });
+router.beforeEach(function (to, from, next) {
+  var user = _store__WEBPACK_IMPORTED_MODULE_2__["default"].state.currentUser; //first check for permissions
+  //a god can pass every guards
+
+  if (to.meta.permissions) {
+    if (user.hasRole("god")) {
+      return next();
+    }
+
+    if (!user.hasAnyPermission(to.meta.permissions)) {
+      return next({
+        name: "dashboard"
+      });
+    }
+  } // then check for roles
+  //a god can pass every guards
+
+
+  if (to.meta.roles) {
+    if (user.hasRole("god")) {
+      return next();
+    }
+
+    if (!user.hasAnyRole(to.meta.roles)) {
+      return next({
+        name: "dashboard"
+      });
+    }
+  }
+
+  return next();
+});
 /* Router loading indicator */
 
 router.beforeResolve(function (to, from, next) {
   // If this isn't an initial page load.
   if (to.name) {
     // Start the route progress bar.
-    nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
+    nprogress__WEBPACK_IMPORTED_MODULE_3___default.a.start();
   }
 
   next();
 });
 router.afterEach(function (to, from) {
   // Complete the animation of the route progress bar.
-  nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
+  nprogress__WEBPACK_IMPORTED_MODULE_3___default.a.done();
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
@@ -78824,6 +78949,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @b/models/CurrentUser */ "./resources/js/backend/models/CurrentUser.js");
 /* harmony import */ var _b_models_Role__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @b/models/Role */ "./resources/js/backend/models/Role.js");
 /* harmony import */ var _b_models_Permission__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @b/models/Permission */ "./resources/js/backend/models/Permission.js");
+/* harmony import */ var buefy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! buefy */ "./node_modules/buefy/dist/esm/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -78835,10 +78961,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
   state: {
-    currentUser: {},
+    currentUser: null,
     roles: [],
     permissions: [],
     notificationCenter: {
@@ -78914,7 +79041,16 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
                   value: true
                 });
                 _context.next = 4;
-                return _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_3__["default"].include("roles", "permissions").$find("current");
+                return _b_models_CurrentUser__WEBPACK_IMPORTED_MODULE_3__["default"].include("roles", "permissions").$find("current")["catch"](function (error) {
+                  buefy__WEBPACK_IMPORTED_MODULE_6__["NotificationProgrammatic"].open({
+                    duration: 10000,
+                    message: "We can't load the user, please refresh the page",
+                    position: "is-bottom",
+                    type: "is-danger",
+                    queue: false,
+                    closable: false
+                  });
+                });
 
               case 4:
                 currentUser = _context.sent;

@@ -40,6 +40,43 @@ export default class User extends Model {
         return new Date(this.deleted_at);
     }
 
+    getRoleNames() {
+        if (!this.hasOwnProperty("roles")) {
+            return [];
+        }
+        return this.roles.map(role => role.name);
+    }
+    getPermissionNames() {
+        if (!this.hasOwnProperty("permissions")) {
+            return [];
+        }
+        return this.permissions.map(permission => permission.name);
+    }
+
+    hasRole(roles) {
+        if (Array.isArray(roles)) {
+            return roles.some(role => this.getRoleNames().includes(role));
+        }
+        return this.getRoleNames().includes(roles);
+    }
+
+    hasPermission(permissions) {
+        if (Array.isArray(permissions)) {
+            return permissions.some(permission =>
+                this.getPermissionNames().includes(permission)
+            );
+        }
+        return this.getPermissionNames().includes(permissions);
+    }
+
+    hasAnyRole(...roles) {
+        return this.hasRole(roles);
+    }
+
+    hasAnyPermission(...permissions) {
+        return this.hasPermission(permissions);
+    }
+
     /**
      * block the user
      * a call to save is necessary
