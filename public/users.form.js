@@ -624,8 +624,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this5.loading.restore = true;
                 _context5.next = 3;
                 return _this5.user.restore().then(function (response) {
-                  console.log(response);
-
                   _this5.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(_this5.user.fullname, " has been restored"),
@@ -646,6 +644,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee5);
       }))();
     },
+
+    /**
+     * Soft delete the User
+     */
     deleteUser: function deleteUser() {
       var _this6 = this;
 
@@ -656,7 +658,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _this6.loading.user = true;
                 _context6.next = 3;
-                return _this6.user["delete"]().then(function (response) {
+                return _this6.user.softDelete().then(function (response) {
                   _this6.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(_this6.user.fullname, " has been trashed"),
@@ -677,6 +679,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee6);
       }))();
     },
+
+    /**
+     * remove the user from the database => forcDelete
+     */
     destroyUser: function destroyUser() {
       var _this7 = this;
 
@@ -686,7 +692,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return _this7.user.destroy().then(function (response) {
+                return _this7.user["delete"]().then(function (response) {
                   _this7.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(_this7.user.fullname, " has been destroyed"),

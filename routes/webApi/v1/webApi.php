@@ -32,16 +32,16 @@ Route::prefix('/users')->group(function () {
     //all users
     //export
     Route::get('export', 'UsersController@export');
-    //stats
+    //metrics
     Route::get('metrics', 'UsersMetricsController@index');
-    //common
-    Route::delete('{user}', 'UsersController@delete');
+    //soft Delete
+    Route::post('{user}/delete', 'UsersController@delete'); //soft Delete
     Route::post('{user}/restore', 'UsersController@restore');
-    Route::delete('{user}/destroy', 'UsersController@destroy');
+    //email
     Route::post('{user}/send-email-verification', 'UsersController@sendEmailVerification');
 
 });
-Route::apiResource('users', 'UsersController')->except(['destroy']);
+Route::apiResource('users', 'UsersController');
 
 //Roles and Permissions
 Route::apiResource('roles', 'RolesController')->except(['destroy']);

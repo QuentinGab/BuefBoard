@@ -462,7 +462,6 @@ export default {
         async restoreUser() {
             this.loading.restore = true;
             await this.user.restore().then(response => {
-                console.log(response);
                 this.$buefy.snackbar.open({
                     duration: 2000,
                     message: `${this.user.fullname} has been restored`,
@@ -473,9 +472,12 @@ export default {
             });
             this.loading.restore = false;
         },
+        /**
+         * Soft delete the User
+         */
         async deleteUser() {
             this.loading.user = true;
-            await this.user.delete().then(response => {
+            await this.user.softDelete().then(response => {
                 this.$buefy.snackbar.open({
                     duration: 2000,
                     message: `${this.user.fullname} has been trashed`,
@@ -487,8 +489,11 @@ export default {
 
             this.loading.user = false;
         },
+        /**
+         * remove the user from the database => forcDelete
+         */
         async destroyUser() {
-            await this.user.destroy().then(response => {
+            await this.user.delete().then(response => {
                 this.$buefy.snackbar.open({
                     duration: 2000,
                     message: `${this.user.fullname} has been destroyed`,

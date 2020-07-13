@@ -78740,15 +78740,15 @@ var User = /*#__PURE__*/function (_Model) {
       return this;
     }
     /**
-     * restore after soft delete
+     * soft delete user and hydrate
      */
 
   }, {
-    key: "restore",
-    value: function restore() {
+    key: "softDelete",
+    value: function softDelete() {
       var _this3 = this;
 
-      var url = "".concat(this.endpoint(), "/restore");
+      var url = "".concat(this.endpoint(), "/delete");
       return this.request({
         method: "POST",
         url: url,
@@ -78759,13 +78759,32 @@ var User = /*#__PURE__*/function (_Model) {
       });
     }
     /**
+     * restore after soft delete
+     */
+
+  }, {
+    key: "restore",
+    value: function restore() {
+      var _this4 = this;
+
+      var url = "".concat(this.endpoint(), "/restore");
+      return this.request({
+        method: "POST",
+        url: url,
+        data: this
+      }).then(function (response) {
+        var self = Object.assign(_this4, response.data.data || response.data);
+        return self;
+      });
+    }
+    /**
      * destroy permanently user
      */
 
   }, {
-    key: "destroy",
-    value: function destroy() {
-      var url = "".concat(this.endpoint(), "/destroy");
+    key: "delete",
+    value: function _delete() {
+      var url = "".concat(this.endpoint());
       return this.request({
         method: "DELETE",
         url: url
@@ -78774,7 +78793,7 @@ var User = /*#__PURE__*/function (_Model) {
   }, {
     key: "updateAvatar",
     value: function updateAvatar(formData) {
-      var _this4 = this;
+      var _this5 = this;
 
       return this.request({
         method: "POST",
@@ -78784,7 +78803,7 @@ var User = /*#__PURE__*/function (_Model) {
           "Content-Type": "multipart/form-data"
         }
       }).then(function (response) {
-        var self = Object.assign(_this4, response.data.data);
+        var self = Object.assign(_this5, response.data.data);
         return self;
       });
     }
@@ -78808,14 +78827,14 @@ var User = /*#__PURE__*/function (_Model) {
   }, {
     key: "sendEmailVerification",
     value: function sendEmailVerification() {
-      var _this5 = this;
+      var _this6 = this;
 
       return this.request({
         method: "POST",
         url: "".concat(this.endpoint(), "/send-email-verification"),
         data: this
       }).then(function (response) {
-        var self = Object.assign(_this5, response.data);
+        var self = Object.assign(_this6, response.data);
         return self;
       });
     }
@@ -78838,24 +78857,6 @@ var User = /*#__PURE__*/function (_Model) {
     key: "isEmailVerified",
     get: function get() {
       return this.hasOwnProperty("email_verified_at") && this.email_verified_at !== null;
-    }
-  }, {
-    key: "blocked_date",
-    get: function get() {
-      if (!this.isBlocked) {
-        return null;
-      }
-
-      return new Date(this.blocked_at);
-    }
-  }, {
-    key: "deleted_date",
-    get: function get() {
-      if (!this.isTrashed) {
-        return null;
-      }
-
-      return new Date(this.deleted_at);
     }
   }]);
 

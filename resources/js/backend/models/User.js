@@ -26,26 +26,13 @@ export default class User extends Model {
         );
     }
 
-    get blocked_date() {
-        if (!this.isBlocked) {
-            return null;
-        }
-        return new Date(this.blocked_at);
-    }
-
-    get deleted_date() {
-        if (!this.isTrashed) {
-            return null;
-        }
-        return new Date(this.deleted_at);
-    }
-
     getRoleNames() {
         if (!this.hasOwnProperty("roles")) {
             return [];
         }
         return this.roles.map(role => role.name);
     }
+
     getPermissionNames() {
         if (!this.hasOwnProperty("permissions")) {
             return [];
@@ -95,6 +82,23 @@ export default class User extends Model {
         return this;
     }
 
+    
+
+    /**
+     * soft delete user and hydrate
+     */
+    softDelete() {
+        let url = `${this.endpoint()}/delete`;
+        return this.request({
+            method: "POST",
+            url: url,
+            data: this
+        }).then(response => {
+            let self = Object.assign(this, response.data.data || response.data);
+            return self;
+        });
+    }
+
     /**
      * restore after soft delete
      */
@@ -113,8 +117,8 @@ export default class User extends Model {
     /**
      * destroy permanently user
      */
-    destroy() {
-        let url = `${this.endpoint()}/destroy`;
+    delete() {
+        let url = `${this.endpoint()}`;
         return this.request({
             method: "DELETE",
             url: url
