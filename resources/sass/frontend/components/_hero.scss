@@ -1,18 +1,8 @@
 .hero {
-    .hero-body.is-columns {
-        align-items: stretch;
+    > .columns {
         padding: 0;
-        width: 100%;
-        height: 100%;
-        color: inherit;
-        .columns {
-            margin: 0;
-            flex-grow: 1;
-            .column{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-        }
+        margin: 0;
+        flex-grow: 1;
+        flex-shrink: 0;
     }
 }

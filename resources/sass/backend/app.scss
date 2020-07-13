@@ -12,10 +12,12 @@
 
 /* Theme components */
 @import "./components/all";
+@import "./helpers";
 
 html {
     overflow: hidden;
 }
+
 body {
     background-color: var(--bb-background-secondary, $background-secondary);
 }
@@ -23,6 +25,7 @@ body {
 .bb-content {
     height: calc(100vh - 3.25rem);
 }
+
 .bb-view {
     height: 100%;
     width: 100%;
@@ -38,19 +41,21 @@ body {
         opacity: 0;
         transform: translateY(10px) scale(0.995);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
 }
 
-
 .p-0 {
     padding: 0;
 }
+
 .p-1 {
     padding: 1rem;
 }
+
 .m-0 {
     margin: 0;
 }

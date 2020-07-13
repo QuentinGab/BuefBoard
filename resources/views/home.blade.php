@@ -9,7 +9,7 @@
                 <img src="{{ asset('images/logo_buefboard.svg') }}" alt="Logo">
             </a>
         </div>
-        <div id="navbarMenuHeroB" class="navbar-menu">
+        <div class="navbar-menu">
             <div class="navbar-end">
                 <a class="navbar-item" href="{{ route('login') }}">
                     Login
@@ -36,7 +36,7 @@
                 BuefBoard
             </h1>
             <p class="subtitle">
-                The best Laravel/VueJS/Bulma Dashboard
+                The Elegant <mark class="is-danger">Laravel</mark> Boilerplate using <mark class="is-success">VueJS</mark> & <mark>Bulma</mark>
             </p>
             <div class="buttons is-centered">
                 <a href="/admin" class="button is-primary">
@@ -57,7 +57,7 @@
         <div class="column is-12-tablet is-9-fullhd is-10-desktop">
             <div class="card">
                 <figure class="image">
-                    <img src="{{ asset("images/buefboard.gif") }}" alt="" srcset="">
+                    <img src="{{ asset("images/buefboard/buefboard_users.png") }}" alt="" srcset="">
                 </figure>
             </div>
         </div>

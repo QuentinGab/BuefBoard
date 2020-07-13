@@ -78699,24 +78699,6 @@ var User = /*#__PURE__*/function (_Model) {
 
       return this.getPermissionNames().includes(permissions);
     }
-  }, {
-    key: "hasAnyRole",
-    value: function hasAnyRole() {
-      for (var _len = arguments.length, roles = new Array(_len), _key = 0; _key < _len; _key++) {
-        roles[_key] = arguments[_key];
-      }
-
-      return this.hasRole(roles);
-    }
-  }, {
-    key: "hasAnyPermission",
-    value: function hasAnyPermission() {
-      for (var _len2 = arguments.length, permissions = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        permissions[_key2] = arguments[_key2];
-      }
-
-      return this.hasPermission(permissions);
-    }
     /**
      * block the user
      * a call to save is necessary
@@ -78979,70 +78961,76 @@ router.beforeEach( /*#__PURE__*/function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            if (!(!to.meta.permissions && !to.meta.roles)) {
+              _context.next = 2;
+              break;
+            }
+
+            return _context.abrupt("return", next());
+
+          case 2:
             //we need to load the user before accessing any route
             user = _store__WEBPACK_IMPORTED_MODULE_3__["default"].state.auth.user;
 
             if (user) {
-              _context.next = 5;
+              _context.next = 7;
               break;
             }
 
-            _context.next = 4;
+            _context.next = 6;
             return _store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch("auth/getUser");
 
-          case 4:
+          case 6:
             user = _store__WEBPACK_IMPORTED_MODULE_3__["default"].state.auth.user;
 
-          case 5:
+          case 7:
             if (!to.meta.permissions) {
-              _context.next = 10;
+              _context.next = 12;
               break;
             }
 
             if (!user.hasRole("god")) {
-              _context.next = 8;
-              break;
-            }
-
-            return _context.abrupt("return", next());
-
-          case 8:
-            if (user.hasAnyPermission(to.meta.permissions)) {
               _context.next = 10;
               break;
             }
 
-            return _context.abrupt("return", next({
-              name: "dashboard"
-            }));
+            return _context.abrupt("return", next());
 
           case 10:
+            if (!user.hasPermission(to.meta.permissions)) {
+              _context.next = 12;
+              break;
+            }
+
+            return _context.abrupt("return", next());
+
+          case 12:
             if (!to.meta.roles) {
-              _context.next = 15;
+              _context.next = 17;
               break;
             }
 
             if (!user.hasRole("god")) {
-              _context.next = 13;
-              break;
-            }
-
-            return _context.abrupt("return", next());
-
-          case 13:
-            if (user.hasAnyRole(to.meta.roles)) {
               _context.next = 15;
               break;
             }
 
+            return _context.abrupt("return", next());
+
+          case 15:
+            if (!user.hasRole(to.meta.roles)) {
+              _context.next = 17;
+              break;
+            }
+
+            return _context.abrupt("return", next());
+
+          case 17:
             return _context.abrupt("return", next({
               name: "dashboard"
             }));
 
-          case 15:
-            return _context.abrupt("return", next());
-
-          case 16:
+          case 18:
           case "end":
             return _context.stop();
         }

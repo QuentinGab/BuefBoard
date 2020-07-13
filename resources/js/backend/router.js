@@ -100,6 +100,10 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
+    //check if route require permissions
+    if (!to.meta.permissions && !to.meta.roles) {
+        return next();
+    }
     //we need to load the user before accessing any route
     let user = store.state.auth.user;
     if (!user) {
@@ -112,8 +116,8 @@ router.beforeEach(async (to, from, next) => {
         if (user.hasRole("god")) {
             return next();
         }
-        if (!user.hasAnyPermission(to.meta.permissions)) {
-            return next({ name: "dashboard" });
+        if (user.hasPermission(to.meta.permissions)) {
+            return next();
         }
     }
     // then check for roles
@@ -122,11 +126,11 @@ router.beforeEach(async (to, from, next) => {
         if (user.hasRole("god")) {
             return next();
         }
-        if (!user.hasAnyRole(to.meta.roles)) {
-            return next({ name: "dashboard" });
+        if (user.hasRole(to.meta.roles)) {
+            return next();
         }
     }
-    return next();
+    return next({ name: "dashboard" });
 });
 
 /* Router loading indicator */

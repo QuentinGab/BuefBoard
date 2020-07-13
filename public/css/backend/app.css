@@ -14449,15 +14449,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   flex-wrap: nowrap;
 }
 
-.is-scrollable {
-  width: 100%;
-  overflow: auto;
-}
-
-.no-wrap {
-  white-space: nowrap;
-}
-
 .bb-scrollbar::-webkit-scrollbar-track,
 .bb-scrollbar div::-webkit-scrollbar-track {
   border-radius: 0;
@@ -14550,6 +14541,19 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
     transform: rotate(360deg);
   }
 }
+.is-scrollable {
+  width: 100%;
+  overflow: auto;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.is-fullheight {
+  height: 100vh;
+}
+
 html {
   overflow: hidden;
 }

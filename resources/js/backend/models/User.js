@@ -56,14 +56,6 @@ export default class User extends Model {
         return this.getPermissionNames().includes(permissions);
     }
 
-    hasAnyRole(...roles) {
-        return this.hasRole(roles);
-    }
-
-    hasAnyPermission(...permissions) {
-        return this.hasPermission(permissions);
-    }
-
     /**
      * block the user
      * a call to save is necessary
