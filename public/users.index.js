@@ -1192,7 +1192,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _b_models_User__WEBPACK_IMPORTED_MODULE_7__["default"].metrics().then(function (response) {
+                return _b_models_User__WEBPACK_IMPORTED_MODULE_7__["default"].where("created_after", moment().subtract(7, "days").format("YYYY-MM-DD")).metrics().then(function (response) {
                   _this.overview = response.data.overview;
                   _this.activity = response.data.activity;
                 });
@@ -2025,7 +2025,9 @@ var render = function() {
                     attrs: {
                       title: "Active Users",
                       "start-value":
-                        _vm.activity.created + _vm.activity.deleted,
+                        _vm.overview.total -
+                        _vm.activity.created +
+                        _vm.activity.deleted,
                       "end-value": _vm.overview.total,
                       value: _vm.overview.active
                     }

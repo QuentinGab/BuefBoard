@@ -23,7 +23,6 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['role:admin|god']);
     }
 
     /**
@@ -236,7 +235,7 @@ class UsersController extends Controller
      */
     public function export(Request $request)
     {
-        $this->authorize('viewAny', $request->user());
+        $this->authorize('viewAny', User::class);
 
         $users = QueryBuilder::for(User::class)
                 ->allowedFilters([

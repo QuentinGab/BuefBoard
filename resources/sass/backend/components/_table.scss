@@ -23,9 +23,9 @@
             }
         }
     }
-    .b-table .level:last-child{
+    .b-table .level:last-child {
         padding: 0;
-        > div{
+        > div {
             padding: 0.5rem;
         }
     }
@@ -35,5 +35,14 @@
     }
     .check {
         border-color: var(--bb-grey-light, $grey-light);
+    }
+
+    @include mobile {
+        .b-table {
+            padding: 0.5rem;
+            .table-wrapper.has-mobile-cards tr {
+                border-radius: $radius-large;
+            }
+        }
     }
 }

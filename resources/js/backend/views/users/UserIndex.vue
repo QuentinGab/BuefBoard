@@ -14,7 +14,7 @@
                         ]"
                         title="Active Users"
                         :start-value="
-                            activity.created + activity.deleted
+                            overview.total - activity.created + activity.deleted
                         "
                         :end-value="overview.total"
                         :value="overview.active"
@@ -121,10 +121,18 @@ export default {
             return (end - start) / start;
         },
         async getMetrics() {
-            await User.metrics().then(response => {
-                this.overview = response.data.overview;
-                this.activity = response.data.activity;
-            });
+            //last week activity
+            await User.where(
+                "created_after",
+                moment()
+                    .subtract(7, "days")
+                    .format("YYYY-MM-DD")
+            )
+                .metrics()
+                .then(response => {
+                    this.overview = response.data.overview;
+                    this.activity = response.data.activity;
+                });
         }
     },
     created() {
