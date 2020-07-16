@@ -25,6 +25,7 @@ composer create-project quentingab/buefboard
 ```
 
 Laravel key will be automatically generated
+
 Setup your database
 
 ```
