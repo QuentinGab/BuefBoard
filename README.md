@@ -1,9 +1,9 @@
+<p align="center" >
+    <img width="400" src="/public/images/logo_buefboard.svg"><br/>
+</p>
+
 # BuefBoard - the ultimate Laravel/VueJS Dashboard
 Permissions, users management, chartjs, material icons, buefy, axios, Telescope, Socialite ...
-
-<p align="center">
-    <img src="/public/images/logo_buefboard.svg"><br/>
-</p>
 
 ## About BuefBoard
 
