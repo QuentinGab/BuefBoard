@@ -21,19 +21,18 @@ Buefborad is a Laravel + VueJS + Bulma SPA Dashboard, it is a great starter poin
 
 ## Installation
 ```bash
-git clone https://github.com/QuentinGab/BuefBoard.git
+composer create-project quentingab/buefboard
 ```
+
 ```bash
 php artisan key:generate
+php artisan migrate --seed
 ```
 
 ```bash
-php artisan migrate
+npm install
 ```
 
-```bash
-php artisan db:seed
-```
 
 ## Packages:
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
