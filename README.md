@@ -24,8 +24,18 @@ Buefborad is a Laravel + VueJS + Bulma SPA Dashboard, it is a great starter poin
 composer create-project quentingab/buefboard
 ```
 
-laravel key will be automatically generated
+Laravel key will be automatically generated
+Setup your database
 
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
+And migrate
 ```bash
 php artisan migrate --seed
 ```
