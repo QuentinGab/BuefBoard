@@ -1,12 +1,27 @@
 {
-    "name": "laravel/laravel",
+    "name": "quentingab/buefboard",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "BuefBoard - The Laravel Boilerplate.",
     "keywords": [
-        "framework",
+        "dashboard",
+        "buefboard",
+        "vuejs",
+        "bulma",
+        "buefy",
+        "boilerplate",
+        "laravel boilerplate",
         "laravel"
     ],
+    "homepage": "https://buefboard.com/",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Quentin Gabriele",
+            "email": "quentin.gabriele@gmail.com",
+            "homepage": "https://github.com/QuentinGab",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": "^7.2.5",
         "fideloper/proxy": "^4.2",
