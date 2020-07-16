@@ -1,8 +1,8 @@
 # BuefBoard - the ultimate Laravel/VueJS Dashboard
 Permissions, users management, chartjs, material icons, buefy, axios, ...
 
-<p align="center" style="max-width:200px">
-    <img src="/public/images/logo_buefboard.svg"><br/>
+<p align="center" >
+    <img style="max-width:200px" src="/public/images/logo_buefboard.svg"><br/>
 </p>
 
 ## About BuefBoard
