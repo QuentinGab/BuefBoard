@@ -1,6 +1,10 @@
 # BuefBoard - the ultimate Laravel/VueJS Dashboard
 Permissions, users management, chartjs, material icons, buefy, axios, ...
 
+<p align="center">
+    <img src="/public/images/logo_buefboard.svg"><br/>
+</p>
+
 ## About BuefBoard
 
 Buefborad is a Laravel + VueJS + Bulma SPA Dashboard, it is a great starter point for your website.
