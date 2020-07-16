@@ -2,7 +2,7 @@
 Permissions, users management, chartjs, material icons, buefy, axios, ...
 
 <p align="center" >
-    <img width="200" src="/public/images/logo_buefboard.svg"><br/>
+    <img width="400" src="/public/images/logo_buefboard.svg"><br/>
 </p>
 
 ## About BuefBoard
