@@ -1,12 +1,13 @@
 <p align="center" >
-    <img width="400" src="/public/images/logo_buefboard.svg"><br/>
+    <img width="400" src="/public/images/logo_buefboard.svg">
 </p>
 
 # BuefBoard - the ultimate Laravel/VueJS Dashboard
 Permissions, users management, chartjs, material icons, buefy, axios, Telescope, Socialite ...
 
 <p align="center" >
-    <img width="800" src="/public/images/buefboard/buefboard_users.png"><br/>
+    <img src="/public/images/buefboard/buefboard_users.png" style="box-shadow:  20px 20px 34px #f0f0f0, 
+             -20px -20px 34px #ffffff;">
 </p>
 
 ## About BuefBoard
