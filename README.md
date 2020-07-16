@@ -45,6 +45,10 @@ php artisan migrate --seed
 npm install
 ```
 
+```bash
+npm run watch
+```
+
 
 ## Packages:
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
