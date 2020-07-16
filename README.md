@@ -5,8 +5,7 @@
 # BuefBoard - the ultimate Laravel/VueJS Dashboard
 Permissions, users management, chartjs, material icons, buefy, axios, Telescope, Socialite ...
 
-<p align="center" style="box-shadow:  20px 20px 34px #f0f0f0, 
-             -20px -20px 34px #ffffff;">
+<p align="center">
     <img src="/public/images/buefboard/buefboard_users.png" >
 </p>
 
