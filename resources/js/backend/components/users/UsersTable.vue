@@ -20,17 +20,26 @@
                 <div v-if="canSeeTrashed">
                     <b-field>
                         <b-radio-button
-                            v-model="showTrashed"
-                            :native-value="false"
+                            v-model="status"
+                            native-value="active"
                             type="is-primary"
                             size="is-small"
                             @input="refreshAndClear"
                         >
-                            <span>All</span>
+                            <span>Active</span>
                         </b-radio-button>
                         <b-radio-button
-                            v-model="showTrashed"
-                            :native-value="true"
+                            v-model="status"
+                            native-value="blocked"
+                            type="is-warning"
+                            size="is-small"
+                            @input="refreshAndClear"
+                        >
+                            <span>Blocked</span>
+                        </b-radio-button>
+                        <b-radio-button
+                            v-model="status"
+                            native-value="trashed"
                             type="is-danger"
                             size="is-small"
                             @input="refreshAndClear"
@@ -165,6 +174,7 @@
             default-sort="id"
             scrollable
             class="bb-scrollbar"
+            :row-class="(row, index) => (row.isBlocked ? 'is-warning' : '')"
         >
             <template slot-scope="props">
                 <b-table-column field="avatar" width="48">
@@ -192,7 +202,22 @@
                             params: { id: props.row.id }
                         }"
                     >
-                        <b-tag>
+                        <b-tooltip
+                            v-if="props.row.isBlocked"
+                            type="is-light"
+                            :label="
+                                `Blocked at ${new Date(
+                                    props.row.blocked_at
+                                ).toLocaleDateString()}`
+                            "
+                        >
+                            <b-tag
+                                :class="{ 'is-warning': props.row.isBlocked }"
+                            >
+                                {{ props.row.id }}
+                            </b-tag>
+                        </b-tooltip>
+                        <b-tag v-else>
                             {{ props.row.id }}
                         </b-tag>
                     </router-link>
@@ -236,28 +261,6 @@
                             >{{ role.name }}</b-tag
                         >
                     </b-taglist>
-                </b-table-column>
-
-                <b-table-column
-                    field="blocked_at"
-                    label="Blocked"
-                    sortable
-                    centered
-                >
-                    <b-tooltip
-                        type="is-light"
-                        :label="
-                            props.row.blocked_at
-                                ? new Date(
-                                      props.row.blocked_at
-                                  ).toLocaleDateString()
-                                : ''
-                        "
-                    >
-                        <b-tag :type="props.row.blocked_at ? 'is-danger' : ''">
-                            {{ props.row.blocked_at ? "yes" : "no" }}
-                        </b-tag>
-                    </b-tooltip>
                 </b-table-column>
 
                 <b-table-column field="created_at" label="Created At" sortable>
@@ -320,7 +323,7 @@ export default {
         return {
             users: [],
             isLoading: false,
-            showTrashed: false,
+            status: "active",
 
             checkedRows: [],
             //paginate
@@ -356,6 +359,9 @@ export default {
             currentUser: state => state.user
         }),
         ...mapState("rolesAndPermissions", ["roles", "permissions"]),
+        showTrashed() {
+            return this.status == "trashed";
+        },
         total() {
             return this.pagination.total;
         },
@@ -415,6 +421,14 @@ export default {
         },
         isSelected() {
             return this.checkedRows.length > 0;
+        },
+        selectedUsersId() {
+            if (this.checkedLength > 0) {
+                this.checkedRows.map(item => {
+                    return item.id;
+                });
+            }
+            return [];
         }
     },
     methods: {
@@ -435,6 +449,28 @@ export default {
             this.checkedRows = [];
             this.getUsers();
         }, 500),
+        buildQuery(query) {
+            //filter by status
+            if (this.showTrashed) {
+                query.where("trashed", "only");
+            } else if (this.status == "blocked") {
+                query.where("blocked", "only");
+            }
+
+            //advanced filter
+            if (this.isFiltered) {
+                if (this.filter.value instanceof Date) {
+                    query.where(
+                        this.filter.object.field,
+                        moment(this.filter.value).format("YYYY-MM-DD")
+                    );
+                } else {
+                    query.where(this.filter.object.field, this.filter.value);
+                }
+            }
+
+            return query;
+        },
         //table actions
         async getUsers() {
             this.isLoading = true;
@@ -442,19 +478,9 @@ export default {
             let users = User.orderBy(this.sort.value)
                 .page(this.pagination.current_page)
                 .include("roles");
-            if (this.isFiltered) {
-                if (this.filter.value instanceof Date) {
-                    users.where(
-                        this.filter.object.field,
-                        moment(this.filter.value).format("YYYY-MM-DD")
-                    );
-                } else {
-                    users.where(this.filter.object.field, this.filter.value);
-                }
-            }
-            if (this.showTrashed) {
-                users.where("trashed", "only");
-            }
+
+            users = this.buildQuery(users);
+
             let response = await users.get().then(response => {
                 this.users = response.data;
                 this.pagination = response.meta;
@@ -561,23 +587,20 @@ export default {
         },
         bulkSendEmailVerification() {
             this.checkedRows.forEach(user => {
-                this.sendEmailVerification(user);
+                user.sendEmailVerification();
             });
 
             return true;
         },
         bulkExport() {
             let users = new User().custom("users/export");
+            users = this.buildQuery(users);
+
             if (this.checkedLength > 0) {
-                let usersId = this.checkedRows.map(item => {
-                    return item.id;
-                });
-                users.whereIn("id", usersId);
+                users.whereIn("id", this.selectedUsersId());
             }
-            if (this.showTrashed) {
-                users.where("trashed", "only");
-            }
-            users.export(this.showTrashed);
+
+            users.export();
             this.$buefy.snackbar.open({
                 duration: 3000,
                 message: `${
@@ -590,7 +613,7 @@ export default {
         },
         //single actions
         async delete(user) {
-            await user.delete().then(response => {
+            await user.softDelete().then(response => {
                 this.$buefy.snackbar.open({
                     duration: 3000,
                     message: `${user.fullname} has been deleted`,
@@ -605,7 +628,7 @@ export default {
             });
         },
         async destroy(user) {
-            await user.destroy().then(response => {
+            await user.delete().then(response => {
                 this.$buefy.snackbar.open({
                     duration: 2000,
                     message: `${user.fullname} has been destroyed`,

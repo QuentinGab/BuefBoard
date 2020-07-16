@@ -22,4 +22,16 @@ trait UserScope
     {
         return $query->where('created_at', '>=', Carbon::parse($date));
     }
+
+    public function scopeBlocked(Builder $query, $withOrOnly): Builder
+    {
+        if($withOrOnly == 'only'){
+            return $query->where('blocked_at', '!=' , null);
+        }else if($withOrOnly == 'with'){
+            return $query;
+        }
+
+        return $query;
+        
+    }
 }

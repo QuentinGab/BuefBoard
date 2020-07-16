@@ -44,6 +44,7 @@ class UsersController extends Controller
                     AllowedFilter::scope('created_after'),
                     AllowedFilter::scope('role'),
                     AllowedFilter::scope('permission'),
+                    AllowedFilter::scope('blocked'),
                     'email',
                 ])
                 ->allowedSorts(
@@ -239,10 +240,27 @@ class UsersController extends Controller
 
         $users = QueryBuilder::for(User::class)
                 ->allowedFilters([
+                    'first_name',
+                    'last_name',
                     AllowedFilter::exact('id'),
                     AllowedFilter::trashed(),
+                    AllowedFilter::scope('created_before'),
+                    AllowedFilter::scope('created_after'),
+                    AllowedFilter::scope('role'),
+                    AllowedFilter::scope('permission'),
+                    AllowedFilter::scope('blocked'),
+                    'email',
                 ])
-                ->allowedIncludes(['roles', 'roles.permissions', 'permissions'])
+                ->allowedSorts(
+                    'first_name',
+                    'last_name',
+                    'id',
+                    'email',
+                    'email_verified_at',
+                    'updated_at',
+                    'blocked_at',
+                    'created_at'
+                )
                 ->defaultSort('id')
                 ->get();
 

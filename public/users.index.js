@@ -508,6 +508,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -541,7 +544,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       users: [],
       isLoading: false,
-      showTrashed: false,
+      status: "active",
       checkedRows: [],
       //paginate
       pagination: {
@@ -576,6 +579,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return state.user;
     }
   })), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("rolesAndPermissions", ["roles", "permissions"])), {}, {
+    showTrashed: function showTrashed() {
+      return this.status == "trashed";
+    },
     total: function total() {
       return this.pagination.total;
     },
@@ -630,6 +636,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     isSelected: function isSelected() {
       return this.checkedRows.length > 0;
+    },
+    selectedUsersId: function selectedUsersId() {
+      if (this.checkedLength > 0) {
+        this.checkedRows.map(function (item) {
+          return item.id;
+        });
+      }
+
+      return [];
     }
   }),
   methods: {
@@ -651,6 +666,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.checkedRows = [];
       this.getUsers();
     }, 500),
+    buildQuery: function buildQuery(query) {
+      //filter by status
+      if (this.showTrashed) {
+        query.where("trashed", "only");
+      } else if (this.status == "blocked") {
+        query.where("blocked", "only");
+      } //advanced filter
+
+
+      if (this.isFiltered) {
+        if (this.filter.value instanceof Date) {
+          query.where(this.filter.object.field, moment(this.filter.value).format("YYYY-MM-DD"));
+        } else {
+          query.where(this.filter.object.field, this.filter.value);
+        }
+      }
+
+      return query;
+    },
     //table actions
     getUsers: function getUsers() {
       var _this = this;
@@ -663,30 +697,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _this.isLoading = true;
                 users = _b_models_User__WEBPACK_IMPORTED_MODULE_2__["default"].orderBy(_this.sort.value).page(_this.pagination.current_page).include("roles");
-
-                if (_this.isFiltered) {
-                  if (_this.filter.value instanceof Date) {
-                    users.where(_this.filter.object.field, moment(_this.filter.value).format("YYYY-MM-DD"));
-                  } else {
-                    users.where(_this.filter.object.field, _this.filter.value);
-                  }
-                }
-
-                if (_this.showTrashed) {
-                  users.where("trashed", "only");
-                }
-
-                _context.next = 6;
+                users = _this.buildQuery(users);
+                _context.next = 5;
                 return users.get().then(function (response) {
                   _this.users = response.data;
                   _this.pagination = response.meta;
                 });
 
-              case 6:
+              case 5:
                 response = _context.sent;
                 _this.isLoading = false;
 
-              case 8:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -820,28 +842,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return true;
     },
     bulkSendEmailVerification: function bulkSendEmailVerification() {
-      var _this12 = this;
-
       this.checkedRows.forEach(function (user) {
-        _this12.sendEmailVerification(user);
+        user.sendEmailVerification();
       });
       return true;
     },
     bulkExport: function bulkExport() {
       var users = new _b_models_User__WEBPACK_IMPORTED_MODULE_2__["default"]().custom("users/export");
+      users = this.buildQuery(users);
 
       if (this.checkedLength > 0) {
-        var usersId = this.checkedRows.map(function (item) {
-          return item.id;
-        });
-        users.whereIn("id", usersId);
+        users.whereIn("id", this.selectedUsersId());
       }
 
-      if (this.showTrashed) {
-        users.where("trashed", "only");
-      }
-
-      users["export"](this.showTrashed);
+      users["export"]();
       this.$buefy.snackbar.open({
         duration: 3000,
         message: "".concat(this.checkedLength > 0 ? this.checkedLength : "all", " users have been exported"),
@@ -852,7 +866,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     //single actions
     "delete": function _delete(user) {
-      var _this13 = this;
+      var _this12 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -860,8 +874,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return user["delete"]().then(function (response) {
-                  _this13.$buefy.snackbar.open({
+                return user.softDelete().then(function (response) {
+                  _this12.$buefy.snackbar.open({
                     duration: 3000,
                     message: "".concat(user.fullname, " has been deleted"),
                     type: "is-danger",
@@ -869,7 +883,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     actionText: "Undo",
                     queue: true,
                     onAction: function onAction() {
-                      _this13.restore(user);
+                      _this12.restore(user);
                     }
                   });
                 });
@@ -883,7 +897,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     destroy: function destroy(user) {
-      var _this14 = this;
+      var _this13 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -891,8 +905,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return user.destroy().then(function (response) {
-                  _this14.$buefy.snackbar.open({
+                return user["delete"]().then(function (response) {
+                  _this13.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(user.fullname, " has been destroyed"),
                     type: "is-info",
@@ -910,7 +924,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     block: function block(user) {
-      var _this15 = this;
+      var _this14 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -919,7 +933,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context4.next = 2;
                 return user.block().save().then(function (response) {
-                  _this15.$buefy.snackbar.open({
+                  _this14.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(user.fullname, " has been blocked"),
                     type: "is-danger",
@@ -927,7 +941,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     actionText: "Undo",
                     queue: true,
                     onAction: function onAction() {
-                      _this15.unblock(user);
+                      _this14.unblock(user);
                     }
                   });
                 });
@@ -941,7 +955,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     unblock: function unblock(user) {
-      var _this16 = this;
+      var _this15 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -950,7 +964,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context5.next = 2;
                 return user.unblock().save().then(function (response) {
-                  _this16.$buefy.snackbar.open({
+                  _this15.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(user.fullname, " has been unblocked"),
                     type: "is-info",
@@ -968,7 +982,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     restore: function restore(user) {
-      var _this17 = this;
+      var _this16 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
@@ -977,7 +991,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context6.next = 2;
                 return user.restore().then(function (response) {
-                  _this17.$buefy.snackbar.open({
+                  _this16.$buefy.snackbar.open({
                     duration: 2000,
                     message: "".concat(user.fullname, " has been restored"),
                     type: "is-info",
@@ -995,7 +1009,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     sendEmailVerification: function sendEmailVerification(user) {
-      var _this18 = this;
+      var _this17 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
@@ -1004,7 +1018,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context7.next = 2;
                 return user.sendEmailVerification().then(function (response) {
-                  _this18.$buefy.snackbar.open({
+                  _this17.$buefy.snackbar.open({
                     duration: 2000,
                     message: "An email has been send to <b>".concat(user.fullname, "</b>"),
                     type: "is-info",
@@ -1388,37 +1402,57 @@ var render = function() {
                         "b-radio-button",
                         {
                           attrs: {
-                            "native-value": false,
+                            "native-value": "active",
                             type: "is-primary",
                             size: "is-small"
                           },
                           on: { input: _vm.refreshAndClear },
                           model: {
-                            value: _vm.showTrashed,
+                            value: _vm.status,
                             callback: function($$v) {
-                              _vm.showTrashed = $$v
+                              _vm.status = $$v
                             },
-                            expression: "showTrashed"
+                            expression: "status"
                           }
                         },
-                        [_c("span", [_vm._v("All")])]
+                        [_c("span", [_vm._v("Active")])]
                       ),
                       _vm._v(" "),
                       _c(
                         "b-radio-button",
                         {
                           attrs: {
-                            "native-value": true,
+                            "native-value": "blocked",
+                            type: "is-warning",
+                            size: "is-small"
+                          },
+                          on: { input: _vm.refreshAndClear },
+                          model: {
+                            value: _vm.status,
+                            callback: function($$v) {
+                              _vm.status = $$v
+                            },
+                            expression: "status"
+                          }
+                        },
+                        [_c("span", [_vm._v("Blocked")])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-radio-button",
+                        {
+                          attrs: {
+                            "native-value": "trashed",
                             type: "is-danger",
                             size: "is-small"
                           },
                           on: { input: _vm.refreshAndClear },
                           model: {
-                            value: _vm.showTrashed,
+                            value: _vm.status,
                             callback: function($$v) {
-                              _vm.showTrashed = $$v
+                              _vm.status = $$v
                             },
-                            expression: "showTrashed"
+                            expression: "status"
                           }
                         },
                         [_c("span", [_vm._v("Trashed")])]
@@ -1680,7 +1714,10 @@ var render = function() {
             "backend-sorting": "",
             "default-sort-direction": "desc",
             "default-sort": "id",
-            scrollable: ""
+            scrollable: "",
+            "row-class": function(row, index) {
+              return row.isBlocked ? "is-warning" : ""
+            }
           },
           on: {
             "update:checkedRows": function($event) {
@@ -1757,13 +1794,45 @@ var render = function() {
                           }
                         },
                         [
-                          _c("b-tag", [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(props.row.id) +
-                                "\n                    "
-                            )
-                          ])
+                          props.row.isBlocked
+                            ? _c(
+                                "b-tooltip",
+                                {
+                                  attrs: {
+                                    type: "is-light",
+                                    label:
+                                      "Blocked at " +
+                                      new Date(
+                                        props.row.blocked_at
+                                      ).toLocaleDateString()
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "b-tag",
+                                    {
+                                      class: {
+                                        "is-warning": props.row.isBlocked
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(props.row.id) +
+                                          "\n                        "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            : _c("b-tag", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(props.row.id) +
+                                    "\n                    "
+                                )
+                              ])
                         ],
                         1
                       )
@@ -1860,52 +1929,6 @@ var render = function() {
                             [_vm._v(_vm._s(role.name))]
                           )
                         }),
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-table-column",
-                    {
-                      attrs: {
-                        field: "blocked_at",
-                        label: "Blocked",
-                        sortable: "",
-                        centered: ""
-                      }
-                    },
-                    [
-                      _c(
-                        "b-tooltip",
-                        {
-                          attrs: {
-                            type: "is-light",
-                            label: props.row.blocked_at
-                              ? new Date(
-                                  props.row.blocked_at
-                                ).toLocaleDateString()
-                              : ""
-                          }
-                        },
-                        [
-                          _c(
-                            "b-tag",
-                            {
-                              attrs: {
-                                type: props.row.blocked_at ? "is-danger" : ""
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(props.row.blocked_at ? "yes" : "no") +
-                                  "\n                    "
-                              )
-                            ]
-                          )
-                        ],
                         1
                       )
                     ],
