@@ -24,8 +24,9 @@ Buefborad is a Laravel + VueJS + Bulma SPA Dashboard, it is a great starter poin
 composer create-project quentingab/buefboard
 ```
 
+laravel key will be automatically generated
+
 ```bash
-php artisan key:generate
 php artisan migrate --seed
 ```
 
