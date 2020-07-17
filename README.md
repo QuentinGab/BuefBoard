@@ -1,12 +1,12 @@
 <p align="center" >
-    <img width="400" src="/public/images/logo_buefboard.svg"><br/>
+    <img width="400" src="/public/images/logo_buefboard.svg">
 </p>
 
 # BuefBoard - the ultimate Laravel/VueJS Dashboard
 Permissions, users management, chartjs, material icons, buefy, axios, Telescope, Socialite ...
 
-<p align="center" >
-    <img width="800" src="/public/images/buefboard/buefboard_users.png"><br/>
+<p align="center">
+    <img src="/public/images/buefboard/buefboard_users.png" >
 </p>
 
 ## About BuefBoard
@@ -21,19 +21,34 @@ Buefborad is a Laravel + VueJS + Bulma SPA Dashboard, it is a great starter poin
 
 ## Installation
 ```bash
-git clone https://github.com/QuentinGab/BuefBoard.git
+composer create-project quentingab/buefboard
 ```
+
+Laravel key will be automatically generated
+
+Setup your database
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
+And migrate
 ```bash
-php artisan key:generate
+php artisan migrate --seed
 ```
 
 ```bash
-php artisan migrate
+npm install
 ```
 
 ```bash
-php artisan db:seed
+npm run watch
 ```
+
 
 ## Packages:
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
