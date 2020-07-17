@@ -83,6 +83,20 @@
                                     </div>
                                 </b-field>
                                 <hr />
+                                <b-field horizontal label="Avatar">
+                                    <b-field class="file">
+                                        <p class="control">
+                                            <b-button
+                                                @click="deleteAvatar"
+                                                type="is-light"
+                                                :loading="loading.avatar"
+                                            >
+                                                Delete Avatar
+                                            </b-button>
+                                        </p>
+                                    </b-field>
+                                </b-field>
+                                <hr />
                                 <b-field horizontal label="Information">
                                     <b-field
                                         label="First Name"
@@ -378,7 +392,8 @@ export default {
                 email_verification: false,
                 restore: false,
                 delete: false,
-                block: false
+                block: false,
+                avatar: false
             }
         };
     },
@@ -424,6 +439,21 @@ export default {
             });
 
             this.loading.save = false;
+        },
+        async deleteAvatar() {
+            this.loading.avatar = true;
+
+            await this.user.deleteAvatar().then(r => {
+                this.getUser();
+                this.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: `${this.user.fullname} Avatar has been deleted`,
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
+                });
+            });
+            this.loading.avatar = false;
         },
         async blockUser() {
             this.loading.user = true;

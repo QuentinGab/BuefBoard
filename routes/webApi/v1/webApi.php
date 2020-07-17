@@ -37,6 +37,7 @@ Route::prefix('/users')->group(function () {
     //soft Delete
     Route::post('{user}/delete', 'UsersController@delete'); //soft Delete
     Route::post('{user}/restore', 'UsersController@restore');
+    Route::delete('{user}/avatar', 'UsersController@destroyAvatar');
     //email
     Route::post('{user}/send-email-verification', 'UsersController@sendEmailVerification');
 

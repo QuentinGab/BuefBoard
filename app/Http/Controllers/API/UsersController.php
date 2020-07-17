@@ -203,6 +203,22 @@ class UsersController extends Controller
     }
 
     /**
+     * Delete the user's avatar
+     *
+     * @param  int  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyAvatar($userId)
+    {
+        $user = User::withTrashed()->findOrFail($userId);
+        $this->authorize('update', $user);
+
+        $user->clearMediaCollection('avatar');
+
+        return new UserResource($user);
+    }
+
+    /**
      * Resend the email verification
      *
      * @param  \App\Models\User  $user

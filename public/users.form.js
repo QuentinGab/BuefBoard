@@ -435,6 +435,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -469,7 +483,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email_verification: false,
         restore: false,
         "delete": false,
-        block: false
+        block: false,
+        avatar: false
       }
     };
   },
@@ -551,7 +566,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee2);
       }))();
     },
-    blockUser: function blockUser() {
+    deleteAvatar: function deleteAvatar() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
@@ -559,12 +574,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this3.loading.user = true;
+                _this3.loading.avatar = true;
                 _context3.next = 3;
-                return _this3.user.block().save().then(function (response) {
+                return _this3.user.deleteAvatar().then(function (r) {
+                  _this3.getUser();
+
                   _this3.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this3.user.fullname, " has been blocked"),
+                    message: "".concat(_this3.user.fullname, " Avatar has been deleted"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
@@ -572,7 +589,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
-                _this3.loading.user = false;
+                _this3.loading.avatar = false;
 
               case 4:
               case "end":
@@ -582,7 +599,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee3);
       }))();
     },
-    unblockUser: function unblockUser() {
+    blockUser: function blockUser() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
@@ -592,10 +609,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _this4.loading.user = true;
                 _context4.next = 3;
-                return _this4.user.unblock().save().then(function (response) {
+                return _this4.user.block().save().then(function (response) {
                   _this4.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this4.user.fullname, " has been unblocked"),
+                    message: "".concat(_this4.user.fullname, " has been blocked"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
@@ -613,7 +630,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee4);
       }))();
     },
-    restoreUser: function restoreUser() {
+    unblockUser: function unblockUser() {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
@@ -621,12 +638,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _this5.loading.restore = true;
+                _this5.loading.user = true;
                 _context5.next = 3;
-                return _this5.user.restore().then(function (response) {
+                return _this5.user.unblock().save().then(function (response) {
                   _this5.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this5.user.fullname, " has been restored"),
+                    message: "".concat(_this5.user.fullname, " has been unblocked"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
@@ -634,7 +651,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
-                _this5.loading.restore = false;
+                _this5.loading.user = false;
 
               case 4:
               case "end":
@@ -644,11 +661,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee5);
       }))();
     },
-
-    /**
-     * Soft delete the User
-     */
-    deleteUser: function deleteUser() {
+    restoreUser: function restoreUser() {
       var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
@@ -656,12 +669,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _this6.loading.user = true;
+                _this6.loading.restore = true;
                 _context6.next = 3;
-                return _this6.user.softDelete().then(function (response) {
+                return _this6.user.restore().then(function (response) {
                   _this6.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this6.user.fullname, " has been trashed"),
+                    message: "".concat(_this6.user.fullname, " has been restored"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
@@ -669,7 +682,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
-                _this6.loading.user = false;
+                _this6.loading.restore = false;
 
               case 4:
               case "end":
@@ -681,9 +694,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
     /**
-     * remove the user from the database => forcDelete
+     * Soft delete the User
      */
-    destroyUser: function destroyUser() {
+    deleteUser: function deleteUser() {
       var _this7 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
@@ -691,22 +704,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                _context7.next = 2;
-                return _this7.user["delete"]().then(function (response) {
+                _this7.loading.user = true;
+                _context7.next = 3;
+                return _this7.user.softDelete().then(function (response) {
                   _this7.$buefy.snackbar.open({
                     duration: 2000,
-                    message: "".concat(_this7.user.fullname, " has been destroyed"),
+                    message: "".concat(_this7.user.fullname, " has been trashed"),
                     type: "is-info",
                     position: "is-bottom-right",
                     queue: false
                   });
-
-                  _this7.$router.push({
-                    name: "users.index"
-                  });
                 });
 
-              case 2:
+              case 3:
+                _this7.loading.user = false;
+
+              case 4:
               case "end":
                 return _context7.stop();
             }
@@ -714,7 +727,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee7);
       }))();
     },
-    sendEmailVerification: function sendEmailVerification() {
+
+    /**
+     * remove the user from the database => forcDelete
+     */
+    destroyUser: function destroyUser() {
       var _this8 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
@@ -722,14 +739,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
-                _this8.loading.email_verification = true;
-                _context8.next = 3;
-                return _this8.user.sendEmailVerification();
+                _context8.next = 2;
+                return _this8.user["delete"]().then(function (response) {
+                  _this8.$buefy.snackbar.open({
+                    duration: 2000,
+                    message: "".concat(_this8.user.fullname, " has been destroyed"),
+                    type: "is-info",
+                    position: "is-bottom-right",
+                    queue: false
+                  });
 
-              case 3:
-                _this8.loading.email_verification = false;
+                  _this8.$router.push({
+                    name: "users.index"
+                  });
+                });
 
-              case 4:
+              case 2:
               case "end":
                 return _context8.stop();
             }
@@ -737,8 +762,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee8);
       }))();
     },
-    confirmRestore: function confirmRestore() {
+    sendEmailVerification: function sendEmailVerification() {
       var _this9 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                _this9.loading.email_verification = true;
+                _context9.next = 3;
+                return _this9.user.sendEmailVerification();
+
+              case 3:
+                _this9.loading.email_verification = false;
+
+              case 4:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9);
+      }))();
+    },
+    confirmRestore: function confirmRestore() {
+      var _this10 = this;
 
       this.$buefy.dialog.confirm({
         title: "Restoring user",
@@ -747,12 +795,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "is-primary",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this9.restoreUser();
+          return _this10.restoreUser();
         }
       });
     },
     confirmDelete: function confirmDelete() {
-      var _this10 = this;
+      var _this11 = this;
 
       if (this.user.isTrashed) {
         return this.confirmDestroy();
@@ -765,12 +813,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "is-danger",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this10.deleteUser();
+          return _this11.deleteUser();
         }
       });
     },
     confirmDestroy: function confirmDestroy() {
-      var _this11 = this;
+      var _this12 = this;
 
       this.$buefy.dialog.confirm({
         title: "Destroying user",
@@ -779,7 +827,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "is-danger",
         hasIcon: true,
         onConfirm: function onConfirm() {
-          return _this11.destroyUser();
+          return _this12.destroyUser();
         }
       });
     }
@@ -1306,6 +1354,40 @@ var render = function() {
                           )
                         ],
                         2
+                      ),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { horizontal: "", label: "Avatar" } },
+                        [
+                          _c("b-field", { staticClass: "file" }, [
+                            _c(
+                              "p",
+                              { staticClass: "control" },
+                              [
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      type: "is-light",
+                                      loading: _vm.loading.avatar
+                                    },
+                                    on: { click: _vm.deleteAvatar }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Delete Avatar\n                                        "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        ],
+                        1
                       ),
                       _vm._v(" "),
                       _c("hr"),
