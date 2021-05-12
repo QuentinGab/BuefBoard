@@ -21,7 +21,7 @@
         "@mdi/font": "^5.3.45",
         "axios": "^0.19",
         "buefy": "^0.8.20",
-        "chart.js": "^2.9.3",
+        "chart.js": "^2.9.4",
         "lodash": "^4.17.19",
         "moment": "^2.27.0",
         "nprogress": "^0.2.0",
